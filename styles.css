@@ -157,6 +157,11 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
   font-weight: 650;
   font-size:.95rem;
 }
+.brand-logo{
+  height: 30px;
+  width: auto;
+  display: block;
+}
 .dot{
   width:10px; height:10px; border-radius: 999px;
   background: rgba(59,91,219,.35);
