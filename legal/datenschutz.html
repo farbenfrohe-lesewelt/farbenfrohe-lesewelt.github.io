@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Datenschutz</title>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">FLW</span>
+        <span class="brand-text">Farbenfrohe Lesewelt</span>
+      </div>
+      <nav class="top-actions" aria-label="Aktionen">
+        <a class="btn" href="../index.html">Zurück</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <h1>Datenschutzerklärung</h1>
+
+      <div class="card">
+        <h2>1. Verantwortlicher</h2>
+        <p>
+          <em>Einzelunternehmer Patrick Guttenberger</em><br>
+          <em>Penzendorfer Str. 21</em><br>
+          <em>91126 Schwabach</em><br>
+          E-Mail: <em>farbenfrohe-lesewelt@web.de</em>
+        </p>
+
+        <h2>2. Hosting über GitHub Pages</h2>
+        <p>
+          Diese Website wird über GitHub Pages bereitgestellt. Beim Aufruf können durch GitHub bzw. den technischen Betrieb
+          serverseitige Protokolldaten verarbeitet werden (z. B. IP-Adresse, Datum/Uhrzeit, aufgerufene Seite, User-Agent),
+          um die Website auszuliefern und die Sicherheit/Stabilität zu gewährleisten.
+        </p>
+        <p class="muted small">
+          Wir selbst setzen keine Analyse-Tools, keine Werbe-Pixel und keine Cookies ein.
+        </p>
+
+        <h2>3. Keine Cookies / kein Tracking</h2>
+        <p>
+          Auf dieser Website werden keine Tracking-Pixel (z. B. Meta/TikTok), keine Analyse-Tools (z. B. Google Analytics),
+          keine extern eingebundenen Webfonts und keine eingebetteten Videos (z. B. YouTube) verwendet.
+        </p>
+
+        <h2>4. Externe Links (Amazon)</h2>
+        <p>
+          Diese Website verlinkt auf Amazon. Beim Anklicken des Links verlässt du diese Website. Für die Datenverarbeitung
+          auf der Zielseite ist der jeweilige Anbieter verantwortlich.
+        </p>
+
+        <h2>5. Deine Rechte</h2>
+        <p>
+          Du hast – je nach anwendbarem Recht – insbesondere das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung
+          der Verarbeitung sowie Widerspruch. Außerdem besteht ein Beschwerderecht bei einer Datenschutzaufsichtsbehörde.
+        </p>
+
+        <h2>6. Kontakt</h2>
+        <p>
+          Wenn du Fragen zum Datenschutz hast, schreibe bitte an: <em>farbenfrohe-lesewelt@web.de</em>.
+        </p>
+
+        <p class="muted small">
+          Stand: <span id="date"></span>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="muted small"><a href="../index.html">Startseite</a> · <a href="impressum.html">Impressum</a></p>
+      <p class="muted small">© <span id="year"></span> Farbenfrohe Lesewelt</p>
+    </div>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+      const d = new Date();
+      document.getElementById('date').textContent = d.toLocaleDateString('de-DE');
+    </script>
+  </footer>
+</body>
+</html>
