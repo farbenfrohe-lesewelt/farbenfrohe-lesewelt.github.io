@@ -5,21 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#fbf7f0" />
 
-  <title>Testleser gesucht: Baby & Katze sicher zusammenführen (PDF)</title>
-  <meta name="description" content="Kostenloses PDF-Vorabexemplar (Print-Replika) + alltagstaugliche Routinen. Bewerbung dauert ca. 2 Minuten." />
+  <title>Kostenloser Testleserplatz (PDF) – Baby & Katze sicher zusammenführen</title>
+  <meta name="description" content="Kostenloses PDF-Vorabexemplar: Praxis-Ratgeber für Baby & Katze. Klare Routinen, die auch im müden Alltag funktionieren. Bewerbung in ca. 2 Minuten." />
 
   <!-- Social -->
-  <meta property="og:title" content="Kostenloser Testleserplatz: Baby & Katze sicher zusammenführen" />
-  <meta property="og:description" content="Für (werdende) Eltern mit Katze: Zonen, Standards & Wenn-Dann-Regeln – müde-tauglich. Bewerbung in ca. 2 Minuten." />
+  <meta property="og:title" content="Kostenloser Testleserplatz (PDF) – Baby & Katze sicher zusammenführen" />
+  <meta property="og:description" content="Praxis-Ratgeber mit klaren Routinen für Familien mit Baby & Katze. Bewerbung in ca. 2 Minuten." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="../assets/cover-thumb.webp" />
+  <meta property="og:image" content="/assets/cover-thumb.webp" />
 
-  <!-- Haupt-Styles vom Root nutzen -->
+  <!-- Use MAIN styles from root -->
   <link rel="stylesheet" href="../styles.css" />
 
-  <!-- Favicons vom Root -->
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="256x256" href="../assets/favicon-256.png">
+  <!-- Favicons (absolute paths so they work in /testleser/) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/assets/favicon-256.png">
+
+  <!-- Small page-specific tweaks without touching your main CSS -->
+  <style>
+    /* Keep hero CTA above the fold on mobile */
+    .hero .lead { margin-bottom: 14px; }
+    .hero .checklist { margin: 14px 0 16px; }
+    .hero .checklist li { margin: 8px 0; }
+
+    /* Compact cards on mobile */
+    @media (max-width: 640px) {
+      .card { padding: 18px !important; }
+      .pill { font-size: 14px; padding: 6px 10px; }
+      .hero-grid { gap: 18px; }
+      .hero-card { order: 2; } /* push book box below the CTA on mobile */
+      .hero-copy { order: 1; }
+      .hero h1 { font-size: 32px; line-height: 1.1; }
+    }
+
+    /* Micro-commitment buttons */
+    .mini-commit {
+      display: grid;
+      gap: 10px;
+      margin: 14px 0 14px;
+    }
+    .mini-commit .mini-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .mini-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid rgba(0,0,0,.12);
+      border-radius: 999px;
+      padding: 10px 12px;
+      background: #fff;
+      cursor:pointer;
+      text-decoration:none;
+      font-weight: 600;
+      line-height:1;
+    }
+    .mini-btn:hover{ transform: translateY(-1px); }
+    .mini-note{ font-size: 14px; opacity:.8; margin:0; }
+  </style>
 </head>
 
 <body>
@@ -28,13 +73,13 @@
   <header class="topbar">
     <div class="container topbar-inner">
       <div class="brand" aria-label="Farbenfrohe Lesewelt">
-        <img class="brand-logo" src="../assets/flw-logo.webp" alt="Farbenfrohe Lesewelt" loading="eager">
+        <img class="brand-logo" src="/assets/flw-logo.webp" alt="Farbenfrohe Lesewelt" loading="eager">
         <span class="brand-text">Farbenfrohe Lesewelt</span>
       </div>
 
       <nav class="top-actions" aria-label="Aktionen">
-        <a class="btn btn-ghost" href="#ablauf">So läuft’s</a>
-        <a class="btn btn-primary" href="https://forms.gle/1ACERDuXq8daFrSQ9" rel="noopener">
+        <a class="btn btn-ghost" href="#fit">Passt das zu euch?</a>
+        <a class="btn btn-primary" href="#bewerben">
           Testleserplatz sichern
         </a>
       </nav>
@@ -42,7 +87,6 @@
   </header>
 
   <main id="content">
-
     <!-- HERO -->
     <section class="hero">
       <div class="container hero-grid">
@@ -51,35 +95,37 @@
           <p class="eyebrow">Für (werdende) Eltern mit Katze · Schwangerschaft bis Kleinkind</p>
 
           <h1>
-            Kostenloser Testleserplatz (PDF).<br>
-            <span class="soft">Damit Baby &amp; Katze sicher zusammenwachsen – ohne Grübeln im Moment.</span>
+            Kostenloser Testleserplatz (PDF)
           </h1>
 
           <p class="lead">
-            Wir suchen einige Familien, die unseren neuen Praxis-Ratgeber <strong>vor der Veröffentlichung</strong> lesen.
-            Du bekommst ein <strong>PDF-Vorabexemplar (Print-Replika)</strong> – und hilfst uns mit kurzem, ehrlichem Feedback.
-            <strong>Bewerbung dauert ca. 2 Minuten.</strong>
+            Wir vergeben eine begrenzte Anzahl Testleserplätze für ein <strong>PDF-Vorabexemplar</strong> (Print-Replika).
+            Du bekommst klare Routinen, die auch funktionieren, wenn ihr müde seid.
           </p>
 
-          <div class="micro-proof">
-            <p><strong>Nicht Panik. Nicht „wird schon“.</strong> Sondern: ein Plan, der auch bei Schlafmangel hält.</p>
-            <p class="muted">
-              Zonen · Standards · Wenn-Dann-Regeln – aufgebaut nach echten Alltagssituationen (Schlaf, Hygiene, Besuch, erste Begegnungen).
-            </p>
+          <ul class="checklist" aria-label="Du bekommst">
+            <li>✓ kostenloses PDF-Vorabexemplar</li>
+            <li>✓ alltagstaugliche Routinen (Zonen · Standards · Wenn-Dann-Regeln)</li>
+            <li>✓ Feedback in Stichpunkten (kurz reicht völlig)</li>
+          </ul>
+
+          <!-- Small change / micro-commitment (explained below) -->
+          <div class="mini-commit" aria-label="Kurzer Check">
+            <p class="mini-note"><strong>Kurzer Check:</strong> Welche Situation passt am ehesten?</p>
+            <div class="mini-row">
+              <a class="mini-btn" href="#bewerben" aria-label="Schwanger">🤰 Schwanger</a>
+              <a class="mini-btn" href="#bewerben" aria-label="Baby 0-12 Monate">🍼 Baby (0–12M)</a>
+              <a class="mini-btn" href="#bewerben" aria-label="Kleinkind 1-3 Jahre">🧒 Kleinkind</a>
+              <a class="mini-btn" href="#bewerben" aria-label="Kinderwunsch">✨ Kinderwunsch</a>
+            </div>
           </div>
 
-          <div class="pill-row" role="list" aria-label="Du bekommst">
-            <span class="pill" role="listitem">✅ kostenloses PDF</span>
-            <span class="pill" role="listitem">✅ müde-taugliche Routinen</span>
-            <span class="pill" role="listitem">✅ Feedback in Stichpunkten</span>
-          </div>
-
-          <div class="hero-cta">
-            <a class="btn btn-primary btn-large" href="https://forms.gle/1ACERDuXq8daFrSQ9" rel="noopener">
+          <div class="hero-cta" id="bewerben">
+            <a class="btn btn-primary btn-large" href="PASTE_GOOGLE_FORM_URL_HERE" rel="noopener nofollow">
               Testleserplatz sichern
             </a>
-            <p class="muted">
-              Keine Sorge: Du musst nicht „perfekt“ feedbacken. Ein paar Stichpunkte reichen völlig.
+            <p class="muted" style="margin-top:10px;">
+              Bewerbung in ca. <strong>2 Minuten</strong>. Du musst nicht alles lesen — viele starten mit dem Kapitel, das gerade am wichtigsten ist.
             </p>
           </div>
 
@@ -89,11 +135,11 @@
           </div>
         </div>
 
-        <aside class="hero-card" aria-label="Kurzüberblick">
+        <aside class="hero-card" aria-label="Buchvorschau">
           <div class="bookbox">
             <div class="bookimg">
               <img
-                src="../assets/cover-thumb.webp"
+                src="/assets/cover-thumb.webp"
                 alt="Buchcover: Baby und Katze sicher zusammenführen"
                 loading="lazy"
               />
@@ -105,17 +151,15 @@
 
               <ul class="checklist" aria-label="Sofort-Mehrwert">
                 <li><strong>Zonen-System:</strong> Wer darf wann wohin?</li>
-                <li><strong>3 sichere Standards</strong> für müde Tage</li>
-                <li><strong>Kapitel nach Phase</strong> – passend zu eurem Alltag</li>
+                <li><strong>3 Grundregeln</strong>, die sofort entlasten</li>
+                <li><strong>Phase für Phase</strong> – von Bauch bis Laufstart</li>
               </ul>
 
-              <a class="btn btn-primary btn-block" href="https://forms.gle/1ACERDuXq8daFrSQ9" rel="noopener">
-                Jetzt bewerben (2 Min)
+              <a class="btn btn-primary btn-block" href="PASTE_GOOGLE_FORM_URL_HERE" rel="noopener nofollow">
+                Testleserplatz sichern
               </a>
 
-              <p class="muted small">
-                Plätze sind begrenzt, damit wir Feedback wirklich auswerten können.
-              </p>
+              <p class="muted small">Wir melden uns per E-Mail, ob du dabei bist.</p>
             </div>
           </div>
         </aside>
@@ -123,91 +167,134 @@
       </div>
     </section>
 
-    <!-- SCROLL STOPPER -->
+    <!-- Scroll-Stopper -->
     <section class="section scroll-stopper">
       <div class="container">
         <div class="stopper-card">
           <p class="stopper-title">Meist ist nicht die Katze das Problem.</p>
           <p class="stopper-text">
-            Es sind die Momente ohne Plan: wenn du müde bist, wenn das Baby schreit,
-            wenn Besuch Druck macht – und du „im Moment“ entscheiden sollst.
+            Es sind die Momente ohne Plan: nachts, beim Wickeln, wenn Besuch Druck macht.
+            <strong>Wer dann erst überlegen muss, fühlt sich schnell unsicher.</strong>
+            Genau dafür ist dieses Buch gebaut: Standards statt Grübeln.
           </p>
-          <p class="stopper-text">
-            Genau dafür ist dieser Ratgeber gebaut: <strong>Standards statt Einzelfall-Diskussion.</strong>
-          </p>
+
+          <!-- extra CTA here (big conversion lever) -->
+          <div style="margin-top:14px;">
+            <a class="btn btn-primary btn-large" href="PASTE_GOOGLE_FORM_URL_HERE" rel="noopener nofollow">
+              Testleserplatz sichern
+            </a>
+            <p class="muted small" style="margin-top:8px;">Bewerbung dauert ca. 2 Minuten.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- WHAT YOU GET -->
-    <section class="section" id="ablauf">
+    <!-- So läuft’s -->
+    <section class="section">
       <div class="container">
-        <h2>So läuft’s – kurz &amp; fair</h2>
+        <h2>So läuft’s ab</h2>
         <p class="sublead">
-          Du bewirbst dich in 2–3 Minuten. Wir wählen passend zur Zielgruppe/Phase aus,
-          damit das Feedback wirklich hilft. Wenn du dabei bist, bekommst du das PDF per E-Mail.
+          Kurz, klar, ohne Druck. Du hilfst uns mit echtem Familienfeedback, bevor das Buch veröffentlicht wird.
         </p>
 
         <div class="grid grid-3">
           <article class="card">
-            <h3>1) Bewerben</h3>
-            <p>Kurzer Fragebogen: Phase + Katze + was dich gerade beschäftigt.</p>
-            <p class="why"><strong>Dauer:</strong> ca. 2 Minuten.</p>
+            <h3>1) Bewerbung</h3>
+            <p>Du bewirbst dich in ca. <strong>2 Minuten</strong> über ein kurzes Formular.</p>
           </article>
 
           <article class="card">
-            <h3>2) PDF erhalten</h3>
-            <p>Wenn du ausgewählt wirst, senden wir dir das PDF-Vorabexemplar.</p>
-            <p class="why"><strong>Hinweis:</strong> Print-Replika – so liest es sich wie später.</p>
+            <h3>2) Auswahl</h3>
+            <p>Wir wählen passend zur <strong>Phase</strong> (Schwangerschaft, Baby, Kleinkind), damit das Feedback wirklich hilft.</p>
           </article>
 
           <article class="card">
-            <h3>3) Mini-Feedback</h3>
-            <p>Stichpunkte reichen: hilfreich, unklar, fehlt etwas Typisches?</p>
-            <p class="why"><strong>Du musst nicht alles lesen:</strong> nimm das Kapitel, das dich gerade betrifft.</p>
+            <h3>3) PDF + Feedback</h3>
+            <p>Wenn du dabei bist, bekommst du das <strong>PDF per E-Mail</strong>. Stichpunkte reichen völlig.</p>
           </article>
         </div>
 
-        <div class="cta-strip">
+        <div class="cta-strip" style="margin-top:18px;">
           <div class="cta-strip-inner">
             <div>
-              <h3>Testleserplatz sichern</h3>
-              <p class="muted">Wenn du Baby/Schwangerschaft + Katze im Alltag hast, passt du sehr wahrscheinlich.</p>
+              <h3>Bereit?</h3>
+              <p class="muted">Sichere dir einen Testleserplatz, solange Plätze verfügbar sind.</p>
             </div>
-            <a class="btn btn-primary btn-large" href="https://forms.gle/1ACERDuXq8daFrSQ9" rel="noopener">
-              Zum Bewerbungsbogen
+            <a class="btn btn-primary btn-large" href="PASTE_GOOGLE_FORM_URL_HERE" rel="noopener nofollow">
+              Jetzt bewerben
             </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- WHO IT'S FOR -->
-    <section class="section alt" id="fit">
+    <!-- Was du bekommst -->
+    <section class="section alt">
       <div class="container">
-        <h2>Passt das zu euch?</h2>
+        <h2>Was du bekommst (und was nicht)</h2>
         <p class="sublead">
-          Ein schneller Filter, damit du dir keine unnötige Mühe machst.
+          Kein Alarmismus. Kein „wird schon“. Sondern ein Plan, der im Alltag hält.
         </p>
 
         <div class="grid grid-2">
           <div class="card">
-            <h3>✅ Passt gut, wenn …</h3>
+            <h3>✅ Du bekommst</h3>
             <ul class="bullets">
-              <li>du eine Katze hast (oder bald eine) und ein Baby erwartest / hast.</li>
-              <li>du klare Regeln willst, die auch bei Müdigkeit funktionieren.</li>
-              <li>du lieber <strong>Standards</strong> nutzt als ständig zu diskutieren.</li>
+              <li><strong>Zonen-System</strong> (Schlaf, Spiel, Rückzug)</li>
+              <li><strong>Wenn-Dann-Regeln</strong> für typische Situationen</li>
+              <li><strong>Phase-Pläne</strong> (Schwangerschaft → Kleinkind)</li>
+              <li><strong>müde-taugliche Routinen</strong> statt Theorie</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>⛔ Kein „Pinterest-Perfekt“</h3>
+            <ul class="bullets">
+              <li>keine Schuldgefühle</li>
+              <li>keine Foren-Mythen</li>
+              <li>keine Tipps, die beim ersten Schreianfall zerbröseln</li>
+            </ul>
+            <p class="muted small">
+              Ziel: sicher genug – und trotzdem Familie.
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;">
+          <a class="btn btn-primary btn-large" href="PASTE_GOOGLE_FORM_URL_HERE" rel="noopener nofollow">
+            Testleserplatz sichern
+          </a>
+          <p class="muted small" style="margin-top:8px;">Dauer: ca. 2 Minuten.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FIT FILTER -->
+    <section class="section" id="fit">
+      <div class="container">
+        <h2>Passt das zu euch?</h2>
+        <p class="sublead">
+          Kurzer Filter, damit sich niemand unnötig Zeit nimmt.
+        </p>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>✅ Passt, wenn …</h3>
+            <ul class="bullets">
+              <li>du Katze und Baby <strong>zusammen</strong> denken willst.</li>
+              <li>du Regeln suchst, die auch bei Schlafmangel halten.</li>
+              <li>du lieber Standards hast als „100 Tipps“.</li>
             </ul>
           </div>
 
           <div class="card">
             <h3>⛔ Passt eher nicht, wenn …</h3>
             <ul class="bullets">
-              <li>du keinerlei Zeit für 3–5 Stichpunkte Feedback hast.</li>
-              <li>es bereits wiederholt zu ernsten Vorfällen kam und du akute Hilfe brauchst.</li>
+              <li>du eine „Null-Risiko-Garantie“ erwartest (die gibt es nicht).</li>
+              <li>es bereits wiederholte Angriffe/Verletzungen gab.</li>
             </ul>
-            <p class="muted">
-              (Dann ist individuellere Unterstützung sinnvoller als ein allgemeiner Ratgeber.)
+            <p class="muted small">
+              Dann bitte zeitnah professionelle Hilfe: Kinderarzt/Hebamme + tierärztliche Verhaltensberatung.
             </p>
           </div>
         </div>
@@ -221,33 +308,33 @@
 
         <div class="grid grid-2">
           <details class="card">
-            <summary>Muss ich das komplette PDF lesen?</summary>
-            <p>Nein. Nimm das Kapitel, das gerade am meisten zu eurem Alltag passt. Genau das hilft uns sogar am meisten.</p>
+            <summary>Was kostet das?</summary>
+            <p>Der Testleserplatz ist kostenlos. Du bekommst ein PDF-Vorabexemplar.</p>
           </details>
 
           <details class="card">
-            <summary>Wie viel Feedback erwartet ihr?</summary>
-            <p>Wirklich wenig. Stichpunkte reichen: hilfreich/unklar/fehlt etwas Typisches. Kurz &amp; alltagstauglich – wie das Buch.</p>
+            <summary>Wie schnell bekomme ich eine Antwort?</summary>
+            <p>Wir schauen Bewerbungen bewusst persönlich an. Es kann also etwas dauern – wir melden uns per E-Mail.</p>
           </details>
 
           <details class="card">
-            <summary>Wie schnell bekommt man eine Antwort?</summary>
-            <p>Wir schauen Bewerbungen persönlich an (nicht automatisiert). Es kann also auch mal bis zum nächsten Tag dauern.</p>
+            <summary>Muss ich alles lesen?</summary>
+            <p>Nein. Viele starten mit dem Kapitel, das gerade am wichtigsten ist (z. B. Schlaf, Hygiene, erste Begegnungen).</p>
           </details>
 
           <details class="card">
-            <summary>Kostet das etwas?</summary>
-            <p>Nein – das PDF ist kostenlos. Uns hilft dafür dein ehrlicher Blick aus dem echten Alltag.</p>
+            <summary>Wie gebe ich Feedback?</summary>
+            <p>Stichpunkte reichen. Wir schicken dir 3–4 kurze Fragen mit, damit es leicht bleibt.</p>
           </details>
         </div>
 
-        <div class="cta-strip">
+        <div class="cta-strip" style="margin-top:18px;">
           <div class="cta-strip-inner">
             <div>
-              <h3>Okay, ich will rein.</h3>
-              <p class="muted">Bewerbung in ca. 2 Minuten. Danach melden wir uns per E-Mail.</p>
+              <h3>Okay, ich will den Plan.</h3>
+              <p class="muted">Bewerbung in ca. 2 Minuten.</p>
             </div>
-            <a class="btn btn-primary btn-large" href="https://forms.gle/1ACERDuXq8daFrSQ9" rel="noopener">
+            <a class="btn btn-primary btn-large" href="PASTE_GOOGLE_FORM_URL_HERE" rel="noopener nofollow">
               Testleserplatz sichern
             </a>
           </div>
@@ -258,8 +345,8 @@
     <!-- Mobile sticky CTA -->
     <div class="sticky-cta" role="region" aria-label="Schnellaktion">
       <div class="sticky-inner">
-        <span class="sticky-text">Kostenloser Testleserplatz</span>
-        <a class="btn btn-primary" href="https://forms.gle/1ACERDuXq8daFrSQ9" rel="noopener">Jetzt bewerben</a>
+        <span class="sticky-text">Testleserplatz sichern</span>
+        <a class="btn btn-primary" href="PASTE_GOOGLE_FORM_URL_HERE" rel="noopener nofollow">Jetzt bewerben</a>
       </div>
     </div>
 
@@ -268,6 +355,9 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-left">
+        <p class="muted small">
+          Hinweis: Alltagsratgeber – ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung.
+        </p>
         <p class="muted small">
           <a href="../legal/impressum.html">Impressum</a> ·
           <a href="../legal/datenschutz.html">Datenschutz</a>
