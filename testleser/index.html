@@ -118,6 +118,12 @@
       font-size: 13px;
       opacity:.75;
     }
+
+    /* Optional: give a tiny visual "guided" feel */
+    .phase-guide.is-open{
+      box-shadow: 0 10px 28px rgba(0,0,0,.06);
+      border-color: rgba(0,0,0,.14);
+    }
   </style>
 </head>
 
@@ -148,13 +154,16 @@
         <div class="hero-copy">
           <p class="eyebrow">Für (werdende) Eltern mit Katze · Schwangerschaft bis Kleinkind</p>
 
+          <!-- HERO HEADLINE (improved) -->
           <h1>
-            Kostenloser Testleserplatz (PDF)
+            Baby &amp; Katze – sicher zusammen.<br>
+            <span class="soft">Mit einem Plan, der auch im müden Alltag hält.</span>
           </h1>
 
+          <!-- HERO LEAD (improved) -->
           <p class="lead">
             Wir vergeben eine begrenzte Anzahl Testleserplätze für ein <strong>PDF-Vorabexemplar</strong> (Print-Replika).
-            Du bekommst klare Routinen, die auch funktionieren, wenn ihr müde seid.
+            Du bekommst ein praxistaugliches System aus <strong>Zonen</strong>, <strong>Standards</strong> und <strong>Wenn-Dann-Regeln</strong> – damit du nicht in Stressmomenten diskutieren oder improvisieren musst.
           </p>
 
           <ul class="checklist" aria-label="Du bekommst">
@@ -174,13 +183,15 @@
               <button class="mini-btn" type="button" data-phase="kleinkind">🧒 Kleinkind</button>
             </div>
 
-            <div class="phase-guide" aria-live="polite">
+            <!-- NOTE: guide stays neutral until click -->
+            <div class="phase-guide" id="phaseGuide" aria-live="polite">
               <p id="phaseText">
-                <strong>In deiner Phase ist besonders wichtig:</strong> Wähle oben eine Phase – dann zeigen wir dir kurz, worauf es dabei typischerweise ankommt.
+                <strong>In deiner Phase ist besonders wichtig:</strong>
+                Wähle oben eine Phase – dann zeigen wir dir kurz, worauf es dabei typischerweise ankommt.
               </p>
 
               <div class="guide-cta" id="phaseCta">
-                <a class="btn btn-primary" id="phaseApplyBtn" href="#">→ Testleserplatz sichern</a>
+                <a class="btn btn-primary" id="phaseApplyBtn" href="#" rel="noopener nofollow">→ Testleserplatz sichern</a>
                 <p class="muted">Bewerbung dauert ca. 2 Minuten.</p>
               </div>
             </div>
@@ -438,68 +449,99 @@
     </div>
 
     <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 
-const phaseCopy = {
+    <script>
+      // --- Prefill links (your provided ones) ---
+      const phaseCopy = {
+        kinderwunsch: {
+          label: "→ Testleserplatz (Vorbereitung) sichern",
+          text:
+            "<strong>In dieser Phase zählt am meisten:</strong> jetzt die „Nicht-diskutieren-Standards“ festlegen (Schlafzimmer, Katzenklo, Rückzugsorte). Dann startet ihr später mit Plan – nicht mit Googeln.",
+          link:
+            "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Keine+Kinder,+aber+Kinderwunsch"
+        },
+        schwanger: {
+          label: "→ Testleserplatz (Schwangerschaft) sichern",
+          text:
+            "<strong>In der Schwangerschaft ist Gold wert:</strong> Gewohnheiten sanft umstellen, Zonen vorbereiten, Rückzugsorte schaffen – solange noch Ruhe dafür da ist. Das spart euch später Stress-Entscheidungen.",
+          link:
+            "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Schwanger"
+        },
+        baby: {
+          label: "→ Testleserplatz (Baby-Phase) sichern",
+          text:
+            "<strong>Mit Baby zählt am meisten:</strong> Mini-Standards für Nacht, Wickeln und erste Begegnungen – damit ihr im müden Moment nicht diskutieren oder improvisieren müsst.",
+          link:
+            "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Baby+(0%E2%80%9312+Monate)"
+        },
+        kleinkind: {
+          label: "→ Testleserplatz (Kleinkind) sichern",
+          text:
+            "<strong>Mit Kleinkind ist entscheidend:</strong> klare Familienregeln für Abstand + sichere Rückzugsorte der Katze – weil Tempo, Lautstärke und Katzenklo plötzlich „super spannend“ werden.",
+          link:
+            "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Kleinkind+(1%E2%80%933+Jahre)"
+        }
+      };
 
-  kinderwunsch: {
-    text:
-      "<strong>In dieser Phase hilft vor allem:</strong> jetzt schon einfache Regeln festlegen (Schlafzimmer, Katzenklo, Rückzugsorte). Dann müsst ihr später nicht im Chaos entscheiden.",
-    link:
-      "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Keine+Kinder,+aber+Kinderwunsch"
-  },
+      const buttons = Array.from(document.querySelectorAll(".mini-btn[data-phase]"));
+      const phaseText = document.getElementById("phaseText");
+      const phaseGuide = document.getElementById("phaseGuide");
+      const phaseCta = document.getElementById("phaseCta");
+      const phaseApplyBtn = document.getElementById("phaseApplyBtn");
 
-  schwanger: {
-    text:
-      "<strong>In dieser Phase hilft vor allem:</strong> Gewohnheiten jetzt sanft anpassen (Schlafzimmer, Wickelplatz, Katzenzonen). Vorbereitung ist deutlich leichter als später im Schlafmangel.",
-    link:
-      "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Schwanger"
-  },
+      function setActive(btn){
+        buttons.forEach(b => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
+      }
 
-  baby: {
-    text:
-      "<strong>In dieser Phase hilft vor allem:</strong> klare Mini-Standards für Nacht, Wickeln und erste Begegnungen – damit ihr im 03:00-Uhr-Moment nicht überlegen müsst.",
-    link:
-      "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Baby+(0%E2%80%9312+Monate)"
-  },
+      // Smooth scroll helper (guided feel)
+      function smoothScrollTo(el){
+        if(!el) return;
+        const y = el.getBoundingClientRect().top + window.scrollY - 120;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
 
-  kleinkind: {
-    text:
-      "<strong>In dieser Phase hilft vor allem:</strong> klare Familienregeln für Abstand und Rückzugsorte – weil Neugier, Tempo und Katzenklo plötzlich spannend werden.",
-    link:
-      "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Kleinkind+(1%E2%80%933+Jahre)"
-  }
+      let selectedPhaseKey = null;
 
-};
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const key = btn.dataset.phase;
+          selectedPhaseKey = key;
 
-const buttons = Array.from(document.querySelectorAll(".mini-btn[data-phase]"));
-const phaseText = document.getElementById("phaseText");
-const phaseCta = document.getElementById("phaseCta");
-const phaseApplyBtn = document.getElementById("phaseApplyBtn");
+          setActive(btn);
 
-function setActive(btn){
-  buttons.forEach(b => b.classList.remove("is-active"));
-  btn.classList.add("is-active");
-}
+          phaseText.innerHTML = phaseCopy[key].text;
+          phaseApplyBtn.href = phaseCopy[key].link;
+          phaseApplyBtn.textContent = phaseCopy[key].label;
 
-buttons.forEach(btn => {
+          phaseCta.style.display = "flex";
+          phaseGuide.classList.add("is-open");
 
-  btn.addEventListener("click", () => {
+          // Guided feel: bring the guide box into view (but do NOT jump to form)
+          smoothScrollTo(phaseGuide);
+        });
+      });
 
-    const key = btn.dataset.phase;
+      // Click on the CTA: short smooth scroll "confirmation" + then open the prefilled form
+      phaseApplyBtn.addEventListener("click", (e) => {
+        e.preventDefault();
 
-    setActive(btn);
+        if(!selectedPhaseKey) return;
 
-    phaseText.innerHTML = phaseCopy[key].text;
+        // Tiny guided motion before leaving the page
+        smoothScrollTo(phaseGuide);
 
-    phaseApplyBtn.href = phaseCopy[key].link;
+        const url = phaseCopy[selectedPhaseKey].link;
 
-    phaseCta.style.display = "flex";
+        // Small delay so the scroll is perceived, then navigate
+        setTimeout(() => {
+          window.location.href = url;
+        }, 220);
+      });
 
-  });
-
-});
-
-</script>
+    </script>
   </footer>
 </body>
 </html>
