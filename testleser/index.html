@@ -61,9 +61,25 @@
       text-decoration:none;
       font-weight: 600;
       line-height:1;
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
     }
     .mini-btn:hover{ transform: translateY(-1px); }
+    .mini-btn.is-active{
+      border-color: rgba(0,0,0,.22);
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
+    }
     .mini-note{ font-size: 14px; opacity:.8; margin:0; }
+
+    /* The small dynamic helper text */
+    .phase-hint{
+      background: rgba(0,0,0,.04);
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+    .phase-hint strong{ font-weight: 700; }
   </style>
 </head>
 
@@ -109,19 +125,25 @@
             <li>✓ Feedback in Stichpunkten (kurz reicht völlig)</li>
           </ul>
 
-          <!-- Small change / micro-commitment (explained below) -->
+          <!-- Micro-commitment with dynamic phase hint -->
           <div class="mini-commit" aria-label="Kurzer Check">
             <p class="mini-note"><strong>Kurzer Check:</strong> Welche Situation passt am ehesten?</p>
-            <div class="mini-row">
-              <a class="mini-btn" href="#bewerben" aria-label="Schwanger">🤰 Schwanger</a>
-              <a class="mini-btn" href="#bewerben" aria-label="Baby 0-12 Monate">🍼 Baby (0–12M)</a>
-              <a class="mini-btn" href="#bewerben" aria-label="Kleinkind 1-3 Jahre">🧒 Kleinkind</a>
-              <a class="mini-btn" href="#bewerben" aria-label="Kinderwunsch">✨ Kinderwunsch</a>
+
+            <div class="mini-row" role="group" aria-label="Phase auswählen">
+              <a class="mini-btn is-active" data-phase="schwanger" href="#bewerben" aria-label="Schwanger">🤰 Schwanger</a>
+              <a class="mini-btn" data-phase="baby" href="#bewerben" aria-label="Baby 0-12 Monate">🍼 Baby (0–12M)</a>
+              <a class="mini-btn" data-phase="kleinkind" href="#bewerben" aria-label="Kleinkind 1-3 Jahre">🧒 Kleinkind</a>
+              <a class="mini-btn" data-phase="kinderwunsch" href="#bewerben" aria-label="Kinderwunsch">✨ Kinderwunsch</a>
+            </div>
+
+            <!-- This text updates based on chip selection -->
+            <div class="phase-hint" id="phaseHint" aria-live="polite">
+              <strong>In deiner Phase ist besonders wichtig:</strong> Gewohnheiten sanft umstellen, Zonen vorbereiten und Rückzugsorte schaffen – solange noch Ruhe dafür da ist.
             </div>
           </div>
 
           <div class="hero-cta" id="bewerben">
-            <a class="btn btn-primary btn-large" href="PASTE_GOOGLE_FORM_URL_HERE" rel="noopener nofollow">
+            <a class="btn btn-primary btn-large" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">
               Testleserplatz sichern
             </a>
             <p class="muted" style="margin-top:10px;">
@@ -155,7 +177,7 @@
                 <li><strong>Phase für Phase</strong> – von Bauch bis Laufstart</li>
               </ul>
 
-              <a class="btn btn-primary btn-block" href="PASTE_GOOGLE_FORM_URL_HERE" rel="noopener nofollow">
+              <a class="btn btn-primary btn-block" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">
                 Testleserplatz sichern
               </a>
 
@@ -180,7 +202,7 @@
 
           <!-- extra CTA here (big conversion lever) -->
           <div style="margin-top:14px;">
-            <a class="btn btn-primary btn-large" href="PASTE_GOOGLE_FORM_URL_HERE" rel="noopener nofollow">
+            <a class="btn btn-primary btn-large" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">
               Testleserplatz sichern
             </a>
             <p class="muted small" style="margin-top:8px;">Bewerbung dauert ca. 2 Minuten.</p>
@@ -220,7 +242,7 @@
               <h3>Bereit?</h3>
               <p class="muted">Sichere dir einen Testleserplatz, solange Plätze verfügbar sind.</p>
             </div>
-            <a class="btn btn-primary btn-large" href="PASTE_GOOGLE_FORM_URL_HERE" rel="noopener nofollow">
+            <a class="btn btn-primary btn-large" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">
               Jetzt bewerben
             </a>
           </div>
@@ -261,7 +283,7 @@
         </div>
 
         <div style="margin-top:18px;">
-          <a class="btn btn-primary btn-large" href="PASTE_GOOGLE_FORM_URL_HERE" rel="noopener nofollow">
+          <a class="btn btn-primary btn-large" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">
             Testleserplatz sichern
           </a>
           <p class="muted small" style="margin-top:8px;">Dauer: ca. 2 Minuten.</p>
@@ -334,7 +356,7 @@
               <h3>Okay, ich will den Plan.</h3>
               <p class="muted">Bewerbung in ca. 2 Minuten.</p>
             </div>
-            <a class="btn btn-primary btn-large" href="PASTE_GOOGLE_FORM_URL_HERE" rel="noopener nofollow">
+            <a class="btn btn-primary btn-large" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">
               Testleserplatz sichern
             </a>
           </div>
@@ -346,7 +368,7 @@
     <div class="sticky-cta" role="region" aria-label="Schnellaktion">
       <div class="sticky-inner">
         <span class="sticky-text">Testleserplatz sichern</span>
-        <a class="btn btn-primary" href="PASTE_GOOGLE_FORM_URL_HERE" rel="noopener nofollow">Jetzt bewerben</a>
+        <a class="btn btn-primary" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">Jetzt bewerben</a>
       </div>
     </div>
 
@@ -374,6 +396,53 @@
 
     <script>
       document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Phase hint logic (chips update text + active state)
+      (function () {
+        const hintEl = document.getElementById('phaseHint');
+        const buttons = Array.from(document.querySelectorAll('.mini-btn[data-phase]'));
+
+        const hints = {
+          schwanger: {
+            label: 'Schwangerschaft',
+            text: 'Gewohnheiten sanft umstellen, Zonen vorbereiten und Rückzugsorte schaffen – solange noch Ruhe dafür da ist.'
+          },
+          baby: {
+            label: 'Baby (0–12 Monate)',
+            text: 'Schlafbereich klar schützen, Begegnungen kurz & ruhig halten – und Standard-Regeln nutzen, wenn ihr müde seid.'
+          },
+          kleinkind: {
+            label: 'Kleinkind',
+            text: 'Abstand als Familienregel etablieren, Rückzugsorte „nicht verhandelbar“ machen und Kipppunkte früh erkennen.'
+          },
+          kinderwunsch: {
+            label: 'Kinderwunsch',
+            text: 'Jetzt schon die wichtigsten Standards kennen: Zonen, Hygiene-Routinen und „Wenn-dann“-Regeln – bevor es hektisch wird.'
+          }
+        };
+
+        function setActive(phase) {
+          buttons.forEach(b => b.classList.toggle('is-active', b.dataset.phase === phase));
+          const h = hints[phase] || hints.schwanger;
+          hintEl.innerHTML = `<strong>In deiner Phase ist besonders wichtig:</strong> ${h.text}`;
+        }
+
+        // Default (matches the initial is-active chip)
+        setActive('schwanger');
+
+        buttons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            setActive(btn.dataset.phase);
+            // NOTE: anchor still jumps to #bewerben via href="#bewerben"
+          });
+          // Keyboard-friendly
+          btn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              setActive(btn.dataset.phase);
+            }
+          });
+        });
+      })();
     </script>
   </footer>
 </body>
