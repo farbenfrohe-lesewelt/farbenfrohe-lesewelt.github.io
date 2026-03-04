@@ -165,13 +165,13 @@
 
           <!-- Micro-commitment chips -->
           <div class="mini-commit" aria-label="Kurzer Check">
-            <p class="mini-note"><strong>Kurzer Check:</strong> Welche Situation passt am ehesten?</p>
+            <p class="mini-note"><strong>Kurzer Check:</strong> Welche Situation passt gerade am ehesten zu euch?</p>
 
             <div class="mini-row" role="tablist" aria-label="Phase auswählen">
-              <button class="mini-btn" type="button" data-phase="schwanger" role="tab" aria-selected="false">🤰 Schwanger</button>
-              <button class="mini-btn" type="button" data-phase="baby" role="tab" aria-selected="false">🍼 Baby (0–12M)</button>
-              <button class="mini-btn" type="button" data-phase="kleinkind" role="tab" aria-selected="false">🧒 Kleinkind</button>
-              <button class="mini-btn" type="button" data-phase="kinderwunsch" role="tab" aria-selected="false">✨ Kinderwunsch</button>
+              <button class="mini-btn" type="button" data-phase="kinderwunsch">✨ Kinderwunsch</button>
+              <button class="mini-btn" type="button" data-phase="schwanger">🤰 Schwanger</button>
+              <button class="mini-btn" type="button" data-phase="baby">🍼 Baby (0–12M)</button>
+              <button class="mini-btn" type="button" data-phase="kleinkind">🧒 Kleinkind</button>
             </div>
 
             <div class="phase-guide" aria-live="polite">
@@ -180,8 +180,8 @@
               </p>
 
               <div class="guide-cta" id="phaseCta">
-                <a class="btn btn-primary" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">→ Jetzt bewerben</a>
-                <p class="muted">Dauer: ca. 2 Minuten.</p>
+                <a class="btn btn-primary" id="phaseApplyBtn" href="#">→ Testleserplatz sichern</a>
+                <p class="muted">Bewerbung dauert ca. 2 Minuten.</p>
               </div>
             </div>
           </div>
@@ -438,42 +438,68 @@
     </div>
 
     <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
 
-      // Phase guide (no default selection)
-      const phaseCopy = {
-        kinderwunsch:
-          "<strong>In deiner Phase ist besonders wichtig:</strong> ruhig vorbereiten statt verrückt machen: Zonen grob planen, Schlafregeln festlegen und kleine Routinen aufsetzen, die später automatisch laufen.",
-        schwanger:
-          "<strong>In deiner Phase ist besonders wichtig:</strong> Gewohnheiten sanft umstellen, Zonen vorbereiten und Rückzugsorte schaffen – solange noch Ruhe dafür da ist.",
-        baby:
-          "<strong>In deiner Phase ist besonders wichtig:</strong> klare Standards für Schlaf, Aufsicht und Trennung – damit ihr nachts nicht diskutieren müsst, sondern einfach einem Plan folgt.",
-        kleinkind:
-          "<strong>In deiner Phase ist besonders wichtig:</strong> Abstand als Familienregel etablieren und sichere Rückzugsorte schützen – weil Tempo & Lautstärke sonst schnell Stress auslösen."
-      };
+const phaseCopy = {
 
-      const buttons = Array.from(document.querySelectorAll(".mini-btn[data-phase]"));
-      const phaseText = document.getElementById("phaseText");
-      const phaseCta = document.getElementById("phaseCta");
+  kinderwunsch: {
+    text:
+      "<strong>In dieser Phase hilft vor allem:</strong> jetzt schon einfache Regeln festlegen (Schlafzimmer, Katzenklo, Rückzugsorte). Dann müsst ihr später nicht im Chaos entscheiden.",
+    link:
+      "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Keine+Kinder,+aber+Kinderwunsch"
+  },
 
-      function setActive(btn){
-        buttons.forEach(b => {
-          b.classList.remove("is-active");
-          b.setAttribute("aria-selected", "false");
-        });
-        btn.classList.add("is-active");
-        btn.setAttribute("aria-selected", "true");
-      }
+  schwanger: {
+    text:
+      "<strong>In dieser Phase hilft vor allem:</strong> Gewohnheiten jetzt sanft anpassen (Schlafzimmer, Wickelplatz, Katzenzonen). Vorbereitung ist deutlich leichter als später im Schlafmangel.",
+    link:
+      "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Schwanger"
+  },
 
-      buttons.forEach(btn => {
-        btn.addEventListener("click", () => {
-          const key = btn.getAttribute("data-phase");
-          setActive(btn);
-          phaseText.innerHTML = phaseCopy[key] || phaseText.innerHTML;
-          phaseCta.style.display = "flex";
-        });
-      });
-    </script>
+  baby: {
+    text:
+      "<strong>In dieser Phase hilft vor allem:</strong> klare Mini-Standards für Nacht, Wickeln und erste Begegnungen – damit ihr im 03:00-Uhr-Moment nicht überlegen müsst.",
+    link:
+      "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Baby+(0%E2%80%9312+Monate)"
+  },
+
+  kleinkind: {
+    text:
+      "<strong>In dieser Phase hilft vor allem:</strong> klare Familienregeln für Abstand und Rückzugsorte – weil Neugier, Tempo und Katzenklo plötzlich spannend werden.",
+    link:
+      "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Kleinkind+(1%E2%80%933+Jahre)"
+  }
+
+};
+
+const buttons = Array.from(document.querySelectorAll(".mini-btn[data-phase]"));
+const phaseText = document.getElementById("phaseText");
+const phaseCta = document.getElementById("phaseCta");
+const phaseApplyBtn = document.getElementById("phaseApplyBtn");
+
+function setActive(btn){
+  buttons.forEach(b => b.classList.remove("is-active"));
+  btn.classList.add("is-active");
+}
+
+buttons.forEach(btn => {
+
+  btn.addEventListener("click", () => {
+
+    const key = btn.dataset.phase;
+
+    setActive(btn);
+
+    phaseText.innerHTML = phaseCopy[key].text;
+
+    phaseApplyBtn.href = phaseCopy[key].link;
+
+    phaseCta.style.display = "flex";
+
+  });
+
+});
+
+</script>
   </footer>
 </body>
 </html>
