@@ -2,7 +2,8 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- IMPORTANT for modern mobile browsers (safe areas etc.) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#fbf7f0" />
 
   <title>Kostenloser Testleserplatz (PDF) – Baby & Katze sicher zusammenführen</title>
@@ -37,24 +38,61 @@
       .hero h1 { font-size: 32px; line-height: 1.1; }
     }
 
-    /* --- MOBILE HEADER FIX (safe area / cut off) --- */
-    .topbar{
-      padding-top: env(safe-area-inset-top);
-    }
-    .topbar-inner{
-      padding-top: max(10px, env(safe-area-inset-top));
-      padding-bottom: 10px;
+    /* =========================
+       MOBILE HEADER FIX (cut off)
+       ========================= */
+    :root{
+      --safe-top: env(safe-area-inset-top);
+      --safe-bottom: env(safe-area-inset-bottom);
     }
 
-    /* --- Sticky CTA FIX (make sure it's clickable) --- */
+    /* If your main CSS uses sticky/fixed header, this prevents clipping + gives breathing room */
+    .topbar{
+      top: 0 !important;
+      padding-top: calc(8px + var(--safe-top)) !important;
+      overflow: visible !important;
+      z-index: 10000 !important;
+    }
+    .topbar-inner{
+      padding-top: 0 !important;
+      padding-bottom: 10px !important;
+      align-items: center;
+    }
+    /* If any button row gets clipped by height/line-height, this stabilizes it */
+    .top-actions .btn{
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+
+    /* =========================
+       Sticky CTA FIX (clickable)
+       ========================= */
     .sticky-cta{
-      z-index: 9999 !important;
+      position: fixed !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      z-index: 2147483647 !important;
       pointer-events: auto !important;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      padding-bottom: max(0px, var(--safe-bottom));
+      touch-action: manipulation;
+    }
+    .sticky-cta *{
+      pointer-events: auto !important;
+      touch-action: manipulation;
     }
     .sticky-cta a,
     .sticky-cta .btn{
       pointer-events: auto !important;
-      cursor: pointer;
+      cursor: pointer !important;
+      touch-action: manipulation;
+    }
+
+    /* Give page content a little room so the fixed sticky CTA doesn't sit on top of content */
+    body{
+      padding-bottom: calc(84px + var(--safe-bottom));
     }
 
     /* Micro-commitment chips + guide */
@@ -81,6 +119,7 @@
       font-weight: 600;
       line-height:1;
       user-select:none;
+      -webkit-tap-highlight-color: transparent;
     }
     .mini-btn:hover{ transform: translateY(-1px); }
     .mini-btn.is-active{
@@ -249,11 +288,11 @@
       <div class="container">
         <div class="stopper-card">
           <p class="stopper-title">Meist ist nicht die Katze das Problem.</p>
-          <p class="stopper-text">
-            Es sind die Momente ohne Plan: nachts, beim Wickeln, wenn Besuch Druck macht.
+          <div class="stopper-text">
+            <p>Es sind die Momente ohne Plan: nachts, beim Wickeln, wenn Besuch Druck macht.</p>
             <p><strong>Wer dann erst überlegen muss, fühlt sich schnell unsicher.</strong></p>
-            Genau dafür ist dieses Buch gebaut: Standards statt Grübeln.
-          </p>
+            <p>Genau dafür ist dieses Buch gebaut: Standards statt Grübeln.</p>
+          </div>
 
           <div style="margin-top:14px;">
             <a class="btn btn-primary btn-large" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">
@@ -400,7 +439,7 @@
 
           <details class="card">
             <summary>Wie gebe ich Feedback?</summary>
-            <p>Stichpunkte genügen Wir schicken dir ein paar kurze Fragen mit, damit es leicht bleibt.</p>
+            <p>Stichpunkte genügen. Wir schicken dir ein paar kurze Fragen mit, damit es leicht bleibt.</p>
           </details>
         </div>
 
@@ -527,20 +566,18 @@
       // Click on the CTA: short smooth scroll "confirmation" + then open the prefilled form
       phaseApplyBtn.addEventListener("click", (e) => {
         e.preventDefault();
-
         if(!selectedPhaseKey) return;
 
-        // Tiny guided motion before leaving the page
+        // tiny guided motion before leaving the page
         smoothScrollTo(phaseGuide);
 
         const url = phaseCopy[selectedPhaseKey].link;
 
-        // Small delay so the scroll is perceived, then navigate
+        // small delay so the scroll is perceived, then navigate
         setTimeout(() => {
           window.location.href = url;
         }, 220);
       });
-
     </script>
   </footer>
 </body>
