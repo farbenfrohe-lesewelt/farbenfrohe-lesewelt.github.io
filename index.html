@@ -17,6 +17,60 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon-256.png">
+
+  <style>
+  /* =========================
+     MOBILE FIX: Header/Sticky CTA Text abgeschnitten
+     (Desktop bleibt unverändert)
+     ========================= */
+  @media (max-width: 640px) {
+
+    /* Header: etwas kompakter */
+    .top-actions{
+      gap: 8px !important;
+    }
+    .top-actions .btn{
+      padding: 8px 10px !important;
+      font-size: 13px !important;
+      white-space: nowrap !important;
+    }
+
+    /* Header-Primary: Text kürzen, damit nichts rechts rausläuft */
+    .top-actions .btn-primary{
+      font-size: 0 !important;       /* Originaltext ausblenden */
+      line-height: 0 !important;
+    }
+    .top-actions .btn-primary::after{
+      content: "Amazon" !important;  /* kurz & klar */
+      font-size: 13px !important;
+      line-height: 1 !important;
+      font-weight: 700 !important;
+    }
+
+    /* Sticky: ebenfalls kürzen (oder weiter unten komplett ausblenden) */
+    .sticky-cta .btn{
+      font-size: 0 !important;
+      line-height: 0 !important;
+      padding: 10px 12px !important;
+      white-space: nowrap !important;
+    }
+    .sticky-cta .btn::after{
+      content: "Amazon" !important;
+      font-size: 14px !important;
+      line-height: 1 !important;
+      font-weight: 700 !important;
+    }
+
+    /* Optional: Sticky-Text links etwas kürzen, falls es eng ist */
+    .sticky-cta .sticky-text{
+      font-size: 13px !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      max-width: 48vw !important;
+    }
+  }
+</style>
 </head>
 
 <body>
