@@ -176,6 +176,33 @@
     padding-bottom: 0 !important;
   }
 }
+
+/* =========================
+   MOBILE: Header-CTA kürzen
+   (Desktop bleibt unverändert)
+   ========================= */
+@media (max-width: 640px) {
+
+  /* Buttons im Header etwas kompakter, damit alles nebeneinander passt */
+  .top-actions .btn{
+    padding: 8px 10px !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
+  }
+
+  /* Primär-CTA Text ersetzen (robust gegen Überschreibungen im main CSS) */
+  .top-actions .btn-primary{
+    font-size: 0 !important;         /* Originaltext verstecken */
+    line-height: 0 !important;
+  }
+  .top-actions .btn-primary::after{
+    content: "Testleserplatz" !important; /* ohne “sichern” */
+    font-size: 13px !important;
+    line-height: 1 !important;
+    font-weight: 700 !important;
+  }
+}
+    
   </style>
 </head>
 
