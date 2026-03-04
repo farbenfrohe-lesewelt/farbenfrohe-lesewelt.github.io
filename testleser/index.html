@@ -17,28 +17,24 @@
   <!-- Use MAIN styles from root -->
   <link rel="stylesheet" href="../styles.css" />
 
-  <!-- Favicons (absolute paths so they work in /testleser/) -->
+  <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="256x256" href="/assets/favicon-256.png">
 
-  <!-- Small page-specific tweaks without touching your main CSS -->
   <style>
-    /* Keep hero CTA above the fold on mobile */
     .hero .lead { margin-bottom: 14px; }
     .hero .checklist { margin: 14px 0 16px; }
     .hero .checklist li { margin: 8px 0; }
 
-    /* Compact cards on mobile */
     @media (max-width: 640px) {
       .card { padding: 18px !important; }
       .pill { font-size: 14px; padding: 6px 10px; }
       .hero-grid { gap: 18px; }
-      .hero-card { order: 2; } /* push book box below the CTA on mobile */
+      .hero-card { order: 2; }
       .hero-copy { order: 1; }
       .hero h1 { font-size: 32px; line-height: 1.1; }
     }
 
-    /* Micro-commitment buttons */
     .mini-commit {
       display: grid;
       gap: 10px;
@@ -62,6 +58,7 @@
       font-weight: 600;
       line-height:1;
       transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+      user-select: none;
     }
     .mini-btn:hover{ transform: translateY(-1px); }
     .mini-btn.is-active{
@@ -70,7 +67,6 @@
     }
     .mini-note{ font-size: 14px; opacity:.8; margin:0; }
 
-    /* The small dynamic helper text */
     .phase-hint{
       background: rgba(0,0,0,.04);
       border: 1px solid rgba(0,0,0,.08);
@@ -78,8 +74,42 @@
       padding: 12px 14px;
       font-size: 14px;
       line-height: 1.35;
+      display: grid;
+      gap: 10px;
     }
-    .phase-hint strong{ font-weight: 700; }
+
+    /* Mini CTA that appears after chip click */
+    .phase-cta-row{
+      display: none;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .phase-cta-row.is-visible{ display: flex; }
+
+    .phase-mini-cta{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 10px 12px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid rgba(0,0,0,.12);
+      background: #fff;
+      cursor: pointer;
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+    .phase-mini-cta:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
+      border-color: rgba(0,0,0,.22);
+    }
+    .phase-mini-note{
+      font-size: 13px;
+      opacity: .75;
+      margin: 0;
+    }
   </style>
 </head>
 
@@ -103,16 +133,13 @@
   </header>
 
   <main id="content">
-    <!-- HERO -->
     <section class="hero">
       <div class="container hero-grid">
 
         <div class="hero-copy">
           <p class="eyebrow">Für (werdende) Eltern mit Katze · Schwangerschaft bis Kleinkind</p>
 
-          <h1>
-            Kostenloser Testleserplatz (PDF)
-          </h1>
+          <h1>Kostenloser Testleserplatz (PDF)</h1>
 
           <p class="lead">
             Wir vergeben eine begrenzte Anzahl Testleserplätze für ein <strong>PDF-Vorabexemplar</strong> (Print-Replika).
@@ -125,20 +152,28 @@
             <li>✓ Feedback in Stichpunkten (kurz reicht völlig)</li>
           </ul>
 
-          <!-- Micro-commitment with dynamic phase hint -->
+          <!-- Micro-commitment + dynamic hint + mini CTA -->
           <div class="mini-commit" aria-label="Kurzer Check">
             <p class="mini-note"><strong>Kurzer Check:</strong> Welche Situation passt am ehesten?</p>
 
             <div class="mini-row" role="group" aria-label="Phase auswählen">
-              <a class="mini-btn is-active" data-phase="schwanger" href="#bewerben" aria-label="Schwanger">🤰 Schwanger</a>
-              <a class="mini-btn" data-phase="baby" href="#bewerben" aria-label="Baby 0-12 Monate">🍼 Baby (0–12M)</a>
-              <a class="mini-btn" data-phase="kleinkind" href="#bewerben" aria-label="Kleinkind 1-3 Jahre">🧒 Kleinkind</a>
-              <a class="mini-btn" data-phase="kinderwunsch" href="#bewerben" aria-label="Kinderwunsch">✨ Kinderwunsch</a>
+              <!-- NOTE: href="#" so clicking doesn't jump -->
+              <a class="mini-btn is-active" data-phase="schwanger" href="#" aria-label="Schwanger">🤰 Schwanger</a>
+              <a class="mini-btn" data-phase="baby" href="#" aria-label="Baby 0-12 Monate">🍼 Baby (0–12M)</a>
+              <a class="mini-btn" data-phase="kleinkind" href="#" aria-label="Kleinkind 1-3 Jahre">🧒 Kleinkind</a>
+              <a class="mini-btn" data-phase="kinderwunsch" href="#" aria-label="Kinderwunsch">✨ Kinderwunsch</a>
             </div>
 
-            <!-- This text updates based on chip selection -->
             <div class="phase-hint" id="phaseHint" aria-live="polite">
-              <strong>In deiner Phase ist besonders wichtig:</strong> Gewohnheiten sanft umstellen, Zonen vorbereiten und Rückzugsorte schaffen – solange noch Ruhe dafür da ist.
+              <div id="phaseHintText">
+                <strong>In deiner Phase ist besonders wichtig:</strong> Gewohnheiten sanft umstellen, Zonen vorbereiten und Rückzugsorte schaffen – solange noch Ruhe dafür da ist.
+              </div>
+
+              <!-- appears after chip click -->
+              <div class="phase-cta-row" id="phaseCtaRow">
+                <a class="phase-mini-cta" href="#bewerben" id="phaseMiniCta">→ Jetzt bewerben</a>
+                <p class="phase-mini-note">Dauert ca. 2 Minuten.</p>
+              </div>
             </div>
           </div>
 
@@ -160,11 +195,7 @@
         <aside class="hero-card" aria-label="Buchvorschau">
           <div class="bookbox">
             <div class="bookimg">
-              <img
-                src="/assets/cover-thumb.webp"
-                alt="Buchcover: Baby und Katze sicher zusammenführen"
-                loading="lazy"
-              />
+              <img src="/assets/cover-thumb.webp" alt="Buchcover: Baby und Katze sicher zusammenführen" loading="lazy" />
             </div>
 
             <div class="bookmeta">
@@ -200,7 +231,6 @@
             Genau dafür ist dieses Buch gebaut: Standards statt Grübeln.
           </p>
 
-          <!-- extra CTA here (big conversion lever) -->
           <div style="margin-top:14px;">
             <a class="btn btn-primary btn-large" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">
               Testleserplatz sichern
@@ -276,9 +306,7 @@
               <li>keine Foren-Mythen</li>
               <li>keine Tipps, die beim ersten Schreianfall zerbröseln</li>
             </ul>
-            <p class="muted small">
-              Ziel: sicher genug – und trotzdem Familie.
-            </p>
+            <p class="muted small">Ziel: sicher genug – und trotzdem Familie.</p>
           </div>
         </div>
 
@@ -295,9 +323,7 @@
     <section class="section" id="fit">
       <div class="container">
         <h2>Passt das zu euch?</h2>
-        <p class="sublead">
-          Kurzer Filter, damit sich niemand unnötig Zeit nimmt.
-        </p>
+        <p class="sublead">Kurzer Filter, damit sich niemand unnötig Zeit nimmt.</p>
 
         <div class="grid grid-2">
           <div class="card">
@@ -397,48 +423,39 @@
     <script>
       document.getElementById('year').textContent = new Date().getFullYear();
 
-      // Phase hint logic (chips update text + active state)
       (function () {
-        const hintEl = document.getElementById('phaseHint');
+        const hintTextEl = document.getElementById('phaseHintText');
+        const ctaRowEl = document.getElementById('phaseCtaRow');
         const buttons = Array.from(document.querySelectorAll('.mini-btn[data-phase]'));
 
         const hints = {
-          schwanger: {
-            label: 'Schwangerschaft',
-            text: 'Gewohnheiten sanft umstellen, Zonen vorbereiten und Rückzugsorte schaffen – solange noch Ruhe dafür da ist.'
-          },
-          baby: {
-            label: 'Baby (0–12 Monate)',
-            text: 'Schlafbereich klar schützen, Begegnungen kurz & ruhig halten – und Standard-Regeln nutzen, wenn ihr müde seid.'
-          },
-          kleinkind: {
-            label: 'Kleinkind',
-            text: 'Abstand als Familienregel etablieren, Rückzugsorte „nicht verhandelbar“ machen und Kipppunkte früh erkennen.'
-          },
-          kinderwunsch: {
-            label: 'Kinderwunsch',
-            text: 'Jetzt schon die wichtigsten Standards kennen: Zonen, Hygiene-Routinen und „Wenn-dann“-Regeln – bevor es hektisch wird.'
-          }
+          schwanger: 'Gewohnheiten sanft umstellen, Zonen vorbereiten und Rückzugsorte schaffen – solange noch Ruhe dafür da ist.',
+          baby: 'Schlafbereich klar schützen, Begegnungen kurz & ruhig halten – und Standard-Regeln nutzen, wenn ihr müde seid.',
+          kleinkind: 'Abstand als Familienregel etablieren, Rückzugsorte „nicht verhandelbar“ machen und Kipppunkte früh erkennen.',
+          kinderwunsch: 'Jetzt schon die wichtigsten Standards kennen: Zonen, Hygiene-Routinen und „Wenn-dann“-Regeln – bevor es hektisch wird.'
         };
 
-        function setActive(phase) {
+        function setActive(phase, revealCta) {
           buttons.forEach(b => b.classList.toggle('is-active', b.dataset.phase === phase));
-          const h = hints[phase] || hints.schwanger;
-          hintEl.innerHTML = `<strong>In deiner Phase ist besonders wichtig:</strong> ${h.text}`;
+          const txt = hints[phase] || hints.schwanger;
+          hintTextEl.innerHTML = `<strong>In deiner Phase ist besonders wichtig:</strong> ${txt}`;
+
+          if (revealCta) ctaRowEl.classList.add('is-visible');
         }
 
-        // Default (matches the initial is-active chip)
-        setActive('schwanger');
+        // Default (matches initial active chip)
+        setActive('schwanger', false);
 
         buttons.forEach(btn => {
-          btn.addEventListener('click', () => {
-            setActive(btn.dataset.phase);
-            // NOTE: anchor still jumps to #bewerben via href="#bewerben"
+          btn.addEventListener('click', (e) => {
+            e.preventDefault(); // stop jump
+            setActive(btn.dataset.phase, true);
           });
-          // Keyboard-friendly
+
           btn.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
-              setActive(btn.dataset.phase);
+              e.preventDefault();
+              setActive(btn.dataset.phase, true);
             }
           });
         });
