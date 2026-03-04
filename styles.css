@@ -341,62 +341,57 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
 }
 
 /* =========================
-   MOBILE ONLY FIXES (Android/Chrome)
-   Desktop bleibt unverändert
+   MOBILE HEADER OPTIMIERUNG
    ========================= */
 @media (max-width: 640px) {
 
-  /* 1) Sticky CTA: mobil komplett AUS (du brauchst sie nicht) */
-  .sticky-cta { display: none !important; }
-  body { padding-bottom: 0 !important; }
-
-  /* 2) Header-Cutoff: mobil auf STICKY statt FIXED + Layout stabilisieren */
+  /* Sticky statt fixed -> verhindert Android Chrome clipping */
   .topbar{
-    position: sticky !important;   /* statt fixed */
+    position: sticky !important;
     top: 0 !important;
     z-index: 10000 !important;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-    overflow: visible !important;
+    padding: 6px 0 !important;
   }
 
   .topbar-inner{
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    flex-wrap: wrap !important;     /* wichtig: verhindert Abschneiden */
-    gap: 10px !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-  }
-
-  /* Brand + Buttons dürfen nicht über die Zeile hinaus "clippen" */
-  .brand{
     display:flex !important;
     align-items:center !important;
-    gap: 10px !important;
-    min-width: 0 !important;
+    justify-content:space-between !important;
+    gap:8px !important;
   }
 
+  /* Logo kompakter */
+  .brand-logo{
+    width:28px !important;
+    height:auto !important;
+  }
+
+  .brand-text{
+    font-size:14px !important;
+  }
+
+  /* Button-Leiste */
   .top-actions{
     display:flex !important;
-    align-items:center !important;
-    gap: 10px !important;
-    flex-wrap: wrap !important;
+    gap:6px !important;
   }
 
+  /* MOBILE BUTTONS kleiner */
   .top-actions .btn{
-    line-height: 1.15 !important;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-    white-space: nowrap !important;
+    font-size:13px !important;
+    padding:6px 10px !important;
+    border-radius:10px !important;
+    line-height:1.1 !important;
+    white-space:nowrap !important;
   }
 
-  /* Falls dein main CSS dem Header eine feste Höhe gibt -> neutralisieren */
-  .topbar, .topbar *{
-    max-height: none !important;
+  /* Ghost Button etwas dezenter */
+  .top-actions .btn-ghost{
+    padding:6px 9px !important;
   }
+
 }
+
 
 /* Responsive */
 @media (max-width: 920px){
