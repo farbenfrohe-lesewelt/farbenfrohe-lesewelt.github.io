@@ -392,6 +392,22 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
 
 }
 
+/* =========================
+   MOBILE CTA TEXT KÜRZEN
+   ========================= */
+@media (max-width: 640px) {
+
+  .top-actions .btn-primary{
+    font-size: 0; /* versteckt den Originaltext */
+  }
+
+  .top-actions .btn-primary::after{
+    content: "Testleserplatz";
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+}
 
 /* Responsive */
 @media (max-width: 920px){
