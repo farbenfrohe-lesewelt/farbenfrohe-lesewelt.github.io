@@ -480,7 +480,7 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
    ========================= */
 @media (max-width: 920px){
     :root{
-    --sticky-space: 60px; /* Reserve für Sticky + Android UI */
+    --sticky-space: 70px; /* Reserve für Sticky + Android UI */
   }
   .hero-grid{ grid-template-columns: 1fr; }
   .bookbox{ grid-template-columns: 120px minmax(0, 1fr); }
@@ -488,7 +488,7 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
 
 @media (max-width: 740px){
   :root{
-    --sticky-space: 60px; /* Startwert, dann feinjustieren */
+    --sticky-space: 70px; /* Startwert, dann feinjustieren */
   }
   .grid-2, .grid-3{ grid-template-columns: 1fr; }
   .cta-strip-inner{ flex-direction: column; align-items:flex-start; }
