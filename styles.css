@@ -33,7 +33,7 @@ body{
   /* Basisfarbe zuerst */
   background-color: var(--bg);
 
-  /* Viewport-basierte Gradients (zoomen deutlich “ruhiger”) */
+  /* Viewport-basierte Gradients (zoomt “ruhiger”) */
   background-image:
     radial-gradient(70vmax 38vmax at 12% 10%, rgba(241,184,74,.14) 0%, transparent 60%),
     radial-gradient(78vmax 44vmax at 82% 14%, rgba(59,91,219,.10) 0%, transparent 62%),
@@ -41,6 +41,7 @@ body{
 
   background-repeat: no-repeat;
   background-size: 100% 100%;
+
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
   line-height:1.5;
 
@@ -62,7 +63,6 @@ body::before{
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
   background-size: 220px 220px;
 }
-
 
 a{ color:inherit; text-decoration:none; }
 a:hover{ text-decoration:underline; }
@@ -86,7 +86,9 @@ a:hover{ text-decoration:underline; }
   border-radius: 10px;
 }
 
-/* Topbar */
+/* =========================
+   TOPBAR
+   ========================= */
 .topbar{
   position:sticky; top:0; z-index:50;
   background: rgba(251,247,240,.82);
@@ -97,9 +99,9 @@ a:hover{ text-decoration:underline; }
   display:flex; align-items:center; justify-content:space-between; gap:1rem;
   padding:.9rem 0;
 }
-.brand{ display:flex; align-items:center; gap:.65rem; user-select:none; }
-.brand-text{ font-weight: 750; color: var(--muted); }
-.top-actions{ display:flex; gap:.6rem; align-items:center; }
+.brand{ display:flex; align-items:center; gap:.65rem; user-select:none; min-width:0; }
+.brand-text{ font-weight: 750; color: var(--muted); min-width:0; }
+.top-actions{ display:flex; gap:.6rem; align-items:center; min-width:0; }
 
 .brand-logo{
   height: 30px;
@@ -107,7 +109,9 @@ a:hover{ text-decoration:underline; }
   display: block;
 }
 
-/* Buttons */
+/* =========================
+   BUTTONS
+   ========================= */
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
   padding:.68rem 1rem;
@@ -133,7 +137,9 @@ a:hover{ text-decoration:underline; }
 .btn-large{ padding:.86rem 1.15rem; border-radius: 16px; }
 .btn-block{ width:100%; }
 
-/* Typography */
+/* =========================
+   TYPOGRAPHY
+   ========================= */
 h1{
   margin:0 0 .75rem;
   font-size: clamp(1.9rem, 2.6vw, 2.85rem);
@@ -152,7 +158,9 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
 .muted{ color: var(--muted); }
 .small{ font-size:.92rem; }
 
-/* Hero */
+/* =========================
+   HERO
+   ========================= */
 .hero{ padding: 1.6rem 0 1.0rem; }
 .hero-grid{
   display:grid;
@@ -175,10 +183,8 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
   letter-spacing:.02em;
 }
 
-/* (1) Hero headline refinements */
-.hero-headline{
-  margin:0 0 .75rem;
-}
+/* Hero headline refinements */
+.hero-headline{ margin:0 0 .75rem; }
 .hero-answers{
   display:block;
   margin-top:.55rem;
@@ -202,12 +208,13 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
   .br-desktop{ display:none; }
 }
 
-/* (2) Quick proof row */
+/* Quick proof row */
 .quick-proof{
   display:flex;
   flex-wrap:wrap;
   gap:.55rem .75rem;
   margin: .15rem 0 .95rem;
+  min-width:0;
 }
 .qp-item{
   display:flex;
@@ -220,11 +227,16 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
   box-shadow: 0 8px 20px rgba(18,24,35,.06);
   color: var(--muted);
   font-weight: 750;
+
+  max-width:100%;
+  min-width:0;
+  white-space: normal; /* darf umbrechen statt zu drücken */
 }
 .qp-ico{
   width: 1.1rem;
   display:inline-flex;
   justify-content:center;
+  flex:0 0 auto;
 }
 
 .micro-proof{
@@ -240,6 +252,7 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
 .pill-row{
   display:flex; flex-wrap:wrap; gap:.55rem;
   margin: .55rem 0 1.05rem;
+  min-width:0;
 }
 .pill{
   display:inline-flex; align-items:center;
@@ -249,6 +262,8 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
   background: rgba(255,255,255,.65);
   color: var(--muted);
   font-weight: 750;
+  min-width:0;
+  max-width:100%;
 }
 
 .hero-cta{ display:flex; flex-direction:column; gap:.45rem; }
@@ -266,11 +281,11 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
   box-shadow: 0 0 0 4px rgba(59,91,219,.10);
 }
 
-.price-anchor{
-  margin: .55rem 0 0;
-}
+.price-anchor{ margin: .55rem 0 0; }
 
-/* Cards */
+/* =========================
+   CARDS
+   ========================= */
 .hero-card{
   border: 1px solid var(--border);
   background: rgba(255,255,255,.76);
@@ -280,17 +295,15 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
 }
 .bookbox{
   display:grid;
-  grid-template-columns: 132px minmax(0, 1fr); /* ✅ verhindert Overflow */
+  grid-template-columns: 132px minmax(0, 1fr); /* verhindert Overflow */
   gap: 1rem;
   align-items: start;
   max-width: 100%;
+  min-width:0;
 }
-.bookmeta{
-  min-width: 0;                 /* ✅ erlaubt echtes Shrinken */
-}
-.bookmeta *{
-  min-width: 0;                 /* ✅ Airbag für lange Zeilen/Buttons */
-}
+.bookmeta{ min-width:0; }
+.bookmeta *{ min-width:0; }
+
 .bookimg{
   border-radius: 18px;
   overflow:hidden;
@@ -306,7 +319,9 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
 .checklist{ margin:0; padding-left: 1.05rem; color: var(--muted); }
 .checklist li{ margin: .38rem 0; }
 
-/* Sections */
+/* =========================
+   SECTIONS / GRIDS
+   ========================= */
 .section{ padding: 1.85rem 0; }
 .section.alt{
   background: rgba(255,255,255,.55);
@@ -315,7 +330,7 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
 }
 .sublead{ margin:0 0 1.15rem; color: var(--muted); max-width: 72ch; }
 
-.grid{ display:grid; gap: 1rem; }
+.grid{ display:grid; gap: 1rem; min-width:0; }
 .grid-2{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .grid-3{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
@@ -325,6 +340,7 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
   border-radius: var(--radius);
   padding: 1rem;
   box-shadow: 0 10px 28px rgba(18,24,35,.08);
+  min-width:0;
 }
 .card-q{ margin:0 0 .45rem; color: var(--muted2); font-weight: 650; }
 .card-a{ margin:0; color: var(--muted); }
@@ -346,12 +362,11 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
   flex-wrap:wrap;
   gap:.6rem;
   align-items:center;
+  min-width:0;
 }
 
 /* Scroll-stopper */
-.scroll-stopper{
-  padding-top: 0;
-}
+.scroll-stopper{ padding-top: 0; }
 .stopper-card{
   border: 1px solid rgba(241,184,74,.35);
   background: linear-gradient(135deg, rgba(241,184,74,.16), rgba(59,91,219,.06));
@@ -359,22 +374,13 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
   box-shadow: 0 14px 36px rgba(18,24,35,.08);
   padding: 1rem 1.1rem;
 }
-.stopper-title{
-  margin:0 0 .35rem;
-  font-weight: 900;
-}
-.stopper-text{
-  margin:0;
-  color: var(--text);
-  font-size: 1.02rem;
-}
+.stopper-title{ margin:0 0 .35rem; font-weight: 900; }
+.stopper-text{ margin:0; color: var(--text); font-size: 1.02rem; }
 
-/* (3) System Snapshot */
-.system-snapshot .card h3{
-  margin-bottom:.35rem;
-}
+/* System Snapshot */
+.system-snapshot .card h3{ margin-bottom:.35rem; }
 
-/* (4) Story card */
+/* Story card */
 .story-card{
   border: 1px solid rgba(59,91,219,.14);
   background: rgba(255,255,255,.82);
@@ -382,25 +388,14 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
   box-shadow: 0 14px 36px rgba(18,24,35,.08);
   padding: 1rem 1.1rem;
 }
-.story-title{
-  margin:0 0 .55rem;
-  font-weight: 950;
-}
-.story-text{
-  margin:0 0 .75rem;
-  font-size: 1.03rem;
-  color: var(--text);
-}
+.story-title{ margin:0 0 .55rem; font-weight: 950; }
+.story-text{ margin:0 0 .75rem; font-size: 1.03rem; color: var(--text); }
 
-/* (5) Concrete examples */
-.example-title{
-  margin:0 0 .35rem;
-}
+/* Concrete examples */
+.example-title{ margin:0 0 .35rem; }
 
 /* Anti-BS box */
-.anti-bs{
-  margin-top: 1.15rem;
-}
+.anti-bs{ margin-top: 1.15rem; }
 .anti-bs-inner{
   border: 1px solid rgba(59,91,219,.14);
   background: rgba(255,255,255,.78);
@@ -408,22 +403,16 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
   box-shadow: 0 14px 36px rgba(18,24,35,.08);
   padding: 1rem 1.1rem;
 }
-.anti-bs-title{
-  margin:0 0 .55rem;
-  font-weight: 900;
-}
+.anti-bs-title{ margin:0 0 .55rem; font-weight: 900; }
 .anti-bs-list{
   margin:0;
   padding-left: 1.05rem;
   color: var(--muted);
 }
 .anti-bs-list li{ margin: .38rem 0; }
-.anti-bs-foot{
-  margin:.7rem 0 0;
-  color: var(--text);
-}
+.anti-bs-foot{ margin:.7rem 0 0; color: var(--text); }
 
-/* (9) Fit identity line */
+/* Fit identity line */
 .fit-identity{
   margin: .2rem 0 1.1rem;
   padding:.75rem 1rem;
@@ -456,10 +445,13 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
 .cta-strip-inner{
   display:flex; align-items:center; justify-content:space-between; gap: 1rem;
   padding: 1.1rem;
+  min-width:0;
 }
 .cta-strip-inner h3{ margin:0 0 .25rem; }
 
-/* Footer */
+/* =========================
+   FOOTER
+   ========================= */
 .footer{
   border-top: 1px solid var(--border);
   padding: 1.4rem 0;
@@ -471,29 +463,40 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
 .footer a{ color: var(--muted); }
 .footer a:hover{ color: var(--text); }
 
-/* Sticky CTA (default: hidden; shown on mobile) */
-.sticky-cta{ display:none; }
-
-.sticky-inner{
-  width: min(var(--max), 100% - 1rem);
-  max-width: 100%;
-  margin-inline:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:.75rem;
-  padding:.75rem .75rem;
-  box-sizing: border-box;
+/* =========================
+   TEXT WRAP (global safety)
+   ========================= */
+:where(p, li, .lead, .sublead, .booksub, details.card p, .card, .muted){
+  overflow-wrap: break-word; /* weniger brutal als anywhere */
+  word-break: normal;
 }
-.sticky-text{
-  font-weight: 900;
-  color: var(--text);
+:where(h1, h2, h3, summary){
+  overflow-wrap: anywhere; /* nur Überschriften dürfen “hart” brechen */
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+@media (max-width: 920px){
+  .hero-grid{ grid-template-columns: 1fr; }
+  .bookbox{ grid-template-columns: 120px minmax(0, 1fr); }
+}
+
+@media (max-width: 740px){
+  .grid-2, .grid-3{ grid-template-columns: 1fr; }
+  .cta-strip-inner{ flex-direction: column; align-items:flex-start; }
+
+  .cta-duo{ width:100%; }
+  .cta-duo .btn{ width:100%; }
+
+  .hero{ padding: 1.35rem 0 1.0rem; }
+  .eyebrow{ margin: 0 0 .45rem; }
 }
 
 /* =========================
    MOBILE HEADER OPTIMIERUNG
    ========================= */
-@media (max-width: 640px) {
+@media (max-width: 640px){
 
   .topbar{
     position: sticky !important;
@@ -514,19 +517,17 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
     overflow: hidden !important;   /* verhindert 1px-Überstand */
   }
 
-  /* Flex-Children dürfen schrumpfen */
   .brand,
   .top-actions{
     min-width: 0 !important;
   }
 
-  /* Logo kompakter */
   .brand-logo{
     width:28px !important;
     height:auto !important;
   }
 
-  /* ✅ Brand-Text: 2 Zeilen, kein "..." */
+  /* Brand-Text: 2 Zeilen, kein "..." */
   .brand-text{
     font-size: 13px !important;
     line-height: 1.05 !important;
@@ -536,7 +537,6 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
     max-width: 34vw !important;
     min-width: 0 !important;
     overflow: hidden !important;
-
     white-space: normal !important;
 
     display: -webkit-box !important;
@@ -544,176 +544,97 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
     -webkit-line-clamp: 2 !important;
   }
 
-  /* Button-Leiste */
   .top-actions{
     display:flex !important;
     gap:6px !important;
     align-items:center !important;
   }
 
-  /* MOBILE BUTTONS kleiner */
   .top-actions .btn{
     font-size:13px !important;
     padding:6px 10px !important;
     border-radius:10px !important;
     line-height:1.1 !important;
     white-space:nowrap !important;
+
     max-width: 42vw !important;          /* Airbag */
     overflow: hidden !important;
-    text-overflow: ellipsis !important;  /* "Testleserpl…" falls nötig */
+    text-overflow: ellipsis !important;  /* „Testleserpl…“ falls nötig */
   }
 
-  /* Ghost Button etwas dezenter */
   .top-actions .btn-ghost{
     padding:6px 9px !important;
   }
 }
 
-/* Responsive */
-@media (max-width: 920px){
-  .hero-grid{ grid-template-columns: 1fr; }
-  .bookbox{ grid-template-columns: 120px 1fr; }
+/* =========================
+   MOBILE COVER STACK (sehr klein)
+   ========================= */
+@media (max-width: 520px){
+  .bookbox{
+    grid-template-columns: 1fr; /* Cover oben, Text unten */
+  }
+  .bookimg{
+    max-width: 220px;
+    margin: 0 auto;
+  }
 }
+
+/* =========================
+   STICKY CTA – FINAL (Android no-clipping)
+   ========================= */
+.sticky-cta{ display:none; } /* default: hidden; shown on mobile */
+
 @media (max-width: 740px){
 
-  .grid-2, .grid-3{ grid-template-columns: 1fr; }
-  .cta-strip-inner{ flex-direction: column; align-items:flex-start; }
-
-  .cta-duo{ width:100%; }
-  .cta-duo .btn{ width:100%; }
-
-  /* Sticky CTA */
   .sticky-cta{
     display:block;
     position: fixed;
     left:0; right:0; bottom:0;
-    width:100%;
-    max-width:100%;
-    background: rgba(251,247,240,.92);
+    z-index: 9999;
+
+    background: rgba(251,247,240,.96);
     backdrop-filter: blur(10px);
     border-top: 1px solid var(--border);
     box-shadow: 0 -10px 30px rgba(18,24,35,.10);
-    padding-bottom: max(.25rem, env(safe-area-inset-bottom));
-    z-index: 60;
-    overflow:hidden;
+
+    overflow: visible !important;
+
+    padding: .5rem 0 calc(.55rem + env(safe-area-inset-bottom));
   }
 
   .sticky-inner{
     width: min(var(--max), 100% - 1rem);
-    max-width: 100%;
     margin-inline:auto;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:.75rem;
-    padding:.75rem .75rem;
-    box-sizing:border-box;
+    gap:.65rem;
+
+    min-height: 64px;
+    padding: .45rem .25rem;
+
+    box-sizing: border-box;
     min-width:0;
-  }
-
-  body{
-    padding-bottom: calc(88px + env(safe-area-inset-bottom));
-  }
-}
-
-@media (max-width: 740px){
-  .hero{ padding: 1.35rem 0 1.0rem; }
-  .eyebrow{ margin: 0 0 .45rem; }
-}
-
-/* =========================
-   MOBILE: TEXT DARF NIE HORIZONTAL DRÜCKEN
-   ========================= */
-p, li, h1, h2, h3, summary, .lead, .sublead, .sticky-text, .qp-item, .booksub, .card, .muted{
-  overflow-wrap: anywhere;
-  word-break: normal;
-}
-
-/* =========================
-   MOBILE: GRID/FLEX CHILDREN DÜRFEN SCHRUMPFEN
-   ========================= */
-@media (max-width: 740px){
-  .grid, .hero-grid,
-  .topbar-inner, .top-actions,
-  .bookbox, .cta-strip-inner,
-  .sticky-inner, .quick-proof, .pill-row, .cta-duo{
-    min-width: 0;
-  }
-
-  .card, .hero-card, .stopper-card, .anti-bs-inner, .cta-strip, .bookbox,
-  .qp-item, .pill{
-    min-width: 0;
- 
-  }
-}
-
-/* =========================
-   FINAL MOBILE FIX: no horizontal scroll + clean sticky
-   ========================= */
-
-/* 1) Textumbruch: hübsch & kontrolliert */
-:where(p, li, .lead, .sublead, .booksub, details.card p){
-  overflow-wrap: break-word; /* weniger brutal als anywhere */
-  word-break: normal;
-}
-
-/* Wenn wirklich ein Extrem-Wort kommt, nur dann irgendwo brechen */
-:where(h1, h2, h3, summary){
-  overflow-wrap: anywhere;
-}
-
-/* 2) Quick-proof Pills dürfen umbrechen, statt zu drücken */
-.quick-proof{ min-width: 0; }
-.qp-item{
-  max-width: 100%;
-  min-width: 0;
-  white-space: normal;          /* wichtig: Pill darf 2 Zeilen machen */
-}
-
-/* 3) Sticky: links schrumpft, rechts bleibt Button sichtbar */
-@media (max-width: 740px){
-
-  .sticky-cta{
-    display:block;
-    position: fixed;
-    left:0; right:0; bottom:0;
-    background: rgba(251,247,240,.94);
-    backdrop-filter: blur(10px);
-    border-top: 1px solid var(--border);
-    box-shadow: 0 -10px 30px rgba(18,24,35,.10);
-    z-index: 60;
-
-    /* mehr “Luft” + safe area */
-    padding: .35rem 0 calc(.35rem + env(safe-area-inset-bottom));
-  }
-
-  .sticky-inner{
-    width: min(var(--max), 100% - 1rem);
-    margin-inline:auto;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:.6rem;
-
-    /* verhindert Clipping durch zu enge Höhen */
-    min-height: 56px;
-    padding: .25rem .25rem;
+    overflow: visible !important;
   }
 
   .sticky-text{
-    font-weight: 850;
+    display:block;
+    font-weight: 900;
     color: var(--text);
 
-    /* kleiner + keine Überlänge */
     font-size: 13px;
-    line-height: 1.15;
+    line-height: 1.25;
 
-    /* wenn’s eng wird: elegant kürzen statt Umbruch-chaos */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 52vw;
+    max-width: 54vw;
+
+    padding-bottom: 2px; /* Airbag gegen Baseline-Clipping */
+    min-width:0;
   }
 
   .sticky-cta .btn{
@@ -725,22 +646,11 @@ p, li, h1, h2, h3, summary, .lead, .sublead, .sticky-text, .qp-item, .booksub, .
     flex: 0 0 auto;
   }
 
-  /* Body-Padding: lieber zu viel als 1 Zeile abgeschnitten */
-  body{ padding-bottom: 112px; }
-}
+  /* Content darf nicht hinter dem Sticky verschwinden */
+  body{
+    padding-bottom: calc(132px + env(safe-area-inset-bottom));
+  }
 
-/* 4) Absolute Airbag gegen 1px-Overflow (Android Subpixel) */
-@media (max-width: 740px){
+  /* Absolute Airbag gegen 1px-Overflow (Android Subpixel) */
   body{ overflow-x: clip; }
 }
-
-@media (max-width: 520px){
-  .bookbox{
-    grid-template-columns: 1fr; /* ✅ Cover oben, Text unten */
-  }
-  .bookimg{
-    max-width: 220px;           /* optional: sieht “editorial” aus */
-    margin: 0 auto;
-  }
-}
-
