@@ -577,6 +577,52 @@ p, li, h1, h2, h3, summary, .lead, .sublead, .sticky-text, .qp-item, .booksub, .
   .card, .hero-card, .stopper-card, .anti-bs-inner, .cta-strip, .bookbox,
   .qp-item, .pill{
     min-width: 0;
+ 
   }
+}
+
+/* =========================
+   FINAL MOBILE FIX: no horizontal scroll + clean sticky
+   ========================= */
+
+/* 1) Textumbruch: hübsch & kontrolliert */
+:where(p, li, .lead, .sublead, .booksub, details.card p){
+  overflow-wrap: break-word; /* weniger brutal als anywhere */
+  word-break: normal;
+}
+
+/* Wenn wirklich ein Extrem-Wort kommt, nur dann irgendwo brechen */
+:where(h1, h2, h3, summary){
+  overflow-wrap: anywhere;
+}
+
+/* 2) Quick-proof Pills dürfen umbrechen, statt zu drücken */
+.quick-proof{ min-width: 0; }
+.qp-item{
+  max-width: 100%;
+  min-width: 0;
+  white-space: normal;          /* wichtig: Pill darf 2 Zeilen machen */
+}
+
+/* 3) Sticky: links schrumpft, rechts bleibt Button sichtbar */
+@media (max-width: 740px){
+  .sticky-inner{
+    min-width: 0;
+  }
+  .sticky-text{
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;     /* "System statt Grübeln…" statt Overflow */
+  }
+  .sticky-inner .btn{
+    flex: 0 0 auto;
+  }
+}
+
+/* 4) Absolute Airbag gegen 1px-Overflow (Android Subpixel) */
+@media (max-width: 740px){
+  body{ overflow-x: clip; }
 }
 
