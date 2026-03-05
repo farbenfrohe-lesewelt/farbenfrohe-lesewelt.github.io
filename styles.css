@@ -506,6 +506,34 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
     padding:6px 9px !important;
   }
 
+    /* ✅ FIX: Header darf auf Android nicht "überstehen" */
+  .topbar-inner{
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;   /* verhindert 1px-Überstand */
+  }
+
+  /* ✅ FIX: Flex-Children dürfen schrumpfen (entscheidend!) */
+  .brand,
+  .top-actions{
+    min-width: 0 !important;
+  }
+
+  /* ✅ FIX: Brand-Text darf nicht den Header sprengen */
+  .brand-text{
+    max-width: 36vw !important;    /* passt sich an, ohne rechts zu schneiden */
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  /* ✅ FIX: Rechter Button darf nicht mit langem Text overflowen */
+  .top-actions .btn-primary{
+    max-width: 42vw !important;    /* verhindert "Testleserplätze sichern" Overflow */
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
 }
 
 /* Responsive */
