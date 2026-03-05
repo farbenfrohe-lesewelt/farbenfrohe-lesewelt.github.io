@@ -726,7 +726,7 @@ p, li, h1, h2, h3, summary, .lead, .sublead, .sticky-text, .qp-item, .booksub, .
   }
 
   /* Body-Padding: lieber zu viel als 1 Zeile abgeschnitten */
-  body{ padding-bottom: 112px; }
+  body{ padding-bottom: 124px; }
 }
 
 /* 4) Absolute Airbag gegen 1px-Overflow (Android Subpixel) */
