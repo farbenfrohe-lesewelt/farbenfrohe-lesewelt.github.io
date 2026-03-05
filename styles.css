@@ -126,7 +126,7 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
 .small{ font-size:.92rem; }
 
 /* Hero */
-.hero{ padding: 2.1rem 0 1.1rem; }
+.hero{ padding: 1.6rem 0 1.0rem; }
 .hero-grid{
   display:grid;
   grid-template-columns: 1.35fr .95fr;
@@ -466,7 +466,7 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
     position: sticky !important;
     top: 0 !important;
     z-index: 10000 !important;
-    padding: 6px 0 !important;
+    padding: 4px 0 !important;
   }
 
   .topbar-inner{
@@ -474,6 +474,7 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
     align-items:center !important;
     justify-content:space-between !important;
     gap:8px !important;
+    padding: .55rem 0 !important;
   }
 
   /* Logo kompakter */
@@ -482,8 +483,24 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
     height:auto !important;
   }
 
+    /* ✅ Brand-Text: 2-zeilig statt "..." (nur mobil) */
   .brand-text{
-    font-size:14px !important;
+    font-size: 13px !important;
+    line-height: 1.05 !important;
+    font-weight: 750 !important;
+    color: var(--muted) !important;
+
+    /* zweizeilig erlauben */
+    white-space: normal !important;
+    overflow: hidden !important;
+
+    /* auf genau 2 Zeilen begrenzen (Android/Chrome-safe) */
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+
+    /* damit es sauber neben Logo passt */
+    max-width: 34vw !important;
   }
 
   /* Button-Leiste */
