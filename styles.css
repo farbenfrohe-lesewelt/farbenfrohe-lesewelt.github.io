@@ -480,7 +480,7 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
    ========================= */
 @media (max-width: 920px){
     :root{
-    --sticky-space: 150px; /* Reserve für Sticky + Android UI */
+    --sticky-space: 120px; /* Reserve für Sticky + Android UI */
   }
   .hero-grid{ grid-template-columns: 1fr; }
   .bookbox{ grid-template-columns: 120px minmax(0, 1fr); }
