@@ -461,7 +461,6 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
    ========================= */
 @media (max-width: 640px) {
 
-  /* Sticky statt fixed -> verhindert Android Chrome clipping */
   .topbar{
     position: sticky !important;
     top: 0 !important;
@@ -475,6 +474,16 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
     justify-content:space-between !important;
     gap:8px !important;
     padding: .55rem 0 !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;   /* verhindert 1px-Überstand */
+  }
+
+  /* Flex-Children dürfen schrumpfen */
+  .brand,
+  .top-actions{
+    min-width: 0 !important;
   }
 
   /* Logo kompakter */
@@ -483,30 +492,29 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
     height:auto !important;
   }
 
-    /* ✅ Brand-Text: 2-zeilig statt "..." (nur mobil) */
+  /* ✅ Brand-Text: 2 Zeilen, kein "..." */
   .brand-text{
     font-size: 13px !important;
     line-height: 1.05 !important;
     font-weight: 750 !important;
     color: var(--muted) !important;
 
-    /* zweizeilig erlauben */
-    white-space: normal !important;
+    max-width: 34vw !important;
+    min-width: 0 !important;
     overflow: hidden !important;
 
-    /* auf genau 2 Zeilen begrenzen (Android/Chrome-safe) */
+    white-space: normal !important;
+
     display: -webkit-box !important;
     -webkit-box-orient: vertical !important;
     -webkit-line-clamp: 2 !important;
-
-    /* damit es sauber neben Logo passt */
-    max-width: 34vw !important;
   }
 
   /* Button-Leiste */
   .top-actions{
     display:flex !important;
     gap:6px !important;
+    align-items:center !important;
   }
 
   /* MOBILE BUTTONS kleiner */
@@ -516,41 +524,15 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
     border-radius:10px !important;
     line-height:1.1 !important;
     white-space:nowrap !important;
+    max-width: 42vw !important;          /* Airbag */
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;  /* "Testleserpl…" falls nötig */
   }
 
   /* Ghost Button etwas dezenter */
   .top-actions .btn-ghost{
     padding:6px 9px !important;
   }
-
-    /* ✅ FIX: Header darf auf Android nicht "überstehen" */
-  .topbar-inner{
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: hidden !important;   /* verhindert 1px-Überstand */
-  }
-
-  /* ✅ FIX: Flex-Children dürfen schrumpfen (entscheidend!) */
-  .brand,
-  .top-actions{
-    min-width: 0 !important;
-  }
-
-  /* ✅ FIX: Brand-Text darf nicht den Header sprengen */
-  .brand-text{
-    max-width: 36vw !important;    /* passt sich an, ohne rechts zu schneiden */
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    white-space: nowrap !important;
-  }
-
-  /* ✅ FIX: Rechter Button darf nicht mit langem Text overflowen */
-  .top-actions .btn-primary{
-    max-width: 42vw !important;    /* verhindert "Testleserplätze sichern" Overflow */
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-
 }
 
 /* Responsive */
@@ -598,6 +580,11 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
   body{
     padding-bottom: calc(88px + env(safe-area-inset-bottom));
   }
+}
+
+@media (max-width: 740px){
+  .hero{ padding: 1.35rem 0 1.0rem; }
+  .eyebrow{ margin: 0 0 .45rem; }
 }
 
 /* =========================
