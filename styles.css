@@ -674,3 +674,29 @@ p, li, h1, h2, h3, summary, .lead, .sublead, .sticky-text, .qp-item, .booksub, .
     margin: 0 auto;
   }
 }
+
+/* =========================
+   FIX: "Farbliche Überlagerung"/Streifen (Chrome/Android)
+   Ursache: backdrop-filter + sticky/fixed Compositing
+   Lösung: Blur auf Mobile deaktivieren, Desktop bleibt clean
+   ========================= */
+
+/* Desktop: Blur ok, aber Layer stabilisieren */
+.topbar,
+.sticky-cta{
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transform: translateZ(0);   /* stabilisiert Rendering */
+  will-change: transform;
+  contain: paint;
+}
+
+/* Mobile: Blur AUS -> verhindert die horizontalen Streifen */
+@media (max-width: 820px){
+  .topbar,
+  .sticky-cta{
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background: rgba(251,247,240,.98) !important; /* optisch wie vorher, nur ohne Blur */
+  }
+}
