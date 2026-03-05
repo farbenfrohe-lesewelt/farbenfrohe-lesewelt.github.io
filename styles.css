@@ -675,23 +675,3 @@ p, li, h1, h2, h3, summary, .lead, .sublead, .sticky-text, .qp-item, .booksub, .
   }
 }
 
-/* =========================
-   BACKGROUND BANDing FIX (no asset): subtle noise overlay
-   ========================= */
-body::before{
-  content:"";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  opacity: .045; /* 0.03–0.06 */
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      rgba(0,0,0,.018) 0px,
-      rgba(0,0,0,.018) 1px,
-      rgba(255,255,255,.018) 2px,
-      rgba(255,255,255,.018) 3px
-    );
-  mix-blend-mode: soft-light; /* overlay geht auch, soft-light ist “ruhiger” */
-}
