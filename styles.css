@@ -253,9 +253,16 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
 }
 .bookbox{
   display:grid;
-  grid-template-columns: 132px 1fr;
+  grid-template-columns: 132px minmax(0, 1fr); /* ✅ verhindert Overflow */
   gap: 1rem;
   align-items: start;
+  max-width: 100%;
+}
+.bookmeta{
+  min-width: 0;                 /* ✅ erlaubt echtes Shrinken */
+}
+.bookmeta *{
+  min-width: 0;                 /* ✅ Airbag für lange Zeilen/Buttons */
 }
 .bookimg{
   border-radius: 18px;
@@ -658,3 +665,12 @@ p, li, h1, h2, h3, summary, .lead, .sublead, .sticky-text, .qp-item, .booksub, .
   body{ overflow-x: clip; }
 }
 
+@media (max-width: 520px){
+  .bookbox{
+    grid-template-columns: 1fr; /* ✅ Cover oben, Text unten */
+  }
+  .bookimg{
+    max-width: 220px;           /* optional: sieht “editorial” aus */
+    margin: 0 auto;
+  }
+}
