@@ -16,7 +16,15 @@
 }
 
 *{ box-sizing:border-box; }
-html,body{ height:100%; }
+
+html,body{
+  height:100%;
+  width:100%;
+  overflow-x: clip;
+}
+@supports not (overflow-x: clip){
+  html,body{ overflow-x: hidden; }
+}
 
 body{
   margin:0;
@@ -429,15 +437,19 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
 .footer a{ color: var(--muted); }
 .footer a:hover{ color: var(--text); }
 
-/* Sticky CTA (mobile) */
-.sticky-cta{
-  display:none;
-}
+/* Sticky CTA (default: hidden; shown on mobile) */
+.sticky-cta{ display:none; }
+
 .sticky-inner{
   width: min(var(--max), 100% - 1rem);
+  max-width: 100%;
   margin-inline:auto;
-  display:flex; align-items:center; justify-content:space-between; gap:.75rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.75rem;
   padding:.75rem .75rem;
+  box-sizing: border-box;
 }
 .sticky-text{
   font-weight: 900;
@@ -502,24 +514,69 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
   .bookbox{ grid-template-columns: 120px 1fr; }
 }
 @media (max-width: 740px){
+
   .grid-2, .grid-3{ grid-template-columns: 1fr; }
   .cta-strip-inner{ flex-direction: column; align-items:flex-start; }
 
-  /* make duo buttons stack nicer on small screens */
   .cta-duo{ width:100%; }
   .cta-duo .btn{ width:100%; }
 
-  /* show sticky on small screens */
+  /* Sticky CTA */
   .sticky-cta{
     display:block;
     position: fixed;
     left:0; right:0; bottom:0;
+    width:100%;
+    max-width:100%;
     background: rgba(251,247,240,.92);
     backdrop-filter: blur(10px);
     border-top: 1px solid var(--border);
     box-shadow: 0 -10px 30px rgba(18,24,35,.10);
     padding-bottom: max(.25rem, env(safe-area-inset-bottom));
     z-index: 60;
+    overflow:hidden;
   }
-  body{ padding-bottom: 88px; }
+
+  .sticky-inner{
+    width: min(var(--max), 100% - 1rem);
+    max-width: 100%;
+    margin-inline:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:.75rem;
+    padding:.75rem .75rem;
+    box-sizing:border-box;
+    min-width:0;
+  }
+
+  body{
+    padding-bottom: calc(88px + env(safe-area-inset-bottom));
+  }
 }
+
+/* =========================
+   MOBILE: TEXT DARF NIE HORIZONTAL DRÜCKEN
+   ========================= */
+p, li, h1, h2, h3, summary, .lead, .sublead, .sticky-text, .qp-item, .booksub, .card, .muted{
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+/* =========================
+   MOBILE: GRID/FLEX CHILDREN DÜRFEN SCHRUMPFEN
+   ========================= */
+@media (max-width: 740px){
+  .grid, .hero-grid,
+  .topbar-inner, .top-actions,
+  .bookbox, .cta-strip-inner,
+  .sticky-inner, .quick-proof, .pill-row, .cta-duo{
+    min-width: 0;
+  }
+
+  .card, .hero-card, .stopper-card, .anti-bs-inner, .cta-strip, .bookbox,
+  .qp-item, .pill{
+    min-width: 0;
+  }
+}
+
