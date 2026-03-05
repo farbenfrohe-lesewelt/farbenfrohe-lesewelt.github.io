@@ -478,12 +478,15 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
 /* =========================
    RESPONSIVE
    ========================= */
-
+@media (max-width: 920px){
+    :root{
+    --sticky-space: 120px; /* Reserve für Sticky + Android UI */
+  }
+  .hero-grid{ grid-template-columns: 1fr; }
+  .bookbox{ grid-template-columns: 120px minmax(0, 1fr); }
+}
 
 @media (max-width: 740px){
-  :root{
-    --sticky-space: 112px; /* Startwert */
-  }
   .grid-2, .grid-3{ grid-template-columns: 1fr; }
   .cta-strip-inner{ flex-direction: column; align-items:flex-start; }
 
