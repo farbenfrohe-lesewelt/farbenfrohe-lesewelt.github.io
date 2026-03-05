@@ -672,19 +672,61 @@ p, li, h1, h2, h3, summary, .lead, .sublead, .sticky-text, .qp-item, .booksub, .
 
 /* 3) Sticky: links schrumpft, rechts bleibt Button sichtbar */
 @media (max-width: 740px){
-  .sticky-inner{
-    min-width: 0;
+
+  .sticky-cta{
+    display:block;
+    position: fixed;
+    left:0; right:0; bottom:0;
+    background: rgba(251,247,240,.94);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -10px 30px rgba(18,24,35,.10);
+    z-index: 60;
+
+    /* mehr “Luft” + safe area */
+    padding: .35rem 0 calc(.35rem + env(safe-area-inset-bottom));
   }
+
+  .sticky-inner{
+    width: min(var(--max), 100% - 1rem);
+    margin-inline:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:.6rem;
+
+    /* verhindert Clipping durch zu enge Höhen */
+    min-height: 56px;
+    padding: .25rem .25rem;
+  }
+
   .sticky-text{
-    flex: 1;
-    min-width: 0;
+    font-weight: 850;
+    color: var(--text);
+
+    /* kleiner + keine Überlänge */
+    font-size: 13px;
+    line-height: 1.15;
+
+    /* wenn’s eng wird: elegant kürzen statt Umbruch-chaos */
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;     /* "System statt Grübeln…" statt Overflow */
+    text-overflow: ellipsis;
+    max-width: 52vw;
   }
-  .sticky-inner .btn{
+
+  .sticky-cta .btn{
+    padding: 10px 12px;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 14px;
+    white-space: nowrap;
     flex: 0 0 auto;
   }
+
+  /* Body-Padding: lieber zu viel als 1 Zeile abgeschnitten */
+  body{ padding-bottom: 112px; }
 }
 
 /* 4) Absolute Airbag gegen 1px-Overflow (Android Subpixel) */
