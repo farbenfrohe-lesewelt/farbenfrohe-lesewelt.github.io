@@ -126,6 +126,13 @@ h3{ margin:0 0 .35rem; font-size:1.06rem; }
   align-items: start;
 }
 
+.hero-identity{
+  font-weight:700;
+  color:#2b3647;
+  margin: .4rem 0 .8rem;
+  font-size:1.05rem;
+}
+
 .eyebrow{
   margin:0 0 .55rem;
   color: var(--muted2);
