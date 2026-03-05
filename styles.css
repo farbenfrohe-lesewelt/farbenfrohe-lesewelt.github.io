@@ -488,7 +488,7 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
 
 @media (max-width: 740px){
   :root{
-    --sticky-space: 90px; /* Startwert, dann feinjustieren */
+    --sticky-space: 10px; /* Startwert, dann feinjustieren */
   }
   .grid-2, .grid-3{ grid-template-columns: 1fr; }
   .cta-strip-inner{ flex-direction: column; align-items:flex-start; }
