@@ -10,9 +10,9 @@
   <header class="topbar">
     <div class="container topbar-inner">
       <div class="brand">
-  		<img class="brand-logo" src="../assets/flw-logo.webp" alt="Farbenfrohe Lesewelt" loading="eager">
-  		<span class="brand-text">Farbenfrohe Lesewelt</span>
-	  </div>
+        <img class="brand-logo" src="../assets/flw-logo.webp" alt="Farbenfrohe Lesewelt" loading="eager">
+        <span class="brand-text">Farbenfrohe Lesewelt</span>
+      </div>
       <nav class="top-actions" aria-label="Aktionen">
         <a class="btn" href="../index.html">Zurück</a>
       </nav>
@@ -22,27 +22,39 @@
   <main class="section">
     <div class="container">
       <h1>Impressum</h1>
+
       <div class="card">
-        <p><strong>Anbieter</strong><br>
+        <p>
+          <strong>Anbieter</strong><br>
           Farbenfrohe Lesewelt<br>
-          <em>Patrick Guttenberger - Einzelunternehmer</em><br>
-          <em>Penzendorfer Str. 21</em><br>
-          <em>91126 Schwabach</em><br>
-          <em>Deutschland</em>
+          Patrick Guttenberger<br>
+          Penzendorfer Str. 21<br>
+          91126 Schwabach<br>
+          Deutschland
         </p>
 
-        <p><strong>Kontakt</strong><br>
-          E-Mail: <em>farbenfrohe-lesewelt@web.de</em><br>
+        <p>
+          <strong>Kontakt</strong><br>
+          E-Mail: farbenfrohe-lesewelt@web.de
         </p>
 
-        <p><strong>Verantwortlich für den Inhalt</strong><br>
-          <em>Patrick Guttenberger</em><br>
-          <em>91126 Schwabach</em>
-	  <em>Deutschland</em>
+        <p>
+          <strong>Umsatzsteuer-ID</strong><br>
+          USt-IdNr.: DE350004249
+        </p>
+
+        <p>
+          <strong>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</strong><br>
+          Patrick Guttenberger<br>
+          Penzendorfer Str. 21<br>
+          91126 Schwabach<br>
+          Deutschland
         </p>
 
         <p class="muted small">
-          Hinweis: Diese Seite ist eine Landingpage zur Buchinformation. Keine Cookies, kein Tracking, kein Kontaktformular.
+          Hinweis: Diese Website dient der Information zu Buch- und Testleserangeboten von Farbenfrohe Lesewelt.
+          Auf einzelnen Seiten kann nach Einwilligung ein Meta-Pixel geladen werden. Details dazu findest du in der
+          <a href="datenschutz.html">Datenschutzerklärung</a>.
         </p>
       </div>
     </div>
@@ -53,7 +65,9 @@
       <p class="muted small"><a href="../index.html">Startseite</a> · <a href="datenschutz.html">Datenschutz</a></p>
       <p class="muted small">© <span id="year"></span> Farbenfrohe Lesewelt</p>
     </div>
-    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
   </footer>
 </body>
 </html>
