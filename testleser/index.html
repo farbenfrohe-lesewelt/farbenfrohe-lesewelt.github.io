@@ -22,6 +22,51 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="256x256" href="/assets/favicon-256.png">
 
+  <script>
+    const META_PIXEL_ID = '1599368868061138';
+    const META_CONSENT_KEY = 'flw_meta_consent';
+    let metaPixelLoaded = false;
+
+    function loadMetaPixel() {
+      if (metaPixelLoaded) return;
+      metaPixelLoaded = true;
+
+      !(function(f,b,e,v,n,t,s){
+        if(f.fbq) return;
+        n=f.fbq=function(){n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)};
+        if(!f._fbq) f._fbq=n;
+        n.push=n;
+        n.loaded=!0;
+        n.version='2.0';
+        n.queue=[];
+        t=b.createElement(e);
+        t.async=!0;
+        t.src=v;
+        s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s);
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+
+      fbq('init', META_PIXEL_ID);
+      fbq('track', 'PageView');
+    }
+
+    function metaTrack(method, eventName, params = {}) {
+      if (typeof fbq !== 'function') return;
+      if (method === 'track') {
+        fbq('track', eventName, params);
+      } else {
+        fbq('trackCustom', eventName, params);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const consent = localStorage.getItem(META_CONSENT_KEY);
+      if (consent === 'granted') {
+        loadMetaPixel();
+      }
+    });
+  </script>
+
   <style>
     /* Keep hero CTA above the fold on mobile */
     .hero .lead { margin-bottom: 14px; }
@@ -46,7 +91,6 @@
       --safe-bottom: env(safe-area-inset-bottom);
     }
 
-    /* If your main CSS uses sticky/fixed header, this prevents clipping + gives breathing room */
     .topbar{
       top: 0 !important;
       padding-top: calc(8px + var(--safe-top)) !important;
@@ -58,7 +102,6 @@
       padding-bottom: 10px !important;
       align-items: center;
     }
-    /* If any button row gets clipped by height/line-height, this stabilizes it */
     .top-actions .btn{
       line-height: 1.1;
       white-space: nowrap;
@@ -90,12 +133,10 @@
       touch-action: manipulation;
     }
 
-    /* Give page content a little room so the fixed sticky CTA doesn't sit on top of content */
     body{
       padding-bottom: calc(84px + var(--safe-bottom));
     }
 
-    /* Micro-commitment chips + guide */
     .mini-commit {
       display: grid;
       gap: 10px;
@@ -157,52 +198,73 @@
       font-size: 13px;
       opacity:.75;
     }
-
-    /* Optional: give a tiny visual "guided" feel */
     .phase-guide.is-open{
       box-shadow: 0 10px 28px rgba(0,0,0,.06);
       border-color: rgba(0,0,0,.14);
     }
 
-    /* =========================
-   MOBILE: Sticky CTA AUS
-   ========================= */
-@media (max-width: 640px) {
-  .sticky-cta {
-    display: none !important;
-  }
-  /* falls dein Haupt-CSS irgendwo padding fürs Sticky setzt */
-  body {
-    padding-bottom: 0 !important;
-  }
-}
+    @media (max-width: 640px) {
+      .sticky-cta {
+        display: none !important;
+      }
+      body {
+        padding-bottom: 0 !important;
+      }
+    }
 
-/* =========================
-   MOBILE: Header-CTA kürzen
-   (Desktop bleibt unverändert)
-   ========================= */
-@media (max-width: 640px) {
+    @media (max-width: 640px) {
+      .top-actions .btn{
+        padding: 8px 10px !important;
+        font-size: 13px !important;
+        white-space: nowrap !important;
+      }
 
-  /* Buttons im Header etwas kompakter, damit alles nebeneinander passt */
-  .top-actions .btn{
-    padding: 8px 10px !important;
-    font-size: 13px !important;
-    white-space: nowrap !important;
-  }
+      .top-actions .btn-primary{
+        font-size: 0 !important;
+        line-height: 0 !important;
+      }
+      .top-actions .btn-primary::after{
+        content: "Testleserplatz" !important;
+        font-size: 13px !important;
+        line-height: 1 !important;
+        font-weight: 700 !important;
+      }
+    }
 
-  /* Primär-CTA Text ersetzen (robust gegen Überschreibungen im main CSS) */
-  .top-actions .btn-primary{
-    font-size: 0 !important;         /* Originaltext verstecken */
-    line-height: 0 !important;
-  }
-  .top-actions .btn-primary::after{
-    content: "Testleserplatz" !important; /* ohne “sichern” */
-    font-size: 13px !important;
-    line-height: 1 !important;
-    font-weight: 700 !important;
-  }
-}
-    
+    /* Consent Banner */
+    .cookie-banner{
+      position: fixed;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      z-index: 2147483647;
+      background: rgba(255,255,255,.98);
+      border: 1px solid rgba(29,36,48,.14);
+      border-radius: 18px;
+      box-shadow: 0 18px 42px rgba(18,24,35,.16);
+      padding: 16px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .cookie-banner[hidden]{ display:none !important; }
+    .cookie-banner h3{
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+    .cookie-banner p{
+      margin: 0 0 12px;
+      color: #566173;
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+    .cookie-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .cookie-actions .btn{
+      cursor:pointer;
+    }
   </style>
 </head>
 
@@ -233,13 +295,11 @@
         <div class="hero-copy">
           <p class="eyebrow">Für (werdende) Eltern mit Katze · Schwangerschaft bis Kleinkind</p>
 
-          <!-- HERO HEADLINE (improved) -->
           <h1>
             Baby &amp; Katze – sicher zusammen.<br>
             <span class="soft">Mit einem Plan, der auch im müden Alltag hält.</span>
           </h1>
 
-          <!-- HERO LEAD (improved) -->
           <p class="lead">
             Wir vergeben eine begrenzte Anzahl Testleserplätze für ein <strong>PDF-Vorabexemplar</strong> (Print-Replika).
             Du bekommst ein praxistaugliches System aus <strong>Zonen</strong>, <strong>Standards</strong> und <strong>Wenn-Dann-Regeln</strong> – damit du nicht in Stressmomenten diskutieren oder improvisieren musst.
@@ -251,7 +311,6 @@
             <li>✓ Feedback in Stichpunkten (kurz reicht völlig)</li>
           </ul>
 
-          <!-- Micro-commitment chips -->
           <div class="mini-commit" aria-label="Kurzer Check">
             <p class="mini-note"><strong>Kurzer Check:</strong> Welche Situation passt gerade am ehesten zu euch?</p>
 
@@ -262,7 +321,6 @@
               <button class="mini-btn" type="button" data-phase="kleinkind">🧒 Kleinkind</button>
             </div>
 
-            <!-- NOTE: guide stays neutral until click -->
             <div class="phase-guide" id="phaseGuide" aria-live="polite">
               <p id="phaseText">
                 <strong>In deiner Phase ist besonders wichtig:</strong>
@@ -277,14 +335,14 @@
           </div>
 
           <div class="hero-cta" id="bewerben">
-            <a class="btn btn-primary btn-large" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">
+            <a class="btn btn-primary btn-large" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="metaTrack('track','Lead');">
               Testleserplatz sichern
             </a>
             <p class="muted" style="margin-top:10px;">
               Bewerbung in ca. <strong>2 Minuten</strong>. Du musst nicht alles lesen — viele starten mit dem Kapitel, das gerade am wichtigsten ist.
             </p>
           </div>
-
+        </div>
 
         <aside class="hero-card" aria-label="Buchvorschau">
           <div class="bookbox">
@@ -306,7 +364,7 @@
                 <li><strong>Phase für Phase</strong> – von Bauch bis Laufstart</li>
               </ul>
 
-              <a class="btn btn-primary btn-block" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">
+              <a class="btn btn-primary btn-block" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="metaTrack('track','Lead');">
                 Testleserplatz sichern
               </a>
 
@@ -330,7 +388,7 @@
           </div>
 
           <div style="margin-top:14px;">
-            <a class="btn btn-primary btn-large" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">
+            <a class="btn btn-primary btn-large" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="metaTrack('track','Lead');">
               Testleserplatz sichern
             </a>
             <p class="muted small" style="margin-top:8px;">Bewerbung dauert ca. 2 Minuten.</p>
@@ -370,7 +428,7 @@
               <h3>Bereit?</h3>
               <p class="muted">Sichere dir einen Testleserplatz, solange Plätze verfügbar sind.</p>
             </div>
-            <a class="btn btn-primary btn-large" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">
+            <a class="btn btn-primary btn-large" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="metaTrack('track','Lead');">
               Jetzt bewerben
             </a>
           </div>
@@ -411,7 +469,7 @@
         </div>
 
         <div style="margin-top:18px;">
-          <a class="btn btn-primary btn-large" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">
+          <a class="btn btn-primary btn-large" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="metaTrack('track','Lead');">
             Testleserplatz sichern
           </a>
           <p class="muted small" style="margin-top:8px;">Dauer: ca. 2 Minuten.</p>
@@ -484,7 +542,7 @@
               <h3>Okay, ich will den Plan.</h3>
               <p class="muted">Bewerbung in ca. 2 Minuten.</p>
             </div>
-            <a class="btn btn-primary btn-large" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">
+            <a class="btn btn-primary btn-large" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="metaTrack('track','Lead');">
               Testleserplatz sichern
             </a>
           </div>
@@ -496,10 +554,9 @@
     <div class="sticky-cta" role="region" aria-label="Schnellaktion">
       <div class="sticky-inner">
         <span class="sticky-text">Testleserplatz sichern</span>
-        <a class="btn btn-primary" href="https://forms.gle/p15pRZQJr5EixTDv8" rel="noopener nofollow">Jetzt bewerben</a>
+        <a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="metaTrack('track','Lead');">Jetzt bewerben</a>
       </div>
     </div>
-
   </main>
 
   <footer class="footer">
@@ -513,7 +570,7 @@
           <a href="../legal/datenschutz.html">Datenschutz</a>
         </p>
         <p class="muted small">
-          <span style="opacity:.75">Kein Tracking: keine Pixel, keine Cookies, keine externen Fonts.</span>
+          <span style="opacity:.75">Optionales Meta-Pixel erst nach Einwilligung. Keine externen Fonts.</span>
         </p>
       </div>
 
@@ -521,99 +578,134 @@
         <p class="muted small">© <span id="year"></span> Farbenfrohe Lesewelt</p>
       </div>
     </div>
-
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
-
-    <script>
-      // --- Prefill links (your provided ones) ---
-      const phaseCopy = {
-        kinderwunsch: {
-          label: "→ Testleserplatz (Vorbereitung) sichern",
-          text:
-            "<strong>In dieser Phase zählt am meisten:</strong> jetzt die „Nicht-diskutieren-Standards“ festlegen (Schlafzimmer, Katzenklo, Rückzugsorte). Dann startet ihr später mit Plan – nicht mit Googeln.",
-          link:
-            "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Keine+Kinder,+aber+Kinderwunsch"
-        },
-        schwanger: {
-          label: "→ Testleserplatz (Schwangerschaft) sichern",
-          text:
-            "<strong>In der Schwangerschaft ist Gold wert:</strong> Gewohnheiten sanft umstellen, Zonen vorbereiten, Rückzugsorte schaffen – solange noch Ruhe dafür da ist. Das spart euch später Stress-Entscheidungen.",
-          link:
-            "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Schwanger"
-        },
-        baby: {
-          label: "→ Testleserplatz (Baby-Phase) sichern",
-          text:
-            "<strong>Mit Baby zählt am meisten:</strong> Mini-Standards für Nacht, Wickeln und erste Begegnungen – damit ihr im müden Moment nicht diskutieren oder improvisieren müsst.",
-          link:
-            "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Baby+(0%E2%80%9312+Monate)"
-        },
-        kleinkind: {
-          label: "→ Testleserplatz (Kleinkind) sichern",
-          text:
-            "<strong>Mit Kleinkind ist entscheidend:</strong> klare Familienregeln für Abstand + sichere Rückzugsorte der Katze – weil Tempo, Lautstärke und Katzenklo plötzlich „super spannend“ werden.",
-          link:
-            "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Kleinkind+(1%E2%80%933+Jahre)"
-        }
-      };
-
-      const buttons = Array.from(document.querySelectorAll(".mini-btn[data-phase]"));
-      const phaseText = document.getElementById("phaseText");
-      const phaseGuide = document.getElementById("phaseGuide");
-      const phaseCta = document.getElementById("phaseCta");
-      const phaseApplyBtn = document.getElementById("phaseApplyBtn");
-
-      function setActive(btn){
-        buttons.forEach(b => b.classList.remove("is-active"));
-        btn.classList.add("is-active");
-      }
-
-      // Smooth scroll helper (guided feel)
-      function smoothScrollTo(el){
-        if(!el) return;
-        const y = el.getBoundingClientRect().top + window.scrollY - 120;
-        window.scrollTo({ top: y, behavior: "smooth" });
-      }
-
-      let selectedPhaseKey = null;
-
-      buttons.forEach(btn => {
-        btn.addEventListener("click", () => {
-          const key = btn.dataset.phase;
-          selectedPhaseKey = key;
-
-          setActive(btn);
-
-          phaseText.innerHTML = phaseCopy[key].text;
-          phaseApplyBtn.href = phaseCopy[key].link;
-          phaseApplyBtn.textContent = phaseCopy[key].label;
-
-          phaseCta.style.display = "flex";
-          phaseGuide.classList.add("is-open");
-
-          // Guided feel: bring the guide box into view (but do NOT jump to form)
-          smoothScrollTo(phaseGuide);
-        });
-      });
-
-      // Click on the CTA: short smooth scroll "confirmation" + then open the prefilled form
-      phaseApplyBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        if(!selectedPhaseKey) return;
-
-        // tiny guided motion before leaving the page
-        smoothScrollTo(phaseGuide);
-
-        const url = phaseCopy[selectedPhaseKey].link;
-
-        // small delay so the scroll is perceived, then navigate
-        setTimeout(() => {
-          window.location.href = url;
-        }, 220);
-      });
-    </script>
   </footer>
+
+  <div class="cookie-banner" id="cookieBanner" hidden>
+    <h3>Cookies & Statistik</h3>
+    <p>
+      Wenn du zustimmst, laden wir ein Meta-Pixel, um Seitenaufrufe und Klicks auf Bewerbungsbuttons zu messen.
+      So können wir unsere Werbung verbessern. Mehr dazu in der <a href="../legal/datenschutz.html">Datenschutzerklärung</a>.
+    </p>
+    <div class="cookie-actions">
+      <button class="btn btn-primary" id="cookieAccept" type="button">Akzeptieren</button>
+      <button class="btn btn-ghost" id="cookieDecline" type="button">Ablehnen</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <script>
+    const phaseCopy = {
+      kinderwunsch: {
+        label: "→ Testleserplatz (Vorbereitung) sichern",
+        text:
+          "<strong>In dieser Phase zählt am meisten:</strong> jetzt die „Nicht-diskutieren-Standards“ festlegen (Schlafzimmer, Katzenklo, Rückzugsorte). Dann startet ihr später mit Plan – nicht mit Googeln.",
+        link:
+          "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Keine+Kinder,+aber+Kinderwunsch"
+      },
+      schwanger: {
+        label: "→ Testleserplatz (Schwangerschaft) sichern",
+        text:
+          "<strong>In der Schwangerschaft ist Gold wert:</strong> Gewohnheiten sanft umstellen, Zonen vorbereiten, Rückzugsorte schaffen – solange noch Ruhe dafür da ist. Das spart euch später Stress-Entscheidungen.",
+        link:
+          "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Schwanger"
+      },
+      baby: {
+        label: "→ Testleserplatz (Baby-Phase) sichern",
+        text:
+          "<strong>Mit Baby zählt am meisten:</strong> Mini-Standards für Nacht, Wickeln und erste Begegnungen – damit ihr im müden Moment nicht diskutieren oder improvisieren müsst.",
+        link:
+          "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Baby+(0%E2%80%9312+Monate)"
+      },
+      kleinkind: {
+        label: "→ Testleserplatz (Kleinkind) sichern",
+        text:
+          "<strong>Mit Kleinkind ist entscheidend:</strong> klare Familienregeln für Abstand + sichere Rückzugsorte der Katze – weil Tempo, Lautstärke und Katzenklo plötzlich „super spannend“ werden.",
+        link:
+          "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=pp_url&entry.1501236733=Kleinkind+(1%E2%80%933+Jahre)"
+      }
+    };
+
+    const buttons = Array.from(document.querySelectorAll(".mini-btn[data-phase]"));
+    const phaseText = document.getElementById("phaseText");
+    const phaseGuide = document.getElementById("phaseGuide");
+    const phaseCta = document.getElementById("phaseCta");
+    const phaseApplyBtn = document.getElementById("phaseApplyBtn");
+
+    function setActive(btn){
+      buttons.forEach(b => b.classList.remove("is-active"));
+      btn.classList.add("is-active");
+    }
+
+    function smoothScrollTo(el){
+      if(!el) return;
+      const y = el.getBoundingClientRect().top + window.scrollY - 120;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+
+    let selectedPhaseKey = null;
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.phase;
+        selectedPhaseKey = key;
+
+        setActive(btn);
+
+        phaseText.innerHTML = phaseCopy[key].text;
+        phaseApplyBtn.href = phaseCopy[key].link;
+        phaseApplyBtn.textContent = phaseCopy[key].label;
+
+        phaseCta.style.display = "flex";
+        phaseGuide.classList.add("is-open");
+
+        smoothScrollTo(phaseGuide);
+      });
+    });
+
+    phaseApplyBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      if(!selectedPhaseKey) return;
+
+      smoothScrollTo(phaseGuide);
+
+      const url = phaseCopy[selectedPhaseKey].link;
+
+      metaTrack('track', 'Lead');
+      metaTrack('trackCustom', 'ARCPhaseClick', {
+        phase: selectedPhaseKey
+      });
+
+      setTimeout(() => {
+        window.location.href = url;
+      }, 220);
+    });
+  </script>
+
+  <script>
+    (function () {
+      const banner = document.getElementById('cookieBanner');
+      const acceptBtn = document.getElementById('cookieAccept');
+      const declineBtn = document.getElementById('cookieDecline');
+      const consent = localStorage.getItem(META_CONSENT_KEY);
+
+      if (!consent) {
+        banner.hidden = false;
+      }
+
+      acceptBtn.addEventListener('click', function () {
+        localStorage.setItem(META_CONSENT_KEY, 'granted');
+        loadMetaPixel();
+        banner.hidden = true;
+      });
+
+      declineBtn.addEventListener('click', function () {
+        localStorage.setItem(META_CONSENT_KEY, 'denied');
+        banner.hidden = true;
+      });
+    })();
+  </script>
 </body>
 </html>
