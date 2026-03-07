@@ -25,6 +25,7 @@
   <script>
     const META_PIXEL_ID = '1599368868061138';
     const META_CONSENT_KEY = 'flw_meta_consent';
+    const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header";
     let metaPixelLoaded = false;
 
     function loadMetaPixel() {
@@ -57,6 +58,28 @@
       } else {
         fbq('trackCustom', eventName, params);
       }
+    }
+
+    function goToFormWithLead(event, url = FORM_URL) {
+      if (event) event.preventDefault();
+
+      const consent = localStorage.getItem(META_CONSENT_KEY);
+
+      if (consent === 'granted') {
+        if (!metaPixelLoaded) {
+          loadMetaPixel();
+        }
+
+        metaTrack('track', 'Lead');
+
+        setTimeout(() => {
+          window.location.href = url;
+        }, 220);
+
+        return;
+      }
+
+      window.location.href = url;
     }
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -280,8 +303,8 @@
 
       <nav class="top-actions" aria-label="Aktionen">
         <a class="btn btn-ghost" href="#fit">Passt das zu euch?</a>
-        <a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="metaTrack('track','Lead');">
-    Testleserplatz sichern
+        <a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="goToFormWithLead(event, this.href);">
+          Testleserplatz sichern
         </a>
       </nav>
     </div>
@@ -335,7 +358,7 @@
           </div>
 
           <div class="hero-cta" id="bewerben">
-            <a class="btn btn-primary btn-large" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="metaTrack('track','Lead');">
+            <a class="btn btn-primary btn-large" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="goToFormWithLead(event, this.href);">
               Testleserplatz sichern
             </a>
             <p class="muted" style="margin-top:10px;">
@@ -364,7 +387,7 @@
                 <li><strong>Phase für Phase</strong> – von Bauch bis Laufstart</li>
               </ul>
 
-              <a class="btn btn-primary btn-block" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="metaTrack('track','Lead');">
+              <a class="btn btn-primary btn-block" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="goToFormWithLead(event, this.href);">
                 Testleserplatz sichern
               </a>
 
@@ -388,7 +411,7 @@
           </div>
 
           <div style="margin-top:14px;">
-            <a class="btn btn-primary btn-large" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="metaTrack('track','Lead');">
+            <a class="btn btn-primary btn-large" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="goToFormWithLead(event, this.href);">
               Testleserplatz sichern
             </a>
             <p class="muted small" style="margin-top:8px;">Bewerbung dauert ca. 2 Minuten.</p>
@@ -428,7 +451,7 @@
               <h3>Bereit?</h3>
               <p class="muted">Sichere dir einen Testleserplatz, solange Plätze verfügbar sind.</p>
             </div>
-            <a class="btn btn-primary btn-large" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="metaTrack('track','Lead');">
+            <a class="btn btn-primary btn-large" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="goToFormWithLead(event, this.href);">
               Jetzt bewerben
             </a>
           </div>
@@ -469,7 +492,7 @@
         </div>
 
         <div style="margin-top:18px;">
-          <a class="btn btn-primary btn-large" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="metaTrack('track','Lead');">
+          <a class="btn btn-primary btn-large" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="goToFormWithLead(event, this.href);">
             Testleserplatz sichern
           </a>
           <p class="muted small" style="margin-top:8px;">Dauer: ca. 2 Minuten.</p>
@@ -542,7 +565,7 @@
               <h3>Okay, ich will den Plan.</h3>
               <p class="muted">Bewerbung in ca. 2 Minuten.</p>
             </div>
-            <a class="btn btn-primary btn-large" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="metaTrack('track','Lead');">
+            <a class="btn btn-primary btn-large" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="goToFormWithLead(event, this.href);">
               Testleserplatz sichern
             </a>
           </div>
@@ -554,7 +577,7 @@
     <div class="sticky-cta" role="region" aria-label="Schnellaktion">
       <div class="sticky-inner">
         <span class="sticky-text">Testleserplatz sichern</span>
-        <a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="metaTrack('track','Lead');">Jetzt bewerben</a>
+        <a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScFBW_rOle0AfyqNNPU63j4pDKdhzGCkIphyOtLpEPUpBy7vA/viewform?usp=header" rel="noopener nofollow" onclick="goToFormWithLead(event, this.href);">Jetzt bewerben</a>
       </div>
     </div>
   </main>
@@ -673,15 +696,26 @@ Mehr dazu in der <a href="../legal/datenschutz.html">Datenschutzerklärung</a>.
       smoothScrollTo(phaseGuide);
 
       const url = phaseCopy[selectedPhaseKey].link;
+      const consent = localStorage.getItem(META_CONSENT_KEY);
 
-      metaTrack('track', 'Lead');
-      metaTrack('trackCustom', 'ARCPhaseClick', {
-        phase: selectedPhaseKey
-      });
+      if (consent === 'granted') {
+        if (!metaPixelLoaded) {
+          loadMetaPixel();
+        }
 
-      setTimeout(() => {
-        window.location.href = url;
-      }, 220);
+        metaTrack('track', 'Lead');
+        metaTrack('trackCustom', 'ARCPhaseClick', {
+          phase: selectedPhaseKey
+        });
+
+        setTimeout(() => {
+          window.location.href = url;
+        }, 220);
+
+        return;
+      }
+
+      window.location.href = url;
     });
   </script>
 
