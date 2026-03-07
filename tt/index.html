@@ -44,7 +44,7 @@ box-shadow:0 10px 30px rgba(0,0,0,.12);
 
 .email-box{
 max-width:420px;
-margin:0 auto 30px;
+margin:0 auto 12px;
 display:flex;
 gap:10px;
 }
@@ -71,10 +71,56 @@ cursor:pointer;
 opacity:.92;
 }
 
+/* Consent */
+
+.consent{
+font-size:13px;
+color:#7a869a;
+display:block;
+max-width:420px;
+margin:8px auto 20px auto;
+line-height:1.4;
+}
+
+.consent input{
+margin-right:6px;
+}
+
+/* Trust */
+
 .trust{
 margin-top:14px;
+color:#7a869a;
+}
+
+.trust-list{
+list-style:none;
+padding:0;
+margin:8px 0 6px 0;
+font-size:14px;
+}
+
+.trust-list li{
+margin:4px 0;
+}
+
+.trust-proof{
+font-size:13px;
+margin-top:4px;
+color:#566173;
+font-weight:500;
+}
+
+.trust-note{
+font-size:13px;
+opacity:.85;
+}
+
+.hero-sub{
 font-size:14px;
 color:#7a869a;
+margin-top:-12px;
+margin-bottom:22px;
 }
 
 /* Sections */
@@ -112,41 +158,6 @@ margin:0 10px;
 text-decoration:none;
 }
 
-.trust{
-margin-top:14px;
-color:#7a869a;
-}
-
-.trust-list{
-list-style:none;
-padding:0;
-margin:8px 0 6px 0;
-font-size:14px;
-}
-
-.trust-list li{
-margin:4px 0;
-}
-
-.trust-note{
-font-size:13px;
-opacity:.85;
-}
-
-.trust-proof{
-font-size:13px;
-margin-top:4px;
-color:#566173;
-font-weight:500;
-}
-
-.hero-sub{
-font-size:14px;
-color:#7a869a;
-margin-top:-12px;
-margin-bottom:22px;
-}
-  
 </style>
 
 </head>
@@ -174,7 +185,14 @@ basierend auf den häufigsten Fragen von Eltern mit Katze
 <button type="submit">Checkliste senden</button>
 </form>
 
+<label class="consent">
+<input type="checkbox" name="consent" required>
+Ich möchte die kostenlose Checkliste erhalten und gelegentlich Emails zum Thema Baby & Katze bekommen.
+Infos zum Umgang mit Daten in der <a href="../datenschutz.html" target="_blank">Datenschutzerklärung</a>.
+</label>
+
 <div class="trust">
+
 <ul class="trust-list">
 <li>✔ sofortiger Download</li>
 <li>✔ 100 % kostenlos</li>
@@ -184,10 +202,11 @@ basierend auf den häufigsten Fragen von Eltern mit Katze
 <div class="trust-proof">
 Mehr als 500 Eltern haben sich die Checkliste bereits geholt
 </div>
-  
+
 <div class="trust-note">
 kostenlos · kein Spam · jederzeit abmelden
 </div>
+
 </div>
 
 </header>
@@ -258,6 +277,12 @@ Du brauchst ein paar klare Regeln, die auch funktionieren, wenn du müde bist.
 <input type="email" name="email" placeholder="Deine Emailadresse" required>
 <button type="submit">Checkliste erhalten</button>
 </form>
+
+<label class="consent">
+<input type="checkbox" name="consent" required>
+Ich möchte die kostenlose Checkliste erhalten und gelegentlich Emails zum Thema Baby & Katze bekommen.
+Infos zum Umgang mit Daten in der <a href="../datenschutz.html" target="_blank">Datenschutzerklärung</a>.
+</label>
 
 </section>
 
