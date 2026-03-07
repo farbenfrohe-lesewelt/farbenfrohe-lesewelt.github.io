@@ -20,6 +20,12 @@ padding:40px 20px 20px;
 text-align:center;
 }
 
+.hero-eyebrow{
+font-size:14px;
+color:#7a869a;
+margin-bottom:12px;
+}
+
 .hero h1{
 font-size:32px;
 line-height:1.25;
@@ -32,6 +38,15 @@ color:#566173;
 margin-bottom:28px;
 }
 
+.hero-sub{
+font-size:14px;
+color:#7a869a;
+margin-top:-12px;
+margin-bottom:22px;
+}
+
+/* Buchbild */
+
 .book-preview{
 max-width:220px;
 margin:20px auto 30px;
@@ -40,56 +55,46 @@ border-radius:12px;
 box-shadow:0 10px 30px rgba(0,0,0,.12);
 }
 
-/* modernes Email Feld */
+/* Google Form Button */
 
-.email-box{
-max-width:420px;
-margin:0 auto 12px;
-display:flex;
-gap:10px;
-}
-
-.email-box input{
-flex:1;
-padding:14px;
-font-size:16px;
-border-radius:12px;
-border:1px solid rgba(0,0,0,.15);
-}
-
-.email-box button{
-padding:14px 18px;
-border-radius:12px;
-font-size:16px;
+.btn-googleform{
+display:inline-block;
 background:#3b5bdb;
 color:white;
-border:none;
-cursor:pointer;
+padding:14px 26px;
+border-radius:12px;
+font-size:16px;
+text-decoration:none;
+font-weight:500;
+box-shadow:0 8px 20px rgba(0,0,0,.15);
+transition:.15s;
 }
 
-.email-box button:hover{
+.btn-googleform:hover{
 opacity:.92;
+transform:translateY(-1px);
 }
 
-/* Consent */
-
-.consent{
+.cta-note{
 font-size:13px;
 color:#7a869a;
-display:block;
-max-width:420px;
-margin:8px auto 20px auto;
-line-height:1.4;
+margin-top:10px;
 }
 
-.consent input{
-margin-right:6px;
+/* Checklisten Vorschau */
+
+.preview{
+max-width:320px;
+margin:25px auto;
+display:block;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,.12);
 }
 
 /* Trust */
 
 .trust{
-margin-top:14px;
+margin-top:18px;
 color:#7a869a;
 }
 
@@ -116,13 +121,6 @@ font-size:13px;
 opacity:.85;
 }
 
-.hero-sub{
-font-size:14px;
-color:#7a869a;
-margin-top:-12px;
-margin-bottom:22px;
-}
-
 /* Sections */
 
 .section{
@@ -144,6 +142,8 @@ margin-top:20px;
 .points li{
 margin-bottom:10px;
 }
+
+/* Footer */
 
 footer{
 text-align:center;
@@ -167,6 +167,11 @@ text-decoration:none;
 
 <header class="hero">
 
+<p class="hero-eyebrow">
+Viele Eltern googeln irgendwann:<br>
+„Ist meine Katze gefährlich für mein Baby?“
+</p>
+
 <h1>Baby & Katze<br>ohne Stress zusammenführen</h1>
 
 <p>
@@ -180,16 +185,23 @@ basierend auf den häufigsten Fragen von Eltern mit Katze
 
 <img class="book-preview" src="../assets/cover-thumb.webp" alt="Baby und Katze sicher zusammenführen Buch">
 
-<form class="email-box" action="https://formspree.io/f/DEINFORMULAR" method="POST">
-<input type="email" name="email" placeholder="Deine Emailadresse" required>
-<button type="submit">Checkliste senden</button>
-</form>
+<a class="btn-googleform"
+href="https://docs.google.com/forms/d/e/1FAIpQLScXegXirWUOZDLJb1ldZpV6HmLAB6mvu-39R9hqe1i3sKSISA/viewform"
+target="_blank">
 
-<label class="consent">
-<input type="checkbox" name="consent" required>
-Ich möchte die kostenlose Checkliste erhalten und gelegentlich Emails zum Thema Baby & Katze bekommen.
-Infos zum Umgang mit Daten in der <a href="../legal/datenschutz.html" target="_blank">Datenschutzerklärung</a>.
-</label>
+Kostenlose Checkliste holen
+
+</a>
+
+<p class="cta-note">
+Formular dauert weniger als 30 Sekunden
+</p>
+
+<!-- Checklisten Vorschau -->
+
+<img class="preview"
+src="../assets/checkliste-preview.webp"
+alt="Vorschau Baby Katze Checkliste">
 
 <div class="trust">
 
@@ -245,11 +257,17 @@ Du brauchst ein paar klare Regeln, die auch funktionieren, wenn du müde bist.
 <h2>Was du bekommst</h2>
 
 <ul class="points">
-<li>Die 5 wichtigsten Sicherheitsregeln</li>
-<li>Das einfache Zonen-System für Zuhause</li>
-<li>3 typische Fehler, die viele Eltern machen</li>
-<li>Mini-Routine für stressige Momente</li>
+<li>✔ Die 5 wichtigsten Sicherheitsregeln</li>
+<li>✔ Das einfache Zonen-System für Zuhause</li>
+<li>✔ 3 typische Fehler, die viele Eltern machen</li>
+<li>✔ Mini-Routine für stressige Momente</li>
 </ul>
+
+<!-- zweite Vorschau -->
+
+<img class="preview"
+src="../assets/checkliste-preview-2.webp"
+alt="Checkliste Baby Katze Regeln">
 
 </section>
 
@@ -273,16 +291,17 @@ Du brauchst ein paar klare Regeln, die auch funktionieren, wenn du müde bist.
 
 <h2>Hol dir die Checkliste</h2>
 
-<form class="email-box" action="https://formspree.io/f/DEINFORMULAR" method="POST">
-<input type="email" name="email" placeholder="Deine Emailadresse" required>
-<button type="submit">Checkliste erhalten</button>
-</form>
+<a class="btn-googleform"
+href="https://docs.google.com/forms/d/e/1FAIpQLScXegXirWUOZDLJb1ldZpV6HmLAB6mvu-39R9hqe1i3sKSISA/viewform"
+target="_blank">
 
-<label class="consent">
-<input type="checkbox" name="consent" required>
-Ich möchte die kostenlose Checkliste erhalten und gelegentlich Emails zum Thema Baby & Katze bekommen.
-Infos zum Umgang mit Daten in der <a href="../legal/datenschutz.html" target="_blank">Datenschutzerklärung</a>.
-</label>
+Kostenlose Checkliste holen
+
+</a>
+
+<p class="cta-note">
+Formular dauert weniger als 30 Sekunden
+</p>
 
 </section>
 
