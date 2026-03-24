@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fbf7f0" />
+
+  <title>Schwanger mit Katze? Ruhig vorbereiten | Baby &amp; Katze sicher zusammen</title>
+  <meta name="description" content="Schwanger mit Katze? In den meisten Fällen muss die Katze nicht weg. Aber jetzt ist die beste Zeit für einen ruhigen Plan: Zonen, Standards und Wenn-Dann-Regeln vor der Geburt." />
+
+  <!-- Social -->
+  <meta property="og:title" content="Schwanger mit Katze? Jetzt ist die beste Zeit für einen ruhigen Plan." />
+  <meta property="og:description" content="Nicht Alarmismus. Nicht &quot;wird schon&quot;. Sondern: klare Zonen, Standards und Wenn-Dann-Regeln – damit ihr vor der Geburt ruhig vorbereiten könnt." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="../assets/cover-thumb.webp" />
+
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="../assets/favicon-256.png">
+
+  <script>
+    const META_PIXEL_ID = '1599368868061138';
+    const META_CONSENT_KEY = 'flw_meta_consent';
+    let metaPixelLoaded = false;
+
+    function loadMetaPixel() {
+      if (metaPixelLoaded) return;
+      metaPixelLoaded = true;
+
+      !(function(f,b,e,v,n,t,s){
+        if(f.fbq) return;
+        n=f.fbq=function(){n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)};
+        if(!f._fbq) f._fbq=n;
+        n.push=n;
+        n.loaded=!0;
+        n.version='2.0';
+        n.queue=[];
+        t=b.createElement(e);
+        t.async=!0;
+        t.src=v;
+        s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s);
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+
+      fbq('init', META_PIXEL_ID);
+      fbq('track', 'PageView');
+    }
+
+    function metaTrack(method, eventName, params = {}) {
+      if (typeof fbq !== 'function') return;
+      if (method === 'track') {
+        fbq('track', eventName, params);
+      } else {
+        fbq('trackCustom', eventName, params);
+      }
+    }
+
+    function trackAmazonClick(placement) {
+      metaTrack('trackCustom', 'AmazonClick', { placement: placement });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const consent = localStorage.getItem(META_CONSENT_KEY);
+      if (consent === 'granted') {
+        loadMetaPixel();
+      }
+    });
+  </script>
+
+  <style>
+    @media (max-width: 640px) {
+      .top-actions{
+        gap: 8px !important;
+      }
+      .top-actions .btn{
+        padding: 8px 10px !important;
+        font-size: 13px !important;
+        white-space: nowrap !important;
+      }
+
+      .top-actions .btn-primary{
+        font-size: 0 !important;
+        line-height: 0 !important;
+      }
+      .top-actions .btn-primary::after{
+        content: "Amazon" !important;
+        font-size: 13px !important;
+        line-height: 1 !important;
+        font-weight: 700 !important;
+      }
+
+      .sticky-cta .btn{
+        font-size: 0 !important;
+        line-height: 0 !important;
+        padding: 10px 12px !important;
+        white-space: nowrap !important;
+      }
+      .sticky-cta .btn::after{
+        content: "Amazon" !important;
+        font-size: 14px !important;
+        line-height: 1 !important;
+        font-weight: 700 !important;
+      }
+
+      .sticky-cta .sticky-text{
+        font-size: 13px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        max-width: 55vw !important;
+      }
+    }
+
+    /* Consent Banner */
+    .cookie-banner{
+      position: fixed;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      z-index: 2147483647;
+      background: rgba(255,255,255,.98);
+      border: 1px solid rgba(29,36,48,.14);
+      border-radius: 18px;
+      box-shadow: 0 18px 42px rgba(18,24,35,.16);
+      padding: 16px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .cookie-banner[hidden]{ display:none !important; }
+    .cookie-banner h3{
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+    .cookie-banner p{
+      margin: 0 0 12px;
+      color: #566173;
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+    .cookie-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .cookie-actions .btn{
+      cursor:pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#content">Zum Inhalt springen</a>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand" aria-label="Farbenfrohe Lesewelt">
+        <img class="brand-logo" src="../assets/flw-logo.webp" alt="Farbenfrohe Lesewelt" loading="eager">
+        <span class="brand-text">Farbenfrohe Lesewelt</span>
+      </div>
+
+      <nav class="top-actions" aria-label="Aktionen">
+        <a class="btn btn-ghost" href="#fit">Passt das zu uns?</a>
+        <a class="btn btn-primary" href="amazon-attribution-link" rel="noopener nofollow" onclick="trackAmazonClick('header');">
+          Buch + Leseprobe auf Amazon
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+
+        <div class="hero-copy">
+          <p class="eyebrow">Für Schwangere mit Katze · ruhig vorbereiten, bevor es hektisch wird</p>
+
+          <h1 class="hero-headline">
+            Schwanger und Katze?<br class="br-desktop">
+            Jetzt ist die beste Zeit
+            <span class="hero-answers">
+              <span class="hero-no">für Ruhe.</span>
+              <span class="hero-but">Und für einen Plan.</span>
+            </span>
+          </h1>
+
+          <p class="hero-identity">
+            Für werdende Eltern, die ihre Katze behalten wollen –
+            und Sicherheit wollen, bevor das Baby da ist.
+          </p>
+
+          <p class="lead">
+            In den allermeisten Fällen muss die Katze nicht weg.
+            Aber <strong>vor der Geburt ist es leichter</strong>, klare <strong>Zonen</strong>, <strong>Standards</strong> und <strong>Wenn-Dann-Regeln</strong> festzulegen – damit ihr später nicht nachts um drei diskutiert, was jetzt „richtig“ wäre.
+          </p>
+
+          <div class="quick-proof" aria-label="Kurzfakten">
+            <div class="qp-item">
+              <span class="qp-ico" aria-hidden="true">🤰</span>
+              <span><strong>Jetzt vorbereiten</strong> – solange ihr noch Ruhe dafür habt</span>
+            </div>
+            <div class="qp-item">
+              <span class="qp-ico" aria-hidden="true">🧭</span>
+              <span><strong>12 Kapitel</strong> – von Schwangerschaft bis Kleinkind</span>
+            </div>
+            <div class="qp-item">
+              <span class="qp-ico" aria-hidden="true">🔎</span>
+              <span><strong>Leseprobe</strong> auf Amazon</span>
+            </div>
+          </div>
+
+          <div class="micro-proof">
+            <p><strong>Nicht Panik. Nicht Aktionismus. Sondern: ein Plan.</strong></p>
+            <p class="muted">
+              Ein System aus klaren Zonen und Alltagsregeln, das ihr vor der Geburt in Ruhe aufsetzen könnt – damit euch der Alltag später nicht überrollt.
+            </p>
+          </div>
+
+          <div class="pill-row" role="list" aria-label="Schwerpunkte">
+            <span class="pill" role="listitem">✅ Zonen vorbereiten</span>
+            <span class="pill" role="listitem">✅ Gewohnheiten vor der Geburt anpassen</span>
+            <span class="pill" role="listitem">✅ Wenn-Dann-Regeln festlegen</span>
+          </div>
+
+          <div class="hero-cta">
+            <a class="btn btn-primary btn-large" href="amazon-attribution-link" rel="noopener nofollow" onclick="trackAmazonClick('hero-main-cta');">
+              Buch + Leseprobe auf Amazon
+            </a>
+            <p class="muted">
+              Tipp: Schau dir die <strong>Leseprobe</strong> an – du merkst sofort, ob Stil und Tiefe zu euch passen.
+            </p>
+          </div>
+
+          <p class="muted small price-anchor">
+            Taschenbuch auf Amazon erhältlich – mit kostenloser Leseprobe.
+          </p>
+        </div>
+
+        <aside class="hero-card" aria-label="Buchvorschau">
+          <div class="bookbox">
+            <div class="bookimg">
+              <img
+                src="../assets/cover-thumb.webp"
+                alt="Buchcover: Baby und Katze sicher zusammenführen"
+                loading="lazy"
+              />
+            </div>
+
+            <div class="bookmeta">
+              <p class="booktitle">Baby und Katze sicher zusammenführen</p>
+              <p class="booksub">Zonen · Standards · Wenn-Dann-Regeln – von Schwangerschaft bis Kleinkind</p>
+
+              <ul class="checklist" aria-label="Sofort-Mehrwert">
+                <li><strong>Vor der Geburt:</strong> Zonen und Gewohnheiten in Ruhe aufsetzen</li>
+                <li><strong>3 Standards</strong>, die später sofort entlasten</li>
+                <li><strong>Phase für Phase</strong> – Schwangerschaft bis Kleinkind</li>
+              </ul>
+
+              <a class="btn btn-primary btn-block" href="amazon-attribution-link" rel="noopener nofollow" onclick="trackAmazonClick('bookbox-primary');">
+                Buch + Leseprobe auf Amazon
+              </a>
+
+              <a class="btn btn-ghost btn-block" href="amazon-attribution-link" rel="noopener nofollow" onclick="trackAmazonClick('bookbox-secondary');">
+                Leseprobe lesen
+              </a>
+
+              <p class="muted small">Du landest direkt bei Amazon.</p>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <section class="section system-snapshot" aria-label="Das System in 20 Sekunden">
+      <div class="container">
+        <h2>Das System in 20 Sekunden</h2>
+        <p class="sublead">
+          Drei Bausteine. Ein ruhiger Standard. Und du musst nicht jede Situation neu bewerten.
+        </p>
+
+        <div class="grid grid-3">
+          <article class="card">
+            <h3>1) Zonen</h3>
+            <p class="muted">Baby-Zone, Katzen-Zone, Übergangs-Zone – damit Räume für euch arbeiten.</p>
+          </article>
+
+          <article class="card">
+            <h3>2) Standards</h3>
+            <p class="muted">Feste Regeln für müde Momente: Trennen ist Standard, nicht Drama.</p>
+          </article>
+
+          <article class="card">
+            <h3>3) Wenn-Dann-Regeln</h3>
+            <p class="muted">Wenn X passiert → dann Y. Klar. Kurz. Wiederholbar.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" aria-label="Der Moment, an dem Vorbereitung plötzlich konkret wird">
+      <div class="container">
+        <div class="story-card">
+          <p class="story-title">Vielleicht kennst du diesen Moment.</p>
+          <p class="story-text">
+            Das Babygitter steht noch verpackt im Flur.<br>
+            Du schaust in den Raum und denkst an später.<br>
+            Wo schläft das Baby? Wo ruht die Katze?<br><br>
+            Und plötzlich kommt dieser Gedanke:<br>
+            <strong>Wie richte ich das so ein, dass sich niemand verdrängt fühlt?</strong>
+          </p>
+          <p class="muted">
+            Die meisten Eltern beginnen genau hier zu grübeln – und schieben das Thema vor sich her.
+            Diese Seite (und das Buch) geben dir stattdessen einen nächsten Schritt, solange Vorbereitung noch leichter ist.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section scroll-stopper">
+      <div class="container">
+        <div class="stopper-card">
+          <p class="stopper-title">Meist ist nicht die Katze das Problem.</p>
+          <p class="stopper-text">
+            Es sind die ersten Wochen ohne vorbereitete Standards: beim Schlafen, beim Wickeln, wenn Besuch klingelt.
+            <strong>Wer Zonen und Regeln vor der Geburt festlegt, muss später weniger improvisieren.</strong>
+            Deshalb braucht ihr Standards – keine Tipps.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Beispiele aus dem System">
+      <div class="container">
+        <h2>So konkret ist das im Alltag</h2>
+        <p class="sublead">
+          Keine Theorie zum Abnicken – sondern klare Standards und kurze Wenn-Dann-Regeln, die du schon vor der Geburt aufsetzen kannst.
+        </p>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <p class="example-title"><strong>Standard:</strong> Unbeaufsichtigt = Trennung</p>
+            <p class="muted">
+              Du gehst kurz raus? Dann kurz trennen – Tür zu. Kein Misstrauen. Einfach Standard.
+            </p>
+          </div>
+
+          <div class="card">
+            <p class="example-title"><strong>Wenn-Dann-Regel:</strong> Schlaf = Setup</p>
+            <p class="muted">
+              Wenn das Baby schläft, dann ist der Schlafbereich katzenfrei (Tür/Barriere). Kein „nur kurz“.
+            </p>
+          </div>
+
+          <div class="card">
+            <p class="example-title"><strong>Wenn-Dann-Regel:</strong> Neue Gewohnheit = jetzt</p>
+            <p class="muted">
+              Wenn ein Bereich später geschützt sein soll, dann führt ihr die Regel schon vor der Geburt ein – ruhig, schrittweise, ohne Stress.
+            </p>
+          </div>
+
+          <div class="card">
+            <p class="example-title"><strong>Standard:</strong> Rückzug ist nicht verhandelbar</p>
+            <p class="muted">
+              Katze ruht → Kind lernt Abstand. Baby schläft → Katze hat keinen Zugang. Beides gilt gleichzeitig.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Wo steht ihr gerade?</h2>
+        <p class="sublead">
+          Vier Phasen, vier unterschiedliche Herausforderungen. Wenn ihr schwanger seid, ist jetzt der leichteste Zeitpunkt, die Grundlagen zu legen.
+        </p>
+
+        <div class="grid grid-2">
+          <article class="card">
+            <h3>🤰 Schwangerschaft</h3>
+            <p class="card-q">„Wir wollen vorbereitet sein – ohne uns verrückt zu machen."</p>
+            <p class="card-a"><strong>Euer Standard:</strong> Zonen einrichten, Gewohnheiten anpassen, Rückzugsorte schaffen – solange ihr noch Ruhe dafür habt.</p>
+          </article>
+
+          <article class="card">
+            <h3>🍼 Wochenbett / erste Tage</h3>
+            <p class="card-q">„Alles ist neu. Wir sind erschöpft. Wir brauchen einfache Regeln."</p>
+            <p class="card-a"><strong>Euer Standard:</strong> Schlafbereich = katzenfrei. Begegnung nur mit Aufsicht. Keine Ausnahmen „nur kurz".</p>
+          </article>
+
+          <article class="card">
+            <h3>👶 0–12 Monate</h3>
+            <p class="card-q">„Das Baby greift, rollt, robbt – und die Katze weiß nicht wohin."</p>
+            <p class="card-a"><strong>Euer Standard:</strong> Physische Barrieren + kurze, ruhige Begegnungen. Kein unbeaufsichtigtes Nebeneinander.</p>
+          </article>
+
+          <article class="card">
+            <h3>🧒 Kleinkind</h3>
+            <p class="card-q">„Unser Kind ist schnell, laut und findet die Katze großartig."</p>
+            <p class="card-a"><strong>Euer Standard:</strong> Rückzugsorte der Katze sind nicht verhandelbar. Abstand ist Familienregel, kein Verbot.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>3 Standards, die euren Alltag tragen</h2>
+        <p class="sublead">
+          Keine „Tipps zum Ausprobieren" – sondern feste Regeln, die du einmal einführst und dann einfach lebst. So sparst du Entscheidungsenergie genau dann, wenn du keine hast.
+        </p>
+
+        <div class="grid grid-3">
+          <article class="card">
+            <h3>1) Unbeaufsichtigt? Dann ist Trennung euer Standard.</h3>
+            <p>Du gehst kurz raus? Dann kurz trennen – Tür zu. Kein Misstrauen, kein Drama – einfach Standard.</p>
+            <p class="why"><strong>Was das bringt:</strong> Du musst nicht jede Situation einzeln bewerten.</p>
+          </article>
+
+          <article class="card">
+            <h3>2) Schlafzonen sind geschützt</h3>
+            <p>Baby schläft → Katze hat keinen Zugang. Katze ruht → Kind lernt Abstand. Beides gilt gleichzeitig.</p>
+            <p class="why"><strong>Was das bringt:</strong> Weniger Stress auf beiden Seiten – weniger Situationen, die kippen.</p>
+          </article>
+
+          <article class="card">
+            <h3>3) Kippt es? Pause.</h3>
+            <p>Kurz trennen, durchatmen, später neu starten. Kein „nur noch schnell", kein Verhandeln im Moment.</p>
+            <p class="why"><strong>Was das bringt:</strong> Du unterbrichst Eskalation, bevor ein Muster entsteht.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Was sich dadurch ändert</h2>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <ul class="bullets">
+              <li><strong>Weniger Grübeln:</strong> Standards statt ständiger Einzelfall-Entscheidungen.</li>
+              <li><strong>Früher erkennen:</strong> Wann Nähe okay ist – und wann Abstand klüger.</li>
+              <li><strong>Konkrete Abläufe:</strong> Wickeln, Füttern, Besuch, Spielzeit – als klare Abläufe.</li>
+              <li><strong>Mehr Handlungsfähigkeit:</strong> Du weißt, was du tust – statt dich ausgeliefert zu fühlen.</li>
+            </ul>
+          </div>
+
+          <div class="card highlight">
+            <p class="quote">
+              <strong>Das Ziel ist kein perfekter Haushalt.</strong><br />
+              Sondern ein Alltag, der sicher ist – und sich trotzdem nach Familie anfühlt.
+            </p>
+
+            <div class="cta-duo">
+              <a class="btn btn-primary btn-large" href="amazon-attribution-link" rel="noopener nofollow" onclick="trackAmazonClick('outcomes-primary');">Buch + Leseprobe auf Amazon</a>
+              <a class="btn btn-ghost btn-large" href="amazon-attribution-link" rel="noopener nofollow" onclick="trackAmazonClick('outcomes-secondary');">Leseprobe lesen</a>
+            </div>
+
+            <p class="muted small">Du landest direkt bei Amazon.</p>
+          </div>
+        </div>
+
+        <div class="anti-bs">
+          <div class="anti-bs-inner">
+            <p class="anti-bs-title">Was dieses Buch bewusst nicht macht:</p>
+            <ul class="anti-bs-list">
+              <li>❌ Schuldgefühle auslösen oder Panik schüren</li>
+              <li>❌ Foren-Mythen wiederholen, die sich widersprechen</li>
+              <li>❌ Theorie liefern, die beim ersten Schreianfall zerbricht</li>
+            </ul>
+            <p class="anti-bs-foot">
+              Stattdessen: <strong>ein System aus Zonen, Standards und Wenn-Dann-Regeln</strong> – gebaut für echten Familienalltag.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section alt" id="fit">
+      <div class="container">
+        <h2>Passt das Buch zu euch?</h2>
+        <p class="sublead">
+          Nicht jedes Buch passt zu jeder Familie. Deshalb hier ein kurzer Filter.
+        </p>
+
+        <p class="fit-identity">
+          Dieses Buch ist für Eltern, die ihre Katze behalten wollen – und trotzdem Sicherheit wollen.
+        </p>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>✅ Passt, wenn …</h3>
+            <ul class="bullets">
+              <li>du Verantwortung ernst nimmst, aber keine Angst als Dauerzustand willst.</li>
+              <li>du klare Regeln suchst, die auch bei Schlafmangel halten.</li>
+              <li>du Katze und Baby zusammen denken willst – nicht gegeneinander.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>⛔ Passt nicht, wenn …</h3>
+            <ul class="bullets">
+              <li>du „Null-Risiko-Garantie" erwartest (die gibt kein seriöses Buch).</li>
+              <li>es bereits wiederholte Angriffe oder Verletzungen gibt.</li>
+            </ul>
+            <p class="muted">
+              In dem Fall bitte zeitnah professionelle Hilfe: Kinderarzt/Hebamme + tierärztliche Verhaltensberatung.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Häufige Fragen</h2>
+
+        <div class="grid grid-2">
+          <details class="card">
+            <summary>Muss die Katze weg, wenn ein Baby kommt?</summary>
+            <p>In den allermeisten Fällen: nein. Aber klares Management ist Pflicht – gerade in den ersten Monaten und bei Müdigkeit. Das Buch zeigt dir, wie das konkret aussieht.</p>
+          </details>
+
+          <details class="card">
+            <summary>Sollte ich schon in der Schwangerschaft anfangen?</summary>
+            <p>Ja – genau dann ist es am leichtesten. Zonen, Schlafregeln und neue Gewohnheiten lassen sich vor der Geburt meist ruhiger einführen als mitten im Wochenbett.</p>
+          </details>
+
+          <details class="card">
+            <summary>Was kann ich vor der Geburt konkret vorbereiten?</summary>
+            <p>Zum Beispiel geschützte Schlafbereiche, Rückzugsorte der Katze, erste Trennungsstandards und klare Wenn-Dann-Regeln für Alltagssituationen. Das Buch führt dich Schritt für Schritt durch diese Vorbereitung.</p>
+          </details>
+
+          <details class="card">
+            <summary>Wo kann ich reinlesen?</summary>
+            <p>Auf Amazon gibt es eine kostenlose Leseprobe. Du siehst sofort, ob Stil und Tiefe zu euch passen.</p>
+          </details>
+        </div>
+
+        <div class="cta-strip">
+          <div class="cta-strip-inner">
+            <div>
+              <h3>Weniger Grübeln. Mehr Klarheit. Ab heute.</h3>
+              <p class="muted">Das Buch ist die ausführliche Version dieser Seite – mit dem kompletten Zonen-System, Phasen-Plänen und Wenn-Dann-Regeln für euren Alltag.</p>
+            </div>
+            <a class="btn btn-primary btn-large" href="amazon-attribution-link" rel="noopener nofollow" onclick="trackAmazonClick('faq-strip');">
+              Buch + Leseprobe auf Amazon
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="sticky-cta" role="region" aria-label="Schnellaktion">
+      <div class="sticky-inner">
+        <span class="sticky-text">Buch auf Amazon ansehen</span>
+        <a class="btn btn-primary" href="amazon-attribution-link" rel="noopener nofollow" onclick="trackAmazonClick('sticky');">Buch + Leseprobe auf Amazon</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <p class="muted small">
+          Hinweis: Alltagsratgeber – ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung.
+        </p>
+        <p class="muted small">
+          <a href="../legal/impressum.html">Impressum</a> ·
+          <a href="../legal/datenschutz.html">Datenschutz</a>
+        </p>
+        <p class="muted small">
+          <span style="opacity:.75">Analyse-Tools werden nur nach Einwilligung geladen. Keine externen Fonts.</span>
+        </p>
+      </div>
+
+      <div class="footer-right">
+        <p class="muted small">© <span id="year"></span> Farbenfrohe Lesewelt</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" id="cookieBanner" hidden>
+    <h3>Cookies & Statistik</h3>
+    <p>
+      Wenn du zustimmst, messen wir, welche Seiten und Buttons genutzt werden. 
+So können wir unsere Inhalte und Anzeigen sinnvoll verbessern. 
+Mehr dazu in der <a href="../legal/datenschutz.html">Datenschutzerklärung</a>.
+    </p>
+    <div class="cookie-actions">
+      <button class="btn btn-primary" id="cookieAccept" type="button">Akzeptieren</button>
+      <button class="btn btn-ghost" id="cookieDecline" type="button">Ablehnen</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <script>
+    (function () {
+      const banner = document.getElementById('cookieBanner');
+      const acceptBtn = document.getElementById('cookieAccept');
+      const declineBtn = document.getElementById('cookieDecline');
+      const consent = localStorage.getItem(META_CONSENT_KEY);
+
+      if (!consent) {
+        banner.hidden = false;
+      }
+
+      acceptBtn.addEventListener('click', function () {
+        localStorage.setItem(META_CONSENT_KEY, 'granted');
+        loadMetaPixel();
+        banner.hidden = true;
+      });
+
+      declineBtn.addEventListener('click', function () {
+        localStorage.setItem(META_CONSENT_KEY, 'denied');
+        banner.hidden = true;
+      });
+    })();
+  </script>
+</body>
+</html>
