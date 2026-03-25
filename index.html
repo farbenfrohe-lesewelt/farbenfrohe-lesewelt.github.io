@@ -18,54 +18,11 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon-256.png">
 
-  <script>
-    const META_PIXEL_ID = '1599368868061138';
-    const META_CONSENT_KEY = 'flw_meta_consent';
-    let metaPixelLoaded = false;
-
-    function loadMetaPixel() {
-      if (metaPixelLoaded) return;
-      metaPixelLoaded = true;
-
-      !(function(f,b,e,v,n,t,s){
-        if(f.fbq) return;
-        n=f.fbq=function(){n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)};
-        if(!f._fbq) f._fbq=n;
-        n.push=n;
-        n.loaded=!0;
-        n.version='2.0';
-        n.queue=[];
-        t=b.createElement(e);
-        t.async=!0;
-        t.src=v;
-        s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s);
-      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-
-      fbq('init', META_PIXEL_ID);
-      fbq('track', 'PageView');
-    }
-
-    function metaTrack(method, eventName, params = {}) {
-      if (typeof fbq !== 'function') return;
-      if (method === 'track') {
-        fbq('track', eventName, params);
-      } else {
-        fbq('trackCustom', eventName, params);
-      }
-    }
-
-    function trackAmazonClick(placement) {
-      metaTrack('trackCustom', 'AmazonClick', { placement: placement });
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-      const consent = localStorage.getItem(META_CONSENT_KEY);
-      if (consent === 'granted') {
-        loadMetaPixel();
-      }
-    });
-  </script>
+<script>
+  function trackAmazonClick(placement) {
+    // Offline-Seite: bewusst ohne Meta / ohne Cookie-Consent-Tracking
+  }
+</script>
 
   <style>
     @media (max-width: 640px) {
@@ -111,40 +68,7 @@
       }
     }
 
-    /* Consent Banner */
-    .cookie-banner{
-      position: fixed;
-      left: 16px;
-      right: 16px;
-      bottom: 16px;
-      z-index: 2147483647;
-      background: rgba(255,255,255,.98);
-      border: 1px solid rgba(29,36,48,.14);
-      border-radius: 18px;
-      box-shadow: 0 18px 42px rgba(18,24,35,.16);
-      padding: 16px;
-      max-width: 760px;
-      margin: 0 auto;
-    }
-    .cookie-banner[hidden]{ display:none !important; }
-    .cookie-banner h3{
-      margin: 0 0 6px;
-      font-size: 1rem;
-    }
-    .cookie-banner p{
-      margin: 0 0 12px;
-      color: #566173;
-      font-size: .95rem;
-      line-height: 1.45;
-    }
-    .cookie-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .cookie-actions .btn{
-      cursor:pointer;
-    }
+    
   </style>
 </head>
 
@@ -591,66 +515,25 @@
     </div>
   </footer>
 
-  <div class="cookie-banner" id="cookieBanner" hidden>
-    <h3>Cookies & Statistik</h3>
-    <p>
-      Wenn du zustimmst, messen wir, welche Seiten und Buttons genutzt werden. 
-So können wir unsere Inhalte und Anzeigen sinnvoll verbessern. 
-Mehr dazu in der <a href="../legal/datenschutz.html">Datenschutzerklärung</a>.
-    </p>
-    <div class="cookie-actions">
-      <button class="btn btn-primary" id="cookieAccept" type="button">Akzeptieren</button>
-      <button class="btn btn-ghost" id="cookieDecline" type="button">Ablehnen</button>
-    </div>
-  </div>
-
+  
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 
-  <script>
-    (function () {
-      const banner = document.getElementById('cookieBanner');
-      const acceptBtn = document.getElementById('cookieAccept');
-      const declineBtn = document.getElementById('cookieDecline');
-      const consent = localStorage.getItem(META_CONSENT_KEY);
-
-      if (!consent) {
-        banner.hidden = false;
-      }
-
-      acceptBtn.addEventListener('click', function () {
-        localStorage.setItem(META_CONSENT_KEY, 'granted');
-        loadMetaPixel();
-        banner.hidden = true;
-      });
-
-      declineBtn.addEventListener('click', function () {
-        localStorage.setItem(META_CONSENT_KEY, 'denied');
-        banner.hidden = true;
-      });
-    })();
-  </script>
 
 <script>
 (function () {
-  // Partnercode aus der URL lesen, z. B. ?partner=off001
   const params = new URLSearchParams(window.location.search);
   const partner = params.get('partner');
 
+  // QR-Scan in Google Sheet loggen (ohne Cookies / ohne sessionStorage)
   if (partner) {
-  const visitKey = "qrvisit_" + partner;
-
-  if (!sessionStorage.getItem(visitKey)) {
-    sessionStorage.setItem(visitKey, "1");
-
     fetch("https://script.google.com/macros/s/AKfycbyKDp6HGClj2VDp7_IDa-zGs_S1fyVHGy0U_50PXQoX5x_NfIGoxhqzbslUAn5yKrEx/exec?partner=" + encodeURIComponent(partner), {
       method: "GET",
       mode: "no-cors",
       keepalive: true
     }).catch(() => {});
   }
-}
 
   // Fallback-Link, falls kein oder ein unbekannter Partnercode vorhanden ist
   const defaultLink = "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_AB6C5EAB6B2C4BD11B7FFB3D1EE2498A_afap_abs&ref_=aa_maas&tag=maas";
