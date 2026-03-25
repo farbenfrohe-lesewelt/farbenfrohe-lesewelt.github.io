@@ -637,6 +637,9 @@ Mehr dazu in der <a href="../legal/datenschutz.html">Datenschutzerklärung</a>.
   // Partnercode aus der URL lesen, z. B. ?partner=off001
   const params = new URLSearchParams(window.location.search);
   const partner = params.get('partner');
+  if (partner) {
+  metaTrack('trackCustom', 'QRVisit', { partner: partner });
+}
 
   // Fallback-Link, falls kein oder ein unbekannter Partnercode vorhanden ist
   const defaultLink = "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_AB6C5EAB6B2C4BD11B7FFB3D1EE2498A_afap_abs&ref_=aa_maas&tag=maas";
