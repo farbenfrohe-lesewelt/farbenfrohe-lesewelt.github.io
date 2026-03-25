@@ -637,8 +637,19 @@ Mehr dazu in der <a href="../legal/datenschutz.html">Datenschutzerklärung</a>.
   // Partnercode aus der URL lesen, z. B. ?partner=off001
   const params = new URLSearchParams(window.location.search);
   const partner = params.get('partner');
+
   if (partner) {
-  metaTrack('trackCustom', 'QRVisit', { partner: partner });
+  const visitKey = "qrvisit_" + partner;
+
+  if (!sessionStorage.getItem(visitKey)) {
+    sessionStorage.setItem(visitKey, "1");
+
+    fetch("https://script.google.com/macros/s/AKfycbyKDp6HGClj2VDp7_IDa-zGs_S1fyVHGy0U_50PXQoX5x_NfIGoxhqzbslUAn5yKrEx/exec?partner=" + encodeURIComponent(partner), {
+      method: "GET",
+      mode: "no-cors",
+      keepalive: true
+    }).catch(() => {});
+  }
 }
 
   // Fallback-Link, falls kein oder ein unbekannter Partnercode vorhanden ist
