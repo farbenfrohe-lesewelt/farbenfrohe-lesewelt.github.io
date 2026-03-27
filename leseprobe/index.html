@@ -6,11 +6,11 @@
   <meta name="theme-color" content="#fbf7f0" />
 
   <title>Leseprobe | Baby und Katze sicher zusammenführen</title>
-  <meta name="description" content="Kostenlose Leseprobe zu Baby und Katze sicher zusammenführen – direkt lesen, PDF herunterladen oder zurück zur passenden Buchseite." />
+  <meta name="description" content="Kostenlose Leseprobe zu Baby und Katze sicher zusammenführen – direkt lesen oder zurück zur passenden Buchseite." />
 
   <!-- Social -->
   <meta property="og:title" content="Kostenlose Leseprobe | Baby und Katze sicher zusammenführen" />
-  <meta property="og:description" content="Direkt reinlesen, PDF herunterladen oder anschließend zur passenden Buchseite zurück." />
+  <meta property="og:description" content="Direkt reinlesen oder anschließend zur passenden Buchseite zurück." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="../assets/cover-thumb.webp" />
 
@@ -306,9 +306,6 @@
 
       <div class="sample-utility">
         <a class="btn btn-ghost" id="backInlineLink" href="../">Zurück zur Buchseite</a>
-        <a class="btn btn-ghost" id="downloadInlineLink" href="../assets/samples/leseprobe-main.pdf" download>
-          PDF herunterladen
-        </a>
         <a class="btn btn-primary" id="amazonInlineLink" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow">
           Jetzt zum Buch auf Amazon
         </a>
@@ -333,7 +330,7 @@
       </div>
 
       <p class="sample-note" id="sampleNote">
-        Tipp: Du kannst direkt lesen oder die Leseprobe als PDF herunterladen und später weitermachen.
+        Tipp: Du kannst direkt lesen und anschließend mit einem Klick zurück zur passenden Buchseite.
       </p>
     </section>
 
@@ -399,9 +396,9 @@
       const variants = {
         main: {
           title: 'Kostenlose Leseprobe | Baby & Katze – sicher zusammen',
-          description: 'Kurz reinlesen, PDF herunterladen oder anschließend direkt zur Buchseite zurück.',
+          description: 'Kurz reinlesen und anschließend direkt zur Buchseite zurück.',
           ogTitle: 'Kostenlose Leseprobe | Baby & Katze – sicher zusammen',
-          ogDescription: 'Direkt reinlesen, PDF herunterladen oder anschließend zur Buchseite zurück.',
+          ogDescription: 'Direkt reinlesen und anschließend zur Buchseite zurück.',
           eyebrow: 'Kostenlose Leseprobe',
           headline: 'Erst kurz reinlesen',
           lead: 'Wenn du prüfen willst, ob das Buch zu eurer Situation passt, lies hier direkt rein. Danach kommst du mit einem Klick zurück zur Buchseite.',
@@ -521,8 +518,6 @@
       document.getElementById('backInlineLink').textContent = variant.backLabel;
       document.getElementById('backStickyLink').textContent = variant.backLabel;
 
-      setHref('downloadInlineLink', variant.pdf);
-
       setHref('amazonTopLink', finalAmazon);
       setHref('amazonInlineLink', finalAmazon);
       setHref('amazonStickyLink', finalAmazon);
@@ -559,10 +554,6 @@
           banner.hidden = true;
         });
       }
-
-      document.getElementById('downloadInlineLink').addEventListener('click', function () {
-        trackSampleEvent('SampleDownload', { placement: 'inline_download' });
-      });
 
       document.getElementById('amazonTopLink').addEventListener('click', function () {
         trackSampleEvent('SampleAmazonClick', { placement: 'top' });
