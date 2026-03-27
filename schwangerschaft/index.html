@@ -19,53 +19,64 @@
   <link rel="icon" type="image/png" sizes="256x256" href="../assets/favicon-256.png">
 
   <script>
-    const META_PIXEL_ID = '1599368868061138';
-    const META_CONSENT_KEY = 'flw_meta_consent';
-    let metaPixelLoaded = false;
+  const META_PIXEL_ID = '1599368868061138';
+  const META_CONSENT_KEY = 'flw_meta_consent';
+  let metaPixelLoaded = false;
 
-    function loadMetaPixel() {
-      if (metaPixelLoaded) return;
-      metaPixelLoaded = true;
+  function loadMetaPixel() {
+    if (metaPixelLoaded) return;
+    metaPixelLoaded = true;
 
-      !(function(f,b,e,v,n,t,s){
-        if(f.fbq) return;
-        n=f.fbq=function(){n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)};
-        if(!f._fbq) f._fbq=n;
-        n.push=n;
-        n.loaded=!0;
-        n.version='2.0';
-        n.queue=[];
-        t=b.createElement(e);
-        t.async=!0;
-        t.src=v;
-        s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s);
-      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    !(function(f,b,e,v,n,t,s){
+      if(f.fbq) return;
+      n=f.fbq=function(){n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)};
+      if(!f._fbq) f._fbq=n;
+      n.push=n;
+      n.loaded=!0;
+      n.version='2.0';
+      n.queue=[];
+      t=b.createElement(e);
+      t.async=!0;
+      t.src=v;
+      s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s);
+    })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
-      fbq('init', META_PIXEL_ID);
-      fbq('track', 'PageView');
+    fbq('init', META_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+
+  function metaTrack(method, eventName, params = {}) {
+    if (typeof fbq !== 'function') return;
+    if (method === 'track') {
+      fbq('track', eventName, params);
+    } else {
+      fbq('trackCustom', eventName, params);
+    }
+  }
+
+  function trackAmazonClick(placement) {
+    metaTrack('trackCustom', 'AmazonClick', { placement: placement });
+  }
+
+  function trackReaderClick(placement) {
+    metaTrack('trackCustom', 'ReaderClick', { placement: placement });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const consent = localStorage.getItem(META_CONSENT_KEY);
+
+    if (consent === 'granted') {
+      loadMetaPixel();
     }
 
-    function metaTrack(method, eventName, params = {}) {
-      if (typeof fbq !== 'function') return;
-      if (method === 'track') {
-        fbq('track', eventName, params);
-      } else {
-        fbq('trackCustom', eventName, params);
-      }
-    }
-
-    function trackAmazonClick(placement) {
-      metaTrack('trackCustom', 'AmazonClick', { placement: placement });
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-      const consent = localStorage.getItem(META_CONSENT_KEY);
-      if (consent === 'granted') {
-        loadMetaPixel();
-      }
+    document.querySelectorAll('[data-reader-link]').forEach(function (link) {
+      link.addEventListener('click', function () {
+        trackReaderClick(this.dataset.readerPlacement || 'reader-link');
+      });
     });
-  </script>
+  });
+</script>
 
   <style>
     @media (max-width: 640px) {
