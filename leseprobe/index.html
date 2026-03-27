@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fbf7f0" />
+
+  <title>Leseprobe | Baby und Katze sicher zusammenführen</title>
+  <meta name="description" content="Kostenlose Leseprobe zu Baby und Katze sicher zusammenführen – direkt lesen, PDF herunterladen oder zurück zur passenden Buchseite." />
+
+  <!-- Social -->
+  <meta property="og:title" content="Kostenlose Leseprobe | Baby und Katze sicher zusammenführen" />
+  <meta property="og:description" content="Direkt reinlesen, PDF herunterladen oder anschließend zur passenden Buchseite zurück." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="../assets/cover-thumb.webp" />
+
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="../assets/favicon-256.png">
+
+  <script>
+    const META_PIXEL_ID = '1599368868061138';
+    const META_CONSENT_KEY = 'flw_meta_consent';
+    let metaPixelLoaded = false;
+
+    function loadMetaPixel() {
+      if (metaPixelLoaded) return;
+      metaPixelLoaded = true;
+
+      !(function(f,b,e,v,n,t,s){
+        if(f.fbq) return;
+        n=f.fbq=function(){n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)};
+        if(!f._fbq) f._fbq=n;
+        n.push=n;
+        n.loaded = true;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = true;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s);
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+
+      fbq('init', META_PIXEL_ID);
+      fbq('track', 'PageView');
+    }
+
+    function metaTrack(method, eventName, params = {}) {
+      if (typeof fbq !== 'function') return;
+      if (method === 'track') {
+        fbq('track', eventName, params);
+      } else {
+        fbq('trackCustom', eventName, params);
+      }
+    }
+  </script>
+
+  <style>
+    .sample-page{
+      background: linear-gradient(180deg, #fdfaf5 0%, #fbf7f0 100%);
+      min-height: 100vh;
+    }
+
+    .sample-shell{
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 16px 110px;
+    }
+
+    .sample-intro{
+      margin: 10px 0 18px;
+    }
+
+    .sample-intro .eyebrow{
+      margin-bottom: 8px;
+    }
+
+    .sample-intro h1{
+      margin: 0 0 10px;
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: #1d2430;
+    }
+
+    .sample-intro p{
+      margin: 0;
+      max-width: 760px;
+      color: #566173;
+    }
+
+    .sample-utility{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 18px;
+    }
+
+    .sample-card{
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(29,36,48,.10);
+      border-radius: 22px;
+      box-shadow: 0 16px 40px rgba(18,24,35,.08);
+      overflow: hidden;
+    }
+
+    .sample-frame-wrap{
+      padding: 12px;
+    }
+
+    .sample-frame{
+      width: 100%;
+      height: 78vh;
+      min-height: 720px;
+      border: 0;
+      border-radius: 16px;
+      background: #fff;
+      display: block;
+    }
+
+    .sample-fallback{
+      padding: 22px;
+    }
+
+    .sample-fallback p{
+      margin: 0 0 10px;
+    }
+
+    .sample-sticky{
+      position: fixed;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      z-index: 2147483000;
+    }
+
+    .sample-sticky-inner{
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      background: rgba(255,255,255,.98);
+      border: 1px solid rgba(29,36,48,.14);
+      border-radius: 18px;
+      box-shadow: 0 18px 42px rgba(18,24,35,.16);
+      padding: 12px 14px;
+    }
+
+    .sample-sticky-copy{
+      min-width: 240px;
+      flex: 1 1 320px;
+    }
+
+    .sample-sticky-copy strong{
+      display: block;
+      color: #1d2430;
+      margin-bottom: 2px;
+      font-size: .98rem;
+    }
+
+    .sample-sticky-copy span{
+      color: #566173;
+      font-size: .93rem;
+      line-height: 1.35;
+    }
+
+    .sample-sticky-actions{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .sample-note{
+      margin-top: 14px;
+      color: #6a7687;
+      font-size: .92rem;
+    }
+
+    .cookie-banner{
+      position: fixed;
+      left: 16px;
+      right: 16px;
+      bottom: 96px;
+      z-index: 2147483647;
+      background: rgba(255,255,255,.98);
+      border: 1px solid rgba(29,36,48,.14);
+      border-radius: 18px;
+      box-shadow: 0 18px 42px rgba(18,24,35,.16);
+      padding: 16px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .cookie-banner[hidden]{
+      display: none !important;
+    }
+
+    .cookie-banner h3{
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .cookie-banner p{
+      margin: 0 0 12px;
+      color: #566173;
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+
+    .cookie-actions{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .cookie-actions .btn{
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .sample-frame{
+        height: 72vh;
+        min-height: 560px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .sample-shell{
+        padding: 20px 12px 118px;
+      }
+
+      .sample-frame-wrap{
+        padding: 8px;
+      }
+
+      .sample-frame{
+        height: 66vh;
+        min-height: 440px;
+        border-radius: 12px;
+      }
+
+      .sample-sticky{
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+      }
+
+      .sample-sticky-inner{
+        padding: 10px;
+        gap: 10px;
+      }
+
+      .sample-sticky-actions{
+        width: 100%;
+      }
+
+      .sample-sticky-actions .btn{
+        flex: 1 1 auto;
+        justify-content: center;
+        text-align: center;
+        min-width: 0;
+      }
+
+      .cookie-banner{
+        left: 10px;
+        right: 10px;
+        bottom: 92px;
+      }
+    }
+  </style>
+</head>
+
+<body class="sample-page">
+  <a class="skip" href="#content">Zum Inhalt springen</a>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand" aria-label="Farbenfrohe Lesewelt">
+        <img class="brand-logo" src="../assets/flw-logo.webp" alt="Farbenfrohe Lesewelt" loading="eager">
+        <span class="brand-text">Farbenfrohe Lesewelt</span>
+      </div>
+
+      <nav class="top-actions" aria-label="Aktionen">
+        <a class="btn btn-ghost" id="backTopLink" href="../">Zur Buchseite</a>
+        <a class="btn btn-primary" id="amazonTopLink" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow">
+          Direkt zu Amazon
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="sample-shell">
+      <div class="sample-intro">
+        <p class="eyebrow" id="sampleEyebrow">Kostenlose Leseprobe</p>
+        <h1 id="sampleHeadline">Erst kurz reinlesen</h1>
+        <p id="sampleLead">
+          Wenn dir Ton und Aufbau helfen, findest du auf der Buchseite alle Infos und den direkten Weg zum Buch.
+        </p>
+      </div>
+
+      <div class="sample-utility">
+        <a class="btn btn-ghost" id="backInlineLink" href="../">Zurück zur Buchseite</a>
+        <a class="btn btn-ghost" id="downloadInlineLink" href="../assets/samples/leseprobe-main.pdf" download>
+          PDF herunterladen
+        </a>
+        <a class="btn btn-primary" id="amazonInlineLink" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow">
+          Jetzt zum Buch auf Amazon
+        </a>
+      </div>
+
+      <div class="sample-card">
+        <div class="sample-frame-wrap">
+          <iframe
+            class="sample-frame"
+            id="sampleFrame"
+            src="../assets/samples/leseprobe-main.pdf#view=FitH"
+            title="Leseprobe als PDF">
+          </iframe>
+
+          <noscript>
+            <div class="sample-fallback">
+              <p>Dein Browser blockiert die direkte PDF-Anzeige.</p>
+              <p><a href="../assets/samples/leseprobe-main.pdf">Hier kannst du die Leseprobe direkt öffnen.</a></p>
+            </div>
+          </noscript>
+        </div>
+      </div>
+
+      <p class="sample-note" id="sampleNote">
+        Tipp: Du kannst direkt lesen oder die Leseprobe als PDF herunterladen und später weitermachen.
+      </p>
+    </section>
+
+    <div class="sample-sticky" role="region" aria-label="Schnellaktion">
+      <div class="sample-sticky-inner">
+        <div class="sample-sticky-copy">
+          <strong>Wenn dir das gerade Sicherheit gibt:</strong>
+          <span>Das ganze Buch ist genau dafür gebaut – ruhig, klar und alltagstauglich.</span>
+        </div>
+
+        <div class="sample-sticky-actions">
+          <a class="btn btn-ghost" id="backStickyLink" href="../">Zur Buchseite</a>
+          <a class="btn btn-primary" id="amazonStickyLink" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow">
+            Jetzt zu Amazon
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <p class="muted small">
+          Hinweis: Alltagsratgeber – ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung.
+        </p>
+        <p class="muted small">
+          <a href="../legal/impressum.html">Impressum</a> ·
+          <a href="../legal/datenschutz.html">Datenschutz</a>
+        </p>
+        <p class="muted small" id="analyticsHint" hidden>
+          <span style="opacity:.75">Analyse-Tools werden nur nach Einwilligung geladen. Keine externen Fonts.</span>
+        </p>
+      </div>
+
+      <div class="footer-right">
+        <p class="muted small">© <span id="year"></span> Farbenfrohe Lesewelt</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" id="cookieBanner" hidden>
+    <h3>Cookies & Statistik</h3>
+    <p>
+      Wenn du zustimmst, messen wir, welche Seiten und Buttons genutzt werden.
+      So können wir Inhalte und Anzeigen sinnvoll verbessern.
+      Mehr dazu in der <a href="../legal/datenschutz.html">Datenschutzerklärung</a>.
+    </p>
+    <div class="cookie-actions">
+      <button class="btn btn-primary" id="cookieAccept" type="button">Akzeptieren</button>
+      <button class="btn btn-ghost" id="cookieDecline" type="button">Ablehnen</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const variantParam = (params.get('variant') || 'main').toLowerCase();
+      const partner = (params.get('partner') || '').toLowerCase();
+
+      const variants = {
+        main: {
+          title: 'Kostenlose Leseprobe | Baby & Katze – sicher zusammen',
+          description: 'Kurz reinlesen, PDF herunterladen oder anschließend direkt zur Buchseite zurück.',
+          ogTitle: 'Kostenlose Leseprobe | Baby & Katze – sicher zusammen',
+          ogDescription: 'Direkt reinlesen, PDF herunterladen oder anschließend zur Buchseite zurück.',
+          eyebrow: 'Kostenlose Leseprobe',
+          headline: 'Erst kurz reinlesen',
+          lead: 'Wenn du prüfen willst, ob das Buch zu eurer Situation passt, lies hier direkt rein. Danach kommst du mit einem Klick zurück zur Buchseite.',
+          note: 'Du bleibst im selben Funnel: lesen, zurück zur Seite, dann weiter zum Buch.',
+          backHref: '../',
+          backLabel: 'Zur Hauptseite',
+          pdf: '../assets/samples/leseprobe-main.pdf',
+          defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_AB6C5EAB6B2C4BD11B7FFB3D1EE2498A_afap_abs&ref_=aa_maas&tag=maas',
+          useMeta: false,
+          showConsentHint: false
+        },
+        schwangerschaft: {
+          title: 'Kostenlose Leseprobe | Schwanger mit Katze?',
+          description: 'Leseprobe für werdende Eltern mit Katze – ruhig vorbereiten, bevor es hektisch wird.',
+          ogTitle: 'Kostenlose Leseprobe | Schwanger mit Katze?',
+          ogDescription: 'Direkt reinlesen: die Leseprobe zur Schwangerschafts-Seite.',
+          eyebrow: 'Kostenlose Leseprobe · Schwangerschaft',
+          headline: 'Kurz reinlesen – bevor es hektisch wird',
+          lead: 'Diese Leseprobe passt zur Schwangerschafts-Seite und zeigt dir sofort, ob Stil und Tiefe zu eurer Situation passen.',
+          note: 'Danach kommst du mit einem Klick zurück zur Schwangerschafts-Seite oder direkt zum Buch.',
+          backHref: '../schwangerschaft/',
+          backLabel: 'Zur Schwangerschafts-Seite',
+          pdf: '../assets/samples/leseprobe-schwangerschaft.pdf',
+          defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_7AC767B99EEABDF3084F65DB7B414DB3_afap_abs&ref_=aa_maas&tag=maas',
+          useMeta: true,
+          showConsentHint: true
+        },
+        baby: {
+          title: 'Kostenlose Leseprobe | Baby 0–12 Monate & Katze',
+          description: 'Leseprobe für Eltern mit Baby und Katze – klare Regeln für müde Momente.',
+          ogTitle: 'Kostenlose Leseprobe | Baby da. Katze da.',
+          ogDescription: 'Direkt reinlesen: die Leseprobe zur Baby-Seite.',
+          eyebrow: 'Kostenlose Leseprobe · Baby 0–12 Monate',
+          headline: 'Kurz reinlesen – statt nachts weiterzugoogeln',
+          lead: 'Diese Leseprobe passt zur Baby-Seite und gibt dir einen schnellen Eindruck, ob Aufbau und Ton euch im Alltag helfen.',
+          note: 'Danach kommst du mit einem Klick zurück zur Baby-Seite oder direkt zum Buch.',
+          backHref: '../baby/',
+          backLabel: 'Zur Baby-Seite',
+          pdf: '../assets/samples/leseprobe-baby.pdf',
+          defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_145878D5668BB9B2E030604EAC15D41F_afap_abs&ref_=aa_maas&tag=maas',
+          useMeta: true,
+          showConsentHint: true
+        }
+      };
+
+      const partnerLinks = {
+        off001: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_D7BF38A980290F776614F117B3D8A5EB_afap_abs&ref_=aa_maas&tag=maas',
+        off002: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_E7FD580BFB6E39BDA9FCDE8FAF720EE4_afap_abs&ref_=aa_maas&tag=maas',
+        off003: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_EFEB1BC5DB8A6FA05B70F3B2BB51EE21_afap_abs&ref_=aa_maas&tag=maas',
+        off004: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_0AE3685C8CEC3D8810A98C746F20314F_afap_abs&ref_=aa_maas&tag=maas',
+        off005: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_37B420FB28026C81A61544961992C512_afap_abs&ref_=aa_maas&tag=maas',
+        off006: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_CF51AFAE784D4B013142D408E5D0BF10_afap_abs&ref_=aa_maas&tag=maas',
+        off007: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_69C44B55148FE0C2DC9B91F4915AF5EF_afap_abs&ref_=aa_maas&tag=maas',
+        off008: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_B9D5B44E8EA1FF136729CE2E4A23D975_afap_abs&ref_=aa_maas&tag=maas',
+        off009: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_ADBC729E5818773865CDFB69802E8CEF_afap_abs&ref_=aa_maas&tag=maas',
+        off010: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_FF188C4C63AACBBAA1CE8CF593B31646_afap_abs&ref_=aa_maas&tag=maas',
+        off011: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_203F036241E6CCFA37CFDC816FFA5E11_afap_abs&ref_=aa_maas&tag=maas',
+        off012: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_363A7FFE2EC35D8F6A0724309B4A8440_afap_abs&ref_=aa_maas&tag=maas',
+        off013: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_9484B476287143DD56BB9F430C053861_afap_abs&ref_=aa_maas&tag=maas',
+        off014: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_F3AF85E99ADD9EDE9397A0674B2A96C6_afap_abs&ref_=aa_maas&tag=maas',
+        off015: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_81EFD9140326117AE6FC90C5273745CA_afap_abs&ref_=aa_maas&tag=maas',
+        off016: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_2D6CFB54E313096F943D6CF7473F23F3_afap_abs&ref_=aa_maas&tag=maas',
+        off017: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_7B067B3B4553849CE152B642355D57F8_afap_abs&ref_=aa_maas&tag=maas',
+        off018: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_3808CB9E96D3CBDB426DDE015B4D2A17_afap_abs&ref_=aa_maas&tag=maas',
+        off019: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_0F3F692BDDF81329243EB7934637FA65_afap_abs&ref_=aa_maas&tag=maas',
+        off020: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_9FF4AD78EFA4FBA705E840016CF05802_afap_abs&ref_=aa_maas&tag=maas'
+      };
+
+      const variant = variants[variantParam] || variants.main;
+      const finalAmazon = (variantParam === 'main' && partnerLinks[partner]) ? partnerLinks[partner] : variant.defaultAmazon;
+
+      function withPartner(url) {
+        if (!partner) return url;
+        try {
+          const u = new URL(url, window.location.href);
+          u.searchParams.set('partner', partner);
+          return u.pathname + u.search;
+        } catch (e) {
+          return url;
+        }
+      }
+
+      function trackSampleEvent(eventName, extra = {}) {
+        if (!variant.useMeta) return;
+        metaTrack('trackCustom', eventName, Object.assign({
+          variant: variantParam
+        }, extra));
+      }
+
+      function setText(id, value) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+      }
+
+      function setHref(id, href) {
+        const el = document.getElementById(id);
+        if (el) el.href = href;
+      }
+
+      document.title = variant.title;
+      document.querySelector('meta[name="description"]').setAttribute('content', variant.description);
+      document.querySelector('meta[property="og:title"]').setAttribute('content', variant.ogTitle);
+      document.querySelector('meta[property="og:description"]').setAttribute('content', variant.ogDescription);
+
+      setText('sampleEyebrow', variant.eyebrow);
+      setText('sampleHeadline', variant.headline);
+      setText('sampleLead', variant.lead);
+      setText('sampleNote', variant.note);
+
+      const backHref = withPartner(variant.backHref);
+
+      setHref('backTopLink', backHref);
+      setHref('backInlineLink', backHref);
+      setHref('backStickyLink', backHref);
+
+      document.getElementById('backTopLink').textContent = variant.backLabel;
+      document.getElementById('backInlineLink').textContent = variant.backLabel;
+      document.getElementById('backStickyLink').textContent = variant.backLabel;
+
+      setHref('downloadInlineLink', variant.pdf);
+
+      setHref('amazonTopLink', finalAmazon);
+      setHref('amazonInlineLink', finalAmazon);
+      setHref('amazonStickyLink', finalAmazon);
+
+      document.getElementById('sampleFrame').src = variant.pdf + '#view=FitH';
+
+      if (variant.showConsentHint) {
+        document.getElementById('analyticsHint').hidden = false;
+      }
+
+      const consent = localStorage.getItem(META_CONSENT_KEY);
+
+      if (variant.useMeta && consent === 'granted') {
+        loadMetaPixel();
+        trackSampleEvent('SampleOpen', { placement: 'reader' });
+      }
+
+      if (variant.useMeta && !consent) {
+        const banner = document.getElementById('cookieBanner');
+        const acceptBtn = document.getElementById('cookieAccept');
+        const declineBtn = document.getElementById('cookieDecline');
+
+        banner.hidden = false;
+
+        acceptBtn.addEventListener('click', function () {
+          localStorage.setItem(META_CONSENT_KEY, 'granted');
+          loadMetaPixel();
+          trackSampleEvent('SampleOpen', { placement: 'reader_after_consent' });
+          banner.hidden = true;
+        });
+
+        declineBtn.addEventListener('click', function () {
+          localStorage.setItem(META_CONSENT_KEY, 'denied');
+          banner.hidden = true;
+        });
+      }
+
+      document.getElementById('downloadInlineLink').addEventListener('click', function () {
+        trackSampleEvent('SampleDownload', { placement: 'inline_download' });
+      });
+
+      document.getElementById('amazonTopLink').addEventListener('click', function () {
+        trackSampleEvent('SampleAmazonClick', { placement: 'top' });
+      });
+
+      document.getElementById('amazonInlineLink').addEventListener('click', function () {
+        trackSampleEvent('SampleAmazonClick', { placement: 'inline' });
+      });
+
+      document.getElementById('amazonStickyLink').addEventListener('click', function () {
+        trackSampleEvent('SampleAmazonClick', { placement: 'sticky' });
+      });
+
+      document.getElementById('backTopLink').addEventListener('click', function () {
+        trackSampleEvent('SampleBackClick', { placement: 'top' });
+      });
+
+      document.getElementById('backInlineLink').addEventListener('click', function () {
+        trackSampleEvent('SampleBackClick', { placement: 'inline' });
+      });
+
+      document.getElementById('backStickyLink').addEventListener('click', function () {
+        trackSampleEvent('SampleBackClick', { placement: 'sticky' });
+      });
+    })();
+  </script>
+</body>
+</html>
