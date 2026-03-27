@@ -316,14 +316,14 @@
           <iframe
             class="sample-frame"
             id="sampleFrame"
-            src="../assets/samples/leseprobe-main.pdf#view=FitH"
-            title="Leseprobe als PDF">
+            src="../samples/leseprobe-main.html"
+            title="Leseprobe">
           </iframe>
 
           <noscript>
             <div class="sample-fallback">
-              <p>Dein Browser blockiert die direkte PDF-Anzeige.</p>
-              <p><a href="../assets/samples/leseprobe-main.pdf">Hier kannst du die Leseprobe direkt öffnen.</a></p>
+              <p>Dein Browser blockiert die direkte Anzeige.</p>
+              <p><a href="../samples/leseprobe-main.html">Hier kannst du die Leseprobe direkt öffnen.</a></p>
             </div>
           </noscript>
         </div>
@@ -396,14 +396,16 @@
       const variants = {
         main: {
           title: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
-         ogTitle: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
-  ogDescription: 'Direkt reinlesen und einen ersten Eindruck von Aufbau, Ton und Alltagstauglichkeit bekommen.',
-  eyebrow: 'Kostenlose Leseprobe',
-  headline: 'Direkt kurz reinlesen',
+          description: 'Kostenlose Leseprobe zu Baby und Katze sicher zusammenführen – direkt reinlesen und prüfen, ob das Buch zu eurer Situation passt.',
+          ogTitle: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
+          ogDescription: 'Direkt reinlesen und einen ersten Eindruck von Aufbau, Ton und Alltagstauglichkeit bekommen.',
+          eyebrow: 'Kostenlose Leseprobe',
+          headline: 'Direkt kurz reinlesen',
           lead: 'Wenn du prüfen willst, ob das Buch zu eurer Situation passt, lies hier direkt rein.',
+          note: 'Lies direkt rein und entscheide dann in Ruhe, ob das Buch zu euch passt.',
           backHref: '../',
           backLabel: 'Zurück',
-          pdf: '../assets/samples/leseprobe-main.pdf',
+          sampleSrc: '../samples/leseprobe-main.html',
           defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_AB6C5EAB6B2C4BD11B7FFB3D1EE2498A_afap_abs&ref_=aa_maas&tag=maas',
           useMeta: false,
           showConsentHint: false
@@ -411,14 +413,15 @@
         schwangerschaft: {
           title: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
           description: 'Leseprobe für werdende Eltern mit Katze – ruhig vorbereiten, bevor es hektisch wird.',
-           ogTitle: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
-  ogDescription: 'Direkt reinlesen und prüfen, ob Ton, Aufbau und Tiefe zu eurer Situation passen.',
-  eyebrow: 'Kostenlose Leseprobe',
+          ogTitle: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
+          ogDescription: 'Direkt reinlesen und prüfen, ob Ton, Aufbau und Tiefe zu eurer Situation passen.',
+          eyebrow: 'Kostenlose Leseprobe',
           headline: 'Kurz reinlesen – bevor es hektisch wird',
           lead: 'Diese Leseprobe zeigt dir sofort, ob Stil und Tiefe zu eurer Situation passen.',
+          note: 'Lies direkt rein und entscheide dann in Ruhe, ob das Buch zu euch passt.',
           backHref: '../schwangerschaft/',
           backLabel: 'Zurück',
-          pdf: '../assets/samples/leseprobe-schwangerschaft.pdf',
+          sampleSrc: '../samples/leseprobe-schwangerschaft.html',
           defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_7AC767B99EEABDF3084F65DB7B414DB3_afap_abs&ref_=aa_maas&tag=maas',
           useMeta: true,
           showConsentHint: true
@@ -427,13 +430,14 @@
           title: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
           description: 'Leseprobe für Eltern mit Baby und Katze – klare Regeln für müde Momente.',
           ogTitle: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
-  ogDescription: 'Direkt reinlesen und prüfen, ob Aufbau und Ton euch im Alltag helfen.',
-  eyebrow: 'Kostenlose Leseprobe',
+          ogDescription: 'Direkt reinlesen und prüfen, ob Aufbau und Ton euch im Alltag helfen.',
+          eyebrow: 'Kostenlose Leseprobe',
           headline: 'Kurz reinlesen – statt nachts weiterzugoogeln',
           lead: 'Diese Leseprobe gibt dir einen schnellen Eindruck, ob Aufbau und Ton euch im Alltag helfen.',
+          note: 'Lies direkt rein und entscheide dann in Ruhe, ob das Buch zu euch passt.',
           backHref: '../baby/',
           backLabel: 'Zurück',
-          pdf: '../assets/samples/leseprobe-baby.pdf',
+          sampleSrc: '../samples/leseprobe-baby.html',
           defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_145878D5668BB9B2E030604EAC15D41F_afap_abs&ref_=aa_maas&tag=maas',
           useMeta: true,
           showConsentHint: true
@@ -518,7 +522,7 @@
       setHref('amazonInlineLink', finalAmazon);
       setHref('amazonStickyLink', finalAmazon);
 
-      document.getElementById('sampleFrame').src = variant.pdf + '#view=FitH';
+      document.getElementById('sampleFrame').src = variant.sampleSrc;
 
       if (variant.showConsentHint) {
         document.getElementById('analyticsHint').hidden = false;
