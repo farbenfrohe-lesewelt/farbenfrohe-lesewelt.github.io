@@ -1,8 +1,9 @@
 <!DOCTYPE html><!--[if IE]>  <html class="stl_ie"> <![endif]-->
-<html>
+<html lang="de">
 	<head>
 		<meta charset="utf-8" />
-		<title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>
 		</title>
 		
 	<STYLE> 
@@ -37,7 +38,35 @@
 	margin: 0em;
 }
 
+html, body {
+	margin: 0;
+	padding: 0;
+	max-width: 100%;
+	overflow-x: hidden;
+	background: #fdfaf5;
+}
+
+.stl_view {
+	margin: 0 auto;
+}
+
+.stl_02 {
+	max-width: 100%;
+}
+
+@media (max-width: 640px) {
+	.stl_view {
+		font-size: calc((100vw - 24px) / 4.958333) !important;
+		margin: 0 auto !important;
+	}
+
+	.stl_02 {
+		margin: 0 auto !important;
+	}
+}
+		
 @supports(-ms-ime-align:auto) { .stl_02 {overflow: hidden;}}
+		
 .stl_03 {
 	position: relative;
 }
