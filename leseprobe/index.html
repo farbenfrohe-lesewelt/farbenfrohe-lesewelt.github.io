@@ -105,18 +105,26 @@
       overflow: hidden;
     }
 
-    .sample-frame-wrap{
+    .sample-pages{
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
       padding: 12px;
     }
 
-    .sample-frame{
-      width: 100%;
-      height: 78vh;
-      min-height: 720px;
-      border: 0;
-      border-radius: 16px;
+    .sample-page-figure{
+      margin: 0;
       background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(29,36,48,.08);
+      box-shadow: 0 8px 24px rgba(18,24,35,.06);
+    }
+
+    .sample-page-image{
       display: block;
+      width: 100%;
+      height: auto;
     }
 
     .sample-fallback{
@@ -223,9 +231,8 @@
     }
 
     @media (max-width: 900px) {
-      .sample-frame{
-        height: 72vh;
-        min-height: 560px;
+      .sample-pages{
+        gap: 12px;
       }
     }
 
@@ -234,13 +241,12 @@
         padding: 20px 12px 118px;
       }
 
-      .sample-frame-wrap{
+      .sample-pages{
         padding: 8px;
+        gap: 10px;
       }
 
-      .sample-frame{
-        height: 66vh;
-        min-height: 440px;
+      .sample-page-figure{
         border-radius: 12px;
       }
 
@@ -312,21 +318,14 @@
       </div>
 
       <div class="sample-card">
-        <div class="sample-frame-wrap">
-          <iframe
-            class="sample-frame"
-            id="sampleFrame"
-            src="../assets/samples/leseprobe-main.html"
-            title="Leseprobe">
-          </iframe>
+        <div class="sample-pages" id="samplePages"></div>
 
-          <noscript>
-            <div class="sample-fallback">
-              <p>Dein Browser blockiert die direkte Anzeige.</p>
-              <p><a href="../assets/samples/leseprobe-main.html">Hier kannst du die Leseprobe direkt öffnen.</a></p>
-            </div>
-          </noscript>
-        </div>
+        <noscript>
+          <div class="sample-fallback">
+            <p>Für die Leseprobe wird JavaScript benötigt.</p>
+            <p>Nutze bitte die Buttons oben oder unten, um zurück zur Buchseite oder direkt zu Amazon zu wechseln.</p>
+          </div>
+        </noscript>
       </div>
 
       <p class="sample-note" id="sampleNote">
@@ -405,7 +404,19 @@
           note: 'Lies direkt rein und entscheide dann in Ruhe, ob das Buch zu euch passt.',
           backHref: '../',
           backLabel: 'Zurück',
-          sampleSrc: '../assets/samples/leseprobe-main.html',
+          pages: [
+            '../assets/samples/main/01.webp',
+            '../assets/samples/main/02.webp',
+            '../assets/samples/main/03.webp',
+            '../assets/samples/main/04.webp',
+            '../assets/samples/main/05.webp',
+            '../assets/samples/main/06.webp',
+            '../assets/samples/main/07.webp',
+            '../assets/samples/main/08.webp',
+            '../assets/samples/main/09.webp',
+            '../assets/samples/main/10.webp',
+            '../assets/samples/main/11.webp'
+          ],
           defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_AB6C5EAB6B2C4BD11B7FFB3D1EE2498A_afap_abs&ref_=aa_maas&tag=maas',
           useMeta: false,
           showConsentHint: false
@@ -421,7 +432,16 @@
           note: 'Lies direkt rein und entscheide dann in Ruhe, ob das Buch zu euch passt.',
           backHref: '../schwangerschaft/',
           backLabel: 'Zurück',
-          sampleSrc: '../assets/samples/leseprobe-schwangerschaft.html',
+          pages: [
+            '../assets/samples/schwangerschaft/01.webp',
+            '../assets/samples/schwangerschaft/02.webp',
+            '../assets/samples/schwangerschaft/03.webp',
+            '../assets/samples/schwangerschaft/04.webp',
+            '../assets/samples/schwangerschaft/05.webp',
+            '../assets/samples/schwangerschaft/06.webp',
+            '../assets/samples/schwangerschaft/07.webp',
+            '../assets/samples/schwangerschaft/08.webp'
+          ],
           defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_7AC767B99EEABDF3084F65DB7B414DB3_afap_abs&ref_=aa_maas&tag=maas',
           useMeta: true,
           showConsentHint: true
@@ -437,7 +457,15 @@
           note: 'Lies direkt rein und entscheide dann in Ruhe, ob das Buch zu euch passt.',
           backHref: '../baby/',
           backLabel: 'Zurück',
-          sampleSrc: '../assets/samples/leseprobe-baby.html',
+          pages: [
+            '../assets/samples/baby/01.webp',
+            '../assets/samples/baby/02.webp',
+            '../assets/samples/baby/03.webp',
+            '../assets/samples/baby/04.webp',
+            '../assets/samples/baby/05.webp',
+            '../assets/samples/baby/06.webp',
+            '../assets/samples/baby/07.webp'
+          ],
           defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_145878D5668BB9B2E030604EAC15D41F_afap_abs&ref_=aa_maas&tag=maas',
           useMeta: true,
           showConsentHint: true
@@ -498,6 +526,22 @@
         if (el) el.href = href;
       }
 
+      function renderSamplePages(pageList) {
+        const container = document.getElementById('samplePages');
+        if (!container) return;
+
+        container.innerHTML = pageList.map((src, index) => `
+          <figure class="sample-page-figure">
+            <img
+              class="sample-page-image"
+              src="${src}"
+              alt="Leseprobe Seite ${index + 1}"
+              loading="${index < 2 ? 'eager' : 'lazy'}"
+              decoding="async">
+          </figure>
+        `).join('');
+      }
+
       document.title = variant.title;
       document.querySelector('meta[name="description"]').setAttribute('content', variant.description);
       document.querySelector('meta[property="og:title"]').setAttribute('content', variant.ogTitle);
@@ -522,7 +566,7 @@
       setHref('amazonInlineLink', finalAmazon);
       setHref('amazonStickyLink', finalAmazon);
 
-      document.getElementById('sampleFrame').src = variant.sampleSrc;
+      renderSamplePages(variant.pages);
 
       if (variant.showConsentHint) {
         document.getElementById('analyticsHint').hidden = false;
