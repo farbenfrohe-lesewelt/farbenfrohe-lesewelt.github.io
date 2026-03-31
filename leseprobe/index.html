@@ -384,245 +384,244 @@
     </div>
   </div>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    (function () {
-      const params = new URLSearchParams(window.location.search);
-      const variantParam = (params.get('variant') || 'main').toLowerCase();
-      const partner = (params.get('partner') || '').toLowerCase();
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const variantParam = (params.get('variant') || 'main').toLowerCase();
+    const partner = (params.get('partner') || '').toLowerCase();
 
-      const variants = {
-        main: {
-          title: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
-          description: 'Kostenlose Leseprobe zu Baby und Katze sicher zusammenführen – direkt reinlesen und prüfen, ob das Buch zu eurer Situation passt.',
-          ogTitle: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
-          ogDescription: 'Direkt reinlesen und einen ersten Eindruck von Aufbau, Ton und Alltagstauglichkeit bekommen.',
-          eyebrow: 'Kostenlose Leseprobe',
-          headline: 'Direkt kurz reinlesen',
-          lead: 'Wenn du prüfen willst, ob das Buch zu eurer Situation passt, lies hier direkt rein.',
-          note: 'Lies direkt rein und entscheide dann in Ruhe, ob das Buch zu euch passt.',
-          backHref: '../',
-          backLabel: 'Zurück',
-          pages: [
-            '../assets/samples/main/01.webp',
-            '../assets/samples/main/02.webp',
-            '../assets/samples/main/03.webp',
-            '../assets/samples/main/04.webp',
-            '../assets/samples/main/05.webp',
-            '../assets/samples/main/06.webp',
-            '../assets/samples/main/07.webp',
-            '../assets/samples/main/08.webp',
-            '../assets/samples/main/09.webp',
-            '../assets/samples/main/10.webp',
-            '../assets/samples/main/11.webp'
-          ],
-          defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_AB6C5EAB6B2C4BD11B7FFB3D1EE2498A_afap_abs&ref_=aa_maas&tag=maas',
-          useMeta: false,
-          showConsentHint: false
-        },
-        schwangerschaft: {
-          title: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
-          description: 'Leseprobe für werdende Eltern mit Katze – ruhig vorbereiten, bevor es hektisch wird.',
-          ogTitle: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
-          ogDescription: 'Direkt reinlesen und prüfen, ob Ton, Aufbau und Tiefe zu eurer Situation passen.',
-          eyebrow: 'Kostenlose Leseprobe',
-          headline: 'Kurz reinlesen – bevor es hektisch wird',
-          lead: 'Diese Leseprobe zeigt dir sofort, ob Stil und Tiefe zu eurer Situation passen.',
-          note: 'Lies direkt rein und entscheide dann in Ruhe, ob das Buch zu euch passt.',
-          backHref: '../schwangerschaft/',
-          backLabel: 'Zurück',
-          pages: [
-            '../assets/samples/schwangerschaft/01.webp',
-            '../assets/samples/schwangerschaft/02.webp',
-            '../assets/samples/schwangerschaft/03.webp',
-            '../assets/samples/schwangerschaft/04.webp',
-            '../assets/samples/schwangerschaft/05.webp',
-            '../assets/samples/schwangerschaft/06.webp',
-            '../assets/samples/schwangerschaft/07.webp',
-            '../assets/samples/schwangerschaft/08.webp'
-          ],
-          defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_7AC767B99EEABDF3084F65DB7B414DB3_afap_abs&ref_=aa_maas&tag=maas',
-          useMeta: true,
-          showConsentHint: true
-        },
-        baby: {
-          title: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
-          description: 'Leseprobe für Eltern mit Baby und Katze – klare Regeln für müde Momente.',
-          ogTitle: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
-          ogDescription: 'Direkt reinlesen und prüfen, ob Aufbau und Ton euch im Alltag helfen.',
-          eyebrow: 'Kostenlose Leseprobe',
-          headline: 'Kurz reinlesen – statt nachts weiterzugoogeln',
-          lead: 'Diese Leseprobe gibt dir einen schnellen Eindruck, ob Aufbau und Ton euch im Alltag helfen.',
-          note: 'Lies direkt rein und entscheide dann in Ruhe, ob das Buch zu euch passt.',
-          backHref: '../baby/',
-          backLabel: 'Zurück',
-          pages: [
-            '../assets/samples/baby/01.webp',
-            '../assets/samples/baby/02.webp',
-            '../assets/samples/baby/03.webp',
-            '../assets/samples/baby/04.webp',
-            '../assets/samples/baby/05.webp',
-            '../assets/samples/baby/06.webp',
-            '../assets/samples/baby/07.webp'
-          ],
-          defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_145878D5668BB9B2E030604EAC15D41F_afap_abs&ref_=aa_maas&tag=maas',
-          useMeta: true,
-          showConsentHint: true
-        }
-      };
-
-      const partnerLinks = {
-        off001: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_D7BF38A980290F776614F117B3D8A5EB_afap_abs&ref_=aa_maas&tag=maas',
-        off002: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_E7FD580BFB6E39BDA9FCDE8FAF720EE4_afap_abs&ref_=aa_maas&tag=maas',
-        off003: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_EFEB1BC5DB8A6FA05B70F3B2BB51EE21_afap_abs&ref_=aa_maas&tag=maas',
-        off004: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_0AE3685C8CEC3D8810A98C746F20314F_afap_abs&ref_=aa_maas&tag=maas',
-        off005: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_37B420FB28026C81A61544961992C512_afap_abs&ref_=aa_maas&tag=maas',
-        off006: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_CF51AFAE784D4B013142D408E5D0BF10_afap_abs&ref_=aa_maas&tag=maas',
-        off007: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_69C44B55148FE0C2DC9B91F4915AF5EF_afap_abs&ref_=aa_maas&tag=maas',
-        off008: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_B9D5B44E8EA1FF136729CE2E4A23D975_afap_abs&ref_=aa_maas&tag=maas',
-        off009: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_ADBC729E5818773865CDFB69802E8CEF_afap_abs&ref_=aa_maas&tag=maas',
-        off010: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_FF188C4C63AACBBAA1CE8CF593B31646_afap_abs&ref_=aa_maas&tag=maas',
-        off011: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_203F036241E6CCFA37CFDC816FFA5E11_afap_abs&ref_=aa_maas&tag=maas',
-        off012: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_363A7FFE2EC35D8F6A0724309B4A8440_afap_abs&ref_=aa_maas&tag=maas',
-        off013: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_9484B476287143DD56BB9F430C053861_afap_abs&ref_=aa_maas&tag=maas',
-        off014: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_F3AF85E99ADD9EDE9397A0674B2A96C6_afap_abs&ref_=aa_maas&tag=maas',
-        off015: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_81EFD9140326117AE6FC90C5273745CA_afap_abs&ref_=aa_maas&tag=maas',
-        off016: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_2D6CFB54E313096F943D6CF7473F23F3_afap_abs&ref_=aa_maas&tag=maas',
-        off017: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_7B067B3B4553849CE152B642355D57F8_afap_abs&ref_=aa_maas&tag=maas',
-        off018: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_3808CB9E96D3CBDB426DDE015B4D2A17_afap_abs&ref_=aa_maas&tag=maas',
-        off019: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_0F3F692BDDF81329243EB7934637FA65_afap_abs&ref_=aa_maas&tag=maas',
-        off020: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_9FF4AD78EFA4FBA705E840016CF05802_afap_abs&ref_=aa_maas&tag=maas'
-      };
-
-      const variant = variants[variantParam] || variants.main;
-      const finalAmazon = (variantParam === 'main' && partnerLinks[partner]) ? partnerLinks[partner] : variant.defaultAmazon;
-
-      function withPartner(url) {
-        if (!partner) return url;
-        try {
-          const u = new URL(url, window.location.href);
-          u.searchParams.set('partner', partner);
-          return u.pathname + u.search;
-        } catch (e) {
-          return url;
-        }
+    const variants = {
+      main: {
+        title: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
+        description: 'Kostenlose Leseprobe zu Baby und Katze sicher zusammenführen – direkt reinlesen und prüfen, ob das Buch zu eurer Situation passt.',
+        ogTitle: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
+        ogDescription: 'Direkt reinlesen und einen ersten Eindruck von Aufbau, Ton und Alltagstauglichkeit bekommen.',
+        eyebrow: 'Kostenlose Leseprobe',
+        headline: 'Direkt kurz reinlesen',
+        lead: 'Wenn du prüfen willst, ob das Buch zu eurer Situation passt, lies hier direkt rein.',
+        note: 'Lies direkt rein und entscheide dann in Ruhe, ob das Buch zu euch passt.',
+        backHref: '../',
+        backLabel: 'Zurück',
+        pages: [
+          '../assets/samples/main/01.webp',
+          '../assets/samples/main/02.webp',
+          '../assets/samples/main/03.webp',
+          '../assets/samples/main/04.webp',
+          '../assets/samples/main/05.webp',
+          '../assets/samples/main/06.webp',
+          '../assets/samples/main/07.webp',
+          '../assets/samples/main/08.webp',
+          '../assets/samples/main/09.webp',
+          '../assets/samples/main/10.webp',
+          '../assets/samples/main/11.webp'
+        ],
+        defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_AB6C5EAB6B2C4BD11B7FFB3D1EE2498A_afap_abs&ref_=aa_maas&tag=maas',
+        useMeta: false,
+        showConsentHint: false
+      },
+      schwangerschaft: {
+        title: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
+        description: 'Leseprobe für werdende Eltern mit Katze – ruhig vorbereiten, bevor es hektisch wird.',
+        ogTitle: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
+        ogDescription: 'Direkt reinlesen und prüfen, ob Ton, Aufbau und Tiefe zu eurer Situation passen.',
+        eyebrow: 'Kostenlose Leseprobe',
+        headline: 'Kurz reinlesen – bevor es hektisch wird',
+        lead: 'Diese Leseprobe zeigt dir sofort, ob Stil und Tiefe zu eurer Situation passen.',
+        note: 'Lies direkt rein und entscheide dann in Ruhe, ob das Buch zu euch passt.',
+        backHref: '../schwangerschaft/',
+        backLabel: 'Zurück',
+        pages: [
+          '../assets/samples/schwangerschaft/01.webp',
+          '../assets/samples/schwangerschaft/02.webp',
+          '../assets/samples/schwangerschaft/03.webp',
+          '../assets/samples/schwangerschaft/04.webp',
+          '../assets/samples/schwangerschaft/05.webp',
+          '../assets/samples/schwangerschaft/06.webp',
+          '../assets/samples/schwangerschaft/07.webp',
+          '../assets/samples/schwangerschaft/08.webp'
+        ],
+        defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_7AC767B99EEABDF3084F65DB7B414DB3_afap_abs&ref_=aa_maas&tag=maas',
+        useMeta: true,
+        showConsentHint: true
+      },
+      baby: {
+        title: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
+        description: 'Leseprobe für Eltern mit Baby und Katze – klare Regeln für müde Momente.',
+        ogTitle: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
+        ogDescription: 'Direkt reinlesen und prüfen, ob Aufbau und Ton euch im Alltag helfen.',
+        eyebrow: 'Kostenlose Leseprobe',
+        headline: 'Kurz reinlesen – statt nachts weiterzugoogeln',
+        lead: 'Diese Leseprobe gibt dir einen schnellen Eindruck, ob Aufbau und Ton euch im Alltag helfen.',
+        note: 'Lies direkt rein und entscheide dann in Ruhe, ob das Buch zu euch passt.',
+        backHref: '../baby/',
+        backLabel: 'Zurück',
+        pages: [
+          '../assets/samples/baby/01.webp',
+          '../assets/samples/baby/02.webp',
+          '../assets/samples/baby/03.webp',
+          '../assets/samples/baby/04.webp',
+          '../assets/samples/baby/05.webp',
+          '../assets/samples/baby/06.webp',
+          '../assets/samples/baby/07.webp'
+        ],
+        defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_145878D5668BB9B2E030604EAC15D41F_afap_abs&ref_=aa_maas&tag=maas',
+        useMeta: true,
+        showConsentHint: true
       }
+    };
 
-      function trackSampleEvent(eventName, extra = {}) {
-        if (!variant.useMeta) return;
-        metaTrack('trackCustom', eventName, Object.assign({
-          variant: variantParam
-        }, extra));
+    const partnerLinks = {
+      off001: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_D7BF38A980290F776614F117B3D8A5EB_afap_abs&ref_=aa_maas&tag=maas',
+      off002: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_E7FD580BFB6E39BDA9FCDE8FAF720EE4_afap_abs&ref_=aa_maas&tag=maas',
+      off003: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_EFEB1BC5DB8A6FA05B70F3B2BB51EE21_afap_abs&ref_=aa_maas&tag=maas',
+      off004: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_0AE3685C8CEC3D8810A98C746F20314F_afap_abs&ref_=aa_maas&tag=maas',
+      off005: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_37B420FB28026C81A61544961992C512_afap_abs&ref_=aa_maas&tag=maas',
+      off006: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_CF51AFAE784D4B013142D408E5D0BF10_afap_abs&ref_=aa_maas&tag=maas',
+      off007: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_69C44B55148FE0C2DC9B91F4915AF5EF_afap_abs&ref_=aa_maas&tag=maas',
+      off008: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_B9D5B44E8EA1FF136729CE2E4A23D975_afap_abs&ref_=aa_maas&tag=maas',
+      off009: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_ADBC729E5818773865CDFB69802E8CEF_afap_abs&ref_=aa_maas&tag=maas',
+      off010: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_FF188C4C63AACBBAA1CE8CF593B31646_afap_abs&ref_=aa_maas&tag=maas'
+    };
+
+    const isKnownPartner = !!partnerLinks[partner];
+
+    const variant = variants[variantParam] || variants.main;
+
+    const finalAmazon = isKnownPartner
+      ? partnerLinks[partner]
+      : variant.defaultAmazon;
+
+    function withPartner(url) {
+      if (!partner) return url;
+      try {
+        const u = new URL(url, window.location.href);
+        u.searchParams.set('partner', partner);
+        return u.pathname + u.search;
+      } catch (e) {
+        return url;
       }
+    }
 
-      function setText(id, value) {
-        const el = document.getElementById(id);
-        if (el) el.textContent = value;
-      }
+    function trackSampleEvent(eventName, extra = {}) {
+      if (!variant.useMeta) return;
+      metaTrack('trackCustom', eventName, Object.assign({
+        variant: variantParam
+      }, extra));
+    }
 
-      function setHref(id, href) {
-        const el = document.getElementById(id);
-        if (el) el.href = href;
-      }
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
 
-      function renderSamplePages(pageList) {
-        const container = document.getElementById('samplePages');
-        if (!container) return;
+    function setHref(id, href) {
+      const el = document.getElementById(id);
+      if (el) el.href = href;
+    }
 
-        container.innerHTML = pageList.map((src, index) => `
-          <figure class="sample-page-figure">
-            <img
-              class="sample-page-image"
-              src="${src}"
-              alt="Leseprobe Seite ${index + 1}"
-              loading="${index < 2 ? 'eager' : 'lazy'}"
-              decoding="async">
-          </figure>
-        `).join('');
-      }
+    function renderSamplePages(pageList) {
+      const container = document.getElementById('samplePages');
+      if (!container) return;
 
-      document.title = variant.title;
-      document.querySelector('meta[name="description"]').setAttribute('content', variant.description);
-      document.querySelector('meta[property="og:title"]').setAttribute('content', variant.ogTitle);
-      document.querySelector('meta[property="og:description"]').setAttribute('content', variant.ogDescription);
+      container.innerHTML = pageList.map((src, index) => `
+        <figure class="sample-page-figure">
+          <img
+            class="sample-page-image"
+            src="${src}"
+            alt="Leseprobe Seite ${index + 1}"
+            loading="${index < 2 ? 'eager' : 'lazy'}"
+            decoding="async">
+        </figure>
+      `).join('');
+    }
 
-      setText('sampleEyebrow', variant.eyebrow);
-      setText('sampleHeadline', variant.headline);
-      setText('sampleLead', variant.lead);
-      setText('sampleNote', variant.note);
+    document.title = variant.title;
+    document.querySelector('meta[name="description"]').setAttribute('content', variant.description);
+    document.querySelector('meta[property="og:title"]').setAttribute('content', variant.ogTitle);
+    document.querySelector('meta[property="og:description"]').setAttribute('content', variant.ogDescription);
 
-      const backHref = withPartner(variant.backHref);
+    setText('sampleEyebrow', variant.eyebrow);
+    setText('sampleHeadline', variant.headline);
+    setText('sampleLead', variant.lead);
+    setText('sampleNote', variant.note);
 
-      setHref('backTopLink', backHref);
-      setHref('backInlineLink', backHref);
-      setHref('backStickyLink', backHref);
+    const backHref = withPartner(variant.backHref);
 
-      document.getElementById('backTopLink').textContent = variant.backLabel;
-      document.getElementById('backInlineLink').textContent = variant.backLabel;
-      document.getElementById('backStickyLink').textContent = variant.backLabel;
+    setHref('backTopLink', backHref);
+    setHref('backInlineLink', backHref);
+    setHref('backStickyLink', backHref);
 
-      setHref('amazonTopLink', finalAmazon);
-      setHref('amazonInlineLink', finalAmazon);
-      setHref('amazonStickyLink', finalAmazon);
+    document.getElementById('backTopLink').textContent = variant.backLabel;
+    document.getElementById('backInlineLink').textContent = variant.backLabel;
+    document.getElementById('backStickyLink').textContent = variant.backLabel;
 
-      renderSamplePages(variant.pages);
+    setHref('amazonTopLink', finalAmazon);
+    setHref('amazonInlineLink', finalAmazon);
+    setHref('amazonStickyLink', finalAmazon);
 
-      if (variant.showConsentHint) {
-        document.getElementById('analyticsHint').hidden = false;
-      }
+    renderSamplePages(variant.pages);
 
-      const consent = localStorage.getItem(META_CONSENT_KEY);
+    if (variant.showConsentHint) {
+      document.getElementById('analyticsHint').hidden = false;
+    }
 
-      if (variant.useMeta && consent === 'granted') {
+    const consent = localStorage.getItem(META_CONSENT_KEY);
+
+    if (variant.useMeta && consent === 'granted') {
+      loadMetaPixel();
+      trackSampleEvent('SampleOpen', { placement: 'reader' });
+    }
+
+    if (variant.useMeta && !consent) {
+      const banner = document.getElementById('cookieBanner');
+      const acceptBtn = document.getElementById('cookieAccept');
+      const declineBtn = document.getElementById('cookieDecline');
+
+      banner.hidden = false;
+
+      acceptBtn.addEventListener('click', function () {
+        localStorage.setItem(META_CONSENT_KEY, 'granted');
         loadMetaPixel();
-        trackSampleEvent('SampleOpen', { placement: 'reader' });
-      }
-
-      if (variant.useMeta && !consent) {
-        const banner = document.getElementById('cookieBanner');
-        const acceptBtn = document.getElementById('cookieAccept');
-        const declineBtn = document.getElementById('cookieDecline');
-
-        banner.hidden = false;
-
-        acceptBtn.addEventListener('click', function () {
-          localStorage.setItem(META_CONSENT_KEY, 'granted');
-          loadMetaPixel();
-          trackSampleEvent('SampleOpen', { placement: 'reader_after_consent' });
-          banner.hidden = true;
+        trackSampleEvent('SampleOpen', { 
+          placement: 'reader_after_consent',
+          delayed: true
         });
-
-        declineBtn.addEventListener('click', function () {
-          localStorage.setItem(META_CONSENT_KEY, 'denied');
-          banner.hidden = true;
-        });
-      }
-
-      document.getElementById('amazonTopLink').addEventListener('click', function () {
-        trackSampleEvent('SampleAmazonClick', { placement: 'top' });
+        banner.hidden = true;
       });
 
-      document.getElementById('amazonInlineLink').addEventListener('click', function () {
-        trackSampleEvent('SampleAmazonClick', { placement: 'inline' });
+      declineBtn.addEventListener('click', function () {
+        localStorage.setItem(META_CONSENT_KEY, 'denied');
+        banner.hidden = true;
       });
+    }
 
-      document.getElementById('amazonStickyLink').addEventListener('click', function () {
-        trackSampleEvent('SampleAmazonClick', { placement: 'sticky' });
-      });
+    document.getElementById('amazonTopLink').addEventListener('click', function () {
+      trackSampleEvent('SampleAmazonClick', { placement: 'top' });
+    });
 
-      document.getElementById('backTopLink').addEventListener('click', function () {
-        trackSampleEvent('SampleBackClick', { placement: 'top' });
-      });
+    document.getElementById('amazonInlineLink').addEventListener('click', function () {
+      trackSampleEvent('SampleAmazonClick', { placement: 'inline' });
+    });
 
-      document.getElementById('backInlineLink').addEventListener('click', function () {
-        trackSampleEvent('SampleBackClick', { placement: 'inline' });
-      });
+    document.getElementById('amazonStickyLink').addEventListener('click', function () {
+      trackSampleEvent('SampleAmazonClick', { placement: 'sticky' });
+    });
 
-      document.getElementById('backStickyLink').addEventListener('click', function () {
-        trackSampleEvent('SampleBackClick', { placement: 'sticky' });
-      });
-    })();
-  </script>
+    document.getElementById('backTopLink').addEventListener('click', function () {
+      trackSampleEvent('SampleBackClick', { placement: 'top' });
+    });
+
+    document.getElementById('backInlineLink').addEventListener('click', function () {
+      trackSampleEvent('SampleBackClick', { placement: 'inline' });
+    });
+
+    document.getElementById('backStickyLink').addEventListener('click', function () {
+      trackSampleEvent('SampleBackClick', { placement: 'sticky' });
+    });
+  })();
+</script>
+  
 </body>
 </html>
