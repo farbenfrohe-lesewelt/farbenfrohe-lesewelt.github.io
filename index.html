@@ -534,19 +534,8 @@
   const params = new URLSearchParams(window.location.search);
   const partner = params.get('partner');
 
-  // QR-Scan in Google Sheet loggen (ohne Cookies / ohne sessionStorage)
-  if (partner) {
-    fetch("https://script.google.com/macros/s/AKfycbyKDp6HGClj2VDp7_IDa-zGs_S1fyVHGy0U_50PXQoX5x_NfIGoxhqzbslUAn5yKrEx/exec?partner=" + encodeURIComponent(partner), {
-      method: "GET",
-      mode: "no-cors",
-      keepalive: true
-    }).catch(() => {});
-  }
-
-  // Fallback-Link, falls kein oder ein unbekannter Partnercode vorhanden ist
   const defaultLink = "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_AB6C5EAB6B2C4BD11B7FFB3D1EE2498A_afap_abs&ref_=aa_maas&tag=maas";
 
-  // Zuordnung: Partnercode -> Amazon Attribution Link
   const partnerLinks = {
     off001: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_D7BF38A980290F776614F117B3D8A5EB_afap_abs&ref_=aa_maas&tag=maas",
     off002: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_E7FD580BFB6E39BDA9FCDE8FAF720EE4_afap_abs&ref_=aa_maas&tag=maas",
@@ -570,24 +559,28 @@
     off020: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_9FF4AD78EFA4FBA705E840016CF05802_afap_abs&ref_=aa_maas&tag=maas"
   };
 
-  // Falls ein gültiger Partnercode vorhanden ist, nimm den passenden Link.
-  // Sonst nimm den normalen Standard-Link.
+  const isKnownPartner = !!partnerLinks[partner];
+
+  if (isKnownPartner) {
+    fetch("https://script.google.com/macros/s/AKfycbyKDp6HGClj2VDp7_IDa-zGs_S1fyVHGy0U_50PXQoX5x_NfIGoxhqzbslUAn5yKrEx/exec?partner=" + encodeURIComponent(partner), {
+      method: "GET",
+      mode: "no-cors",
+      keepalive: true
+    }).catch(() => {});
+  }
+
   const finalLink = partnerLinks[partner] || defaultLink;
 
-  // Alle Amazon-Links auf der Seite automatisch auf den passenden Link setzen
   const amazonLinks = document.querySelectorAll('a[href*="amazon.de/dp/B0GTDN1458"]');
-
   amazonLinks.forEach(link => {
     link.href = finalLink;
   });
 
-  // Reader-Links auf die Main-Variante setzen und vorhandenen Partnercode durchreichen
-  const finalReaderLink = partner
+  const finalReaderLink = isKnownPartner
     ? "leseprobe/?variant=main&partner=" + encodeURIComponent(partner)
     : "leseprobe/?variant=main";
 
   const readerLinks = document.querySelectorAll('[data-reader-link]');
-
   readerLinks.forEach(link => {
     link.href = finalReaderLink;
   });
