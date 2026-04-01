@@ -532,9 +532,9 @@
 <script>
 (function () {
   const params = new URLSearchParams(window.location.search);
-  const partner = params.get('partner');
-
-  const defaultLink = "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_AB6C5EAB6B2C4BD11B7FFB3D1EE2498A_afap_abs&ref_=aa_maas&tag=maas";
+const partner = (params.get('partner') || '').toLowerCase();
+  
+  const defaultLink = "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_50454E5F71AB42D647E49A05EE27E696_afap_abs&ref_=aa_maas&tag=maas";
 
   const partnerLinks = {
     off001: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_D7BF38A980290F776614F117B3D8A5EB_afap_abs&ref_=aa_maas&tag=maas",
