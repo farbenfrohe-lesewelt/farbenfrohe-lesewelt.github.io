@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon-256.png">
+  <script src="assets/js/links.js"></script>
 
 <script>
   function trackAmazonClick(placement) {
@@ -84,7 +85,7 @@
 
       <nav class="top-actions" aria-label="Aktionen">
         <a class="btn btn-ghost" href="#fit">Passt das zu uns?</a>
-        <a class="btn btn-primary" href="https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_AB6C5EAB6B2C4BD11B7FFB3D1EE2498A_afap_abs&ref_=aa_maas&tag=maas" rel="noopener nofollow" onclick="trackAmazonClick('header');">
+        <a class="btn btn-primary" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" onclick="trackAmazonClick('header');">
           Buch auf Amazon ansehen
         </a>
       </nav>
@@ -155,7 +156,7 @@
 
           <div class="hero-cta">
             <div class="cta-duo">
-              <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_AB6C5EAB6B2C4BD11B7FFB3D1EE2498A_afap_abs&ref_=aa_maas&tag=maas" rel="noopener nofollow" onclick="trackAmazonClick('hero-main-cta');">
+              <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" onclick="trackAmazonClick('hero-main-cta');">
                 Buch auf Amazon ansehen
               </a>
               <a class="btn btn-ghost btn-large" data-reader-link href="leseprobe/?variant=main">
@@ -192,7 +193,7 @@
                 <li><strong>Phase für Phase</strong> – Schwangerschaft bis Kleinkind</li>
               </ul>
 
-              <a class="btn btn-primary btn-block" href="https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_AB6C5EAB6B2C4BD11B7FFB3D1EE2498A_afap_abs&ref_=aa_maas&tag=maas" rel="noopener nofollow" onclick="trackAmazonClick('bookbox-primary');">
+              <a class="btn btn-primary btn-block" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" onclick="trackAmazonClick('bookbox-primary');">
                 Buch auf Amazon ansehen
               </a>
 
@@ -390,7 +391,7 @@
             </p>
 
             <div class="cta-duo">
-              <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_AB6C5EAB6B2C4BD11B7FFB3D1EE2498A_afap_abs&ref_=aa_maas&tag=maas" rel="noopener nofollow" onclick="trackAmazonClick('outcomes-primary');">Buch auf Amazon ansehen</a>
+              <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" onclick="trackAmazonClick('outcomes-primary');">Buch auf Amazon ansehen</a>
               <a class="btn btn-ghost btn-large" data-reader-link href="leseprobe/?variant=main">Direkt reinlesen</a>
             </div>
 
@@ -487,7 +488,7 @@
               <h3>Weniger Grübeln. Mehr Klarheit. Ab heute.</h3>
               <p class="muted">Das Buch ist die ausführliche Version dieser Seite – mit dem kompletten Zonen-System, Phasen-Plänen und Wenn-Dann-Regeln für euren Alltag.</p>
             </div>
-            <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_AB6C5EAB6B2C4BD11B7FFB3D1EE2498A_afap_abs&ref_=aa_maas&tag=maas" rel="noopener nofollow" onclick="trackAmazonClick('faq-strip');">
+            <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" onclick="trackAmazonClick('faq-strip');">
               Buch auf Amazon ansehen
             </a>
           </div>
@@ -498,7 +499,7 @@
     <div class="sticky-cta" role="region" aria-label="Schnellaktion">
       <div class="sticky-inner">
         <span class="sticky-text">Buch auf Amazon ansehen</span>
-        <a class="btn btn-primary" href="https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_AB6C5EAB6B2C4BD11B7FFB3D1EE2498A_afap_abs&ref_=aa_maas&tag=maas" rel="noopener nofollow" onclick="trackAmazonClick('sticky');">Buch auf Amazon ansehen</a>
+        <a class="btn btn-primary" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" onclick="trackAmazonClick('sticky');">Buch auf Amazon ansehen</a>
       </div>
     </div>
 
@@ -532,34 +533,15 @@
 <script>
 (function () {
   const params = new URLSearchParams(window.location.search);
-const partner = (params.get('partner') || '').toLowerCase();
-  
-  const defaultLink = "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_50454E5F71AB42D647E49A05EE27E696_afap_abs&ref_=aa_maas&tag=maas";
-
-  const partnerLinks = {
-    off001: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_D7BF38A980290F776614F117B3D8A5EB_afap_abs&ref_=aa_maas&tag=maas",
-    off002: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_E7FD580BFB6E39BDA9FCDE8FAF720EE4_afap_abs&ref_=aa_maas&tag=maas",
-    off003: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_EFEB1BC5DB8A6FA05B70F3B2BB51EE21_afap_abs&ref_=aa_maas&tag=maas",
-    off004: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_0AE3685C8CEC3D8810A98C746F20314F_afap_abs&ref_=aa_maas&tag=maas",
-    off005: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_37B420FB28026C81A61544961992C512_afap_abs&ref_=aa_maas&tag=maas",
-    off006: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_CF51AFAE784D4B013142D408E5D0BF10_afap_abs&ref_=aa_maas&tag=maas",
-    off007: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_69C44B55148FE0C2DC9B91F4915AF5EF_afap_abs&ref_=aa_maas&tag=maas",
-    off008: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_B9D5B44E8EA1FF136729CE2E4A23D975_afap_abs&ref_=aa_maas&tag=maas",
-    off009: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_ADBC729E5818773865CDFB69802E8CEF_afap_abs&ref_=aa_maas&tag=maas",
-    off010: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_FF188C4C63AACBBAA1CE8CF593B31646_afap_abs&ref_=aa_maas&tag=maas",
-    off011: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_203F036241E6CCFA37CFDC816FFA5E11_afap_abs&ref_=aa_maas&tag=maas",
-    off012: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_363A7FFE2EC35D8F6A0724309B4A8440_afap_abs&ref_=aa_maas&tag=maas",
-    off013: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_9484B476287143DD56BB9F430C053861_afap_abs&ref_=aa_maas&tag=maas",
-    off014: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_F3AF85E99ADD9EDE9397A0674B2A96C6_afap_abs&ref_=aa_maas&tag=maas",
-    off015: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_81EFD9140326117AE6FC90C5273745CA_afap_abs&ref_=aa_maas&tag=maas",
-    off016: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_2D6CFB54E313096F943D6CF7473F23F3_afap_abs&ref_=aa_maas&tag=maas",
-    off017: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_7B067B3B4553849CE152B642355D57F8_afap_abs&ref_=aa_maas&tag=maas",
-    off018: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_3808CB9E96D3CBDB426DDE015B4D2A17_afap_abs&ref_=aa_maas&tag=maas",
-    off019: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_0F3F692BDDF81329243EB7934637FA65_afap_abs&ref_=aa_maas&tag=maas",
-    off020: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_9FF4AD78EFA4FBA705E840016CF05802_afap_abs&ref_=aa_maas&tag=maas"
-  };
-
-  const isKnownPartner = !!partnerLinks[partner];
+  const partner = (params.get('partner') || '').toLowerCase();
+  const amazonBookUrl = (window.FLW_LINKS && window.FLW_LINKS.amazonBookUrl) || "https://www.amazon.de/dp/B0GTDN1458";
+  const knownPartners = new Set([
+    "off001", "off002", "off003", "off004", "off005",
+    "off006", "off007", "off008", "off009", "off010",
+    "off011", "off012", "off013", "off014", "off015",
+    "off016", "off017", "off018", "off019", "off020"
+  ]);
+  const isKnownPartner = knownPartners.has(partner);
 
   if (isKnownPartner) {
     fetch("https://script.google.com/macros/s/AKfycbyKDp6HGClj2VDp7_IDa-zGs_S1fyVHGy0U_50PXQoX5x_NfIGoxhqzbslUAn5yKrEx/exec?partner=" + encodeURIComponent(partner), {
@@ -569,11 +551,9 @@ const partner = (params.get('partner') || '').toLowerCase();
     }).catch(() => {});
   }
 
-  const finalLink = partnerLinks[partner] || defaultLink;
-
   const amazonLinks = document.querySelectorAll('a[href*="amazon.de/dp/B0GTDN1458"]');
   amazonLinks.forEach(link => {
-    link.href = finalLink;
+    link.href = amazonBookUrl;
   });
 
   const finalReaderLink = isKnownPartner

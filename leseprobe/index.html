@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="../styles.css" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="256x256" href="../assets/favicon-256.png">
+  <script src="../assets/js/links.js"></script>
 
   <script>
     const META_PIXEL_ID = '1599368868061138';
@@ -391,6 +392,7 @@
     const params = new URLSearchParams(window.location.search);
     const variantParam = (params.get('variant') || 'main').toLowerCase();
     const partner = (params.get('partner') || '').toLowerCase();
+    const amazonBookUrl = (window.FLW_LINKS && window.FLW_LINKS.amazonBookUrl) || 'https://www.amazon.de/dp/B0GTDN1458';
 
     const variants = {
       main: {
@@ -417,7 +419,6 @@
           '../assets/samples/main/10.webp',
           '../assets/samples/main/11.webp'
         ],
-        defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_50454E5F71AB42D647E49A05EE27E696_afap_abs&ref_=aa_maas&tag=maas',
         useMeta: false,
         showConsentHint: false
       },
@@ -442,7 +443,6 @@
           '../assets/samples/schwangerschaft/07.webp',
           '../assets/samples/schwangerschaft/08.webp'
         ],
-        defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_7AC767B99EEABDF3084F65DB7B414DB3_afap_abs&ref_=aa_maas&tag=maas',
         useMeta: true,
         showConsentHint: true
       },
@@ -466,42 +466,12 @@
           '../assets/samples/baby/06.webp',
           '../assets/samples/baby/07.webp'
         ],
-        defaultAmazon: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_145878D5668BB9B2E030604EAC15D41F_afap_abs&ref_=aa_maas&tag=maas',
         useMeta: true,
         showConsentHint: true
       }
     };
 
-    const partnerLinks = {
-      off001: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_D7BF38A980290F776614F117B3D8A5EB_afap_abs&ref_=aa_maas&tag=maas',
-      off002: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_E7FD580BFB6E39BDA9FCDE8FAF720EE4_afap_abs&ref_=aa_maas&tag=maas',
-      off003: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_EFEB1BC5DB8A6FA05B70F3B2BB51EE21_afap_abs&ref_=aa_maas&tag=maas',
-      off004: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_0AE3685C8CEC3D8810A98C746F20314F_afap_abs&ref_=aa_maas&tag=maas',
-      off005: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_37B420FB28026C81A61544961992C512_afap_abs&ref_=aa_maas&tag=maas',
-      off006: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_CF51AFAE784D4B013142D408E5D0BF10_afap_abs&ref_=aa_maas&tag=maas',
-      off007: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_69C44B55148FE0C2DC9B91F4915AF5EF_afap_abs&ref_=aa_maas&tag=maas',
-      off008: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_B9D5B44E8EA1FF136729CE2E4A23D975_afap_abs&ref_=aa_maas&tag=maas',
-      off009: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_ADBC729E5818773865CDFB69802E8CEF_afap_abs&ref_=aa_maas&tag=maas',
-      off010: 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_FF188C4C63AACBBAA1CE8CF593B31646_afap_abs&ref_=aa_maas&tag=maas',
-          off011: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_203F036241E6CCFA37CFDC816FFA5E11_afap_abs&ref_=aa_maas&tag=maas",
-    off012: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_363A7FFE2EC35D8F6A0724309B4A8440_afap_abs&ref_=aa_maas&tag=maas",
-    off013: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_9484B476287143DD56BB9F430C053861_afap_abs&ref_=aa_maas&tag=maas",
-    off014: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_F3AF85E99ADD9EDE9397A0674B2A96C6_afap_abs&ref_=aa_maas&tag=maas",
-    off015: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_81EFD9140326117AE6FC90C5273745CA_afap_abs&ref_=aa_maas&tag=maas",
-    off016: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_2D6CFB54E313096F943D6CF7473F23F3_afap_abs&ref_=aa_maas&tag=maas",
-    off017: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_7B067B3B4553849CE152B642355D57F8_afap_abs&ref_=aa_maas&tag=maas",
-    off018: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_3808CB9E96D3CBDB426DDE015B4D2A17_afap_abs&ref_=aa_maas&tag=maas",
-    off019: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_0F3F692BDDF81329243EB7934637FA65_afap_abs&ref_=aa_maas&tag=maas",
-    off020: "https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_9FF4AD78EFA4FBA705E840016CF05802_afap_abs&ref_=aa_maas&tag=maas"
-    };
-
-    const isKnownPartner = !!partnerLinks[partner];
-
     const variant = variants[variantParam] || variants.main;
-
-    const finalAmazon = isKnownPartner
-      ? partnerLinks[partner]
-      : variant.defaultAmazon;
 
     function withPartner(url) {
       if (!partner) return url;
@@ -567,9 +537,9 @@
     document.getElementById('backInlineLink').textContent = variant.backLabel;
     document.getElementById('backStickyLink').textContent = variant.backLabel;
 
-    setHref('amazonTopLink', finalAmazon);
-    setHref('amazonInlineLink', finalAmazon);
-    setHref('amazonStickyLink', finalAmazon);
+    setHref('amazonTopLink', amazonBookUrl);
+    setHref('amazonInlineLink', amazonBookUrl);
+    setHref('amazonStickyLink', amazonBookUrl);
 
     renderSamplePages(variant.pages);
 
