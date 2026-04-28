@@ -56,3 +56,30 @@ Datum: 2026-04-28
 - Amazon-Produktlinks mit Query-String: 0 verbleibende Treffer.
 - Google-Forms-Links auf `/checkliste/`: 0 verbleibende Treffer.
 - Review-Link: 0 verbleibende Treffer; es wurden keine neuen Rezensionslinks eingeführt.
+
+## Phase 2 - Checklisten-Landingpage
+
+Datum: 2026-04-28
+
+### Geänderte Dateien
+
+- `/checkliste/index.html`
+- `/context/CODEX_QA_NOTES.md`
+
+### Prüfung
+
+- Neue Seitenstruktur umgesetzt: Hero, Problemsektion, Vorschau der 5 Regeln, Buch-Brücke, Partner-Hinweis, Disclaimer und Footer.
+- Checkliste sofort downloadbar: Ja. Der primäre CTA bleibt ein direkter Link auf `/checkliste/5-sicherheitsregeln.html` mit `download`-Attribut.
+- Amazon-Zielseite neutral: Ja. Der Buchlink auf `/checkliste/` verweist auf `https://www.amazon.de/dp/B0GTDN1458`.
+- Google-Forms-Links auf `/checkliste/`: Keine verwendet.
+- URL-Parameter werden weitergereicht: Ja. `src`, `partner`, `campaign` und `medium` werden an interne Links mit `data-preserve-params` angehängt.
+- Consent-/Tracking-Logik respektiert: Ja. Meta-Events werden nur nach vorhandener Einwilligung ausgelöst.
+- Events/Labels umgesetzt: `checklist_download`, `amazon_click`, `material_request_click` über bestehende Eventlogik und zusätzliche `data-event`/`data-label`-Attribute.
+- Ansprechpartner korrekt: Materialanfragen laufen über Farbenfrohe Lesewelt Verlag / Patrick Guttenberger.
+- Disclaimer vorhanden: Ja. Sichtbar im unteren Seitenbereich.
+- Mobile Ansicht geprüft: Ja. Lokaler Browser-Check bei 390 px Breite ohne horizontalen Overflow; Download-Link und Parameterweitergabe im DOM geprüft.
+- Claims geprüft: Keine Garantien, keine medizinische/tierärztliche Fachautorität, keine Paniksprache und keine Andrea-Blum-Kontaktrolle ergänzt.
+
+### Offene Punkte
+
+- `/material-anfragen/` existiert derzeit nicht. Der Material-CTA nutzt deshalb vorerst den vorgesehenen Mailto-Link.
