@@ -1,374 +1,403 @@
 <!doctype html>
 <html lang="de">
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fbf7f0" />
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kostenfreie Checkliste für Eltern mit Baby und Katze</title>
+  <meta name="description" content="Kostenfreie Checkliste für Eltern mit Baby und Katze: Standardregeln für Aufsicht, Schlafplatz, Zonen und ruhige Alltagssituationen." />
 
-<title>Baby & Katze – kostenlose Checkliste</title>
+  <meta property="og:title" content="Kostenfreie Checkliste für Eltern mit Baby und Katze" />
+  <meta property="og:description" content="Die wichtigsten Standardregeln für Aufsicht, Schlafplatz, Zonen und ruhige Alltagssituationen - klar, praktisch und ohne Panik." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="../assets/baby-katze-checkliste-vorschau.webp" />
 
-<meta name="description" content="Kostenlose Checkliste für werdende Eltern mit Katze. Die 5 Sicherheitsregeln, die im Alltag wirklich funktionieren.">
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="../assets/favicon-256.png">
 
-<link rel="stylesheet" href="../styles.css">
+  <script>
+    const META_PIXEL_ID = '1599368868061138';
+    const META_CONSENT_KEY = 'flw_meta_consent';
+    let metaPixelLoaded = false;
 
-<style>
+    function loadMetaPixel() {
+      if (metaPixelLoaded) return;
+      metaPixelLoaded = true;
 
-/* TikTok Landing spezifisch */
+      !(function(f,b,e,v,n,t,s){
+        if(f.fbq) return;
+        n=f.fbq=function(){n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)};
+        if(!f._fbq) f._fbq=n;
+        n.push=n;
+        n.loaded=!0;
+        n.version='2.0';
+        n.queue=[];
+        t=b.createElement(e);
+        t.async=!0;
+        t.src=v;
+        s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s);
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
-body{
-background:#fbf7f0;
-}
+      fbq('init', META_PIXEL_ID);
+    }
 
-.hero{
-padding:40px 20px 20px;
-text-align:center;
-}
+    function trackChecklistEvent(eventName, params = {}) {
+      const consent = localStorage.getItem(META_CONSENT_KEY);
+      if (consent !== 'granted') return;
+      loadMetaPixel();
+      if (typeof fbq !== 'function') return;
+      fbq('trackCustom', eventName, params);
+    }
 
-.hero-eyebrow{
-font-size:14px;
-color:#7a869a;
-margin-bottom:12px;
-}
+    function trackAmazonClick(placement) {
+      trackChecklistEvent('amazon_click', { placement: placement });
+    }
 
-.hero h1{
-font-size:32px;
-line-height:1.25;
-margin-bottom:16px;
-}
+    function trackMaterialRequestClick(placement) {
+      trackChecklistEvent('material_request_click', { placement: placement });
+    }
 
-.hero p{
-font-size:18px;
-color:#566173;
-margin-bottom:28px;
-}
+    function trackChecklistDownload(placement) {
+      trackChecklistEvent('checklist_download', { placement: placement });
+    }
 
-.hero-sub{
-font-size:14px;
-color:#7a869a;
-margin-top:-12px;
-margin-bottom:22px;
-}
+    document.addEventListener('DOMContentLoaded', function () {
+      const banner = document.getElementById('cookieBanner');
+      const acceptBtn = document.getElementById('cookieAccept');
+      const declineBtn = document.getElementById('cookieDecline');
+      const passthroughKeys = ['src', 'partner', 'campaign', 'medium'];
+      const currentParams = new URLSearchParams(window.location.search);
+      const keptParams = new URLSearchParams();
 
-/* Hero-Vertrauensbild */
+      function trackPageView() {
+        trackChecklistEvent('checklist_page_view', {
+          src: currentParams.get('src') || '',
+          partner: currentParams.get('partner') || '',
+          campaign: currentParams.get('campaign') || '',
+          medium: currentParams.get('medium') || ''
+        });
+      }
 
-.hero-scene{
-max-width:420px;
-margin:20px auto 26px;
-display:block;
-border-radius:14px;
-box-shadow:0 10px 30px rgba(0,0,0,.10);
-}
+      passthroughKeys.forEach(function (key) {
+        const value = currentParams.get(key);
+        if (value) keptParams.set(key, value);
+      });
 
-/* CTA Buttons */
+      if (keptParams.toString()) {
+        document.querySelectorAll('a[data-preserve-params]').forEach(function (link) {
+          const url = new URL(link.getAttribute('href'), window.location.href);
+          keptParams.forEach(function (value, key) {
+            url.searchParams.set(key, value);
+          });
+          link.href = url.pathname + url.search + url.hash;
+        });
+      }
 
-.btn-googleform{
-display:inline-block;
-background:#3b5bdb;
-color:white;
-padding:14px 26px;
-border-radius:12px;
-font-size:16px;
-text-decoration:none;
-font-weight:500;
-box-shadow:0 8px 20px rgba(0,0,0,.15);
-transition:.15s;
-}
+      document.querySelectorAll('[data-checklist-download]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          trackChecklistDownload(this.dataset.placement || 'checklist-download');
+        });
+      });
 
-.btn-googleform:hover{
-opacity:.92;
-transform:translateY(-1px);
-}
+      document.querySelectorAll('[data-amazon-click]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          trackAmazonClick(this.dataset.placement || 'amazon-link');
+        });
+      });
 
-.btn-amazon{
-display:inline-block;
-background:#f1b84a;
-color:#1d2430;
-padding:14px 26px;
-border-radius:12px;
-font-size:16px;
-text-decoration:none;
-font-weight:600;
-box-shadow:0 8px 20px rgba(0,0,0,.15);
-margin-top:15px;
-}
+      document.querySelectorAll('[data-material-request]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          trackMaterialRequestClick(this.dataset.placement || 'material-request');
+        });
+      });
 
-.cta-note{
-font-size:13px;
-color:#7a869a;
-margin-top:10px;
-}
+      const consent = localStorage.getItem(META_CONSENT_KEY);
+      if (consent === 'granted') {
+        trackPageView();
+      } else if (!consent && banner) {
+        banner.hidden = false;
+      }
 
-/* Checklisten Vorschau / Diagramm */
+      if (acceptBtn) {
+        acceptBtn.addEventListener('click', function () {
+          localStorage.setItem(META_CONSENT_KEY, 'granted');
+          trackPageView();
+          banner.hidden = true;
+        });
+      }
 
-.preview{
-max-width:320px;
-margin:25px auto;
-display:block;
-border-radius:10px;
-box-shadow:0 10px 25px rgba(0,0,0,.12);
-}
+      if (declineBtn) {
+        declineBtn.addEventListener('click', function () {
+          localStorage.setItem(META_CONSENT_KEY, 'denied');
+          banner.hidden = true;
+        });
+      }
+    });
+  </script>
 
-/* Trust */
+  <style>
+    .checklist-hero{
+      padding: 2rem 0 1rem;
+    }
 
-.trust{
-margin-top:18px;
-color:#7a869a;
-}
+    .checklist-layout{
+      display:grid;
+      grid-template-columns:minmax(0,1.1fr) minmax(280px,.75fr);
+      gap:1.25rem;
+      align-items:start;
+    }
 
-.trust-list{
-list-style:none;
-padding:0;
-margin:8px 0 6px 0;
-font-size:14px;
-}
+    .checklist-preview{
+      width:100%;
+      border-radius:18px;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      background:#fff;
+    }
 
-.trust-list li{
-margin:4px 0;
-}
+    .download-note{
+      margin:.65rem 0 0;
+      color:var(--muted);
+      font-size:.94rem;
+    }
 
-.trust-proof{
-font-size:13px;
-margin-top:4px;
-color:#566173;
-font-weight:500;
-}
+    .rule-list{
+      display:grid;
+      gap:.75rem;
+      margin-top:1rem;
+    }
 
-.trust-note{
-font-size:13px;
-opacity:.85;
-}
+    .rule-item{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.82);
+      border-radius:18px;
+      padding:1rem;
+      box-shadow:0 10px 28px rgba(18,24,35,.07);
+    }
 
-/* Sections */
+    .rule-item strong{
+      display:block;
+      margin-bottom:.25rem;
+    }
 
-.section{
-padding:40px 20px;
-max-width:800px;
-margin:auto;
-}
+    .disclaimer{
+      border:1px solid rgba(59,91,219,.18);
+      background:rgba(255,255,255,.78);
+      border-radius:18px;
+      padding:1rem;
+      color:var(--muted);
+    }
 
-.section h2{
-font-size:26px;
-margin-bottom:14px;
-text-align:center;
-}
+    .cookie-banner{
+      position:fixed;
+      left:16px;
+      right:16px;
+      bottom:16px;
+      z-index:2147483647;
+      max-width:760px;
+      margin:0 auto;
+      padding:16px;
+      border:1px solid rgba(29,36,48,.14);
+      border-radius:18px;
+      background:rgba(255,255,255,.98);
+      box-shadow:0 18px 42px rgba(18,24,35,.16);
+    }
 
-.points{
-margin-top:20px;
-}
+    .cookie-banner[hidden]{
+      display:none !important;
+    }
 
-.points li{
-margin-bottom:10px;
-}
+    .cookie-banner h2{
+      margin:0 0 6px;
+      font-size:1rem;
+    }
 
-/* Footer */
+    .cookie-banner p{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:.95rem;
+      line-height:1.45;
+    }
 
-footer{
-text-align:center;
-font-size:14px;
-color:#7a869a;
-padding:30px 20px;
-}
+    .cookie-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
 
-footer a{
-color:#7a869a;
-margin:0 10px;
-text-decoration:none;
-}
+    .cookie-actions .btn{
+      cursor:pointer;
+    }
 
-</style>
-
+    @media (max-width: 820px){
+      .checklist-layout{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
-
-<header class="hero">
-
-<p class="hero-eyebrow">
-Viele Eltern googeln irgendwann:<br>
-„Ist meine Katze gefährlich für mein Baby?“
-</p>
-
-<h1>Baby & Katze<br>ohne Stress zusammenführen</h1>
-
-<p>
-Kostenlose Checkliste für werdende Eltern:<br>
-Die <strong>5 Sicherheitsregeln</strong>, die im Alltag wirklich funktionieren.
-</p>
-
-<p class="hero-sub">
-basierend auf den häufigsten Fragen von Eltern mit Katze
-</p>
-
-<img class="hero-scene" src="../assets/baby-katze-alltag-mutter.webp" alt="Mutter, Baby und Katze in einem ruhigen Alltagsszenario">
-
-<a class="btn-googleform"
-href="https://forms.gle/S7nudfLMXBomV2de7"
-target="_blank">
-
-Kostenlose Checkliste holen
-
-</a>
-
-<p class="cta-note">
-Formular dauert weniger als 30 Sekunden
-</p>
-
-<a class="btn-amazon"
-href="https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_FC70DC519D9B9506B63ABF371C1926A2_afap_abs&ref_=aa_maas&tag=maas"
-target="_blank">
-
-Leseprobe & Buch auf Amazon ansehen
-
-</a>
-
-<p class="cta-note">
-Kostenlose Leseprobe direkt bei Amazon verfügbar
-</p>
-
-<img class="preview"
-src="../assets/baby-katze-checkliste-vorschau.webp"
-alt="Vorschau der Baby Katze Checkliste">
-
-<div class="trust">
-
-<ul class="trust-list">
-<li>✔ kostenloser Einstieg</li>
-<li>✔ speziell für werdende Eltern mit Katze</li>
-<li>✔ ruhige Orientierung statt Panik</li>
-</ul>
-
-<div class="trust-proof">
-Die Checkliste ist der Einstieg
-</div>
-
-<div class="trust-note">
-Das vollständige System findest du im Buch
-</div>
-
-</div>
-
-</header>
-
-
-<section class="section">
-
-<h2>Mehr Orientierung im Alltag</h2>
-
-<p>
-Die Checkliste ist ein kurzer Einstieg.
-</p>
-
-<p>
-Das vollständige System findest du im Praxisratgeber
-<strong>„Baby & Katze sicher zusammenführen“</strong>.
-</p>
-
-<p>
-Dort geht es Schritt für Schritt darum, wie ihr Baby und Katze
-ruhig und sicher aneinander gewöhnen könnt.
-</p>
-
-<a class="btn-amazon"
-href="https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_FC70DC519D9B9506B63ABF371C1926A2_afap_abs&ref_=aa_maas&tag=maas"
-target="_blank">
-
-Buch auf Amazon ansehen
-
-</a>
-
-</section>
-
-
-
-<section class="section">
-
-<h2>Warum diese Checkliste?</h2>
-
-<p>
-Viele Eltern hören völlig widersprüchliche Dinge:
-</p>
-
-<ul class="points">
-<li>„Die Katze muss weg.“</li>
-<li>„Das ist alles völlig ungefährlich.“</li>
-<li>„Mach dir keine Sorgen.“</li>
-</ul>
-
-<p>
-Die Wahrheit liegt dazwischen.
-</p>
-
-<p>
-Du brauchst keinen perfekten Plan.<br>
-Du brauchst ein paar klare Regeln, die auch funktionieren, wenn du müde bist.
-</p>
-
-</section>
-
-
-
-<section class="section">
-
-<h2>Was du bekommst</h2>
-
-<ul class="points">
-<li>✔ Die 5 wichtigsten Sicherheitsregeln</li>
-<li>✔ Das einfache Zonen-System für Zuhause</li>
-<li>✔ 3 typische Fehler, die viele Eltern machen</li>
-<li>✔ Mini-Routine für stressige Momente</li>
-<li>✔ im Buch ausführlich erklärt</li>
-</ul>
-
-<img class="preview"
-src="../assets/baby-katze-zonen-system.webp"
-alt="Diagramm zum Baby Katze Zonen-System">
-
-</section>
-
-
-
-<section class="section">
-
-<h2>Für wen ist das gedacht?</h2>
-
-<ul class="points">
-<li>Schwangere mit Katze</li>
-<li>Eltern mit Baby und Katze</li>
-<li>Familien, die unsicher sind, wie sie starten sollen</li>
-</ul>
-
-</section>
-
-
-
-<section class="section">
-
-<h2>Hol dir die Checkliste</h2>
-
-<a class="btn-googleform"
-href="https://forms.gle/S7nudfLMXBomV2de7"
-target="_blank">
-
-Kostenlose Checkliste holen
-
-</a>
-
-<p class="cta-note">
-Formular dauert weniger als 30 Sekunden
-</p>
-
-</section>
-
-
-
-<footer>
-
-<a href="../legal/impressum.html">Impressum</a>
-<a href="../legal/datenschutz.html">Datenschutz</a>
-
-</footer>
-
-
+  <a class="skip" href="#content">Zum Inhalt springen</a>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="../" data-preserve-params aria-label="Farbenfrohe Lesewelt Startseite">
+        <img class="brand-logo" src="../assets/flw-logo.webp" alt="Farbenfrohe Lesewelt" loading="eager">
+        <span class="brand-text">Farbenfrohe Lesewelt</span>
+      </a>
+
+      <nav class="top-actions" aria-label="Aktionen">
+        <a class="btn btn-ghost" href="../" data-preserve-params>Mehr zum Ratgeber</a>
+        <a class="btn btn-primary" href="5-sicherheitsregeln.html" data-preserve-params data-checklist-download data-placement="header" download="5-sicherheitsregeln-baby-katze.html">
+          Herunterladen
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="checklist-hero">
+      <div class="container checklist-layout">
+        <div>
+          <p class="eyebrow">Kostenfrei · direkt als druckbare HTML-Datei</p>
+
+          <h1>Kostenfreie Checkliste für Eltern mit Baby und Katze</h1>
+
+          <p class="lead">
+            Die wichtigsten Standardregeln für Aufsicht, Schlafplatz, Zonen und ruhige Alltagssituationen – klar, praktisch und ohne Panik.
+          </p>
+
+          <div class="cta-duo hero-cta">
+            <a class="btn btn-primary btn-large" href="5-sicherheitsregeln.html" data-preserve-params data-checklist-download data-placement="hero-primary" download="5-sicherheitsregeln-baby-katze.html">
+              Checkliste sofort herunterladen
+            </a>
+            <a class="btn btn-ghost btn-large" href="../" data-preserve-params>
+              Mehr zum Ratgeber
+            </a>
+          </div>
+
+          <p class="download-note">
+            Kein Formular, keine manuelle Versendung. Der Download öffnet eine einfache, druckbare HTML-Checkliste.
+          </p>
+        </div>
+
+        <aside class="hero-card" aria-label="Vorschau der Checkliste">
+          <img class="checklist-preview" src="../assets/baby-katze-checkliste-vorschau.webp" alt="Vorschau einer Checkliste für Baby und Katze" loading="lazy">
+          <p class="muted small">
+            Für den schnellen Einstieg in Aufsicht, Schlafplatz, Zonen und ruhige Wenn-Dann-Regeln.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Was in der Checkliste steht</h2>
+        <p class="sublead">
+          Fünf kurze Standards für Situationen, in denen Eltern nicht lange überlegen möchten.
+        </p>
+
+        <div class="rule-list" aria-label="Inhalt der Checkliste">
+          <div class="rule-item">
+            <strong>1. Aufsicht oder Barriere</strong>
+            <span class="muted">Baby und Katze bleiben nicht unbeaufsichtigt zusammen. Wenn ein Erwachsener den Raum verlässt, schafft eine Tür, ein Gitter oder eine andere passende Barriere Abstand.</span>
+          </div>
+          <div class="rule-item">
+            <strong>2. Der Baby-Schlafplatz bleibt frei</strong>
+            <span class="muted">Babybett, Beistellbett, Kinderwagen und Schlafbereich bleiben frei von Haustieren. Das nimmt nachts Entscheidungen aus dem Moment.</span>
+          </div>
+          <div class="rule-item">
+            <strong>3. Zonen klar festlegen</strong>
+            <span class="muted">Baby-Zone, Katzen-Zone und Übergangszone helfen, Nähe und Abstand im Alltag ruhig zu organisieren.</span>
+          </div>
+          <div class="rule-item">
+            <strong>4. Wenn-Dann-Regeln nutzen</strong>
+            <span class="muted">Wenn das Baby schläft, ist die Barriere aktiv. Wenn Besuch kommt, bekommt die Katze vorher einen ruhigen Rückzugsort.</span>
+          </div>
+          <div class="rule-item">
+            <strong>5. Kurz Abstand schaffen und neu einschätzen</strong>
+            <span class="muted">Wenn eine Situation unruhig wird, hilft eine kurze Pause: ruhig trennen, durchatmen, später neu starten.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container grid grid-2">
+        <div>
+          <h2>Mehr zum Ratgeber</h2>
+          <p class="sublead">
+            Der Ratgeber vertieft die Checkliste mit Zonen-System, Mini-Routinen und Phasen vom Vorbereiten bis zur Kleinkindzeit.
+          </p>
+          <div class="cta-duo">
+            <a class="btn btn-primary" href="../" data-preserve-params>Mehr zum Ratgeber</a>
+            <a class="btn btn-ghost" href="https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_FC70DC519D9B9506B63ABF371C1926A2_afap_abs&ref_=aa_maas&tag=maas" rel="noopener nofollow" data-amazon-click data-placement="ratgeber-section">
+              Buch auf Amazon ansehen
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h2>Für Einrichtungen</h2>
+          <p class="sublead">
+            Praxen, Hebammen, Beratungsstellen oder Katzenschutz-Teams können Material über den Farbenfrohe Lesewelt Verlag anfragen.
+          </p>
+          <a class="btn btn-ghost" href="mailto:farbenfrohe-lesewelt@web.de?subject=Materialpaket%20Baby%20und%20Katze" data-material-request data-placement="facility-section">
+            Materialpaket für Einrichtung anfragen
+          </a>
+          <p class="muted small">
+            Ansprechpartner: Farbenfrohe Lesewelt Verlag / Patrick Guttenberger.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="disclaimer">
+          <strong>Hinweis:</strong>
+          Dieses Material bietet alltagsnahe Orientierung. Es ersetzt keine medizinische, hebammenkundliche, therapeutische, tierärztliche oder verhaltensfachliche Beratung. Bei Unsicherheit, Verletzungen, deutlichen Verhaltensänderungen oder gesundheitlichen Fragen sollten passende Fachstellen einbezogen werden.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <p class="muted small">
+          <a href="../legal/impressum.html" data-preserve-params>Impressum</a> ·
+          <a href="../legal/datenschutz.html" data-preserve-params>Datenschutz</a>
+        </p>
+        <p class="muted small">
+          Analyse-Tools werden nur nach vorhandener Einwilligung genutzt. Keine Formularpflicht vor dem Download.
+        </p>
+      </div>
+      <div class="footer-right">
+        <p class="muted small">© <span id="year"></span> Farbenfrohe Lesewelt</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" id="cookieBanner" hidden>
+    <h2>Cookies & Statistik</h2>
+    <p>
+      Wenn du zustimmst, messen wir, welche Seiten und Buttons genutzt werden.
+      So können wir Inhalte und Hinweise sinnvoll verbessern. Mehr dazu in der
+      <a href="../legal/datenschutz.html" data-preserve-params>Datenschutzerklärung</a>.
+    </p>
+    <div class="cookie-actions">
+      <button class="btn btn-primary" id="cookieAccept" type="button">Akzeptieren</button>
+      <button class="btn btn-ghost" id="cookieDecline" type="button">Ablehnen</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
