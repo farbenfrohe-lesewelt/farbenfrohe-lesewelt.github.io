@@ -1,5 +1,42 @@
 # Codex QA Notes - Checkliste
 
+## Phase 4 - Partnerseiten und Offline-Bruecken
+
+Datum: 2026-04-28
+
+### Geaenderte Dateien
+
+- `/assets/js/partner-pages.js`
+- `/styles.css`
+- `/index.html`
+- `/checkliste/index.html`
+- `/partner/index.html`
+- `/partner/tierarztpraxen/index.html`
+- `/partner/hebammen/index.html`
+- `/partner/katzenschutz/index.html`
+- `/material-anfragen/index.html`
+- `/go/tierarzt-demo/index.html`
+- `/go/hebamme-demo/index.html`
+- `/go/katzenschutz-demo/index.html`
+- `/tt/index.html`
+- `/context/CODEX_QA_NOTES.md`
+
+### Pruefung
+
+- Partnerstruktur erstellt: Uebersicht, Seiten fuer Tierarztpraxen, Hebammen/Geburtseinrichtungen und Katzenschutz/Tierheime.
+- Materialanfrage erstellt: Ja. `/material-anfragen/` ist mailto-basiert und zeigt eine ausfuellbare Anfragevorlage.
+- Offline-Brueckenseiten erstellt: Ja. Die `/go/.../`-Seiten fuehren nicht direkt zu Amazon, sondern bieten Checkliste, Buchlink und Materialanfrage an.
+- Amazon-Zielseite neutral: Ja. Buchlinks verweisen auf `https://www.amazon.de/dp/B0GTDN1458`.
+- Google-Forms-Links entfernt: Ja. Der verbliebene Forms-Link in `/tt/` wurde durch den direkten Checklisten-Link ersetzt.
+- URL-Parameter werden weitergereicht: Ja. `src`, `partner`, `campaign` und `medium` werden an interne Links mit `data-preserve-params` angehaengt; Offline-Bruecken setzen passende `src=offline`- und `partner=`-Werte.
+- Events umgesetzt: `partner_page_view`, `checklist_click`, `material_request_click`, `amazon_click` ueber `data-event` und consent-respektierende Meta-Pixel-Logik.
+- Disclaimer vorhanden: Ja. Sichtbar auf Partner-, Material- und Offline-Brueckenseiten.
+- Sitemap: Keine Sitemap-Datei im Repo vorhanden; daher keine Ergaenzung noetig.
+- Mobile Ansicht geprueft: Ja. Lokaler Browser-Check bei 390 px fuer alle neuen Seiten ohne horizontalen Overflow.
+- CTA-Ziele geprueft: Ja. Checklisten- und Materiallinks bleiben intern mit Parametern, Amazon-Links sind neutral, Mailto bleibt nur auf der Materialanfrage.
+- Suchergebnis: Alle geforderten Altparameter, Amazon-Produktlinks mit Query-String und Google-Forms-Kurzlinks jeweils 0 Treffer ausserhalb von `.git`.
+- Claims geprueft: In den neuen und geaenderten Phase-4-Dateien wurden keine Garantien, keine medizinische/tieraerztliche Fachautoritaet, keine Paniksprache und keine Andrea-Blum-Kontaktrolle ergaenzt.
+
 Datum: 2026-04-28
 
 ## Geänderte Dateien
