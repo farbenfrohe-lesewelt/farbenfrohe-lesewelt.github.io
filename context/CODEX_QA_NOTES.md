@@ -83,3 +83,25 @@ Datum: 2026-04-28
 ### Offene Punkte
 
 - `/material-anfragen/` existiert derzeit nicht. Der Material-CTA nutzt deshalb vorerst den vorgesehenen Mailto-Link.
+
+## Phase 3 - Druckbare Checkliste
+
+Datum: 2026-04-28
+
+### Geänderte Dateien
+
+- `/checkliste/5-sicherheitsregeln.html`
+- `/checkliste/index.html`
+- `/assets/downloads/checkliste-baby-katze-5-sicherheitsregeln.pdf`
+- `/context/CODEX_QA_NOTES.md`
+
+### Prüfung
+
+- Druckbare HTML-Checkliste überarbeitet: neuer Titel, Einstieg, fünf Regelmodule, Mini-Merker, Buch-Brücke, Website-Link, Disclaimer und Kontaktzeile.
+- PDF erzeugt: Ja. Der Export wurde lokal über Chrome/Playwright erstellt und als PDF-Datei unter `/assets/downloads/checkliste-baby-katze-5-sicherheitsregeln.pdf` gespeichert.
+- Download-Ziel auf `/checkliste/`: Ja. Die Downloadbuttons verweisen nun direkt auf die PDF-Datei.
+- Amazon-Zielseite neutral: Ja. Der Buchlink in der druckbaren Checkliste verweist auf `https://www.amazon.de/dp/B0GTDN1458`.
+- Google-Forms-Links auf `/checkliste/`: Keine verwendet.
+- Druckansicht geprüft: Ja. PDF-Export erfolgreich, Dateikopf `%PDF-`, Dateigröße ca. 198 KB.
+- Mobile Ansicht geprüft: Ja. Lokaler Browser-Check bei 390 px Breite ohne horizontalen Overflow.
+- Claims geprüft: Keine Garantien, keine medizinische/tierärztliche Fachautorität, keine Paniksprache und keine Andrea-Blum-Kontaktrolle ergänzt.

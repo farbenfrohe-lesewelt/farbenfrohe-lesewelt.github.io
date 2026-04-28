@@ -3,257 +3,477 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>5 Sicherheitsregeln für den Alltag mit Baby und Katze</title>
-  <meta name="description" content="Druckbare Checkliste mit fünf Standardregeln für Eltern mit Baby und Katze." />
+  <title>Baby &amp; Katze: 5 Sicherheitsregeln für den Alltag</title>
+  <meta name="description" content="Druckfreundliche Checkliste mit fünf ruhigen Standardregeln für Eltern mit Baby und Katze." />
 
   <style>
     :root{
+      --bg:#fbf7f0;
+      --paper:#fffefb;
+      --panel:#fff8ed;
       --text:#1d2430;
       --muted:#566173;
-      --paper:#fffdf8;
       --line:#d8d0c4;
-      --accent:#3b5bdb;
+      --line-strong:#b9aa99;
+      --sage:#556b5f;
+      --clay:#b87452;
+      --gold:#e7b85e;
     }
 
     *{ box-sizing:border-box; }
 
+    html{
+      background:var(--bg);
+    }
+
     body{
       margin:0;
-      background:#fbf7f0;
       color:var(--text);
+      background:
+        radial-gradient(900px 420px at 15% 0%, rgba(231,184,94,.18), transparent 62%),
+        linear-gradient(180deg, var(--bg), #fffdf8);
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      line-height:1.5;
+      line-height:1.45;
     }
 
-    .page{
-      width:min(820px,100% - 32px);
-      margin:32px auto;
+    a{
+      color:inherit;
+      text-decoration-thickness:1px;
+      text-underline-offset:3px;
+    }
+
+    .sheet{
+      width:min(900px,100% - 28px);
+      margin:28px auto;
       background:var(--paper);
       border:1px solid var(--line);
-      border-radius:18px;
-      padding:32px;
-      box-shadow:0 18px 48px rgba(18,24,35,.12);
+      border-radius:22px;
+      box-shadow:0 18px 52px rgba(18,24,35,.12);
+      overflow:hidden;
     }
 
-    header{
+    .inner{
+      padding:clamp(22px,4vw,42px);
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:20px;
+      align-items:start;
+      padding-bottom:24px;
       border-bottom:2px solid var(--line);
-      padding-bottom:18px;
-      margin-bottom:22px;
     }
 
-    .eyebrow{
-      margin:0 0 8px;
+    .brand{
+      margin:0 0 12px;
       color:var(--muted);
-      font-weight:700;
-      letter-spacing:.02em;
+      font-size:.9rem;
+      font-weight:800;
+      letter-spacing:.03em;
+      text-transform:uppercase;
     }
 
     h1{
       margin:0 0 10px;
-      font-size:clamp(2rem,5vw,3rem);
-      line-height:1.05;
+      max-width:760px;
+      font-size:clamp(2.05rem,5vw,3.55rem);
+      line-height:1.02;
+      letter-spacing:0;
     }
 
-    .lead{
+    .subtitle{
       margin:0;
+      max-width:660px;
       color:var(--muted);
+      font-size:1.12rem;
+    }
+
+    .badge{
+      width:116px;
+      height:116px;
+      border:1px solid rgba(85,107,95,.24);
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      background:linear-gradient(145deg, rgba(255,255,255,.88), rgba(231,184,94,.16));
+      color:var(--sage);
+      font-weight:900;
+      line-height:1.12;
+      box-shadow:0 10px 26px rgba(18,24,35,.08);
+    }
+
+    .intro{
+      margin:22px 0 20px;
+      border:1px solid rgba(184,116,82,.18);
+      border-radius:18px;
+      background:linear-gradient(135deg, rgba(231,184,94,.14), rgba(85,107,95,.06));
+      padding:18px;
       font-size:1.08rem;
-      max-width:68ch;
+      font-weight:780;
+    }
+
+    .section-label{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-weight:850;
+      letter-spacing:.02em;
     }
 
     .rules{
       display:grid;
-      gap:14px;
-      margin:24px 0;
+      gap:12px;
+      margin:0 0 20px;
     }
 
     .rule{
       display:grid;
-      grid-template-columns:44px minmax(0,1fr);
+      grid-template-columns:52px minmax(0,1fr);
       gap:14px;
+      align-items:start;
       border:1px solid var(--line);
-      border-radius:14px;
-      padding:16px;
+      border-radius:18px;
       background:#fff;
+      padding:16px;
       break-inside:avoid;
     }
 
     .number{
-      width:44px;
-      height:44px;
+      width:52px;
+      height:52px;
       border-radius:999px;
-      background:rgba(59,91,219,.1);
-      color:var(--accent);
       display:flex;
       align-items:center;
       justify-content:center;
-      font-weight:900;
-      font-size:1.2rem;
+      border:1px solid rgba(85,107,95,.28);
+      background:rgba(85,107,95,.10);
+      color:var(--sage);
+      font-weight:950;
+      font-size:1.35rem;
     }
 
     h2{
-      margin:0 0 6px;
+      margin:0 0 5px;
       font-size:1.18rem;
+      line-height:1.22;
     }
 
     p{ margin:0; }
 
-    .prompt{
-      margin-top:10px;
-      padding-top:10px;
-      border-top:1px dashed var(--line);
+    .rule p{
       color:var(--muted);
     }
 
-    .reset{
-      border:2px solid rgba(59,91,219,.22);
-      border-radius:14px;
+    .remember{
+      display:grid;
+      grid-template-columns:auto minmax(0,1fr);
+      gap:14px;
+      align-items:center;
+      margin:18px 0;
+      border:2px solid rgba(231,184,94,.38);
+      border-radius:18px;
+      background:var(--panel);
       padding:16px;
-      background:rgba(59,91,219,.06);
-      margin:22px 0;
       break-inside:avoid;
     }
 
-    .reset ol{
-      margin:8px 0 0;
-      padding-left:20px;
-    }
-
-    .notes{
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:16px;
+    .remember-mark{
+      width:44px;
+      height:44px;
+      border-radius:999px;
       background:#fff;
-      margin-top:22px;
+      border:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--clay);
+      font-weight:950;
     }
 
-    .note-lines{
+    .remember strong{
+      display:block;
+      margin-bottom:2px;
+    }
+
+    .bridge-grid{
       display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(260px,.62fr);
       gap:14px;
-      margin-top:12px;
+      margin-top:18px;
     }
 
-    .line{
-      border-bottom:1px solid var(--line);
-      min-height:24px;
+    .info-box{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#fff;
+      padding:16px;
+      break-inside:avoid;
+    }
+
+    .info-box h2{
+      margin-bottom:8px;
+    }
+
+    .info-box p{
+      color:var(--muted);
+    }
+
+    .link-line{
+      margin-top:12px;
+      padding-top:10px;
+      border-top:1px dashed var(--line-strong);
+      color:var(--text);
+      font-weight:820;
+      overflow-wrap:anywhere;
     }
 
     .disclaimer{
-      margin-top:22px;
-      color:var(--muted);
-      font-size:.95rem;
-      border-top:2px solid var(--line);
+      margin-top:20px;
       padding-top:16px;
+      border-top:2px solid var(--line);
+      color:var(--muted);
+      font-size:.94rem;
     }
 
     footer{
-      margin-top:18px;
-      color:var(--muted);
-      font-size:.92rem;
       display:flex;
-      justify-content:space-between;
-      gap:16px;
       flex-wrap:wrap;
+      justify-content:space-between;
+      gap:10px 18px;
+      margin-top:16px;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    @media (max-width: 700px){
+      .hero{
+        grid-template-columns:1fr;
+      }
+
+      .badge{
+        width:auto;
+        height:auto;
+        min-height:54px;
+        border-radius:16px;
+        justify-content:flex-start;
+        padding:12px 14px;
+        text-align:left;
+      }
+
+      .bridge-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 520px){
+      .sheet{
+        width:min(100% - 18px,900px);
+        margin:12px auto;
+        border-radius:16px;
+      }
+
+      .rule{
+        grid-template-columns:42px minmax(0,1fr);
+        gap:12px;
+        padding:14px;
+      }
+
+      .number{
+        width:42px;
+        height:42px;
+        font-size:1.1rem;
+      }
+
+      .remember{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @page{
+      size:A4;
+      margin:12mm;
     }
 
     @media print{
-      body{ background:#fff; }
-      .page{
+      :root{
+        --bg:#fff;
+        --paper:#fff;
+        --panel:#fff;
+        --text:#000;
+        --muted:#333;
+        --line:#999;
+        --line-strong:#777;
+      }
+
+      html,
+      body{
+        background:#fff !important;
+      }
+
+      body{
+        font-size:10.4pt;
+        line-height:1.35;
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+      }
+
+      .sheet{
         width:100%;
         margin:0;
-        padding:18mm;
         border:0;
         border-radius:0;
         box-shadow:none;
+        overflow:visible;
       }
-      a{ color:inherit; text-decoration:none; }
+
+      .inner{
+        padding:0;
+      }
+
+      .hero{
+        padding-bottom:10mm;
+      }
+
+      h1{
+        font-size:27pt;
+      }
+
+      .subtitle,
+      .intro{
+        font-size:11pt;
+      }
+
+      .rules{
+        gap:7mm;
+      }
+
+      .rule,
+      .remember,
+      .info-box{
+        box-shadow:none;
+        page-break-inside:avoid;
+      }
+
+      .number,
+      .remember-mark,
+      .badge{
+        background:#fff !important;
+        color:#000 !important;
+      }
+
+      a{
+        color:#000;
+        text-decoration:none;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="page">
-    <header>
-      <p class="eyebrow">Farbenfrohe Lesewelt · Checkliste</p>
-      <h1>5 Sicherheitsregeln für den Alltag mit Baby und Katze</h1>
-      <p class="lead">
-        Eine kurze, druckbare Orientierung für Aufsicht, Schlafplatz, Zonen und ruhige Alltagssituationen. Sie ersetzt keine individuelle Beratung.
+  <main class="sheet">
+    <div class="inner">
+      <header class="hero">
+        <div>
+          <p class="brand">Farbenfrohe Lesewelt · Druckbare Checkliste</p>
+          <h1>Baby &amp; Katze: 5 Sicherheitsregeln für den Alltag</h1>
+          <p class="subtitle">
+            Ein ruhiger Startplan für Eltern mit Katze – klar, praktisch und ohne Panik.
+          </p>
+        </div>
+        <div class="badge" aria-hidden="true">5 klare<br>Standards</div>
+      </header>
+
+      <section class="intro" aria-label="Einstieg">
+        Du brauchst keinen perfekten Plan. Du brauchst ein paar klare Standards, die auch funktionieren, wenn du müde bist.
+      </section>
+
+      <section aria-labelledby="rules-title">
+        <p class="section-label" id="rules-title">Die 5 Regeln</p>
+
+        <div class="rules">
+          <article class="rule">
+            <div class="number">1</div>
+            <div>
+              <h2>Baby und Katze nicht unbeaufsichtigt zusammen lassen</h2>
+              <p>Wenn kein Erwachsener aktiv im Raum ist, sollte entweder das Baby oder die Katze in einem anderen Bereich sein.</p>
+            </div>
+          </article>
+
+          <article class="rule">
+            <div class="number">2</div>
+            <div>
+              <h2>Der Baby-Schlafplatz bleibt frei von Haustieren</h2>
+              <p>Babybett, Beistellbett und Kinderwagen bleiben klare Baby-Zonen.</p>
+            </div>
+          </article>
+
+          <article class="rule">
+            <div class="number">3</div>
+            <div>
+              <h2>Baby-Zone, Katzen-Zone und Übergangszone festlegen</h2>
+              <p>So wird schneller klar, wo Nähe möglich ist und wo Ruhe oder Abstand Vorrang haben.</p>
+            </div>
+          </article>
+
+          <article class="rule">
+            <div class="number">4</div>
+            <div>
+              <h2>Wenn-Dann-Regeln für typische Situationen nutzen</h2>
+              <p>Wenn das Baby schläft, ist die Barriere aktiv. Wenn Besuch kommt, bekommt die Katze vorher Rückzug.</p>
+            </div>
+          </article>
+
+          <article class="rule">
+            <div class="number">5</div>
+            <div>
+              <h2>10-Sekunden-Reset bei Unsicherheit</h2>
+              <p>Ruhig trennen, einmal atmen, prüfen und dann entscheiden.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="remember" aria-label="Mini-Merker">
+        <div class="remember-mark">!</div>
+        <div>
+          <strong>Mini-Merker</strong>
+          Sicher genug reicht. Ruhig trennen ist keine Strafe, sondern ein kurzer Neustart.
+        </div>
+      </section>
+
+      <section class="bridge-grid" aria-label="Weitere Informationen">
+        <div class="info-box">
+          <h2>Mehr Orientierung im vollständigen Ratgeber</h2>
+          <p>
+            Die Checkliste ist der Einstieg. Das Buch erklärt das komplette System für Schwangerschaft, Wochenbett, Schlaf, Hygiene, Stresssignale und Kleinkindphase.
+          </p>
+          <p class="link-line">
+            Buch ansehen: <a href="https://www.amazon.de/dp/B0GTDN1458">https://www.amazon.de/dp/B0GTDN1458</a>
+          </p>
+        </div>
+
+        <div class="info-box">
+          <h2>Checkliste &amp; weitere Infos</h2>
+          <p>
+            Die aktuelle Online-Version der Checkliste und weitere Hinweise findest du hier:
+          </p>
+          <p class="link-line">
+            <a href="https://farbenfrohe-lesewelt.github.io/checkliste/">https://farbenfrohe-lesewelt.github.io/checkliste/</a>
+          </p>
+        </div>
+      </section>
+
+      <p class="disclaimer">
+        <strong>Hinweis:</strong> Dieses Material bietet alltagsnahe Orientierung. Es ersetzt keine medizinische, hebammenkundliche, therapeutische, tierärztliche oder verhaltensfachliche Beratung. Bei Unsicherheit, Verletzungen, deutlichen Verhaltensänderungen oder gesundheitlichen Fragen sollten passende Fachstellen einbezogen werden.
       </p>
-    </header>
 
-    <section class="rules" aria-label="Fünf Sicherheitsregeln">
-      <article class="rule">
-        <div class="number">1</div>
-        <div>
-          <h2>Aufsicht oder Barriere</h2>
-          <p>Baby und Katze bleiben nicht unbeaufsichtigt zusammen. Wenn ein Erwachsener den Raum verlässt, wird ruhig Abstand geschaffen.</p>
-          <p class="prompt"><strong>Unser Standard:</strong> Wenn ich den Raum verlasse, dann ist eine Tür, ein Gitter oder eine passende Barriere aktiv.</p>
-        </div>
-      </article>
-
-      <article class="rule">
-        <div class="number">2</div>
-        <div>
-          <h2>Der Baby-Schlafplatz bleibt frei</h2>
-          <p>Babybett, Beistellbett, Kinderwagen und Schlafbereich bleiben frei von Haustieren. Das hilft besonders in müden Momenten.</p>
-          <p class="prompt"><strong>Unser Standard:</strong> Wenn das Baby schläft, dann ist der Schlafbereich katzenfrei.</p>
-        </div>
-      </article>
-
-      <article class="rule">
-        <div class="number">3</div>
-        <div>
-          <h2>Zonen klar festlegen</h2>
-          <p>Baby-Zone, Katzen-Zone und Übergangszone machen den Alltag übersichtlicher. Die Katze behält ruhige Rückzugsorte.</p>
-          <p class="prompt"><strong>Unser Standard:</strong> Rückzugsort, Futter, Wasser und Katzenklo bleiben außerhalb der Baby-Reichweite.</p>
-        </div>
-      </article>
-
-      <article class="rule">
-        <div class="number">4</div>
-        <div>
-          <h2>Wenn-Dann-Regeln statt Grübeln</h2>
-          <p>Vorher festgelegte Regeln nehmen Druck aus schnellen Situationen. Sie helfen, ruhig zu handeln, bevor es unübersichtlich wird.</p>
-          <p class="prompt"><strong>Unser Standard:</strong> Wenn Besuch kommt, dann bekommt die Katze vorher einen ruhigen Rückzugsort.</p>
-        </div>
-      </article>
-
-      <article class="rule">
-        <div class="number">5</div>
-        <div>
-          <h2>Der 10-Sekunden-Reset</h2>
-          <p>Wenn eine Situation unruhig wird, kurz Abstand schaffen und neu einschätzen. Ohne Schimpfen, ohne Hektik, ohne Schuldgefühl.</p>
-          <p class="prompt"><strong>Unser Standard:</strong> Wenn es kippt, dann trennen wir ruhig und starten später neu.</p>
-        </div>
-      </article>
-    </section>
-
-    <section class="reset" aria-label="10-Sekunden-Reset">
-      <h2>10-Sekunden-Reset</h2>
-      <ol>
-        <li>Ruhig bleiben und Abstand schaffen.</li>
-        <li>Baby sichern, Katze nicht bedrängen.</li>
-        <li>Später neu starten oder passende fachliche Unterstützung einbeziehen, wenn die Situation wiederholt schwierig bleibt.</li>
-      </ol>
-    </section>
-
-    <section class="notes" aria-label="Eigene Standards">
-      <h2>Unsere wichtigsten Wenn-Dann-Regeln</h2>
-      <div class="note-lines" aria-hidden="true">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
-      </div>
-    </section>
-
-    <p class="disclaimer">
-      <strong>Hinweis:</strong> Dieses Material bietet alltagsnahe Orientierung. Es ersetzt keine medizinische, hebammenkundliche, therapeutische, tierärztliche oder verhaltensfachliche Beratung. Bei Unsicherheit, Verletzungen, deutlichen Verhaltensänderungen oder gesundheitlichen Fragen sollten passende Fachstellen einbezogen werden.
-    </p>
-
-    <footer>
-      <span>Farbenfrohe Lesewelt Verlag / Patrick Guttenberger</span>
-      <span>farbenfrohe-lesewelt.github.io</span>
-    </footer>
+      <footer>
+        <span>Farbenfrohe Lesewelt Verlag / Patrick Guttenberger</span>
+        <span>farbenfrohe-lesewelt@web.de</span>
+      </footer>
+    </div>
   </main>
 </body>
 </html>
