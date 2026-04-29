@@ -1,5 +1,35 @@
 # Codex QA Notes - Checkliste
 
+## Phase 5 - Pinterest-Funnel
+
+Datum: 2026-04-29
+
+### Geaenderte Dateien
+
+- `/assets/js/pinterest-funnel.js`
+- `/styles.css`
+- `/pinterest/index.html`
+- `/pinterest/katze-im-babybett/index.html`
+- `/pinterest/toxoplasmose-katze-schwangerschaft/index.html`
+- `/pinterest/baby-und-katze-zusammenfuehren/index.html`
+- `/pinterest/katze-eifersuechtig-baby/index.html`
+- `/pinterest/erste-begegnung-baby-und-katze/index.html`
+- `/pinterest/alltag-mit-baby-und-katze/index.html`
+- `/context/CODEX_QA_NOTES.md`
+
+### Pruefung
+
+- Pinterest-Funnel umgesetzt: Jede Pinterest-Seite hat eine primaere Checklisten-Ebene, eine neutrale Amazon-Buchebene und eine thematisch passende Weiterleitung.
+- Themenspezifische CTA-Boxen umgesetzt: Ja. Die sechs Unterseiten verwenden die vorgegebenen Headlines, Kurztexte und den Button `Checkliste ansehen`.
+- Checklisten-Parameter gesetzt: Ja. Alle Unterseiten verlinken auf `/checkliste/?src=pinterest&campaign={slug}`; die Hauptseite nutzt `campaign=pinterest-hauptseite`.
+- URL-Parameter werden weitergereicht: Ja. `src`, `campaign` und `medium` werden per `data-preserve-params` nur ergaenzt, wenn sie im Ziel-Link noch nicht gesetzt sind.
+- Events umgesetzt: `checklist_click` und `amazon_click` ueber `data-event`/`data-label` und consent-respektierende Meta-Pixel-Logik.
+- Amazon-Zielseite neutral: Ja. Amazon-Links verweisen auf `https://www.amazon.de/dp/B0GTDN1458`.
+- Google-Forms-Links: Keine verwendet.
+- Mobile Ansicht geprueft: Ja. Lokaler Browser-Check bei 390 px fuer alle sieben Pinterest-Seiten ohne horizontalen Overflow.
+- Suchergebnis: `maas`, `tag=maas`, `ref_=aa_maas`, Amazon-Produktlinks mit Query-String und `forms.gle` jeweils 0 Treffer ausserhalb von `.git`.
+- Claims geprueft: In den neuen CTA-Texten wurden keine Garantien, keine medizinische/tieraerztliche Fachautoritaet, keine Paniksprache und keine Andrea-Blum-Kontaktrolle ergaenzt.
+
 ## Phase 4 - Partnerseiten und Offline-Bruecken
 
 Datum: 2026-04-28

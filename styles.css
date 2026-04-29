@@ -772,6 +772,37 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
   color:var(--muted);
   padding:1rem;
 }
+
+/* =========================
+   PINTEREST CHECKLIST FUNNEL
+   ========================= */
+.pinterest-funnel-box{
+  margin:1.1rem 0;
+  border:1px solid rgba(59,91,219,.16);
+  border-radius:22px;
+  background:linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,250,242,.90));
+  box-shadow:0 14px 36px rgba(18,24,35,.10);
+  padding:clamp(1rem,3vw,1.45rem);
+}
+.pinterest-funnel-box h2{
+  margin:.25rem 0 .45rem;
+  font-size:clamp(1.35rem,2.5vw,2rem);
+}
+.pinterest-funnel-box p{
+  margin:.25rem 0 0;
+}
+.pinterest-inline-cta{
+  margin:1.1rem 0;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:1rem 0;
+}
+.pinterest-funnel-box .btn,
+.pinterest-inline-cta .btn,
+.article-side .cta-stack .btn{
+  white-space:normal;
+  text-align:center;
+}
 @media (max-width: 900px){
   .partner-hero-grid,
   .partner-card-grid{
