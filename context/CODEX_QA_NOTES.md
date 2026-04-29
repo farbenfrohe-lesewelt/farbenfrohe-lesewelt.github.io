@@ -1,5 +1,57 @@
 # Codex QA Notes - Checkliste
 
+## Refine checklist design and partner wording
+
+Datum: 2026-04-29
+
+### Geaenderte Dateien
+
+- `/assets/downloads/checkliste-baby-katze-5-sicherheitsregeln.pdf`
+- `/checkliste/5-sicherheitsregeln.html`
+- `/checkliste/index.html`
+- `/partner/index.html`
+- `/partner/tierarztpraxen/index.html`
+- `/partner/hebammen/index.html`
+- `/partner/katzenschutz/index.html`
+- `/material-anfragen/index.html`
+- `/go/hebamme-demo/index.html`
+- `/go/katzenschutz-demo/index.html`
+- `/context/CODEX_QA_NOTES.md`
+
+### Entscheidung und Wording
+
+- Die fruehere Checklisten-Logik wurde als Designbasis aufgegriffen: 3 A4-Abschnitte, grosse Nummern 1 bis 5, konkrete Alltagssituationen, Zonen-Grafik, hervorgehobener 10-Sekunden-Reset und Buch-Bruecke.
+- Claims wurden entschärft: keine harten Sicherheitsversprechen, keine Paniksprache, keine medizinische oder tieraerztliche Autoritaetsrolle.
+- Partnerseiten wurden staerker aus Sicht der Einrichtungen formuliert: Wartezimmer, Kursraum, Nachgespraech, Beratung, Website, Newsletter, QR-Karte und Mitnahmematerial.
+- Materialanfrage nutzt einen freundlicheren vorbereiteten E-Mail-Body und nennt digitales oder gedrucktes Material nach Absprache.
+- Go-Seiten fuer Hebamme und Katzenschutz nutzen jetzt dieselbe ruhige Fuehrung wie die Tierarzt-Brueckenseite.
+- Checklisten-Preview auf `/checkliste/` beschreibt die neue Mini-Workbook-PDF mit Beispielen, Zonen-System und 10-Sekunden-Reset.
+
+### PDF-Pruefung
+
+- PDF neu erzeugt: Ja.
+- PDF-Dateigroesse: 417812 Bytes.
+- PDF-Header: gueltig.
+- HTML-Layout der druckbaren Checkliste: 3 Seiten, kein horizontaler Overflow, keine JavaScript-Fehler.
+- Sichtbare URLs in der Abschlussbox bleiben ohne Umbruch in ihrer Box.
+
+### QA-Ergebnis
+
+- Alte Amazon-Trackingmuster: 0 Treffer.
+- Amazon-Produktlinks mit Query-String: 0 Treffer.
+- Google-Forms-Kurzlinks: 0 Treffer.
+- Amazon-Zielseite neutral: Ja, Buchlinks zeigen auf `https://www.amazon.de/dp/B0GTDN1458`.
+- PDF-Download auf `/checkliste/`: zeigt direkt auf `/assets/downloads/checkliste-baby-katze-5-sicherheitsregeln.pdf`.
+- Materialanfrage-Mailto: Body vorhanden, inklusive Einrichtung, Ansprechpartner, Adresse, gewuenschtem Material und Einsatzort.
+- Offline-Bruecken: Links behalten `src=offline` und den jeweiligen Partnerwert.
+- Pinterest-Checklistenlinks: Kampagnenparameter fuer die jeweiligen Themen bleiben vorhanden.
+- Mobile Ansicht: lokal bei 390 px fuer Checkliste, Partner-, Material-, Go- und Pinterest-Seiten geprueft; kein horizontaler Overflow.
+- Konsolenpruefung: keine JavaScript-Fehler auf den lokal geprueften Seiten.
+
+### Offene Punkte
+
+- Keine bekannten offenen Punkte aus dieser Runde.
+
 ## Funnel-Polish Partner, Pinterest und Checkliste
 
 Datum: 2026-04-29

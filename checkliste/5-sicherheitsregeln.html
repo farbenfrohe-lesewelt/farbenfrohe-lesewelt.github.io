@@ -3,38 +3,37 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Baby &amp; Katze: 5 Sicherheitsregeln für den Alltag</title>
-  <meta name="description" content="Druckfreundliche Checkliste mit fünf ruhigen Standardregeln für Eltern mit Baby und Katze." />
+  <title>Baby &amp; Katze: Die 5 Sicherheitsregeln für den Alltag</title>
+  <meta name="description" content="Druckfreundliche Mini-Workbook-Checkliste mit fünf ruhigen Standardregeln für Eltern mit Baby und Katze." />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
 
   <style>
     :root{
-      --bg:#fbf7f0;
-      --paper:#fffefb;
-      --panel:#fff8ed;
+      --bg:#f8f2e8;
+      --paper:#fffdf8;
+      --panel:#fff6e6;
+      --soft:#f3efe7;
       --text:#1d2430;
-      --muted:#566173;
-      --line:#d8d0c4;
-      --line-strong:#b9aa99;
-      --sage:#556b5f;
+      --muted:#586272;
+      --line:#d9cfc1;
+      --sage:#51685d;
       --clay:#b87452;
       --gold:#e7b85e;
+      --blue:#3b5bdb;
     }
 
     *{ box-sizing:border-box; }
 
-    html{
-      background:var(--bg);
-    }
+    html{ background:var(--bg); }
 
     body{
       margin:0;
       color:var(--text);
       background:
-        radial-gradient(900px 420px at 15% 0%, rgba(231,184,94,.18), transparent 62%),
+        radial-gradient(900px 420px at 12% 0%, rgba(231,184,94,.20), transparent 62%),
         linear-gradient(180deg, var(--bg), #fffdf8);
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      line-height:1.45;
+      line-height:1.42;
     }
 
     a{
@@ -44,8 +43,14 @@
     }
 
     .sheet{
-      width:min(900px,100% - 28px);
+      width:min(920px,100% - 28px);
       margin:28px auto;
+    }
+
+    .page{
+      min-height:calc(297mm - 24mm);
+      margin:0 0 22px;
+      padding:clamp(22px,4vw,42px);
       background:var(--paper);
       border:1px solid var(--line);
       border-radius:22px;
@@ -53,16 +58,14 @@
       overflow:hidden;
     }
 
-    .inner{
-      padding:clamp(22px,4vw,42px);
-    }
+    .page:last-child{ margin-bottom:0; }
 
     .hero{
       display:grid;
       grid-template-columns:minmax(0,1fr) auto;
       gap:20px;
       align-items:start;
-      padding-bottom:24px;
+      padding-bottom:22px;
       border-bottom:2px solid var(--line);
     }
 
@@ -70,172 +73,252 @@
       margin:0 0 12px;
       color:var(--muted);
       font-size:.9rem;
-      font-weight:800;
+      font-weight:850;
       letter-spacing:.03em;
       text-transform:uppercase;
     }
 
     h1{
-      margin:0 0 10px;
+      margin:0;
       max-width:760px;
-      font-size:clamp(2.05rem,5vw,3.55rem);
-      line-height:1.02;
+      font-size:clamp(3rem,8vw,5.2rem);
+      line-height:.95;
       letter-spacing:0;
     }
 
     .subtitle{
-      margin:0;
+      margin:10px 0 0;
       max-width:660px;
       color:var(--muted);
-      font-size:1.12rem;
+      font-size:clamp(1.25rem,3vw,1.65rem);
+      font-weight:780;
     }
 
     .badge{
-      width:116px;
-      height:116px;
+      width:124px;
+      height:124px;
       border:1px solid rgba(85,107,95,.24);
       border-radius:999px;
       display:flex;
       align-items:center;
       justify-content:center;
       text-align:center;
-      background:linear-gradient(145deg, rgba(255,255,255,.88), rgba(231,184,94,.16));
+      background:linear-gradient(145deg, rgba(255,255,255,.88), rgba(231,184,94,.18));
       color:var(--sage);
-      font-weight:900;
+      font-weight:950;
       line-height:1.12;
       box-shadow:0 10px 26px rgba(18,24,35,.08);
     }
 
-    .intro{
-      margin:22px 0 20px;
-      border:1px solid rgba(184,116,82,.18);
+    .startline{
+      margin:22px 0;
+      font-size:1.18rem;
+      font-weight:820;
+      color:var(--sage);
+    }
+
+    .intro-box,
+    .soft-box,
+    .rule,
+    .zone,
+    .reset-step,
+    .book-box{
+      border:1px solid var(--line);
       border-radius:18px;
-      background:linear-gradient(135deg, rgba(231,184,94,.14), rgba(85,107,95,.06));
+      background:#fff;
+      box-shadow:0 8px 22px rgba(18,24,35,.05);
+    }
+
+    .intro-box{
       padding:18px;
-      font-size:1.08rem;
-      font-weight:780;
+      background:linear-gradient(135deg, rgba(231,184,94,.14), rgba(85,107,95,.06));
     }
 
-    .section-label{
-      margin:0 0 12px;
+    .intro-box p,
+    .soft-box p,
+    .rule p,
+    .zone p,
+    .book-box p{ margin:0; color:var(--muted); }
+
+    .intro-box ul,
+    .example-list,
+    .plain-list{
+      margin:.7rem 0 0;
+      padding-left:1.1rem;
       color:var(--muted);
-      font-weight:850;
-      letter-spacing:.02em;
     }
 
-    .rules{
-      display:grid;
-      gap:12px;
-      margin:0 0 20px;
-    }
+    .intro-box li,
+    .example-list li,
+    .plain-list li{ margin:.3rem 0; }
 
     .rule{
       display:grid;
-      grid-template-columns:52px minmax(0,1fr);
-      gap:14px;
-      align-items:start;
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:#fff;
-      padding:16px;
+      grid-template-columns:72px minmax(0,1fr);
+      gap:16px;
+      padding:18px;
+      margin:16px 0;
       break-inside:avoid;
     }
 
-    .number{
-      width:52px;
-      height:52px;
+    .num{
+      width:72px;
+      height:72px;
       border-radius:999px;
       display:flex;
       align-items:center;
       justify-content:center;
-      border:1px solid rgba(85,107,95,.28);
-      background:rgba(85,107,95,.10);
-      color:var(--sage);
+      background:var(--sage);
+      color:#fff;
+      font-size:2.1rem;
       font-weight:950;
-      font-size:1.35rem;
+      box-shadow:0 10px 22px rgba(85,107,95,.18);
     }
 
     h2{
-      margin:0 0 5px;
-      font-size:1.18rem;
-      line-height:1.22;
+      margin:0 0 .45rem;
+      font-size:1.35rem;
+      line-height:1.18;
     }
 
-    p{ margin:0; }
+    h3{
+      margin:0 0 .4rem;
+      font-size:1.06rem;
+    }
 
-    .rule p{
+    .callout{
+      margin-top:12px;
+      padding:12px 14px;
+      border-left:5px solid var(--gold);
+      border-radius:12px;
+      background:var(--panel);
+      color:var(--text);
+      font-weight:760;
+    }
+
+    .example-list{
+      display:grid;
+      gap:4px;
+      list-style:none;
+      padding-left:0;
+    }
+
+    .example-list li{
+      padding:8px 10px;
+      border-radius:12px;
+      background:var(--soft);
+    }
+
+    .zones{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin:14px 0;
+    }
+
+    .zone{
+      padding:14px;
+      min-height:100%;
+    }
+
+    .zone .tag{
+      display:inline-flex;
+      margin-bottom:.55rem;
+      padding:.2rem .55rem;
+      border-radius:999px;
+      background:rgba(59,91,219,.08);
+      color:var(--blue);
+      font-size:.82rem;
+      font-weight:900;
+    }
+
+    .zone strong{
+      display:block;
+      margin:.45rem 0 .15rem;
+      color:var(--text);
+    }
+
+    .zone ul{
+      margin:.45rem 0;
+      padding-left:1rem;
       color:var(--muted);
     }
 
-    .remember{
-      display:grid;
-      grid-template-columns:auto minmax(0,1fr);
-      gap:14px;
-      align-items:center;
-      margin:18px 0;
-      border:2px solid rgba(231,184,94,.38);
-      border-radius:18px;
-      background:var(--panel);
-      padding:16px;
-      break-inside:avoid;
+    .reset{
+      margin-top:16px;
+      padding:18px;
+      border-radius:22px;
+      background:linear-gradient(135deg, rgba(85,107,95,.10), rgba(231,184,94,.16));
+      border:2px solid rgba(85,107,95,.18);
     }
 
-    .remember-mark{
-      width:44px;
-      height:44px;
-      border-radius:999px;
-      background:#fff;
-      border:1px solid var(--line);
-      display:flex;
+    .reset-flow{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .reset-step{
+      padding:12px;
+      text-align:center;
+      background:rgba(255,255,255,.86);
+    }
+
+    .reset-step span{
+      display:inline-flex;
+      width:34px;
+      height:34px;
+      margin-bottom:.45rem;
       align-items:center;
       justify-content:center;
-      color:var(--clay);
+      border-radius:999px;
+      background:var(--clay);
+      color:#fff;
       font-weight:950;
     }
 
-    .remember strong{
-      display:block;
-      margin-bottom:2px;
+    .soft-box{
+      margin-top:16px;
+      padding:16px;
+      background:var(--panel);
+      break-inside:avoid;
     }
 
-    .bridge-grid{
+    .book-grid{
       display:grid;
-      grid-template-columns:minmax(0,1fr) minmax(260px,.62fr);
+      grid-template-columns:minmax(0,1fr) minmax(340px,.82fr);
       gap:14px;
-      margin-top:18px;
+      margin-top:14px;
     }
 
-    .info-box{
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:#fff;
+    .book-box{
       padding:16px;
       break-inside:avoid;
     }
 
-    .info-box h2{
-      margin-bottom:8px;
-    }
-
-    .info-box p{
-      color:var(--muted);
-    }
-
     .link-line{
+      display:block;
       margin-top:12px;
       padding-top:10px;
-      border-top:1px dashed var(--line-strong);
+      border-top:1px dashed #b8aa99;
       color:var(--text);
-      font-weight:820;
-      overflow-wrap:anywhere;
+      font-weight:850;
+      overflow-wrap:normal;
+      word-break:normal;
+    }
+
+    .url{
+      white-space:nowrap;
+      font-size:.94rem;
     }
 
     .disclaimer{
-      margin-top:20px;
-      padding-top:16px;
+      margin-top:18px;
+      padding-top:14px;
       border-top:2px solid var(--line);
       color:var(--muted);
-      font-size:.94rem;
+      font-size:.92rem;
     }
 
     footer{
@@ -243,13 +326,17 @@
       flex-wrap:wrap;
       justify-content:space-between;
       gap:10px 18px;
-      margin-top:16px;
+      margin-top:14px;
       color:var(--muted);
       font-size:.9rem;
     }
 
-    @media (max-width: 700px){
-      .hero{
+    @media (max-width: 760px){
+      .hero,
+      .rule,
+      .book-grid,
+      .zones,
+      .reset-flow{
         grid-template-columns:1fr;
       }
 
@@ -263,49 +350,31 @@
         text-align:left;
       }
 
-      .bridge-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media (max-width: 520px){
-      .sheet{
-        width:min(100% - 18px,900px);
-        margin:12px auto;
-        border-radius:16px;
+      .num{
+        width:54px;
+        height:54px;
+        font-size:1.45rem;
       }
 
-      .rule{
-        grid-template-columns:42px minmax(0,1fr);
-        gap:12px;
-        padding:14px;
-      }
-
-      .number{
-        width:42px;
-        height:42px;
-        font-size:1.1rem;
-      }
-
-      .remember{
-        grid-template-columns:1fr;
+      .url{
+        white-space:normal;
       }
     }
 
     @page{
       size:A4;
-      margin:12mm;
+      margin:10mm;
     }
 
     @media print{
       :root{
         --bg:#fff;
         --paper:#fff;
-        --panel:#fff;
+        --panel:#fff7e8;
+        --soft:#f7f7f7;
         --text:#000;
         --muted:#333;
         --line:#999;
-        --line-strong:#777;
       }
 
       html,
@@ -314,8 +383,8 @@
       }
 
       body{
-        font-size:10.4pt;
-        line-height:1.35;
+        font-size:10.2pt;
+        line-height:1.32;
         -webkit-print-color-adjust:exact;
         print-color-adjust:exact;
       }
@@ -323,45 +392,56 @@
       .sheet{
         width:100%;
         margin:0;
+      }
+
+      .page{
+        min-height:auto;
+        margin:0;
+        padding:0;
         border:0;
         border-radius:0;
         box-shadow:none;
+        page-break-after:always;
         overflow:visible;
       }
 
-      .inner{
-        padding:0;
-      }
-
-      .hero{
-        padding-bottom:10mm;
+      .page:last-child{
+        page-break-after:auto;
       }
 
       h1{
-        font-size:27pt;
+        font-size:43pt;
       }
 
-      .subtitle,
-      .intro{
-        font-size:11pt;
+      h2{
+        font-size:14pt;
       }
 
-      .rules{
-        gap:7mm;
+      .subtitle{
+        font-size:15pt;
+      }
+
+      .startline{
+        font-size:12pt;
+      }
+
+      .rule{
+        margin:6mm 0;
       }
 
       .rule,
-      .remember,
-      .info-box{
+      .intro-box,
+      .zone,
+      .reset-step,
+      .soft-box,
+      .book-box{
         box-shadow:none;
         page-break-inside:avoid;
       }
 
-      .number,
-      .remember-mark,
-      .badge{
-        background:#fff !important;
-        color:#000 !important;
+      .num,
+      .reset-step span{
+        color:#fff !important;
       }
 
       a{
@@ -374,107 +454,232 @@
 
 <body>
   <main class="sheet">
-    <div class="inner">
+    <section class="page" aria-label="Start und Regeln 1 bis 2">
       <header class="hero">
         <div>
           <p class="brand">Farbenfrohe Lesewelt · Druckbare Checkliste</p>
-          <h1>Baby &amp; Katze: 5 Sicherheitsregeln für den Alltag</h1>
-          <p class="subtitle">
-            Ein ruhiger Startplan für Eltern mit Katze – klar, praktisch und ohne Panik.
-          </p>
+          <h1>Baby &amp; Katze</h1>
+          <p class="subtitle">Die 5 Sicherheitsregeln für den Alltag</p>
         </div>
-        <div class="badge" aria-hidden="true">5 klare<br>Standards</div>
+        <div class="badge" aria-hidden="true">Mini-<br>Workbook</div>
       </header>
 
-      <section class="intro" aria-label="Einstieg">
-        Du brauchst keinen perfekten Plan. Du brauchst ein paar klare Standards, die auch funktionieren, wenn du müde bist.
-      </section>
+      <p class="startline">
+        Ein einfacher Startplan für Familien mit Katze und Baby. Klare Regeln statt ständiger Unsicherheit.
+      </p>
 
-      <section aria-labelledby="rules-title">
-        <p class="section-label" id="rules-title">Die 5 Regeln</p>
+      <div class="intro-box">
+        <p><strong>Viele Eltern hören widersprüchliche Dinge:</strong></p>
+        <ul>
+          <li>Die Katze muss weg.</li>
+          <li>Das ist doch alles halb so wild.</li>
+          <li>Mach dir keine Sorgen.</li>
+        </ul>
+        <p style="margin-top:.8rem">
+          Die Wahrheit liegt meist dazwischen. Mit ein paar klaren Regeln wird der Alltag für Baby und Katze besser planbar.
+        </p>
+        <p style="margin-top:.6rem">
+          Du brauchst keinen perfekten Plan. Du brauchst ein paar klare Standards, die auch funktionieren, wenn du müde bist.
+        </p>
+      </div>
 
-        <div class="rules">
-          <article class="rule">
-            <div class="number">1</div>
-            <div>
-              <h2>Baby und Katze nicht unbeaufsichtigt zusammen lassen</h2>
-              <p>Wenn kein Erwachsener aktiv im Raum ist, sollte entweder das Baby oder die Katze in einem anderen Bereich sein.</p>
-            </div>
-          </article>
-
-          <article class="rule">
-            <div class="number">2</div>
-            <div>
-              <h2>Der Baby-Schlafplatz bleibt frei von Haustieren</h2>
-              <p>Babybett, Beistellbett und Kinderwagen bleiben klare Baby-Zonen.</p>
-            </div>
-          </article>
-
-          <article class="rule">
-            <div class="number">3</div>
-            <div>
-              <h2>Baby-Zone, Katzen-Zone und Übergangszone festlegen</h2>
-              <p>So wird schneller klar, wo Nähe möglich ist und wo Ruhe oder Abstand Vorrang haben.</p>
-            </div>
-          </article>
-
-          <article class="rule">
-            <div class="number">4</div>
-            <div>
-              <h2>Wenn-Dann-Regeln für typische Situationen nutzen</h2>
-              <p>Wenn das Baby schläft, ist die Barriere aktiv. Wenn Besuch kommt, bekommt die Katze vorher Rückzug.</p>
-            </div>
-          </article>
-
-          <article class="rule">
-            <div class="number">5</div>
-            <div>
-              <h2>10-Sekunden-Reset bei Unsicherheit</h2>
-              <p>Ruhig trennen, einmal atmen, prüfen und dann entscheiden.</p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="remember" aria-label="Mini-Merker">
-        <div class="remember-mark">!</div>
+      <article class="rule">
+        <div class="num">1</div>
         <div>
-          <strong>Mini-Merker</strong>
-          Sicher genug reicht. Ruhig trennen ist keine Strafe, sondern ein kurzer Neustart.
-        </div>
-      </section>
-
-      <section class="bridge-grid" aria-label="Weitere Informationen">
-        <div class="info-box">
-          <h2>Mehr Orientierung im vollständigen Ratgeber</h2>
+          <h2>Baby und Katze nicht unbeaufsichtigt zusammen lassen</h2>
           <p>
-            Die Checkliste ist der Einstieg. Das Buch erklärt das komplette System.
+            Das bedeutet nicht, dass Katze und Baby nicht zusammen leben können. Es bedeutet nur:
+            Wenn kein Erwachsener aktiv im Raum ist, sollte entweder das Baby oder die Katze in einem anderen Bereich sein.
           </p>
-          <p class="link-line">
-            Buch ansehen: <a href="https://www.amazon.de/dp/B0GTDN1458">https://www.amazon.de/dp/B0GTDN1458</a>
+          <ul class="example-list">
+            <li>Baby schläft im Schlafzimmer → Tür schließen</li>
+            <li>Du gehst kurz ins Bad → Baby mitnehmen oder Katze aus dem Raum lassen</li>
+            <li>Besuch kommt → Katze vorher einen ruhigen Rückzugsort geben</li>
+          </ul>
+          <div class="callout">
+            Diese einfache Regel nimmt vielen typischen Alltagssituationen die Schärfe. Gleichzeitig bleibt der Alltag für Katze und Familie ruhiger und vorhersehbarer.
+          </div>
+        </div>
+      </article>
+
+      <article class="rule">
+        <div class="num">2</div>
+        <div>
+          <h2>Der Baby-Schlafplatz bleibt frei von Haustieren</h2>
+          <p>
+            Katzen suchen gern warme, ruhige Plätze. Ein Babybett kann auf viele Katzen genau so wirken.
+            Daher gilt als einfacher Standard: Der Schlafplatz des Babys ist keine Katzenzone.
+          </p>
+          <ul class="example-list">
+            <li>Tür zum Schlafzimmer schließen</li>
+            <li>Babybett nicht frei zugänglich lassen</li>
+            <li>klare Alternative für die Katze anbieten</li>
+            <li>Barriere nutzen, wenn sie zur Wohnsituation passt</li>
+          </ul>
+          <div class="callout">
+            Nur geeignete und sichere Schutzlösungen nutzen; im Zweifel fachlich beraten lassen.
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="page" aria-label="Zonen und Wenn-Dann-Regeln">
+      <article class="rule">
+        <div class="num">3</div>
+        <div>
+          <h2>Das einfache Zonen-System</h2>
+          <p>
+            Zonen helfen, nicht jede Situation neu zu diskutieren. Jeder Bereich bekommt eine klare Aufgabe.
           </p>
         </div>
+      </article>
 
-        <div class="info-box">
+      <div class="zones" aria-label="Zonen-System">
+        <div class="zone">
+          <span class="tag">Baby-Zone</span>
+          <h3>Bereiche, in denen das Baby häufig liegt oder spielt.</h3>
+          <ul>
+            <li>Babybett</li>
+            <li>Wickelplatz</li>
+            <li>Spieldecke</li>
+          </ul>
+          <strong>Hier gilt:</strong>
+          <p>Katze nur unter ruhiger Aufsicht.</p>
+        </div>
+
+        <div class="zone">
+          <span class="tag">Katzen-Zone</span>
+          <h3>Bereiche, die klar der Katze gehören.</h3>
+          <ul>
+            <li>Kratzbaum</li>
+            <li>Katzenbett</li>
+            <li>Rückzugsorte</li>
+          </ul>
+          <strong>Hier gilt:</strong>
+          <p>Diese Orte bleiben für die Katze ruhig und sicher.</p>
+        </div>
+
+        <div class="zone">
+          <span class="tag">Übergangs-Zone</span>
+          <h3>Gemeinsame Bereiche.</h3>
+          <ul>
+            <li>Wohnzimmer</li>
+            <li>Küche</li>
+            <li>Flur</li>
+          </ul>
+          <strong>Hier gilt:</strong>
+          <p>Begegnungen sind möglich – aber nur unter entspannter Aufsicht.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        Das Ziel ist nicht Trennung – sondern klare Alltagssituationen statt ständiger Unsicherheit.
+      </div>
+
+      <article class="rule">
+        <div class="num">4</div>
+        <div>
+          <h2>Wenn-Dann-Regeln statt Grübeln</h2>
+          <p>
+            Viele Eltern geraten in Stress, weil sie ständig überlegen müssen: Was mache ich jetzt?
+            Ein paar einfache Wenn-Dann-Regeln entlasten den Kopf.
+          </p>
+          <ul class="example-list">
+            <li>Wenn die Katze zum Baby geht → ruhig umlenken oder Abstand schaffen.</li>
+            <li>Wenn du müde bist → lieber kurz trennen statt diskutieren.</li>
+            <li>Wenn Besuch kommt → Katze vorher einen ruhigen Rückzugsort geben.</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <section class="page" aria-label="Reset, Stolperstellen und weitere Infos">
+      <article class="rule">
+        <div class="num">5</div>
+        <div>
+          <h2>Der 10-Sekunden-Reset</h2>
+          <p>
+            Wenn sich eine Situation plötzlich unsicher anfühlt, nicht im Impuls reagieren. Lieber kurz stoppen.
+          </p>
+        </div>
+      </article>
+
+      <div class="reset">
+        <h2>10 Sekunden, die den Alltag ruhiger machen</h2>
+        <div class="reset-flow">
+          <div class="reset-step">
+            <span>1</span>
+            <h3>Trennen</h3>
+            <p>Baby und Katze kurz räumlich auseinanderbringen.</p>
+          </div>
+          <div class="reset-step">
+            <span>2</span>
+            <h3>Atmen</h3>
+            <p>Einmal bewusst durchatmen.</p>
+          </div>
+          <div class="reset-step">
+            <span>3</span>
+            <h3>Prüfen</h3>
+            <p>Was ist gerade wirklich los?</p>
+          </div>
+          <div class="reset-step">
+            <span>4</span>
+            <h3>Entscheiden</h3>
+            <p>Nicht aus dem Impuls heraus handeln.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="soft-box">
+        <h2>Häufige Stolperstellen</h2>
+        <p>Viele Eltern machen aus Sorge drei Dinge:</p>
+        <ul class="plain-list">
+          <li>sie beobachten alles ständig</li>
+          <li>sie trennen dauerhaft alles</li>
+          <li>sie machen sich selbst Vorwürfe</li>
+        </ul>
+        <p style="margin-top:.6rem">
+          Dabei reichen oft ein paar klare Standards und wiederholbare Routinen.
+        </p>
+        <p style="margin-top:.6rem">
+          <strong>Perfekt muss der Alltag nicht sein. Sicher genug reicht.</strong>
+        </p>
+      </div>
+
+      <div class="book-grid">
+        <div class="book-box">
+          <h2>Du möchtest mehr Orientierung?</h2>
+          <p>
+            Der Praxis-Guide „Baby und Katze sicher zusammenführen“ erklärt Schritt für Schritt:
+          </p>
+          <ul class="plain-list">
+            <li>das komplette Zonen-System</li>
+            <li>typische Alltagssituationen</li>
+            <li>Stresssignale von Katzen</li>
+            <li>Vorbereitung in der Schwangerschaft</li>
+            <li>Routinen für Baby- und Kleinkindphase</li>
+          </ul>
+          <span class="link-line">Mehr zum Buch: <a class="url" href="https://www.amazon.de/dp/B0GTDN1458">https://www.amazon.de/dp/B0GTDN1458</a></span>
+        </div>
+
+        <div class="book-box">
           <h2>Checkliste &amp; weitere Infos</h2>
           <p>
-            Die aktuelle Online-Version der Checkliste und weitere Hinweise findest du hier:
+            Die aktuelle Online-Version der Checkliste findest du hier:
           </p>
-          <p class="link-line">
-            <a href="https://farbenfrohe-lesewelt.github.io/checkliste/">https://farbenfrohe-lesewelt.github.io/checkliste/</a>
-          </p>
+          <span class="link-line"><a class="url" href="https://farbenfrohe-lesewelt.github.io/checkliste/">farbenfrohe-lesewelt.github.io/checkliste/</a></span>
         </div>
-      </section>
+      </div>
 
       <p class="disclaimer">
-        <strong>Hinweis:</strong> Dieses Material bietet alltagsnahe Orientierung. Es ersetzt keine medizinische, hebammenkundliche, therapeutische, tierärztliche oder verhaltensfachliche Beratung. Bei Unsicherheit, Verletzungen, deutlichen Verhaltensänderungen oder gesundheitlichen Fragen sollten passende Fachstellen einbezogen werden.
+        Dieses Material bietet alltagsnahe Orientierung. Es ersetzt keine medizinische, hebammenkundliche, therapeutische, tierärztliche oder verhaltensfachliche Beratung. Bei Unsicherheit, Verletzungen, deutlichen Verhaltensänderungen oder gesundheitlichen Fragen sollten passende Fachstellen einbezogen werden.
       </p>
 
       <footer>
         <span>Farbenfrohe Lesewelt Verlag / Patrick Guttenberger</span>
         <span>farbenfrohe-lesewelt@web.de</span>
       </footer>
-    </div>
+    </section>
   </main>
 </body>
 </html>
