@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Baby &amp; Katze: Die 5 Sicherheitsregeln für den Alltag</title>
-  <meta name="description" content="Druckfreundliche Mini-Workbook-Checkliste mit fünf ruhigen Standardregeln für Eltern mit Baby und Katze." />
+  <meta name="description" content="Druckfreundliche Schnell-Checkliste mit fünf ruhigen Standardregeln für Eltern mit Baby und Katze." />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
 
   <style>
@@ -363,7 +363,7 @@
 
     @page{
       size:A4;
-      margin:10mm;
+      margin:8mm;
     }
 
     @media print{
@@ -383,8 +383,8 @@
       }
 
       body{
-        font-size:10.2pt;
-        line-height:1.32;
+        font-size:9.35pt;
+        line-height:1.24;
         -webkit-print-color-adjust:exact;
         print-color-adjust:exact;
       }
@@ -410,23 +410,189 @@
       }
 
       h1{
-        font-size:43pt;
+        font-size:34pt;
+        line-height:.92;
       }
 
       h2{
-        font-size:14pt;
+        margin-bottom:3pt;
+        font-size:12.3pt;
+        line-height:1.1;
+      }
+
+      h3{
+        margin-bottom:2pt;
+        font-size:9.4pt;
+        line-height:1.12;
       }
 
       .subtitle{
-        font-size:15pt;
+        margin-top:4pt;
+        font-size:12.5pt;
+      }
+
+      .brand{
+        margin-bottom:4pt;
+        font-size:7.8pt;
+      }
+
+      .hero{
+        gap:10mm;
+        padding-bottom:7mm;
+      }
+
+      .badge{
+        width:78px;
+        height:78px;
+        font-size:10pt;
+        line-height:1.05;
       }
 
       .startline{
-        font-size:12pt;
+        margin:6mm 0 4mm;
+        font-size:10.2pt;
+        line-height:1.22;
+      }
+
+      .intro-box{
+        padding:9pt 10pt;
+      }
+
+      .intro-box ul,
+      .example-list,
+      .plain-list{
+        margin-top:4pt;
+      }
+
+      .intro-box li,
+      .example-list li,
+      .plain-list li{
+        margin:1.5pt 0;
       }
 
       .rule{
+        grid-template-columns:54px minmax(0,1fr);
+        gap:10pt;
+        margin:4mm 0;
+        padding:10pt;
+      }
+
+      .num{
+        width:54px;
+        height:54px;
+        font-size:18pt;
+        box-shadow:none;
+      }
+
+      .example-list{
+        gap:2pt;
+      }
+
+      .example-list li{
+        padding:5pt 7pt;
+        border-radius:8px;
+      }
+
+      .callout{
+        margin-top:6pt;
+        padding:6pt 8pt;
+        border-left-width:4px;
+        border-radius:8px;
+      }
+
+      .zones{
+        gap:7pt;
+        margin:8pt 0;
+      }
+
+      .zone{
+        padding:8pt;
+      }
+
+      .page:nth-of-type(2) .rule{
         margin:6mm 0;
+        padding:12pt;
+      }
+
+      .page:nth-of-type(2) .zones{
+        margin:14pt 0;
+      }
+
+      .page:nth-of-type(2) .zone{
+        min-height:145pt;
+        padding:12pt;
+      }
+
+      .page:nth-of-type(2) .callout{
+        margin-top:10pt;
+        padding:9pt 11pt;
+      }
+
+      .zone .tag{
+        margin-bottom:3pt;
+        padding:1.5pt 5pt;
+        font-size:7.8pt;
+      }
+
+      .zone ul{
+        margin:3pt 0;
+      }
+
+      .reset{
+        margin-top:6pt;
+        padding:10pt;
+        border-radius:14px;
+      }
+
+      .reset-flow{
+        gap:6pt;
+        margin-top:8pt;
+      }
+
+      .reset-step{
+        padding:7pt;
+      }
+
+      .reset-step span{
+        width:25px;
+        height:25px;
+        margin-bottom:3pt;
+      }
+
+      .soft-box{
+        margin-top:7pt;
+        padding:9pt;
+      }
+
+      .book-grid{
+        grid-template-columns:minmax(0,1fr) minmax(310px,.82fr);
+        gap:8pt;
+        margin-top:8pt;
+      }
+
+      .book-box{
+        padding:9pt;
+      }
+
+      .link-line{
+        margin-top:6pt;
+        padding-top:5pt;
+      }
+
+      .url{
+        font-size:8.45pt;
+      }
+
+      .disclaimer{
+        margin-top:8pt;
+        padding-top:6pt;
+        font-size:7.9pt;
+        line-height:1.22;
+      }
+
+      footer{
+        margin-top:5pt;
+        font-size:7.9pt;
       }
 
       .rule,
@@ -436,6 +602,13 @@
       .soft-box,
       .book-box{
         box-shadow:none;
+        page-break-inside:auto;
+      }
+
+      .rule,
+      .zones,
+      .reset,
+      .book-grid{
         page-break-inside:avoid;
       }
 
@@ -461,7 +634,7 @@
           <h1>Baby &amp; Katze</h1>
           <p class="subtitle">Die 5 Sicherheitsregeln für den Alltag</p>
         </div>
-        <div class="badge" aria-hidden="true">Mini-<br>Workbook</div>
+        <div class="badge" aria-hidden="true">Schnell-<br>Checkliste</div>
       </header>
 
       <p class="startline">
@@ -472,8 +645,8 @@
         <p><strong>Viele Eltern hören widersprüchliche Dinge:</strong></p>
         <ul>
           <li>Die Katze muss weg.</li>
-          <li>Das ist doch alles halb so wild.</li>
-          <li>Mach dir keine Sorgen.</li>
+          <li>„Das ist doch alles halb so wild.“</li>
+          <li>„Mach dir keine Sorgen.“</li>
         </ul>
         <p style="margin-top:.8rem">
           Die Wahrheit liegt meist dazwischen. Mit ein paar klaren Regeln wird der Alltag für Baby und Katze besser planbar.
@@ -517,7 +690,7 @@
             <li>Barriere nutzen, wenn sie zur Wohnsituation passt</li>
           </ul>
           <div class="callout">
-            Nur geeignete und sichere Schutzlösungen nutzen; im Zweifel fachlich beraten lassen.
+            Bei Schutzlösungen bitte nur geeignete Varianten nutzen – im Zweifel fachlich beraten lassen.
           </div>
         </div>
       </article>

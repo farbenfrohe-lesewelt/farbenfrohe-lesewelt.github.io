@@ -1,5 +1,51 @@
 # Codex QA Notes - Checkliste
 
+## Optimize printable checklist layout
+
+Datum: 2026-04-29
+
+### Geaenderte Dateien
+
+- `/assets/downloads/checkliste-baby-katze-5-sicherheitsregeln.pdf`
+- `/checkliste/5-sicherheitsregeln.html`
+- `/checkliste/index.html`
+- `/partner/index.html`
+- `/context/CODEX_QA_NOTES.md`
+
+### PDF-Seitenzahl
+
+- Vorher laut Auftrag: 4 Seiten mit unguenstiger Raumnutzung.
+- Nachher: 3 Seiten.
+- PDF-Dateigroesse nach Export: 364104 Bytes.
+- PDF-Header: gueltig.
+
+### Wichtigste Layoutaenderungen
+
+- Print-Margins auf 8 mm reduziert und Print-Typografie kompakter gesetzt.
+- Header auf Seite 1, Badge, Nummernkreise, Kartenabstaende und Callouts fuer A4 optimiert.
+- Seite 1 enthaelt Intro, Regel 1 und Regel 2.
+- Seite 2 enthaelt Zonen-System und Wenn-Dann-Regeln; die Zonen-Karten nutzen den Raum bewusster.
+- Seite 3 enthaelt 10-Sekunden-Reset, Stolperstellen, Buch-Bruecke, Website-Link, Disclaimer und Kontakt.
+- Badge von Mini-Workbook auf Schnell-Checkliste geaendert.
+- Schutzloesungs-Satz geglaettet und Zitatzeilen in der Intro-Box typografisch gesetzt.
+- `/checkliste/` Preview-Text auf Schnell-Checkliste angepasst.
+- `/partner/` menschlicher formuliert: Eyebrow, H1, Lead und Nutzen-Bullets geglaettet.
+
+### QA-Ergebnis
+
+- Alte Amazon-Trackingmuster: 0 Treffer.
+- Amazon-Produktlinks mit Query-String: 0 Treffer.
+- Google-Forms-Kurzlinks: 0 Treffer.
+- Amazon-Zielseite neutral: Ja.
+- PDF-Download auf `/checkliste/`: direkter Link zur PDF, keine Parameterweitergabe, Trackingattribute erhalten.
+- Mobile Ansicht `/checkliste/`: lokal bei 390 px geprueft; kein horizontaler Overflow und keine JavaScript-Fehler.
+- PDF-Pruefung: 3 Seiten, keine Zusatzseite, keine kaputten URL-Umbrueche, keine gemessenen horizontalen Ueberlaeufe.
+- Claims geprueft: keine Garantien, keine Paniksprache, keine Andrea-Blum-Kontaktrolle und keine medizinische oder tieraerztliche Fachautoritaetsrolle ergaenzt.
+
+### Offene Punkte
+
+- Keine bekannten offenen Punkte aus dieser Runde.
+
 ## Refine checklist design and partner wording
 
 Datum: 2026-04-29
