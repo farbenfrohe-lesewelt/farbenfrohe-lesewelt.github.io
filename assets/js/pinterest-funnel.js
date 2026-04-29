@@ -67,8 +67,38 @@
     });
   }
 
+  function ensureConsentBanner() {
+    if (localStorage.getItem(META_CONSENT_KEY)) return;
+
+    const banner = document.createElement('div');
+    banner.className = 'cookie-banner';
+    banner.setAttribute('role', 'region');
+    banner.setAttribute('aria-label', 'Cookie-Hinweis');
+    banner.innerHTML = [
+      '<h2>Cookies & Statistik</h2>',
+      '<p>Wenn du zustimmst, messen wir anonymisiert, welche Seiten und Buttons genutzt werden. So können wir Inhalte und Hinweise verbessern. Mehr dazu in der <a href="/legal/datenschutz.html">Datenschutzerklärung</a>.</p>',
+      '<div class="cookie-actions">',
+      '<button class="btn btn-primary" type="button" data-cookie-accept>Akzeptieren</button>',
+      '<button class="btn btn-ghost" type="button" data-cookie-decline>Ablehnen</button>',
+      '</div>'
+    ].join('');
+
+    document.body.appendChild(banner);
+
+    banner.querySelector('[data-cookie-accept]').addEventListener('click', function () {
+      localStorage.setItem(META_CONSENT_KEY, 'granted');
+      banner.hidden = true;
+    });
+
+    banner.querySelector('[data-cookie-decline]').addEventListener('click', function () {
+      localStorage.setItem(META_CONSENT_KEY, 'denied');
+      banner.hidden = true;
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     preserveParams();
+    ensureConsentBanner();
     bindEvents();
   });
 })();

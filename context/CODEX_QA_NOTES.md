@@ -1,5 +1,65 @@
 # Codex QA Notes - Checkliste
 
+## Funnel-Polish Partner, Pinterest und Checkliste
+
+Datum: 2026-04-29
+
+### Geaenderte Dateien
+
+- `/assets/js/partner-pages.js`
+- `/assets/js/pinterest-funnel.js`
+- `/assets/downloads/checkliste-baby-katze-5-sicherheitsregeln.pdf`
+- `/styles.css`
+- `/checkliste/index.html`
+- `/checkliste/5-sicherheitsregeln.html`
+- `/partner/index.html`
+- `/partner/tierarztpraxen/index.html`
+- `/partner/hebammen/index.html`
+- `/partner/katzenschutz/index.html`
+- `/material-anfragen/index.html`
+- `/go/tierarzt-demo/index.html`
+- `/go/hebamme-demo/index.html`
+- `/go/katzenschutz-demo/index.html`
+- `/pinterest/index.html`
+- `/pinterest/katze-im-babybett/index.html`
+- `/pinterest/toxoplasmose-katze-schwangerschaft/index.html`
+- `/pinterest/baby-und-katze-zusammenfuehren/index.html`
+- `/pinterest/katze-eifersuechtig-baby/index.html`
+- `/pinterest/erste-begegnung-baby-und-katze/index.html`
+- `/pinterest/alltag-mit-baby-und-katze/index.html`
+- `/context/CODEX_QA_NOTES.md`
+
+### Wichtigste Wording-Aenderungen
+
+- Clickbait-nahe Formulierungen auf Pinterest entschärft, besonders bei Babybett, Toxoplasmose, Eifersucht und ersten Begegnungen.
+- Checklisten-Seite ruhiger formuliert; PDF-Downloadlinks geben keine URL-Parameter mehr an die PDF weiter.
+- Partnerseiten stärker auf konkreten Nutzen für Einrichtungen ausgerichtet: wiederkehrende Fragen auffangen, QR-Link, Aushang, Mitnahmekarte und kurzer Hinweistext.
+- `/go/`-Brückenseiten menschlicher formuliert und mit korrekten Umlauten versehen.
+- Materialanfrage mit vorbereitetem E-Mail-Body ergänzt.
+
+### Tracking und Consent
+
+- Option A umgesetzt: Partner-, Go- und Pinterest-Seiten erhalten über die bestehenden lokalen JS-Dateien einen kleinen Consent-Banner.
+- Tracking bleibt an `flw_meta_consent = granted` gebunden; ohne Einwilligung werden keine Meta-Events gesendet.
+- URL-Parameter werden weitergereicht, ohne vorhandene feste Kampagnenwerte auf Checklisten- und Offline-Links zu überschreiben.
+
+### Pruefung
+
+- PDF neu erzeugt: Ja. Die druckbare HTML-Checkliste wurde geändert; PDF wurde ersetzt und mit gültigem `%PDF-`-Header geprüft.
+- Mobile Ansicht geprüft: Ja. Lokaler Browser-Check bei 390 px für Checkliste, Partner-, Material-, Go- und Pinterest-Seiten ohne horizontalen Overflow.
+- Konsolenprüfung: Ja. Keine JavaScript-Fehler auf den lokal geprüften Seiten.
+- Checklisten-Download: Direkter PDF-Link funktioniert, ohne angehängte Tracking-Parameter.
+- Materialanfrage: Mailto-Links enthalten den vorbereiteten Body mit Einrichtung, Ansprechpartner, Adresse, gewünschtem Material und Einsatzort.
+- Offline-Brücken: Links behalten `src=offline` und den jeweiligen Partnerwert.
+- Pinterest-Funnel: Checklistenlinks behalten `src=pinterest` und die jeweilige Kampagne; Amazon steht nicht mehr im ersten Funnel-Kasten.
+- Amazon-Zielseite neutral: Ja. Produktlinks bleiben queryfrei.
+- Suchergebnis: Amazon-Altparameter, Amazon-Produktlinks mit Query-String und Google-Forms-Kurzlinks jeweils 0 Treffer im Repo.
+- Claims geprüft: Keine neuen Garantien, keine harten Sicherheitsversprechen, keine Paniksprache, keine Andrea-Blum-Kontaktrolle und keine medizinische/tierärztliche Fachautorität ergänzt.
+
+### Offene Punkte
+
+- Keine bekannten offenen Punkte aus dieser Polishing-Runde.
+
 ## Phase 5 - Pinterest-Funnel
 
 Datum: 2026-04-29
@@ -27,7 +87,7 @@ Datum: 2026-04-29
 - Amazon-Zielseite neutral: Ja. Amazon-Links verweisen auf `https://www.amazon.de/dp/B0GTDN1458`.
 - Google-Forms-Links: Keine verwendet.
 - Mobile Ansicht geprueft: Ja. Lokaler Browser-Check bei 390 px fuer alle sieben Pinterest-Seiten ohne horizontalen Overflow.
-- Suchergebnis: `maas`, `tag=maas`, `ref_=aa_maas`, Amazon-Produktlinks mit Query-String und `forms.gle` jeweils 0 Treffer ausserhalb von `.git`.
+- Suchergebnis: Amazon-Altparameter, Amazon-Produktlinks mit Query-String und Google-Forms-Kurzlinks jeweils 0 Treffer ausserhalb von `.git`.
 - Claims geprueft: In den neuen CTA-Texten wurden keine Garantien, keine medizinische/tieraerztliche Fachautoritaet, keine Paniksprache und keine Andrea-Blum-Kontaktrolle ergaenzt.
 
 ## Phase 4 - Partnerseiten und Offline-Bruecken

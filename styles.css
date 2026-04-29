@@ -772,6 +772,40 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
   color:var(--muted);
   padding:1rem;
 }
+.cookie-banner{
+  position:fixed;
+  left:16px;
+  right:16px;
+  bottom:16px;
+  z-index:10001;
+  max-width:720px;
+  margin:0 auto;
+  padding:1rem;
+  border:1px solid rgba(29,36,48,.14);
+  border-radius:18px;
+  background:rgba(255,255,255,.96);
+  box-shadow:0 18px 48px rgba(18,24,35,.16);
+}
+.cookie-banner[hidden]{
+  display:none !important;
+}
+.cookie-banner h2{
+  margin:0 0 .35rem;
+  font-size:1rem;
+}
+.cookie-banner p{
+  margin:0 0 .8rem;
+  color:var(--muted);
+  font-size:.95rem;
+}
+.cookie-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.6rem;
+}
+.cookie-actions .btn{
+  cursor:pointer;
+}
 
 /* =========================
    PINTEREST CHECKLIST FUNNEL
@@ -802,6 +836,11 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
 .article-side .cta-stack .btn{
   white-space:normal;
   text-align:center;
+}
+@media (max-width: 900px){
+  .article-side .cta-stack{
+    display:none;
+  }
 }
 @media (max-width: 900px){
   .partner-hero-grid,

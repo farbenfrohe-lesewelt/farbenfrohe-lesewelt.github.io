@@ -57,17 +57,50 @@
     document.querySelectorAll('a[data-preserve-params]').forEach(function (link) {
       const url = new URL(link.getAttribute('href'), window.location.href);
       keptParams.forEach(function (value, key) {
-        url.searchParams.set(key, value);
+        if (!url.searchParams.has(key)) url.searchParams.set(key, value);
       });
       link.href = url.pathname + url.search + url.hash;
     });
   }
 
-  function bindEvents() {
-    const pageType = document.body.dataset.pageType;
-    if (pageType === 'partner') {
+  function trackPageView() {
+    if (document.body.dataset.pageType === 'partner') {
       track('partner_page_view', { page: document.body.dataset.pageName || '' });
     }
+  }
+
+  function ensureConsentBanner() {
+    if (localStorage.getItem(META_CONSENT_KEY)) return;
+
+    const banner = document.createElement('div');
+    banner.className = 'cookie-banner';
+    banner.setAttribute('role', 'region');
+    banner.setAttribute('aria-label', 'Cookie-Hinweis');
+    banner.innerHTML = [
+      '<h2>Cookies & Statistik</h2>',
+      '<p>Wenn Sie zustimmen, messen wir anonymisiert, welche Seiten und Buttons genutzt werden. So können wir Hinweise und Material verbessern. Mehr dazu in der <a href="/legal/datenschutz.html">Datenschutzerklärung</a>.</p>',
+      '<div class="cookie-actions">',
+      '<button class="btn btn-primary" type="button" data-cookie-accept>Akzeptieren</button>',
+      '<button class="btn btn-ghost" type="button" data-cookie-decline>Ablehnen</button>',
+      '</div>'
+    ].join('');
+
+    document.body.appendChild(banner);
+
+    banner.querySelector('[data-cookie-accept]').addEventListener('click', function () {
+      localStorage.setItem(META_CONSENT_KEY, 'granted');
+      banner.hidden = true;
+      trackPageView();
+    });
+
+    banner.querySelector('[data-cookie-decline]').addEventListener('click', function () {
+      localStorage.setItem(META_CONSENT_KEY, 'denied');
+      banner.hidden = true;
+    });
+  }
+
+  function bindEvents() {
+    trackPageView();
 
     document.querySelectorAll('[data-event]').forEach(function (link) {
       link.addEventListener('click', function () {
@@ -81,6 +114,7 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     preserveParams();
+    ensureConsentBanner();
     bindEvents();
   });
 })();
