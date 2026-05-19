@@ -810,6 +810,35 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
 /* =========================
    PINTEREST CHECKLIST FUNNEL
    ========================= */
+.book-plan-card{
+  margin:1rem 0 1.05rem;
+  border:1px solid rgba(184,116,82,.18);
+  border-radius:22px;
+  background:linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,246,230,.88));
+  box-shadow:0 12px 30px rgba(18,24,35,.08);
+  padding:clamp(1rem,3vw,1.4rem);
+}
+.book-plan-title{
+  margin:0 0 .45rem;
+  max-width:760px;
+  font-size:clamp(1.28rem,2.35vw,1.85rem);
+  line-height:1.16;
+}
+.book-plan-text{
+  margin:0;
+  max-width:760px;
+  color:var(--muted);
+}
+.book-plan-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.7rem;
+  margin-top:1rem;
+}
+.book-plan-actions .btn{
+  white-space:normal;
+  text-align:center;
+}
 .pinterest-funnel-box{
   margin:1.1rem 0;
   border:1px solid rgba(59,91,219,.16);
@@ -840,6 +869,15 @@ details.card p{ margin:0; padding: 0 1rem 1rem; color: var(--muted); }
 @media (max-width: 900px){
   .article-side .cta-stack{
     display:none;
+  }
+}
+@media (max-width: 560px){
+  .book-plan-actions{
+    flex-direction:column;
+  }
+
+  .book-plan-actions .btn{
+    width:100%;
   }
 }
 @media (max-width: 900px){
