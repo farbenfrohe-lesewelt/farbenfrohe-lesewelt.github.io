@@ -953,6 +953,81 @@ details.card p{
   text-align:center;
 }
 
+/* Pinterest intent pages */
+.pinterest-relief{
+  margin:0 0 var(--space-5);
+  max-width:66ch;
+  border-left:3px solid var(--accent-border);
+  padding:var(--space-3) 0 var(--space-3) var(--space-4);
+  color:var(--muted);
+}
+
+.pinterest-relief strong{
+  display:block;
+  margin-bottom:var(--space-1);
+  color:var(--text);
+  font-weight:720;
+}
+
+.pinterest-relief p{ margin:0; }
+
+.pinterest-intent-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:var(--space-4);
+  margin-top:var(--space-5);
+}
+
+.pinterest-intent-card{
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  background:rgba(255,255,255,.76);
+  box-shadow:var(--shadow-soft);
+  padding:var(--space-5);
+}
+
+.pinterest-intent-card h3{ margin-bottom:var(--space-2); }
+.pinterest-intent-card p{ margin:0; color:var(--muted); }
+
+.book-plan-card{
+  box-shadow:var(--shadow-soft);
+}
+
+.book-plan-card .book-plan-title{
+  max-width:26ch;
+}
+
+.pinterest-funnel-box{
+  box-shadow:var(--shadow);
+}
+
+.pinterest-answers{
+  max-width:900px;
+  border-top:1px solid var(--border);
+}
+
+.pinterest-answers details.card{
+  border:0;
+  border-bottom:1px solid var(--border);
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+
+.pinterest-answers details.card summary{
+  padding:var(--space-5) 0;
+  font-weight:680;
+}
+
+.pinterest-answers details.card p{
+  max-width:70ch;
+  padding:0 0 var(--space-5);
+}
+
+.article-main > h2:first-child{
+  max-width:28ch;
+}
+
 /* Text wrap safety */
 :where(p, li, .lead, .sublead, .booksub, details.card p, .card, .muted, .btn){
   overflow-wrap:break-word;
@@ -983,6 +1058,7 @@ details.card p{
 @media (max-width: 900px){
   .partner-card-grid{ grid-template-columns:1fr; }
   .article-side .cta-stack{ display:none; }
+  .pinterest-intent-grid{ grid-template-columns:1fr; }
 }
 
 @media (max-width: 740px){
