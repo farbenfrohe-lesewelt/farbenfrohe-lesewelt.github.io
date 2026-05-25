@@ -7,23 +7,24 @@
   <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
+  <a class="skip" href="#content">Zum Inhalt springen</a>
   <header class="topbar">
     <div class="container topbar-inner">
-      <div class="brand">
+      <a class="brand" href="../index.html">
         <img class="brand-logo" src="../assets/flw-logo.webp" alt="Farbenfrohe Lesewelt" loading="eager">
         <span class="brand-text">Farbenfrohe Lesewelt</span>
-      </div>
+      </a>
       <nav class="top-actions" aria-label="Aktionen">
-        <a class="btn" href="../index.html">Zurück</a>
+        <a class="btn btn-ghost" href="../index.html">Startseite</a>
       </nav>
     </div>
   </header>
 
-  <main class="section">
-    <div class="container">
+  <main id="content" class="section legal-main">
+    <div class="container legal-container">
       <h1>Impressum</h1>
 
-      <div class="card">
+      <div class="card legal-document">
         <p>
           <strong>Anbieter</strong><br>
           Farbenfrohe Lesewelt<br>
@@ -60,7 +61,7 @@
     </div>
   </main>
 
-  <footer class="footer">
+  <footer class="footer legal-footer">
     <div class="container footer-inner">
       <p class="muted small"><a href="../index.html">Startseite</a> · <a href="datenschutz.html">Datenschutz</a></p>
       <p class="muted small">© <span id="year"></span> Farbenfrohe Lesewelt</p>
