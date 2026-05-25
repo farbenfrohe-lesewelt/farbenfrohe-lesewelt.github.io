@@ -149,32 +149,46 @@
     }
 
     .checklist-hero{
-      padding:clamp(2rem, 5vw, 4.5rem) 0 clamp(1.8rem, 4vw, 3rem);
+      padding:clamp(2.5rem, 6vw, 5rem) 0 clamp(2rem, 4vw, 3.3rem);
     }
 
     .checklist-shell{
       display:grid;
-      grid-template-columns:minmax(0,1.08fr) minmax(280px,.78fr);
-      gap:clamp(1.2rem, 3vw, 2.2rem);
+      grid-template-columns:minmax(0,1fr) minmax(300px,380px);
+      gap:clamp(1.6rem, 4.5vw, 4rem);
       align-items:center;
+      min-width:0;
     }
 
     .hero-panel{
-      max-width:720px;
+      max-width:690px;
+      min-width:0;
     }
 
     .checklist-hero h1{
-      max-width:780px;
-      font-size:clamp(2.2rem, 5.2vw, 4.4rem);
-      line-height:1.01;
+      max-width:11.8ch;
+      font-size:clamp(2.45rem, 4.8vw, 4.55rem);
+      line-height:1.02;
       letter-spacing:0;
+      overflow-wrap:normal;
+      word-break:normal;
+      text-wrap:balance;
     }
 
     .hero-subline{
-      max-width:680px;
-      font-size:clamp(1.05rem, 2vw, 1.28rem);
+      max-width:58ch;
+      font-size:clamp(1.08rem, 1.7vw, 1.22rem);
       color:var(--muted);
+      margin:0 0 1.35rem;
+      line-height:1.56;
+    }
+
+    .hero-reassurance{
+      max-width:58ch;
       margin:0 0 1.25rem;
+      color:var(--text-soft);
+      font-weight:650;
+      line-height:1.5;
     }
 
     .trust-row{
@@ -196,13 +210,18 @@
       background:rgba(255,255,255,.62);
     }
 
+    .checklist-hero .cta-duo{
+      align-items:flex-start;
+    }
+
     .preview-card{
       position:relative;
       border:1px solid rgba(29,36,48,.11);
-      border-radius:24px;
+      border-radius:20px;
       background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,250,242,.9));
-      box-shadow:0 18px 48px rgba(18,24,35,.11);
-      padding:1rem;
+      box-shadow:0 18px 42px rgba(18,24,35,.08);
+      padding:1.15rem;
+      min-width:0;
     }
 
     .preview-card::before{
@@ -241,27 +260,31 @@
       align-items:start;
     }
 
-    .calm-note{
-      border:1px solid rgba(85,107,95,.18);
-      border-radius:22px;
-      background:rgba(255,255,255,.72);
-      box-shadow:0 12px 32px rgba(18,24,35,.07);
-      padding:1.1rem;
+    .calm-note,
+    .help-card{
+      border:1px solid rgba(85,107,95,.16);
+      border-radius:18px;
+      background:rgba(255,255,255,.76);
+      box-shadow:0 10px 26px rgba(18,24,35,.05);
+      padding:1.15rem;
     }
 
-    .calm-note p{
+    .calm-note p,
+    .help-card p{
       margin:0;
       color:var(--muted);
     }
 
     .message-card{
       border:1px solid rgba(231,184,94,.36);
-      border-radius:22px;
-      background:linear-gradient(135deg, rgba(231,184,94,.16), rgba(85,107,95,.08));
+      border-radius:18px;
+      background:linear-gradient(135deg, rgba(231,184,94,.14), rgba(85,107,95,.07));
       padding:1.1rem;
       color:var(--ink);
-      font-size:1.08rem;
-      font-weight:850;
+      font-size:1.04rem;
+      font-weight:760;
+      line-height:1.48;
+      margin-top:1rem;
     }
 
     .rule-preview-grid{
@@ -277,9 +300,9 @@
       gap:.65rem;
       min-height:100%;
       border:1px solid rgba(29,36,48,.11);
-      border-radius:18px;
+      border-radius:16px;
       background:rgba(255,255,255,.84);
-      box-shadow:0 10px 26px rgba(18,24,35,.07);
+      box-shadow:0 8px 22px rgba(18,24,35,.05);
       padding:1rem;
     }
 
@@ -307,12 +330,23 @@
       font-size:.95rem;
     }
 
+    .help-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:1rem;
+      margin-top:1.25rem;
+    }
+
+    .help-card h3{
+      margin:0 0 .45rem;
+    }
+
     .book-bridge{
-      border-radius:26px;
+      border-radius:20px;
       border:1px solid rgba(29,36,48,.12);
       background:linear-gradient(135deg, rgba(255,255,255,.86), rgba(255,250,242,.86));
       box-shadow:var(--shadow);
-      padding:clamp(1.1rem, 3vw, 1.6rem);
+      padding:clamp(1.3rem, 3vw, 2rem);
     }
 
     .book-bridge-inner{
@@ -324,10 +358,10 @@
 
     .partner-box{
       border:1px solid rgba(59,91,219,.14);
-      border-radius:22px;
+      border-radius:20px;
       background:rgba(255,255,255,.78);
       box-shadow:0 12px 30px rgba(18,24,35,.07);
-      padding:1.1rem;
+      padding:clamp(1.2rem, 3vw, 1.7rem);
     }
 
     .partner-box h2{
@@ -337,9 +371,32 @@
     .disclaimer{
       border:1px solid rgba(59,91,219,.18);
       background:rgba(255,255,255,.80);
-      border-radius:22px;
+      border-radius:18px;
       padding:1rem 1.1rem;
       color:var(--muted);
+      line-height:1.58;
+    }
+
+    .checklist-faq{
+      max-width:880px;
+      border-top:1px solid var(--border);
+    }
+
+    .checklist-faq details.card{
+      border:0;
+      border-bottom:1px solid var(--border);
+      border-radius:0;
+      background:transparent;
+      box-shadow:none;
+    }
+
+    .checklist-faq details.card summary{
+      padding:1.2rem 0;
+      font-weight:680;
+    }
+
+    .checklist-faq details.card p{
+      padding:0 0 1.2rem;
     }
 
     .footer-nav{
@@ -393,6 +450,10 @@
       .rule-preview-grid{
         grid-template-columns:repeat(2, minmax(0,1fr));
       }
+
+      .help-grid{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width: 820px){
@@ -400,6 +461,11 @@
       .problem-grid,
       .book-bridge-inner{
         grid-template-columns:1fr;
+      }
+
+      .checklist-hero h1{
+        max-width:min(100%, 12ch);
+        font-size:clamp(2.1rem, 8vw, 3rem);
       }
 
       .book-bridge-inner .cta-duo{
@@ -453,10 +519,14 @@
         <div class="hero-panel">
           <p class="eyebrow">Kostenfreie Checkliste</p>
 
-          <h1>5 Sicherheitsregeln für den Alltag mit Baby &amp; Katze</h1>
+          <h1>5 Sicherheitsregeln für Baby &amp; Katze</h1>
+
+          <p class="hero-reassurance">
+            Wenn ein Baby einzieht, soll die Katze nicht zum Problem werden. Ihr braucht vor allem ein paar klare Standards, die auch an müden Tagen tragen.
+          </p>
 
           <p class="hero-subline">
-            Klare Standardregeln für Aufsicht, Schlafplatz, Zonen und ruhige Alltagssituationen – ohne Panik und ohne Perfektionsdruck.
+            Die Checkliste sortiert Aufsicht, Schlafplatz, Zonen und kurze Wenn-Dann-Regeln auf einer druckbaren Seite: sofort verfügbar, ohne Formular, ohne Panik.
           </p>
 
           <div class="cta-duo hero-cta">
@@ -487,18 +557,18 @@
     <section class="section problem-band" aria-labelledby="warum-standards">
       <div class="container problem-grid">
         <div>
-          <h2 id="warum-standards">Wenn die Ratschläge sich widersprechen</h2>
+          <h2 id="warum-standards">Erst einmal entlasten: Ihr müsst nicht alles neu entscheiden</h2>
           <p class="sublead">
-            Babybett, Aufsicht, Hygiene, erste Begegnungen: Gerade am Anfang tauchen viele Fragen gleichzeitig auf. Online klingt manches streng, manches zu locker, und oft bleibt das Gefühl, doch wieder selbst entscheiden zu müssen.
+            Babybett, Aufsicht, Hygiene, erste Begegnungen: Am Anfang tauchen viele Fragen gleichzeitig auf. Online klingt manches streng, manches zu locker, und oft bleibt das Gefühl, doch wieder allein entscheiden zu müssen.
           </p>
         </div>
 
         <div class="calm-note">
           <p>
-            Die Checkliste sortiert typische Alltagssituationen in wenige ruhige Standards, die auch dann helfen, wenn alle müde sind.
+            Die 5 Regeln sind als ruhige Basis gedacht: nicht als perfekte Lösung für jede Familie, sondern als klarer Startpunkt für den Alltag.
           </p>
           <div class="message-card">
-            Du brauchst nicht noch mehr Meinungen. Du brauchst ein paar klare Standards, die im müden Alltag funktionieren.
+            Weniger Grübeln im Moment. Mehr Orientierung, bevor es hektisch wird.
           </div>
         </div>
       </div>
@@ -551,14 +621,40 @@
       </div>
     </section>
 
+    <section class="section alt" aria-labelledby="hilfe-title">
+      <div class="container">
+        <h2 id="hilfe-title">Warum diese Checkliste hilft</h2>
+        <p class="sublead">
+          Sie macht aus vielen einzelnen Fragen einen kleinen gemeinsamen Standard für eure Familie.
+        </p>
+
+        <div class="help-grid">
+          <article class="help-card">
+            <h3>Schnell verständlich</h3>
+            <p>Die Regeln sind kurz formuliert, damit ihr sie nicht erst interpretieren müsst, wenn der Alltag schon voll ist.</p>
+          </article>
+
+          <article class="help-card">
+            <h3>Gut teilbar</h3>
+            <p>Die Checkliste eignet sich für Küche, Flur oder Wickelplatz, damit alle betreuenden Personen denselben Rahmen sehen.</p>
+          </article>
+
+          <article class="help-card">
+            <h3>Ruhig weiterführend</h3>
+            <p>Sie ersetzt kein individuelles Urteil, gibt aber einen seriösen ersten Rahmen für Aufsicht, Schlaf und Rückzug.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="section alt" aria-labelledby="buch-title">
       <div class="container">
         <div class="book-bridge">
           <div class="book-bridge-inner">
             <div>
-              <h2 id="buch-title">Die Checkliste ist der Start. Das Buch erklärt das komplette System.</h2>
+              <h2 id="buch-title">Wenn ihr mehr als die Kurzversion braucht</h2>
               <p class="sublead">
-                Im Ratgeber geht es Schritt für Schritt um Schwangerschaft, Wochenbett, Schlafplätze, Hygiene, Stresssignale, erste Begegnungen und die Kleinkindphase.
+                Im Ratgeber geht es Schritt für Schritt um Schwangerschaft, Wochenbett, Schlafplätze, Hygiene, Stresssignale, erste Begegnungen und die Kleinkindphase. Die Checkliste bleibt der schnelle Einstieg; das Buch erklärt den Rahmen dahinter.
               </p>
             </div>
             <div class="cta-duo">
@@ -574,9 +670,9 @@
     <section class="section" aria-labelledby="partner-title">
       <div class="container">
         <div class="partner-box">
-          <h2 id="partner-title">Für Hebammen, Tierarztpraxen oder Katzenschutz?</h2>
+          <h2 id="partner-title">Material für Einrichtungen</h2>
           <p class="sublead">
-            Einrichtungen können Infomaterial für Klientinnen, Kundinnen oder Familien anfragen.
+            Hebammen, Tierarztpraxen, Beratungsstellen, Kurse, Fachhandel oder Katzenschutz können Infomaterial für Familien anfragen.
           </p>
           <a class="btn btn-ghost" href="../material-anfragen/" data-preserve-params data-event="material_request_click" data-label="partner-box" data-material-request data-placement="partner-box">
             Materialpaket anfragen
@@ -584,6 +680,34 @@
           <p class="muted small">
             Ansprechpartner: Farbenfrohe Lesewelt Verlag 
           </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" aria-labelledby="faq-title">
+      <div class="container">
+        <h2 id="faq-title">Häufige Fragen</h2>
+
+        <div class="checklist-faq">
+          <details class="card">
+            <summary>Muss ich vor dem Download etwas eintragen?</summary>
+            <p>Nein. Die Checkliste ist sofort als PDF verfügbar und kann direkt geöffnet oder gespeichert werden.</p>
+          </details>
+
+          <details class="card">
+            <summary>Ist die Checkliste für Schwangerschaft oder erst nach der Geburt gedacht?</summary>
+            <p>Beides. Viele Standards lassen sich schon in der Schwangerschaft vorbereiten. Nach der Geburt hilft die Liste als kurze Erinnerung für Schlaf, Aufsicht und Rückzug.</p>
+          </details>
+
+          <details class="card">
+            <summary>Ersetzt die Checkliste Beratung?</summary>
+            <p>Nein. Sie bietet alltagsnahe Orientierung. Bei Verletzungen, starken Stresszeichen, gesundheitlichen Fragen oder wiederholten Konflikten sollten passende Fachstellen einbezogen werden.</p>
+          </details>
+
+          <details class="card">
+            <summary>Was mache ich, wenn ich danach mehr Struktur brauche?</summary>
+            <p>Dann kann der Ratgeber der nächste Schritt sein. Er erklärt das System aus Zonen, Standards und Wenn-Dann-Regeln ausführlicher.</p>
+          </details>
         </div>
       </div>
     </section>
