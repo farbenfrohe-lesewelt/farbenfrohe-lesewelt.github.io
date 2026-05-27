@@ -1290,6 +1290,156 @@ details.card p{
   max-width:28ch;
 }
 
+/* Pinterest book-focused winner pages */
+.pinterest-sales-hero{
+  padding:clamp(28px,5vw,56px) 0 clamp(24px,4vw,44px);
+}
+
+.pinterest-sales-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(260px,360px);
+  gap:clamp(24px,5vw,64px);
+  align-items:center;
+  min-width:0;
+}
+
+.pinterest-sales-copy,
+.pinterest-sales-card{
+  min-width:0;
+}
+
+.pinterest-sales-copy h1{
+  max-width:12ch;
+  font-size:clamp(2.35rem,6vw,5.35rem);
+  line-height:.98;
+  letter-spacing:0;
+  text-wrap:balance;
+}
+
+.pinterest-sales-copy .lead{
+  max-width:58ch;
+}
+
+.pinterest-sales-card{
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,253,248,.82));
+  box-shadow:0 18px 44px rgba(18,24,35,.08);
+  padding:clamp(18px,3vw,28px);
+}
+
+.pinterest-sales-cover{
+  width:min(236px,74%);
+  margin:0 auto var(--space-4);
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:rgba(29,36,48,.04);
+  box-shadow:0 14px 30px rgba(18,24,35,.10);
+}
+
+.pinterest-sales-cover img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+.pinterest-sales-card h2{
+  margin:0 0 var(--space-2);
+  font-size:clamp(1.25rem,2vw,1.65rem);
+  line-height:1.18;
+  text-align:center;
+}
+
+.pinterest-sales-card p{
+  margin:0;
+  color:var(--muted);
+  text-align:center;
+}
+
+.pinterest-sales-actions{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:var(--space-3);
+  margin-top:var(--space-5);
+}
+
+.pinterest-sales-actions .btn{
+  white-space:normal;
+  text-align:center;
+}
+
+.pinterest-sales-actions .text-link{
+  color:var(--muted2);
+  font-size:var(--fs-sm);
+  font-weight:700;
+}
+
+.pinterest-sales-card .pinterest-sales-actions{
+  flex-direction:column;
+  align-items:stretch;
+}
+
+.pinterest-sales-card .text-link{
+  text-align:center;
+}
+
+.pinterest-sales-signals{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--space-4);
+  margin-top:var(--space-5);
+}
+
+.pinterest-sales-signal,
+.pinterest-sales-panel{
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  background:rgba(255,255,255,.82);
+  box-shadow:var(--shadow-soft);
+}
+
+.pinterest-sales-signal{
+  padding:var(--space-4);
+}
+
+.pinterest-sales-signal strong{
+  display:block;
+  margin-bottom:var(--space-1);
+  color:var(--text);
+}
+
+.pinterest-sales-signal p{
+  margin:0;
+  color:var(--muted);
+}
+
+.pinterest-sales-panel{
+  padding:clamp(20px,3vw,32px);
+}
+
+.pinterest-sales-panel p:last-child{
+  margin-bottom:0;
+}
+
+.pinterest-sales-panel.warm{
+  border-color:var(--border-warm);
+  background:linear-gradient(135deg, rgba(255,255,255,.92), var(--surface-warm));
+}
+
+.pinterest-sales-panel.trust{
+  border-color:var(--border-trust);
+  background:linear-gradient(135deg, rgba(255,255,255,.92), var(--surface-trust));
+}
+
+.pinterest-sales-note{
+  max-width:76ch;
+  color:var(--muted2);
+  font-size:var(--fs-sm);
+  line-height:1.6;
+}
+
 /* Text wrap safety */
 :where(p, li, .lead, .sublead, .booksub, details.card p, .card, .muted, .btn){
   overflow-wrap:break-word;
@@ -1315,6 +1465,16 @@ details.card p{
     justify-self:start;
   }
   .bookbox{ grid-template-columns:120px minmax(0,1fr); }
+  .pinterest-sales-grid{
+    grid-template-columns:1fr;
+    align-items:start;
+  }
+  .pinterest-sales-card{
+    max-width:520px;
+  }
+  .pinterest-sales-signals{
+    grid-template-columns:1fr;
+  }
 }
 
 @media (max-width: 900px){
@@ -1372,6 +1532,38 @@ details.card p{
   .book-plan-actions .btn,
   .go-actions .btn{
     width:100%;
+  }
+
+  .pinterest-sales-hero{
+    padding:var(--space-5) 0 var(--space-5);
+  }
+
+  .pinterest-sales-copy h1{
+    max-width:12ch;
+    font-size:clamp(2.2rem,10.5vw,3.2rem);
+    line-height:1.02;
+  }
+
+  .pinterest-sales-actions{
+    width:100%;
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .pinterest-sales-actions .btn{
+    width:100%;
+  }
+
+  .pinterest-sales-actions .text-link{
+    text-align:center;
+  }
+
+  .pinterest-sales-card{
+    padding:var(--space-4);
+  }
+
+  .pinterest-sales-cover{
+    width:min(190px,62vw);
   }
 
   .go-main{
