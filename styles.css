@@ -1028,6 +1028,32 @@ details.card p{
   font-size:clamp(1.35rem,2vw,1.8rem);
 }
 
+.go-book-panel{
+  text-align:center;
+}
+
+.go-cover-frame{
+  width:min(220px,70%);
+  margin:0 auto var(--space-4);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  box-shadow:var(--shadow-lift);
+  background:var(--surface);
+}
+
+.go-cover-frame img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+.go-panel .go-cover-caption{
+  margin:0;
+  color:var(--muted);
+  font-size:var(--fs-sm);
+  line-height:1.45;
+}
+
 .go-panel p:last-child,
 .go-card p:last-child,
 .go-note p:last-child{
@@ -1086,6 +1112,22 @@ details.card p{
 .go-card .btn{
   margin-top:var(--space-3);
   white-space:normal;
+}
+
+.go-book-bridge{
+  padding:var(--space-5);
+  border:1px solid var(--border-trust);
+  border-radius:var(--radius-lg);
+  background:linear-gradient(135deg, rgba(255,255,255,.92), var(--surface-trust));
+  box-shadow:var(--shadow-soft);
+}
+
+.go-book-bridge h2{
+  max-width:24ch;
+}
+
+.go-book-bridge p{
+  max-width:64ch;
 }
 
 .go-note{
@@ -1581,8 +1623,13 @@ details.card p{
 
   .go-panel,
   .go-card,
-  .go-note{
+  .go-note,
+  .go-book-bridge{
     padding:var(--space-4);
+  }
+
+  .go-cover-frame{
+    width:min(170px,58vw);
   }
 
   .cta-strip-inner{
