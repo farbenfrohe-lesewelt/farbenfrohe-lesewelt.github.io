@@ -5,19 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#fbf7f0" />
 
-  <title>Erste Begegnung Baby und Katze – ruhig vorbereiten</title>
+  <title>Erste Begegnung von Baby &amp; Katze ruhig gestalten | Farbenfrohe Lesewelt</title>
   <meta
     name="description"
-    content="Erste Begegnung Baby und Katze: So gestaltest du den ersten Kontakt ruhig, kurz und sicher – ohne Druck, Hektik oder falsche Erwartungen."
+    content="Erste Begegnung von Baby und Katze: So gestaltest du den ersten Kontakt ruhig, lässt Rückzug zu und behältst klare Regeln für Aufsicht bei."
   />
 
   <!-- Social -->
-  <meta property="og:title" content="Erste Begegnung Baby und Katze – ruhig vorbereiten" />
+  <meta property="og:title" content="Erste Begegnung von Baby &amp; Katze ruhig gestalten | Farbenfrohe Lesewelt" />
   <meta
     property="og:description"
-    content="Was bei der ersten Begegnung wirklich hilft: kurze Kontakte, klare Rahmenbedingungen und weniger Druck für alle Beteiligten."
+    content="Erste Begegnung von Baby und Katze: So gestaltest du den ersten Kontakt ruhig, lässt Rückzug zu und behältst klare Regeln für Aufsicht bei."
   />
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://farbenfrohe-lesewelt.github.io/pinterest/erste-begegnung-baby-und-katze/" />
   <meta property="og:image" content="../../assets/cover-thumb.webp" />
 
   <link rel="stylesheet" href="../../styles.css" />
@@ -25,83 +26,136 @@
   <link rel="icon" type="image/png" sizes="256x256" href="../../assets/favicon-256.png">
 
   <style>
-    .article-hero{
-      padding:1.8rem 0 1.15rem;
-    }
-
     .article-copy{
-      max-width:780px;
+      max-width:820px;
     }
 
-    .article-copy .hero-cta{
-      margin-top:1rem;
+    .article-copy h1{
+      font-size:clamp(2.05rem, 3.6vw, 3.3rem);
+      line-height:1.08;
+      overflow-wrap:normal;
+      word-break:normal;
+      hyphens:none;
     }
 
-    .article-layout{
-      display:grid;
-      grid-template-columns:minmax(0, 1fr) 320px;
-      gap:1.25rem;
-      align-items:start;
+    .article-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem .8rem;
+      margin-top:.9rem;
+      color:var(--muted);
+      font-size:.94rem;
+      line-height:1.5;
     }
 
-    .article-main,
-    .article-side{
+    .article-toc{
+      border:1px solid var(--border);
+      border-radius:20px;
+      background:rgba(255,255,255,.78);
+      padding:1rem;
+      box-shadow:0 12px 28px rgba(18,24,35,.07);
+    }
+
+    .article-toc p{
+      margin:0 0 .65rem;
+      font-weight:800;
+      color:var(--text);
+    }
+
+    .article-toc nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.55rem;
+    }
+
+    .article-toc a{
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:rgba(251,247,240,.78);
+      color:var(--text);
+      font-weight:700;
+      padding:.55rem .75rem;
+      text-decoration:none;
+    }
+
+    .article-toc a:hover{
+      border-color:rgba(59,91,219,.28);
+      box-shadow:0 10px 22px rgba(18,24,35,.08);
+    }
+
+    .article-panel,
+    .book-plan-card,
+    .source-note{
       border:1px solid var(--border);
       border-radius:24px;
       background:rgba(255,255,255,.78);
       box-shadow:0 14px 34px rgba(18,24,35,.08);
+      padding:1.2rem;
     }
 
-    .article-main{
-      padding:1.25rem;
+    .article-panel.warm,
+    .book-plan-card{
+      background:rgba(255,248,234,.92);
+      border-color:rgba(191,141,78,.22);
     }
 
-    .article-side{
-      padding:1rem;
-      position:sticky;
-      top:1rem;
-    }
-
-    .key-points{
+    .steps-grid,
+    .rules-grid{
       display:grid;
       gap:.85rem;
       margin-top:1rem;
     }
 
-    .point{
-      padding:1rem;
-      border:1px solid var(--border);
-      border-radius:18px;
-      background:rgba(255,255,255,.62);
+    .rules-grid{
+      grid-template-columns:repeat(4, minmax(0, 1fr));
     }
 
-    .point h3{
+    .step-card,
+    .rule-card{
+      border:1px solid var(--border);
+      border-radius:18px;
+      background:rgba(255,255,255,.72);
+      padding:1rem;
+    }
+
+    .step-card{
+      display:grid;
+      grid-template-columns:2.1rem minmax(0, 1fr);
+      gap:.75rem;
+      align-items:start;
+    }
+
+    .step-number{
+      width:2.1rem;
+      height:2.1rem;
+      border-radius:999px;
+      display:inline-grid;
+      place-items:center;
+      background:var(--accent);
+      color:white;
+      font-weight:800;
+    }
+
+    .step-card h3,
+    .rule-card h3{
       margin-bottom:.35rem;
     }
 
-    .mini-list{
-      display:grid;
-      gap:.75rem;
+    .callout-rule{
       margin-top:1rem;
-    }
-
-    .mini-item{
-      padding:.9rem 1rem;
-      border-radius:16px;
-      background:rgba(245,250,255,.95);
-      border:1px solid rgba(86, 132, 198, .16);
-    }
-
-    .note-box{
-      margin-top:1rem;
+      border:1px solid rgba(59,91,219,.18);
+      border-radius:20px;
+      background:rgba(244,247,255,.94);
       padding:1rem;
-      border-radius:18px;
-      background:rgba(255,248,234,.92);
-      border:1px solid rgba(191, 141, 78, .22);
     }
 
-    .cta-stack{
-      display:grid;
+    .source-note{
+      background:rgba(255,255,255,.86);
+    }
+
+    .cta-duo{
+      display:flex;
+      flex-wrap:wrap;
       gap:.75rem;
       margin-top:1rem;
     }
@@ -130,25 +184,93 @@
       border-color:rgba(59,91,219,.24);
     }
 
-    .cta-duo{
-      display:flex;
-      flex-wrap:wrap;
-      gap:.75rem;
-      margin-top:1rem;
+    @media (max-width: 1080px){
+      .rules-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
     }
 
-    @media (max-width: 980px){
-      .article-layout{
+    @media (max-width: 640px){
+      .rules-grid{
         grid-template-columns:1fr;
       }
 
-      .article-side{
-        position:static;
+      .article-toc nav{
+        display:grid;
+      }
+
+      .article-toc a{
+        border-radius:14px;
+      }
+
+      .step-card{
+        grid-template-columns:1fr;
       }
     }
   </style>
   <meta name="p:domain_verify" content="a274749c6a702b70280e6ed805266518"/>
   <link rel="canonical" href="https://farbenfrohe-lesewelt.github.io/pinterest/erste-begegnung-baby-und-katze/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://farbenfrohe-lesewelt.github.io/pinterest/erste-begegnung-baby-und-katze/#webpage",
+        "url": "https://farbenfrohe-lesewelt.github.io/pinterest/erste-begegnung-baby-und-katze/",
+        "name": "Erste Begegnung von Baby und Katze: So gestaltest du den ersten Kontakt ruhig",
+        "description": "Erste Begegnung von Baby und Katze: So gestaltest du den ersten Kontakt ruhig, lässt Rückzug zu und behältst klare Regeln für Aufsicht bei.",
+        "inLanguage": "de"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://farbenfrohe-lesewelt.github.io/pinterest/erste-begegnung-baby-und-katze/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Startseite",
+            "item": "https://farbenfrohe-lesewelt.github.io/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Ratgeber",
+            "item": "https://farbenfrohe-lesewelt.github.io/ratgeber/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Erste Begegnung Baby & Katze",
+            "item": "https://farbenfrohe-lesewelt.github.io/pinterest/erste-begegnung-baby-und-katze/"
+          }
+        ]
+      },
+      {
+        "@type": "Article",
+        "@id": "https://farbenfrohe-lesewelt.github.io/pinterest/erste-begegnung-baby-und-katze/#article",
+        "headline": "Erste Begegnung von Baby und Katze: So gestaltest du den ersten Kontakt ruhig",
+        "description": "Erste Begegnung von Baby und Katze: So gestaltest du den ersten Kontakt ruhig, lässt Rückzug zu und behältst klare Regeln für Aufsicht bei.",
+        "mainEntityOfPage": "https://farbenfrohe-lesewelt.github.io/pinterest/erste-begegnung-baby-und-katze/",
+        "author": {
+          "@type": "Organization",
+          "name": "Farbenfrohe Lesewelt Verlag",
+          "url": "https://farbenfrohe-lesewelt.github.io/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Farbenfrohe Lesewelt Verlag",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://farbenfrohe-lesewelt.github.io/assets/flw-logo.webp"
+          }
+        },
+        "image": "https://farbenfrohe-lesewelt.github.io/assets/cover-thumb.webp",
+        "dateModified": "2026-05-29"
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body data-page-type="pinterest" data-page-name="erste-begegnung-baby-und-katze">
@@ -163,279 +285,342 @@
 
       <nav class="top-actions" aria-label="Aktionen">
         <a class="btn btn-ghost" href="/ratgeber/" data-preserve-params>Ratgeberübersicht</a>
-        <a class="btn btn-primary" href="/checkliste/?src=pinterest&campaign=erste-begegnung-baby-und-katze" data-preserve-params data-event="checklist_click" data-label="erste-begegnung-baby-und-katze-header-checklist">
-          Checkliste
+        <a class="btn btn-primary" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="erste-begegnung-baby-und-katze-header-amazon">
+          Buch ansehen
         </a>
       </nav>
     </div>
   </header>
 
   <main id="content">
-    <section class="article-hero">
-      <div class="container">
-        <div class="article-copy">
-          <p class="eyebrow">Ratgeber · Baby &amp; Katze · Erster Kontakt</p>
-
-          <h1>Erste Begegnung Baby und Katze – ruhig vorbereiten</h1>
-
-          <p class="hero-identity">
-            Viele Eltern machen sich um die erste Begegnung besonders viele Gedanken — und oft auch unnötig viel Druck.
-          </p>
-
+    <section class="pinterest-sales-hero">
+      <div class="container pinterest-sales-grid">
+        <div class="pinterest-sales-copy article-copy">
+          <p class="eyebrow">Ratgeber · Baby &amp; Katze · Erste Begegnung</p>
+          <h1>Erste Begegnung von Baby und Katze: So gestaltest du den ersten Kontakt ruhig</h1>
           <p class="lead">
-            Die erste Begegnung muss nicht perfekt, spektakulär oder „magisch“ sein.
-            Sie sollte vor allem ruhig, kurz und sicher ablaufen.
-            Nicht der große Moment entscheidet alles, sondern der Rahmen, in dem eure Katze das Baby erstmals wahrnimmt.
+            Bei der ersten Begegnung geht es nicht darum, sofort Nähe herzustellen. Hilfreich ist ein ruhiger, begleiteter Rahmen: erst ankommen lassen, der Katze Abstand und Rückzug ermöglichen, Kontakt nicht erzwingen und die Begegnung kurz halten. Baby und Katze bleiben dabei unter Aufsicht; wenn du nicht aktiv aufpassen kannst, organisierst du eine sichere Trennung. Die ersten Minuten müssen nichts beweisen. Wichtiger ist, dass daraus verlässliche Routinen für euren Alltag entstehen können.
           </p>
+          <p class="article-meta">
+            <span>Ein Ratgeberbeitrag des Farbenfrohe Lesewelt Verlags · zum Buch von Andrea Blum</span>
+            <span>Aktualisiert: 29. Mai 2026</span>
+          </p>
+        </div>
 
-          <div class="pinterest-relief">
-            <strong>Die erste Begegnung muss kein großer Moment sein.</strong>
-            <p>Kurz, ruhig und gut vorbereitet ist oft hilfreicher als ein langes Kennenlernen mit zu viel Erwartung.</p>
+        <aside class="pinterest-sales-card" aria-label="Buch Baby und Katze sicher zusammenführen">
+          <div class="pinterest-sales-cover">
+            <img src="../../assets/cover-thumb.webp" alt="Buchcover Baby und Katze sicher zusammenführen" loading="eager">
           </div>
-
-          <div class="quick-proof" aria-label="Kurzüberblick">
-            <div class="qp-item">
-              <span class="qp-ico" aria-hidden="true">👶</span>
-              <span><strong>Die erste Begegnung darf unspektakulär sein</strong></span>
-            </div>
-            <div class="qp-item">
-              <span class="qp-ico" aria-hidden="true">🐱</span>
-              <span><strong>Weniger Druck</strong> sorgt oft für die bessere Situation</span>
-            </div>
-            <div class="qp-item">
-              <span class="qp-ico" aria-hidden="true">🧭</span>
-              <span><strong>Klare Rahmenbedingungen</strong> geben Sicherheit für alle</span>
-            </div>
+          <h2>Baby und Katze sicher zusammenführen</h2>
+          <p>Der Praxis-Ratgeber für Vorbereitung, erste Begegnungen, Rückzug, Aufsicht und Alltag mit Baby und Katze.</p>
+          <div class="pinterest-sales-actions">
+            <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="erste-begegnung-baby-und-katze-side-amazon">
+              Zum vollständigen Ratgeber auf Amazon
+            </a>
           </div>
+        </aside>
+      </div>
+    </section>
 
-          <div class="pinterest-funnel-box" id="kostenlose-checkliste" aria-label="Kostenfreie Checkliste">
-            <p class="eyebrow">Kostenfreie Checkliste</p>
-            <h2>Vor der ersten Begegnung: die wichtigsten Standards</h2>
-            <p class="muted">Die Checkliste zeigt, was bei Aufsicht, Schlafplatz, Zonen und Pausen bereits stehen sollte.</p>
-            <div class="cta-duo">
-              <a class="btn btn-primary btn-large" href="/checkliste/?src=pinterest&campaign=erste-begegnung-baby-und-katze" data-preserve-params data-event="checklist_click" data-label="erste-begegnung-baby-und-katze-hero-checklist">
-                Checkliste ansehen
-              </a>
-              <a class="btn btn-ghost btn-large" href="/pinterest/alltag-mit-baby-und-katze/" data-preserve-params>
-                Weiter: Alltag danach
-              </a>
-            </div>
-          </div>
-
-          <div class="book-plan-card" aria-label="Ratgeber Baby und Katze">
-            <h2 class="book-plan-title">Wenn ihr die ersten Wochen planbar machen wollt</h2>
-            <p class="book-plan-text">Der Ratgeber ordnet Vorbereitung, erstes Kennenlernen und Alltag danach in ein ruhiges Schritt-für-Schritt-System.</p>
-            <div class="book-plan-actions">
-              <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="erste-begegnung-baby-und-katze-book-plan-amazon">
-                Zum Ratgeber auf Amazon
-              </a>
-              <a class="btn btn-ghost btn-large" href="#kostenlose-checkliste" data-event="checklist_click" data-label="erste-begegnung-baby-und-katze-book-plan-checklist">
-                Zur Checkliste springen
-              </a>
-            </div>
+    <section class="section" aria-labelledby="buch-plan-title">
+      <div class="container">
+        <div class="book-plan-card">
+          <p class="eyebrow">Praxis-Ratgeber</p>
+          <h2 id="buch-plan-title">Du willst nicht nur die ersten Minuten, sondern auch die Zeit danach gut vorbereiten?</h2>
+          <p>
+            Der Praxis-Ratgeber „Baby und Katze sicher zusammenführen“ begleitet dich von der Vorbereitung über den ersten Kontakt bis zu Rückzug, Aufsicht, Schlafplätzen und Alltag mit einem mobilen Kind.
+          </p>
+          <div class="cta-duo">
+            <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="erste-begegnung-baby-und-katze-book-plan-amazon">
+              Zum vollständigen Ratgeber auf Amazon
+            </a>
+            <a class="btn btn-ghost btn-large" href="/checkliste/?src=pinterest&campaign=erste-begegnung-baby-und-katze" data-preserve-params data-event="checklist_click" data-label="erste-begegnung-baby-und-katze-book-plan-checklist">
+              Kostenlose Checkliste ansehen
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section alt" aria-label="Auf dieser Seite">
       <div class="container">
-        <div class="article-layout">
-          <article class="article-main" aria-label="Hauptinhalt">
-            <h2>Was viele bei der ersten Begegnung missverstehen</h2>
+        <div class="article-toc">
+          <p>Auf dieser Seite</p>
+          <nav aria-label="Sprungnavigation">
+            <a href="#vor-dem-kontakt">Vor dem ersten Kontakt</a>
+            <a href="#erste-begegnung">Die erste Begegnung Schritt für Schritt</a>
+            <a href="#vermeiden">Was du lieber vermeidest</a>
+            <a href="#abstand">Wenn die Katze Abstand braucht</a>
+            <a href="#danach">Nach den ersten Minuten</a>
+            <a href="#kurzantworten">Kurzantworten</a>
+          </nav>
+        </div>
+      </div>
+    </section>
 
-            <p>
-              Rund um die erste Begegnung kursieren oft starre Vorstellungen:
-              Die Katze „muss“ schnuppern. Das Baby „muss“ präsentiert werden.
-              Alles „muss“ ruhig und harmonisch aussehen.
-              Genau dieser Erwartungsdruck macht die Situation unnötig schwer.
-            </p>
+    <section class="section" id="vor-dem-kontakt" aria-labelledby="vor-dem-kontakt-title">
+      <div class="container">
+        <p class="eyebrow">Vorbereitung des Moments</p>
+        <h2 id="vor-dem-kontakt-title">Was hilft, bevor Baby und Katze sich zum ersten Mal begegnen?</h2>
+        <p class="lead">
+          Nach der Geburt oder beim Heimkommen kann schon genug Unruhe entstehen. Der erste Kontakt wird planbarer, wenn die Katze nicht bedrängt wird und einen Rückzugsort erreichen kann. Es geht nicht um ein perfektes Kennenlernritual, sondern um einen Rahmen, in dem du ruhig beobachten und bei Bedarf Abstand schaffen kannst.
+        </p>
 
-            <p>
-              In Wirklichkeit ist eine gute erste Begegnung oft eher unspektakulär:
-              Die Katze nimmt etwas wahr, beobachtet, hält Abstand, kommt vielleicht kurz näher oder geht wieder.
-              Das ist völlig in Ordnung.
-              Die erste Begegnung ist kein Test, sondern nur der Anfang eines neuen Alltags.
-            </p>
+        <div class="rules-grid">
+          <article class="rule-card">
+            <h3>Ruhe vor Begegnung</h3>
+            <p>Lass erst einmal Ankommen zu, statt den Kontakt sofort zu inszenieren.</p>
+          </article>
 
-            <div class="key-points" aria-label="Wichtige Punkte">
-              <section class="point">
-                <h3>1. Die Katze muss nicht aktiv „zum Baby geführt“ werden</h3>
-                <p>
-                  Viele Eltern meinen es gut und versuchen, die Katze gezielt an das Baby heranzubringen.
-                  Das erhöht aber oft eher die Spannung.
-                  Viel entspannter ist es, wenn die Katze die Situation in ihrem eigenen Tempo wahrnehmen darf,
-                  ohne gedrängt oder festgehalten zu werden.
-                </p>
-              </section>
+          <article class="rule-card">
+            <h3>Rückzug erreichbar halten</h3>
+            <p>Die Katze sollte Abstand nehmen können, ohne verfolgt oder zurückgeholt zu werden.</p>
+          </article>
 
-              <section class="point">
-                <h3>2. Ruhe ist wichtiger als Nähe</h3>
-                <p>
-                  Eine erste Begegnung ist nicht deshalb gelungen, weil die Katze ganz nah war.
-                  Sie ist dann gelungen, wenn die Situation ruhig, überschaubar und sicher bleibt.
-                  Abstand ist völlig okay.
-                  Auch ein kurzes Beobachten aus der Distanz kann ein guter erster Kontakt sein.
-                </p>
-              </section>
+          <article class="rule-card">
+            <h3>Eine Person behält den Überblick</h3>
+            <p>Hilfreich ist ein klarer Rahmen, in dem eine erwachsene Person die Situation ruhig begleitet und jederzeit Abstand schaffen kann.</p>
+          </article>
 
-              <section class="point">
-                <h3>3. Kurz ist oft besser als lang</h3>
-                <p>
-                  Gerade am Anfang braucht es meist keine „lange Kennenlern-Situation“.
-                  Ein kurzer, ruhiger Moment ohne Überforderung ist oft viel hilfreicher
-                  als ein künstlich verlängertes Zusammentreffen.
-                </p>
-              </section>
+          <article class="rule-card">
+            <h3>Kein Kennenlernen erzwingen</h3>
+            <p>Die Katze muss nicht sofort nah an das Baby herankommen oder Kontakt aufnehmen.</p>
+          </article>
+        </div>
 
-              <section class="point">
-                <h3>4. Die erste Begegnung ist nur ein Baustein</h3>
-                <p>
-                  Selbst wenn der erste Kontakt neutral oder etwas unsicher läuft,
-                  sagt das noch wenig über das spätere Zusammenleben aus.
-                  Entscheidend ist, wie klar und ruhig ihr danach den Alltag strukturiert:
-                  Schlafplätze, Ruhezonen, Besuch, Begegnungen und Routinen.
-                </p>
-              </section>
-            </div>
+        <div class="callout-rule">
+          <p><strong>Du bereitest die ersten Tage gerade vor?</strong> Die kostenlose Checkliste fasst zentrale Sicherheitsstandards kompakt zusammen.</p>
+          <div class="cta-duo">
+            <a class="btn btn-ghost" href="/checkliste/?src=pinterest&campaign=erste-begegnung-baby-und-katze" data-preserve-params data-event="checklist_click" data-label="erste-begegnung-baby-und-katze-prep-checklist">
+              Zur kostenlosen Checkliste
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <div class="note-box">
-              <strong>Wichtig:</strong>
-              Diese Seite hilft bei der alltagsnahen Einordnung der ersten Begegnung.
-              Wenn ihr euch bei Verhalten oder Reaktionen unsicher seid,
-              kann ergänzend fachlicher Rat sinnvoll sein.
-            </div>
+    <section class="section alt" id="erste-begegnung" aria-labelledby="erste-begegnung-title">
+      <div class="container">
+        <p class="eyebrow">Ruhiger Ablauf</p>
+        <h2 id="erste-begegnung-title">Wie kann die erste Begegnung zwischen Baby und Katze ablaufen?</h2>
+        <p class="lead">
+          Der erste Kontakt muss weder besonders lang noch besonders nah sein. Ein ruhiger Ablauf gibt euch die Möglichkeit, die Situation zu beobachten und jederzeit Abstand zu schaffen.
+        </p>
 
-            <h2 style="margin-top:1.4rem;">Drei Regeln für einen guten ersten Kontakt</h2>
-
-            <div class="mini-list">
-              <div class="mini-item">
-                <strong>Regel 1:</strong>
-                Nicht drängen — die Katze darf beobachten, Abstand halten oder sich zurückziehen.
-              </div>
-              <div class="mini-item">
-                <strong>Regel 2:</strong>
-                Den Moment kurz und ruhig halten, statt künstlich etwas „erzwingen“ zu wollen.
-              </div>
-              <div class="mini-item">
-                <strong>Regel 3:</strong>
-                Die erste Begegnung nicht überbewerten — wichtiger ist der strukturierte Alltag danach.
-              </div>
-            </div>
-
-            <h2 style="margin-top:1.4rem;">Was nach der ersten Begegnung zählt</h2>
-            <p>
-              Viele Eltern fokussieren sich so stark auf den ersten Moment,
-              dass sie den eigentlichen Hebel übersehen:
-              den Alltag danach.
-              Genau dort entscheidet sich, ob Ruhe entsteht oder jeden Tag neu Unsicherheit aufkommt.
-            </p>
-
-            <p>
-              Darum hilft ein vollständiger Familienplan meist mehr als einzelne Tipps:
-              Was gilt bei Schlafplätzen? Wie laufen kurze Begegnungen ab? Was tun bei Unruhe,
-              Rückzug oder verstärktem Nähe-Suchen? Und wie bleiben Regeln auch in müden Momenten klar?
-            </p>
-
-            <div class="hero-cta" style="margin-top:1rem;">
-                <div class="pinterest-inline-cta" aria-label="Nächster Schritt">
-              <div class="cta-duo">
-                <a class="btn btn-primary btn-large" href="/checkliste/?src=pinterest&campaign=erste-begegnung-baby-und-katze" data-preserve-params data-event="checklist_click" data-label="erste-begegnung-baby-und-katze-inline-checklist">
-                  Checkliste ansehen
-                </a>
-                <a class="btn btn-ghost btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="erste-begegnung-baby-und-katze-inline-amazon">
-                  Mehr zum Buch
-                </a>
-                <a class="btn btn-ghost btn-large" href="/pinterest/alltag-mit-baby-und-katze/" data-preserve-params>
-                  Weiter: Alltag danach
-                </a>
-              </div>
-            </div>
+        <div class="steps-grid">
+          <article class="step-card">
+            <span class="step-number">1</span>
+            <div>
+              <h3>Erst ankommen lassen</h3>
+              <p>Bringe Ruhe in die Situation, bevor du überhaupt an eine Begegnung denkst. Eine Begegnung muss nicht sofort stattfinden oder besonders inszeniert werden.</p>
             </div>
           </article>
 
-          <aside class="article-side" aria-label="Seitliche Hinweise">
-            <h3>Auf einen Blick</h3>
-            <p class="muted">
-              Diese Seite ist ideal für dich,
-              wenn du dir vor der ersten Begegnung unnötig viele Sorgen machst
-              und einen ruhigen, sicheren Rahmen suchst.
-            </p>
-
-            <div class="cta-stack">
-              <a class="btn btn-primary" href="/checkliste/?src=pinterest&campaign=erste-begegnung-baby-und-katze" data-preserve-params data-event="checklist_click" data-label="erste-begegnung-baby-und-katze-side-checklist">
-                Checkliste ansehen
-              </a>
-              <a class="btn btn-ghost" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="erste-begegnung-baby-und-katze-side-amazon">
-                Buch auf Amazon ansehen
-              </a>
-              <a class="btn btn-ghost" href="/pinterest/alltag-mit-baby-und-katze/" data-preserve-params>
-                Weiter: Alltag danach
-              </a>
+          <article class="step-card">
+            <span class="step-number">2</span>
+            <div>
+              <h3>Beobachten aus Abstand erlauben</h3>
+              <p>Die Katze darf aus der Entfernung schauen, sich nähern oder sich zurückziehen. Nähe wird nicht erzwungen.</p>
             </div>
+          </article>
 
-            <hr style="margin:1rem 0;border:none;border-top:1px solid var(--border);">
-
-            <h3>Passende weitere Themen</h3>
-            <div class="topic-nav">
-              <a href="/pinterest/baby-und-katze-zusammenfuehren/" data-preserve-params>
-                Baby und Katze sicher zusammenführen
-              </a>
-              <a href="/pinterest/katze-eifersuechtig-baby/" data-preserve-params>
-                Katze eifersüchtig aufs Baby
-              </a>
-              <a href="/pinterest/katze-im-babybett/" data-preserve-params>
-                Katze im Babybett
-              </a>
-              <a href="/pinterest/alltag-mit-baby-und-katze/" data-preserve-params>
-                Alltag mit Baby und Katze
-              </a>
+          <article class="step-card">
+            <span class="step-number">3</span>
+            <div>
+              <h3>Kontakt kurz und begleitet halten</h3>
+              <p>Wenn sich ein ruhiger Kontakt ergibt, bleibt er kurz und unter deiner Aufmerksamkeit. Baby und Katze bleiben nicht unbeaufsichtigt zusammen.</p>
             </div>
-          </aside>
+          </article>
+
+          <article class="step-card">
+            <span class="step-number">4</span>
+            <div>
+              <h3>Rückzug nicht als Scheitern bewerten</h3>
+              <p>Wenn die Katze weggeht oder Abstand hält, muss daraus keine negative Schlussfolgerung gezogen werden. Abstand kann zunächst die passende Option sein.</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <span class="step-number">5</span>
+            <div>
+              <h3>Den Moment ruhig beenden</h3>
+              <p>Beende die Begegnung lieber überschaubar und ruhig, statt sie unnötig auszudehnen.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="book-plan-card" style="margin-top:1rem;">
+          <p class="eyebrow">Der erste Kontakt ist nur ein Teil des Plans</p>
+          <h3>Was nach der ersten Begegnung gilt, entscheidet sich im Alltag</h3>
+          <p>Im Praxis-Ratgeber findest du nicht nur Orientierung für den ersten Kontakt, sondern auch klare Standards für Rückzug, Aufsicht, Schlafplätze, Besuch und die Zeit, in der dein Baby mobiler wird.</p>
+          <div class="cta-duo">
+            <a class="btn btn-primary" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="erste-begegnung-baby-und-katze-family-plan-amazon">
+              Den vollständigen Familienplan ansehen
+            </a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section alt" aria-labelledby="kurzantworten-title">
+    <section class="section" id="vermeiden" aria-labelledby="vermeiden-title">
       <div class="container">
-        <h2 id="kurzantworten-title">Kurzantworten</h2>
+        <p class="eyebrow">Was Druck herausnimmt</p>
+        <h2 id="vermeiden-title">Was solltest du bei der ersten Begegnung vermeiden?</h2>
+
+        <div class="rules-grid">
+          <article class="rule-card">
+            <h3>Nähe erzwingen</h3>
+            <p>Die Katze nicht zum Baby tragen, festhalten oder zu einer Annäherung drängen. Der erste Kontakt darf auch aus Beobachten mit Abstand bestehen.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Rückzug unterbrechen</h3>
+            <p>Wenn die Katze Abstand nimmt, lass ihr diese Möglichkeit. Rückzug kann die Situation ruhiger halten.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Abwehr bestrafen</h3>
+            <p>Fauchen, Ausweichen oder erkennbare Anspannung nicht mit Strafe beantworten. Schaffe stattdessen ruhig Abstand und begleite die Situation weiter.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Auf einen ruhigen Moment vertrauen</h3>
+            <p>Auch wenn ein erster Kontakt ruhig wirkt, bleiben Baby und Katze nicht unbeaufsichtigt zusammen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="abstand" aria-labelledby="abstand-title">
+      <div class="container grid grid-2">
+        <article class="article-panel">
+          <p class="eyebrow">Reaktionen einordnen</p>
+          <h2 id="abstand-title">Was, wenn deine Katze faucht, sich zurückzieht oder unruhig wirkt?</h2>
+          <p>
+            Klar, dass dich so ein Moment verunsichern kann. Reaktionen können unterschiedlich ausfallen; daraus musst du keine pauschale Deutung ableiten.
+          </p>
+          <p>
+            Hilfreich sind zunächst Distanz, ein erreichbarer Rückzugsort, keine erzwungene Annäherung, keine Strafe und konsequente Aufsicht. Wenn eine Situation unsicher wirkt, deutliche Verhaltensänderungen anhalten oder es zu Angriffen, Kratz- oder Beißvorfällen kommt, sollten Tierarztpraxis oder qualifizierte Verhaltensberatung einbezogen werden.
+          </p>
+          <div class="cta-duo">
+            <a class="btn btn-ghost" href="/pinterest/katze-eifersuechtig-baby/" data-preserve-params>
+              Mehr dazu: Verhalten der Katze ruhig einordnen
+            </a>
+          </div>
+        </article>
+
+        <aside class="article-panel warm" aria-label="Ruhige Deeskalation">
+          <h3>Ruhig bleiben heißt nicht abwarten</h3>
+          <p>Wenn du merkst, dass die Situation kippt, nimm Tempo heraus, schaffe Abstand und starte später neu. Das ist keine Niederlage, sondern Teil eines planbaren Rahmens.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="danach" aria-labelledby="danach-title">
+      <div class="container">
+        <p class="eyebrow">Nach dem ersten Kontakt</p>
+        <h2 id="danach-title">Was gilt nach der ersten Begegnung?</h2>
+        <p class="lead">
+          Der erste Kontakt ist kein endgültiges Urteil über das spätere Zusammenleben. Hilfreicher als ständige Neubewertung sind wiederholbare Regeln: Rückzug ermöglichen, Kontakt begleiten, ohne aktive Aufsicht trennen und den Alltag Schritt für Schritt beobachten.
+        </p>
+
+        <div class="callout-rule">
+          <h3>Eine einfache Regel für die ersten Tage</h3>
+          <p>Wenn du gerade nicht aktiv beobachten kannst, dann organisierst du eine sichere Trennung - auch dann, wenn die erste Begegnung ruhig verlaufen ist.</p>
+        </div>
+
+        <div class="cta-duo">
+          <a class="btn btn-ghost" href="/pinterest/baby-und-katze-zusammenfuehren/" data-preserve-params>
+            Mehr dazu: Baby und Katze zusammenführen
+          </a>
+          <a class="btn btn-ghost" href="/pinterest/katze-im-babybett/" data-preserve-params>
+            Mehr dazu: Katze im Babybett
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="kurzantworten" aria-labelledby="kurzantworten-title">
+      <div class="container">
+        <h2 id="kurzantworten-title">Kurzantworten: Erste Begegnung von Baby und Katze</h2>
         <div class="pinterest-answers">
           <details class="card">
+            <summary>Muss die Katze das Baby direkt begrüßen?</summary>
+            <p>Nein. Die Katze darf Abstand halten, beobachten oder sich zurückziehen. Nähe sollte beim ersten Kontakt nicht erzwungen werden.</p>
+          </details>
+
+          <details class="card">
             <summary>Wie lange sollte die erste Begegnung dauern?</summary>
-            <p>Lieber kurz und ruhig als lang und angespannt. Ziel ist ein guter Start, kein perfekter Moment.</p>
+            <p>Es gibt keine feste Dauer, die für jede Familie passt. Hilfreich ist ein kurzer, ruhiger und gut begleiteter Kontakt, den du beenden kannst, bevor die Situation unruhig wird.</p>
           </details>
 
           <details class="card">
-            <summary>Soll die Katze sofort ans Baby?</summary>
-            <p>Nicht erzwingen. Abstand, Beobachten und ruhige Routinen sind oft der bessere Anfang.</p>
+            <summary>Was mache ich, wenn meine Katze gar nicht näherkommen möchte?</summary>
+            <p>Lass ihr den Abstand. Rückzug oder Beobachten aus der Entfernung muss nicht negativ bewertet werden. Wichtig ist, dass sie einen ruhigen, erreichbaren Rückzugsort hat.</p>
           </details>
 
           <details class="card">
-            <summary>Was sollte vorher klar sein?</summary>
-            <p>Schlafplatz, Rückzug der Katze, Aufsicht und ein einfacher Plan, was passiert, wenn es unruhig wird.</p>
+            <summary>Was mache ich, wenn meine Katze faucht oder angespannt wirkt?</summary>
+            <p>Schaffe ruhig Abstand, erzwinge keine Annäherung und bestrafe die Katze nicht. Wenn die Situation unsicher wirkt oder deutliche Veränderungen bestehen bleiben, hole dir fachliche Unterstützung.</p>
+          </details>
+
+          <details class="card">
+            <summary>Dürfen Baby und Katze nach einer ruhigen Begegnung kurz allein bleiben?</summary>
+            <p>Eine sichere Vorgehensweise ist, Baby und Katze nicht unbeaufsichtigt zusammen zu lassen. Wenn du nicht aktiv aufpassen kannst, trennst du beide kurzzeitig in sichere Bereiche.</p>
           </details>
         </div>
       </div>
     </section>
-    <section class="section alt" aria-labelledby="weitere-themen-title">
+
+    <section class="section" aria-labelledby="hinweis-title">
+      <div class="container">
+        <div class="source-note">
+          <h2 id="hinweis-title">Hinweis zu diesem Ratgeberbeitrag</h2>
+          <p>
+            Dieser Beitrag bietet alltagstaugliche Orientierung für Familien mit Baby und Katze. Er ersetzt keine individuelle tierärztliche, medizinische oder verhaltensbezogene Beratung. Wenn eine Situation unsicher wirkt oder du dir Sorgen um dein Baby oder deine Katze machst, hole dir passende fachliche Unterstützung.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" aria-labelledby="abschluss-buch-title">
+      <div class="container">
+        <div class="book-plan-card">
+          <p class="eyebrow">Vollständiger Familienplan</p>
+          <h2 id="abschluss-buch-title">Du willst aus dem ersten Kontakt einen sicheren Alltag entwickeln?</h2>
+          <p>Der Praxis-Ratgeber „Baby und Katze sicher zusammenführen“ verbindet Vorbereitung, erste Begegnungen, Rückzug, Aufsicht, Schlafplätze und Alltag zu einem Plan, der euch durch die verschiedenen Phasen begleitet.</p>
+          <div class="cta-duo">
+            <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="erste-begegnung-baby-und-katze-final-amazon">
+              Zum Praxis-Ratgeber auf Amazon
+            </a>
+            <a class="btn btn-ghost btn-large" href="/checkliste/?src=pinterest&campaign=erste-begegnung-baby-und-katze" data-preserve-params data-event="checklist_click" data-label="erste-begegnung-baby-und-katze-final-checklist">
+              Kostenlose Checkliste herunterladen
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="weitere-themen-title">
       <div class="container">
         <h2 id="weitere-themen-title">Weitere Themen rund um Baby &amp; Katze</h2>
         <div class="topic-nav" aria-label="Weitere Themen">
-          <a href="/pinterest/katze-im-babybett/" data-preserve-params>Katze im Babybett</a>
-          <a href="/pinterest/toxoplasmose-katze-schwangerschaft/" data-preserve-params>Toxoplasmose &amp; Schwangerschaft mit Katze</a>
+          <a href="/ratgeber/" data-preserve-params>Ratgeberübersicht Baby &amp; Katze</a>
           <a href="/pinterest/baby-und-katze-zusammenfuehren/" data-preserve-params>Baby und Katze zusammenführen</a>
-          <a href="/pinterest/katze-eifersuechtig-baby/" data-preserve-params>Katze eifersüchtig aufs Baby?</a>
+          <a href="/pinterest/katze-im-babybett/" data-preserve-params>Katze im Babybett</a>
+          <a href="/pinterest/katze-eifersuechtig-baby/" data-preserve-params>Verhalten der Katze ruhig einordnen</a>
           <a href="/pinterest/alltag-mit-baby-und-katze/" data-preserve-params>Alltag mit Baby und Katze</a>
+          <a href="/pinterest/toxoplasmose-katze-schwangerschaft/" data-preserve-params>Toxoplasmose &amp; Schwangerschaft mit Katze</a>
         </div>
       </div>
     </section>
-
   </main>
-   <footer class="footer">
+
+  <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-left">
         <p class="muted small">
-          Hinweis: Alltagsratgeber – ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung.
+          Hinweis: Alltagsratgeber - ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung.
         </p>
         <p class="muted small">
           <a href="../../legal/impressum.html" data-preserve-params>Impressum</a> ·
