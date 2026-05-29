@@ -60,18 +60,24 @@
           Du kannst eine erteilte Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen, indem du die für diese Website gespeicherten Einwilligungsdaten in deinem Browser löschst und die Seite erneut aufrufst oder deine Einwilligung beim nächsten Aufruf nicht erneut erteilst.
         </p>
 
-        <h2>4. Partnerbezogene Scan-Messung auf der Offline-/Hauptseite</h2>
+        <h2>4. Pseudonyme Scan-Messung bei Offline-Materialien</h2>
         <p>
-          Auf der Hauptseite bzw. auf Seiten, die über partnerbezogene Offline-Links (zum Beispiel QR-Codes mit einem Parameter wie <code>?partner=off001</code>) aufgerufen werden, nutzen wir ein einfaches Messverfahren zur Auswertung von Partnerzugriffen.
+          Auf QR-Zielseiten für gedruckte Offline-Materialien, insbesondere unter <code>/go/k01/</code> bis <code>/go/k10/</code>, nutzen wir ein einfaches Messverfahren.
         </p>
         <p>
-          Wenn eine solche URL aufgerufen wird, wird der in der URL enthaltene Partnercode an eine von uns bereitgestellte Google-Apps-Script-Web-App übermittelt und dort in einer Google-Tabelle protokolliert. Dabei speichern wir derzeit insbesondere den Zeitstempel des Aufrufs sowie den jeweiligen Partnercode.
+          Beim Aufruf einer solchen Seite wird ein pseudonymer Kit- bzw. Ausgabecode, zum Beispiel <code>off001</code>, zusammen mit dem Zeitpunkt des Aufrufs über eine Google-Apps-Script-Web-App in einer Google-Tabelle protokolliert.
         </p>
         <p>
-          Dieses Messverfahren dient ausschließlich dazu, die Nutzung unserer Offline-Partnerlinks auszuwerten, z. B. wie oft ein bestimmter QR-Code aufgerufen wurde. Auf dieser Offline-/Hauptseite verwenden wir für diese Messung keine Cookies und keinen Local Storage.
+          In der Tabelle werden keine Namen, Kontaktdaten oder konkreten Partnerbezeichnungen der Besucherinnen und Besucher gespeichert. Zweck ist ausschließlich die Prüfung, ob und wie häufig die ausgelegten gedruckten Materialien genutzt werden.
         </p>
         <p>
-          Rechtsgrundlage für diese Verarbeitung ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der Reichweitenmessung und der Auswertung der Wirksamkeit unserer Offline-Partnermaßnahmen.
+          Für diese Messung setzen wir keine Cookies ein, nutzen keinen Local Storage und erstellen keine nutzerbezogenen Profile. Bei der technischen Übermittlung an Google Apps Script kann insbesondere die IP-Adresse technisch verarbeitet werden.
+        </p>
+        <p>
+          Rechtsgrundlage für diese Verarbeitung ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der datensparsamen Erfolgskontrolle eines begrenzten Offline-Materialtests.
+        </p>
+        <p>
+          Rohdaten aus diesem Pilottracking werden nach Abschluss der Auswertung, spätestens nach 90 Tagen, gelöscht oder nur noch in aggregierter Form ohne Einzelzeitstempel weiterverwendet. Du kannst der Verarbeitung aus Gründen, die sich aus deiner besonderen Situation ergeben, über die oben genannte Kontaktadresse widersprechen.
         </p>
 
         <h2>5. Externe Links zu Amazon</h2>
@@ -84,7 +90,7 @@
           Auf den Seiten dieser Website, auf denen ein Einwilligungsbanner für das Meta-Pixel eingebunden ist, wird gespeichert, ob du dem Laden des Meta-Pixels zugestimmt oder es abgelehnt hast. Dies dient dazu, deine Auswahl bei späteren Seitenaufrufen zu berücksichtigen.
         </p>
         <p>
-          Auf der Offline-/Hauptseite ohne Einwilligungsbanner erfolgt für die dortige partnerbezogene Scan-Messung keine Speicherung eines Einwilligungsstatus und keine Nutzung von Local Storage zu diesem Zweck.
+          Für die pseudonyme Scan-Messung auf Offline- und QR-Zielseiten, insbesondere unter <code>/go/k01/</code> bis <code>/go/k10/</code>, setzen wir keine Cookies ein und nutzen keinen Local Storage. Die Meta-Pixel- und Einwilligungslogik auf anderen Seiten bleibt davon unberührt.
         </p>
 
         <h2>7. Keine externen Schriftarten, keine eingebetteten Videos</h2>
@@ -115,7 +121,7 @@
         </p>
 
         <p class="muted small">
-          Stand: <span id="date"></span>
+          Stand: 29. Mai 2026
         </p>
       </div>
     </div>
@@ -128,8 +134,6 @@
     </div>
     <script>
       document.getElementById('year').textContent = new Date().getFullYear();
-      const d = new Date();
-      document.getElementById('date').textContent = d.toLocaleDateString('de-DE');
     </script>
   </footer>
 </body>

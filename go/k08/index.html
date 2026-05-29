@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fbf7f0">
   <meta name="robots" content="noindex, follow">
-  <title>Praxis-Ratgeber K08 | Baby und Katze</title>
+  <title>Baby und Katze sicher zusammenführen | Praxis-Ratgeber</title>
   <meta name="description" content="Praxis-Ratgeber für Familien mit Baby und Katze: klarer Plan für Schwangerschaft, erste Begegnungen und Alltag plus kostenfreie Checkliste.">
   <link rel="icon" type="image/webp" href="../../assets/flw-logo.webp">
   <link rel="stylesheet" href="../../styles.css">
@@ -137,7 +137,10 @@
       fetch("https://script.google.com/macros/s/AKfycbyKDp6HGClj2VDp7_IDa-zGs_S1fyVHGy0U_50PXQoX5x_NfIGoxhqzbslUAn5yKrEx/exec?partner=" + encodeURIComponent(partner), {
         method: "GET",
         mode: "no-cors",
-        keepalive: true
+        keepalive: true,
+        credentials: "omit",
+        referrerPolicy: "no-referrer",
+        cache: "no-store"
       }).catch(function () {});
     })();
   </script>
