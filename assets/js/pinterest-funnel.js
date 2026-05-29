@@ -2,6 +2,16 @@
   const META_PIXEL_ID = '1599368868061138';
   const META_CONSENT_KEY = 'flw_meta_consent';
   const passthroughKeys = ['src', 'campaign', 'medium'];
+  const neutralAmazonUrl = 'https://www.amazon.de/dp/B0GTDN1458';
+  const pinterestAmazonUrls = {
+    'pinterest-hauptseite': 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_518C6A93DA694EE00FE9961840D3A9A4_afap_abs&ref_=aa_maas&tag=maas',
+    'alltag-mit-baby-und-katze': 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_2DC878F436F1F9D5596C20A9EB2D0ED8_afap_abs&ref_=aa_maas&tag=maas',
+    'katze-im-babybett': 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_B779ED0AEF009A37FCD3C1EBE6A0A361_afap_abs&ref_=aa_maas&tag=maas',
+    'katze-eifersuechtig-baby': 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_0D3A863BEC93E139B1532619CA4CBBFE_afap_abs&ref_=aa_maas&tag=maas',
+    'baby-und-katze-zusammenfuehren': 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_3AF1F9A9872563A8B84D188DAAFB2B8C_afap_abs&ref_=aa_maas&tag=maas',
+    'toxoplasmose-katze-schwangerschaft': 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_B859E478B822731717A240083F364F51_afap_abs&ref_=aa_maas&tag=maas',
+    'erste-begegnung-baby-und-katze': 'https://www.amazon.de/dp/B0GTDN1458?maas=maas_adg_46F7B86182B93B659ACF361B6FC1CE37_afap_abs&ref_=aa_maas&tag=maas'
+  };
   let metaPixelLoaded = false;
 
   function loadMetaPixel() {
@@ -56,6 +66,23 @@
     });
   }
 
+  function isPinterestVisit() {
+    const params = new URLSearchParams(window.location.search);
+    const src = (params.get('src') || '').toLowerCase();
+    const referrer = (document.referrer || '').toLowerCase();
+    return src === 'pinterest' || referrer.indexOf('pinterest.') !== -1;
+  }
+
+  function applyAmazonSourceLinks() {
+    const pageName = document.body.dataset.pageName || '';
+    const pinterestUrl = pinterestAmazonUrls[pageName];
+    const amazonUrl = isPinterestVisit() && pinterestUrl ? pinterestUrl : neutralAmazonUrl;
+
+    document.querySelectorAll('a[href*="amazon.de/dp/B0GTDN1458"]').forEach(function (link) {
+      link.href = amazonUrl;
+    });
+  }
+
   function bindEvents() {
     document.querySelectorAll('[data-event]').forEach(function (link) {
       link.addEventListener('click', function () {
@@ -97,6 +124,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
+    applyAmazonSourceLinks();
     preserveParams();
     ensureConsentBanner();
     bindEvents();
