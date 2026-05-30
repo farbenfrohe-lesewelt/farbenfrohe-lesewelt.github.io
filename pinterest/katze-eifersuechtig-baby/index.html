@@ -5,19 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#fbf7f0" />
 
-  <title>Katze eifersüchtig aufs Baby? Was dahinterstecken kann</title>
+  <title>Katze eifersüchtig aufs Baby? Verhalten ruhig einordnen | Farbenfrohe Lesewelt</title>
   <meta
     name="description"
-    content="Katze eifersüchtig aufs Baby? Viele Eltern deuten Rückzug, Fauchen oder Unruhe vorschnell. Hier findest du ruhige Orientierung für Verhalten, Alltag und sichere Regeln."
+    content="Katze eifersüchtig aufs Baby? Erfahre, wie du Rückzug, Fauchen oder Unruhe ruhig einordnest und klare Regeln für Alltag und Aufsicht findest."
   />
 
   <!-- Social -->
-  <meta property="og:title" content="Katze eifersüchtig aufs Baby? Was dahinterstecken kann" />
+  <meta property="og:title" content="Katze eifersüchtig aufs Baby? Verhalten ruhig einordnen | Farbenfrohe Lesewelt" />
   <meta
     property="og:description"
-    content="Rückzug, Fauchen, Unruhe oder mehr Nähe? So ordnest du das Verhalten deiner Katze ruhig ein – ohne Panik und ohne vorschnelle Schlüsse."
+    content="Katze eifersüchtig aufs Baby? Erfahre, wie du Rückzug, Fauchen oder Unruhe ruhig einordnest und klare Regeln für Alltag und Aufsicht findest."
   />
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://farbenfrohe-lesewelt.github.io/pinterest/katze-eifersuechtig-baby/" />
   <meta property="og:image" content="../../assets/cover-thumb.webp" />
 
   <link rel="stylesheet" href="../../styles.css" />
@@ -25,83 +26,136 @@
   <link rel="icon" type="image/png" sizes="256x256" href="../../assets/favicon-256.png">
 
   <style>
-    .article-hero{
-      padding:1.8rem 0 1.15rem;
-    }
-
     .article-copy{
-      max-width:780px;
+      max-width:820px;
     }
 
-    .article-copy .hero-cta{
-      margin-top:1rem;
+    .article-copy h1{
+      font-size:clamp(2.05rem, 3.6vw, 3.3rem);
+      line-height:1.08;
+      overflow-wrap:normal;
+      word-break:normal;
+      hyphens:none;
     }
 
-    .article-layout{
-      display:grid;
-      grid-template-columns:minmax(0, 1fr) 320px;
-      gap:1.25rem;
-      align-items:start;
+    .article-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem .8rem;
+      margin-top:.9rem;
+      color:var(--muted);
+      font-size:.94rem;
+      line-height:1.5;
     }
 
-    .article-main,
-    .article-side{
+    .article-toc{
+      border:1px solid var(--border);
+      border-radius:20px;
+      background:rgba(255,255,255,.78);
+      padding:1rem;
+      box-shadow:0 12px 28px rgba(18,24,35,.07);
+    }
+
+    .article-toc p{
+      margin:0 0 .65rem;
+      font-weight:800;
+      color:var(--text);
+    }
+
+    .article-toc nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.55rem;
+    }
+
+    .article-toc a{
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:rgba(251,247,240,.78);
+      color:var(--text);
+      font-weight:700;
+      padding:.55rem .75rem;
+      text-decoration:none;
+    }
+
+    .article-toc a:hover{
+      border-color:rgba(59,91,219,.28);
+      box-shadow:0 10px 22px rgba(18,24,35,.08);
+    }
+
+    .article-panel,
+    .book-plan-card,
+    .source-note{
       border:1px solid var(--border);
       border-radius:24px;
       background:rgba(255,255,255,.78);
       box-shadow:0 14px 34px rgba(18,24,35,.08);
+      padding:1.2rem;
     }
 
-    .article-main{
-      padding:1.25rem;
+    .article-panel.warm,
+    .book-plan-card{
+      background:rgba(255,248,234,.92);
+      border-color:rgba(191,141,78,.22);
     }
 
-    .article-side{
-      padding:1rem;
-      position:sticky;
-      top:1rem;
-    }
-
-    .key-points{
+    .steps-grid,
+    .rules-grid{
       display:grid;
       gap:.85rem;
       margin-top:1rem;
     }
 
-    .point{
-      padding:1rem;
-      border:1px solid var(--border);
-      border-radius:18px;
-      background:rgba(255,255,255,.62);
+    .rules-grid{
+      grid-template-columns:repeat(3, minmax(0, 1fr));
     }
 
-    .point h3{
+    .step-card,
+    .rule-card{
+      border:1px solid var(--border);
+      border-radius:18px;
+      background:rgba(255,255,255,.72);
+      padding:1rem;
+    }
+
+    .step-card{
+      display:grid;
+      grid-template-columns:2.1rem minmax(0, 1fr);
+      gap:.75rem;
+      align-items:start;
+    }
+
+    .step-number{
+      width:2.1rem;
+      height:2.1rem;
+      border-radius:999px;
+      display:inline-grid;
+      place-items:center;
+      background:var(--accent);
+      color:white;
+      font-weight:800;
+    }
+
+    .step-card h3,
+    .rule-card h3{
       margin-bottom:.35rem;
     }
 
-    .mini-list{
-      display:grid;
-      gap:.75rem;
+    .callout-rule{
       margin-top:1rem;
-    }
-
-    .mini-item{
-      padding:.9rem 1rem;
-      border-radius:16px;
-      background:rgba(252,246,255,.95);
-      border:1px solid rgba(143, 107, 196, .16);
-    }
-
-    .note-box{
-      margin-top:1rem;
+      border:1px solid rgba(59,91,219,.18);
+      border-radius:20px;
+      background:rgba(244,247,255,.94);
       padding:1rem;
-      border-radius:18px;
-      background:rgba(255,248,234,.92);
-      border:1px solid rgba(191, 141, 78, .22);
     }
 
-    .cta-stack{
-      display:grid;
+    .source-note{
+      background:rgba(255,255,255,.86);
+    }
+
+    .cta-duo{
+      display:flex;
+      flex-wrap:wrap;
       gap:.75rem;
       margin-top:1rem;
     }
@@ -130,25 +184,93 @@
       border-color:rgba(59,91,219,.24);
     }
 
-    .cta-duo{
-      display:flex;
-      flex-wrap:wrap;
-      gap:.75rem;
-      margin-top:1rem;
+    @media (max-width: 1080px){
+      .rules-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
     }
 
-    @media (max-width: 980px){
-      .article-layout{
+    @media (max-width: 640px){
+      .rules-grid{
         grid-template-columns:1fr;
       }
 
-      .article-side{
-        position:static;
+      .article-toc nav{
+        display:grid;
+      }
+
+      .article-toc a{
+        border-radius:14px;
+      }
+
+      .step-card{
+        grid-template-columns:1fr;
       }
     }
   </style>
   <meta name="p:domain_verify" content="a274749c6a702b70280e6ed805266518"/>
   <link rel="canonical" href="https://farbenfrohe-lesewelt.github.io/pinterest/katze-eifersuechtig-baby/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://farbenfrohe-lesewelt.github.io/pinterest/katze-eifersuechtig-baby/#webpage",
+        "url": "https://farbenfrohe-lesewelt.github.io/pinterest/katze-eifersuechtig-baby/",
+        "name": "Katze eifersüchtig aufs Baby? So ordnest du Verhalten ruhig ein",
+        "description": "Katze eifersüchtig aufs Baby? Erfahre, wie du Rückzug, Fauchen oder Unruhe ruhig einordnest und klare Regeln für Alltag und Aufsicht findest.",
+        "inLanguage": "de"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://farbenfrohe-lesewelt.github.io/pinterest/katze-eifersuechtig-baby/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Startseite",
+            "item": "https://farbenfrohe-lesewelt.github.io/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Ratgeber",
+            "item": "https://farbenfrohe-lesewelt.github.io/ratgeber/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Katze eifersüchtig aufs Baby",
+            "item": "https://farbenfrohe-lesewelt.github.io/pinterest/katze-eifersuechtig-baby/"
+          }
+        ]
+      },
+      {
+        "@type": "Article",
+        "@id": "https://farbenfrohe-lesewelt.github.io/pinterest/katze-eifersuechtig-baby/#article",
+        "headline": "Katze eifersüchtig aufs Baby? So ordnest du Verhalten ruhig ein",
+        "description": "Katze eifersüchtig aufs Baby? Erfahre, wie du Rückzug, Fauchen oder Unruhe ruhig einordnest und klare Regeln für Alltag und Aufsicht findest.",
+        "mainEntityOfPage": "https://farbenfrohe-lesewelt.github.io/pinterest/katze-eifersuechtig-baby/",
+        "author": {
+          "@type": "Organization",
+          "name": "Farbenfrohe Lesewelt Verlag",
+          "url": "https://farbenfrohe-lesewelt.github.io/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Farbenfrohe Lesewelt Verlag",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://farbenfrohe-lesewelt.github.io/assets/flw-logo.webp"
+          }
+        },
+        "image": "https://farbenfrohe-lesewelt.github.io/assets/cover-thumb.webp",
+        "dateModified": "2026-05-30"
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body data-page-type="pinterest" data-page-name="katze-eifersuechtig-baby">
@@ -163,276 +285,348 @@
 
       <nav class="top-actions" aria-label="Aktionen">
         <a class="btn btn-ghost" href="/ratgeber/" data-preserve-params>Ratgeberübersicht</a>
-        <a class="btn btn-primary" href="/checkliste/?src=pinterest&campaign=katze-eifersuechtig-baby" data-preserve-params data-event="checklist_click" data-label="katze-eifersuechtig-baby-header-checklist">
-          Checkliste
+        <a class="btn btn-primary" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="katze-eifersuechtig-baby-header-amazon">
+          Buch ansehen
         </a>
       </nav>
     </div>
   </header>
 
   <main id="content">
-    <section class="article-hero">
-      <div class="container">
-        <div class="article-copy">
+    <section class="pinterest-sales-hero">
+      <div class="container pinterest-sales-grid">
+        <div class="pinterest-sales-copy article-copy">
           <p class="eyebrow">Ratgeber · Baby &amp; Katze · Verhalten verstehen</p>
-
-          <h1>Katze eifersüchtig aufs Baby? Was dahinterstecken kann</h1>
-
-          <p class="hero-identity">
-            Viele Eltern nennen es sofort „Eifersucht“, wenn ihre Katze sich nach der Geburt plötzlich anders verhält.
-          </p>
-
+          <h1>Katze eifersüchtig aufs Baby? So ordnest du Verhalten ruhig ein</h1>
           <p class="lead">
-            Vielleicht zieht sie sich zurück. Vielleicht wirkt sie unruhig, sucht mehr Nähe, faucht einmal oder verändert Routinen.
-            Das kann beunruhigend wirken — ist aber nicht automatisch ein Zeichen dafür, dass die Katze das Baby „ablehnt“.
-            Vieles lässt sich deutlich ruhiger einordnen, wenn man Verhalten nicht sofort moralisch bewertet.
+            Viele Eltern nennen es „Eifersucht“, wenn ihre Katze nach der Geburt plötzlich anders wirkt: mehr Rückzug, Unruhe, Fauchen, Ausweichen oder ungewohntes Nähebedürfnis. Für den Alltag ist aber weniger wichtig, welches Etikett du darauf klebst. Wichtiger ist, was sich für die Katze verändert hat und wie du wieder Ruhe in die Situation bringst: Rückzug ermöglichen, Kontakte begleiten, nicht bestrafen und Baby und Katze nicht unbeaufsichtigt zusammen lassen. Wenn eine Situation unsicher wirkt oder deutliche Veränderungen anhalten, ist fachliche Unterstützung sinnvoll.
           </p>
+          <p class="article-meta">
+            <span>Ein Ratgeberbeitrag des Farbenfrohe Lesewelt Verlags · zum Buch von Andrea Blum</span>
+            <span>Aktualisiert: 30. Mai 2026</span>
+          </p>
+        </div>
 
-          <div class="pinterest-relief">
-            <strong>Verändertes Verhalten ist nicht automatisch „Eifersucht“.</strong>
-            <p>Oft reagieren Katzen auf neue Geräusche, Routinen, Gerüche oder weniger Vorhersagbarkeit im Alltag.</p>
+        <aside class="pinterest-sales-card" aria-label="Buch Baby und Katze sicher zusammenführen">
+          <div class="pinterest-sales-cover">
+            <img src="../../assets/cover-thumb.webp" alt="Buchcover Baby und Katze sicher zusammenführen" loading="eager">
           </div>
-
-          <div class="quick-proof" aria-label="Kurzüberblick">
-            <div class="qp-item">
-              <span class="qp-ico" aria-hidden="true">🐾</span>
-              <span><strong>Verhalten ist oft Veränderungsstress</strong> — nicht einfach „Eifersucht“</span>
-            </div>
-            <div class="qp-item">
-              <span class="qp-ico" aria-hidden="true">🧭</span>
-              <span><strong>Ruhige Einordnung</strong> hilft mehr als hektische Gegenmaßnahmen</span>
-            </div>
-            <div class="qp-item">
-              <span class="qp-ico" aria-hidden="true">🏡</span>
-              <span><strong>Struktur im Alltag</strong> nimmt vielen Situationen den Druck</span>
-            </div>
+          <h2>Baby und Katze sicher zusammenführen</h2>
+          <p>Der Praxis-Ratgeber für Verhalten, Rückzug, Aufsicht, erste Begegnungen und Alltag mit Baby und Katze.</p>
+          <div class="pinterest-sales-actions">
+            <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="katze-eifersuechtig-baby-side-amazon">
+              Zum vollständigen Ratgeber auf Amazon
+            </a>
           </div>
+        </aside>
+      </div>
+    </section>
 
-          <div class="pinterest-funnel-box" id="kostenlose-checkliste" aria-label="Kostenfreie Checkliste">
-            <p class="eyebrow">Kostenfreie Checkliste</p>
-            <h2>Sofort mehr Struktur für Rückzug, Nähe und Pausen</h2>
-            <p class="muted">Die Checkliste hilft, klare Wenn-Dann-Regeln zu setzen, bevor Unruhe oder Stress zur Dauerschleife werden.</p>
-            <div class="cta-duo">
-              <a class="btn btn-primary btn-large" href="/checkliste/?src=pinterest&campaign=katze-eifersuechtig-baby" data-preserve-params data-event="checklist_click" data-label="katze-eifersuechtig-baby-hero-checklist">
-                Checkliste ansehen
-              </a>
-              <a class="btn btn-ghost btn-large" href="/pinterest/alltag-mit-baby-und-katze/" data-preserve-params>
-                Weiter: Alltag sortieren
-              </a>
-            </div>
-          </div>
-
-          <div class="book-plan-card" aria-label="Ratgeber Baby und Katze">
-            <h2 class="book-plan-title">Wenn ihr Verhalten besser einordnen wollt</h2>
-            <p class="book-plan-text">Der Ratgeber zeigt, wie ihr Katze und Baby nicht gegeneinander denkt, sondern Routinen, Rückzug und Begegnungen gemeinsam plant.</p>
-            <div class="book-plan-actions">
-              <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="katze-eifersuechtig-baby-book-plan-amazon">
-                Zum Ratgeber auf Amazon
-              </a>
-              <a class="btn btn-ghost btn-large" href="#kostenlose-checkliste" data-event="checklist_click" data-label="katze-eifersuechtig-baby-book-plan-checklist">
-                Zur Checkliste springen
-              </a>
-            </div>
+    <section class="section" aria-labelledby="buch-plan-title">
+      <div class="container">
+        <div class="book-plan-card">
+          <p class="eyebrow">Praxis-Ratgeber</p>
+          <h2 id="buch-plan-title">Du willst Verhalten nicht ständig neu deuten müssen?</h2>
+          <p>
+            Der Praxis-Ratgeber „Baby und Katze sicher zusammenführen“ hilft dir, typische Alltagssituationen mit Baby und Katze ruhiger einzuordnen - mit Rückzugsorten, Aufsicht, Wenn-Dann-Regeln und klaren Standards für müde Momente.
+          </p>
+          <div class="cta-duo">
+            <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="katze-eifersuechtig-baby-book-plan-amazon">
+              Zum vollständigen Ratgeber auf Amazon
+            </a>
+            <a class="btn btn-ghost btn-large" href="/checkliste/?src=pinterest&campaign=katze-eifersuechtig-baby" data-preserve-params data-event="checklist_click" data-label="katze-eifersuechtig-baby-book-plan-checklist">
+              Kostenlose Checkliste ansehen
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section alt" aria-label="Auf dieser Seite">
       <div class="container">
-        <div class="article-layout">
-          <article class="article-main" aria-label="Hauptinhalt">
-            <h2>Warum „Eifersucht“ oft zu kurz greift</h2>
+        <div class="article-toc">
+          <p>Auf dieser Seite</p>
+          <nav aria-label="Sprungnavigation">
+            <a href="#eifersucht">Ist das wirklich Eifersucht?</a>
+            <a href="#reaktionen">Welche Reaktionen können Eltern verunsichern?</a>
+            <a href="#alltag">Was hilft im Alltag?</a>
+            <a href="#vermeiden">Was du lieber vermeidest</a>
+            <a href="#hilfe">Wann fachliche Hilfe sinnvoll ist</a>
+            <a href="#kurzantworten">Kurzantworten</a>
+          </nav>
+        </div>
+      </div>
+    </section>
 
-            <p>
-              Der Begriff „Eifersucht“ liegt nahe, weil er für Menschen sofort verständlich klingt.
-              Im Alltag ist er aber oft zu grob. Wenn ein Baby einzieht, verändert sich für die Katze sehr viel gleichzeitig:
-              Gerüche, Geräusche, Routinen, Aufmerksamkeit, Räume, Schlafrhythmus und manchmal sogar ganze Tagesabläufe.
-            </p>
+    <section class="section" id="eifersucht" aria-labelledby="eifersucht-title">
+      <div class="container">
+        <p class="eyebrow">Suchfrage ruhig einordnen</p>
+        <h2 id="eifersucht-title">Ist meine Katze wirklich eifersüchtig aufs Baby?</h2>
+        <p class="lead">
+          „Eifersucht“ ist ein verständliches Alltagswort. Für die praktische Lösung ist es aber meist hilfreicher, nicht sofort eine Absicht zu unterstellen. Ein Baby verändert Geräusche, Gerüche, Routinen, Aufmerksamkeit, Türen, Schlafplätze und Abläufe. Die bessere Frage lautet oft: Welche Situation macht deiner Katze gerade Druck - und welche klare Routine nimmt Druck heraus?
+        </p>
+        <p>
+          Du musst nicht entscheiden, welches Gefühl exakt dahintersteht. Beobachte lieber, wann das Verhalten auftritt, ob Rückzug möglich ist und ob Begegnungen mit dem Baby ruhig begleitet werden können.
+        </p>
 
-            <p>
-              Was dann wie Eifersucht wirkt, ist häufig eher eine Mischung aus Unsicherheit, Reizüberflutung,
-              Gewohnheitsbruch oder verstärktem Bedürfnis nach Orientierung.
-              Genau deshalb hilft es, das Verhalten nicht vorschnell als „boshaft“ oder „gegen das Baby gerichtet“ zu deuten.
-            </p>
+        <div class="callout-rule">
+          <h3>Hilfreicher als das Etikett</h3>
+          <p>Beobachte, was genau passiert: Wann wird deine Katze unruhig? Wo kann sie sich zurückziehen? Wann fehlt Aufsicht? Daraus entstehen die nächsten Schritte.</p>
+        </div>
+      </div>
+    </section>
 
-            <div class="key-points" aria-label="Wichtige Punkte">
-              <section class="point">
-                <h3>1. Rückzug ist nicht automatisch ein schlechtes Zeichen</h3>
-                <p>
-                  Manche Katzen ziehen sich zunächst stärker zurück, wenn das Familienleben lauter und unberechenbarer wird.
-                  Das kann einfach bedeuten, dass sie mehr Ruhe braucht.
-                  Rückzug ist deshalb nicht automatisch problematisch — solange die Katze weiterhin frisst,
-                  sich normal bewegt und insgesamt stabil wirkt.
-                </p>
-              </section>
+    <section class="section alt" id="reaktionen" aria-labelledby="reaktionen-title">
+      <div class="container">
+        <p class="eyebrow">Verhalten beobachten</p>
+        <h2 id="reaktionen-title">Welche Reaktionen können nach der Geburt auftreten?</h2>
+        <p class="lead">
+          Eltern bemerken manchmal Veränderungen, die sich schwer einordnen lassen. Die folgenden Beispiele sind keine Diagnose, sondern Anhaltspunkte dafür, wo du genauer hinschauen kannst.
+        </p>
 
-              <section class="point">
-                <h3>2. Mehr Nähe kann ebenso Ausdruck von Unsicherheit sein</h3>
-                <p>
-                  Andere Katzen reagieren genau andersherum:
-                  Sie suchen plötzlich mehr Kontakt, möchten häufiger dabei sein oder fordern stärker Aufmerksamkeit ein.
-                  Auch das muss nicht „Konkurrenz ums Baby“ bedeuten, sondern kann schlicht ein Versuch sein,
-                  sich im veränderten Alltag wieder zu orientieren.
-                </p>
-              </section>
+        <div class="rules-grid">
+          <article class="rule-card">
+            <h3>Rückzug</h3>
+            <p>Die Katze hält mehr Abstand oder nutzt ruhige Bereiche häufiger.</p>
+          </article>
 
-              <section class="point">
-                <h3>3. Einzelne Reaktionen nicht überbewerten</h3>
-                <p>
-                  Ein Fauchen, ein irritierter Blick, ein Abbruch in einer Situation oder Unruhe bei Besuch
-                  bedeutet noch nicht, dass die Katze das Baby grundsätzlich nicht akzeptiert.
-                  Viel wichtiger ist das Gesamtbild:
-                  Wann tritt das Verhalten auf? In welchen Situationen? Wiederholt es sich? Wird es stärker oder schwächer?
-                </p>
-              </section>
+          <article class="rule-card">
+            <h3>Unruhe</h3>
+            <p>Sie wirkt angespannter, wandert mehr umher oder findet schwerer zur Ruhe.</p>
+          </article>
 
-              <section class="point">
-                <h3>4. Alltagssicherheit entsteht durch Vorhersehbarkeit</h3>
-                <p>
-                  Katzen profitieren stark davon, wenn Veränderungen nicht komplett chaotisch wirken.
-                  Feste Ruheorte, klare Schlafplatz-Regeln, kurze Begegnungen und verlässliche Routinen
-                  helfen deutlich mehr als dauernd neue Reaktionen oder hektische Korrekturen.
-                </p>
-              </section>
-            </div>
+          <article class="rule-card">
+            <h3>Fauchen oder Ausweichen</h3>
+            <p>Das sollte nicht bestraft werden. Schaffe Abstand und begleite die Situation ruhig.</p>
+          </article>
 
-            <div class="note-box">
-              <strong>Wichtig:</strong>
-              Diese Seite hilft bei der ruhigen Einordnung typischer Alltagssituationen.
-              Wenn Verhalten stark kippt, die Katze deutlich leidet oder aggressive Situationen zunehmen,
-              sollte fachlicher Rat sinnvoll ergänzt werden.
-            </div>
+          <article class="rule-card">
+            <h3>Mehr Nähe suchen</h3>
+            <p>Manche Katzen suchen weiterhin oder stärker Kontakt zu ihren Menschen. Auch dann braucht es klare Regeln rund um Baby und Aufsicht.</p>
+          </article>
 
-            <h2 style="margin-top:1.4rem;">Drei hilfreiche Fragen zur Einordnung</h2>
+          <article class="rule-card">
+            <h3>Veränderte Routinen</h3>
+            <p>Futterzeiten, Türen, Schlafplätze oder Aufmerksamkeit können sich plötzlich anders anfühlen.</p>
+          </article>
 
-            <div class="mini-list">
-              <div class="mini-item">
-                <strong>Frage 1:</strong>
-                Tritt das Verhalten nur in einzelnen Situationen auf – oder wirkt die Katze insgesamt dauerhaft verändert?
-              </div>
-              <div class="mini-item">
-                <strong>Frage 2:</strong>
-                Fehlt der Katze gerade vor allem Ruhe, Struktur oder ein verlässlicher Rückzugsort?
-              </div>
-              <div class="mini-item">
-                <strong>Frage 3:</strong>
-                Reagieren wir gerade auf jedes Signal nervös – und verstärken dadurch ungewollt die Anspannung?
-              </div>
-            </div>
+          <article class="rule-card">
+            <h3>Räume oder Situationen meiden</h3>
+            <p>Auch Abstand kann zunächst eine sinnvolle Möglichkeit sein, Druck aus der Situation zu nehmen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-            <h2 style="margin-top:1.4rem;">Was Eltern in solchen Momenten besonders hilft</h2>
-            <p>
-              Statt Verhalten sofort etikettieren zu wollen, hilft meist ein ruhigerer Blick:
-              Welche Veränderungen gab es? Welche Situationen sind neu? Wo fehlt noch Struktur?
-              Oft sind es genau diese kleinen Stellschrauben, die den Alltag wieder deutlich entspannen.
-            </p>
+    <section class="section" id="alltag" aria-labelledby="alltag-title">
+      <div class="container">
+        <p class="eyebrow">Nächste Schritte</p>
+        <h2 id="alltag-title">Was hilft, wenn deine Katze aufs Baby angespannt reagiert?</h2>
+        <p class="lead">
+          Du musst nicht jede Reaktion perfekt deuten. Hilfreicher ist ein Rahmen, der die Situation ruhiger und übersichtlicher macht.
+        </p>
 
-            <p>
-              Im vollständigen Ratgeber geht es deshalb nicht nur um einzelne Reaktionen,
-              sondern um einen ganzen Familienplan: Vorbereitung, Begegnungen, Schlafplätze, Alltagsstandards,
-              Hygiene, Besuchssituationen und typische Stressmuster.
-            </p>
-
-            <div class="hero-cta" style="margin-top:1rem;">
-                <div class="pinterest-inline-cta" aria-label="Nächster Schritt">
-              <div class="cta-duo">
-                <a class="btn btn-primary btn-large" href="/checkliste/?src=pinterest&campaign=katze-eifersuechtig-baby" data-preserve-params data-event="checklist_click" data-label="katze-eifersuechtig-baby-inline-checklist">
-                  Checkliste ansehen
-                </a>
-                <a class="btn btn-ghost btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="katze-eifersuechtig-baby-inline-amazon">
-                  Mehr zum Buch
-                </a>
-                <a class="btn btn-ghost btn-large" href="/pinterest/alltag-mit-baby-und-katze/" data-preserve-params>
-                  Weiter: Alltag sortieren
-                </a>
-              </div>
-            </div>
+        <div class="steps-grid">
+          <article class="step-card">
+            <span class="step-number">1</span>
+            <div>
+              <h3>Abstand ermöglichen</h3>
+              <p>Zwinge Nähe nicht. Wenn deine Katze weggeht, darf sie Abstand nehmen.</p>
             </div>
           </article>
 
-          <aside class="article-side" aria-label="Seitliche Hinweise">
-            <h3>Auf einen Blick</h3>
-            <p class="muted">
-              Diese Seite ist für dich besonders passend,
-              wenn deine Katze sich seit Schwangerschaft oder Geburt anders verhält
-              und du das nicht vorschnell als Ablehnung deuten möchtest.
-            </p>
-
-            <div class="cta-stack">
-              <a class="btn btn-primary" href="/checkliste/?src=pinterest&campaign=katze-eifersuechtig-baby" data-preserve-params data-event="checklist_click" data-label="katze-eifersuechtig-baby-side-checklist">
-                Checkliste ansehen
-              </a>
-              <a class="btn btn-ghost" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="katze-eifersuechtig-baby-side-amazon">
-                Buch auf Amazon ansehen
-              </a>
-              <a class="btn btn-ghost" href="/pinterest/alltag-mit-baby-und-katze/" data-preserve-params>
-                Weiter: Alltag sortieren
-              </a>
+          <article class="step-card">
+            <span class="step-number">2</span>
+            <div>
+              <h3>Rückzugsort sichern</h3>
+              <p>Ein ruhiger Platz, an den das Baby nicht einfach herankommt, kann Druck aus Alltagssituationen nehmen.</p>
             </div>
+          </article>
 
-            <hr style="margin:1rem 0;border:none;border-top:1px solid var(--border);">
-
-            <h3>Passende weitere Themen</h3>
-            <div class="topic-nav">
-              <a href="/pinterest/erste-begegnung-baby-und-katze/" data-preserve-params>
-                Erste Begegnung Baby und Katze
-              </a>
-              <a href="/pinterest/alltag-mit-baby-und-katze/" data-preserve-params>
-                Alltag mit Baby und Katze
-              </a>
-              <a href="/pinterest/katze-im-babybett/" data-preserve-params>
-                Katze im Babybett
-              </a>
-              <a href="/pinterest/baby-und-katze-zusammenfuehren/" data-preserve-params>
-                Baby und Katze sicher zusammenführen
-              </a>
+          <article class="step-card">
+            <span class="step-number">3</span>
+            <div>
+              <h3>Kontakte begleiten</h3>
+              <p>Beobachte Begegnungen ruhig und greife früh ein, wenn Abstand sinnvoll wird.</p>
             </div>
-          </aside>
+          </article>
+
+          <article class="step-card">
+            <span class="step-number">4</span>
+            <div>
+              <h3>Nicht bestrafen</h3>
+              <p>Fauchen, Ausweichen oder erkennbare Anspannung nicht mit Strafe beantworten. Schaffe stattdessen Abstand und Ruhe.</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <span class="step-number">5</span>
+            <div>
+              <h3>Ohne aktive Aufsicht trennen</h3>
+              <p>Eine sichere Vorgehensweise ist, Baby und Katze nicht unbeaufsichtigt zusammen zu lassen. Praktisch heißt das: Behalte Aufsicht oder trenne beide kurzzeitig in sichere Bereiche.</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <span class="step-number">6</span>
+            <div>
+              <h3>Kleine Routinen wiederholbar machen</h3>
+              <p>Wenige klare Wenn-Dann-Regeln helfen mehr als spontane Einzelentscheidungen in müden Momenten.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="book-plan-card" style="margin-top:1rem;">
+          <p class="eyebrow">Vom Verhalten zum Plan</p>
+          <h3>Nicht jede Situation neu bewerten müssen</h3>
+          <p>Im Praxis-Ratgeber findest du klare Standards für Rückzug, Aufsicht, Schlafplätze, erste Begegnungen und Alltag - damit du in angespannten Momenten nicht jedes Mal neu überlegen musst.</p>
+          <div class="cta-duo">
+            <a class="btn btn-primary" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="katze-eifersuechtig-baby-family-plan-amazon">
+              Den vollständigen Familienplan ansehen
+            </a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section alt" aria-labelledby="kurzantworten-title">
+    <section class="section alt" id="vermeiden" aria-labelledby="vermeiden-title">
       <div class="container">
-        <h2 id="kurzantworten-title">Kurzantworten</h2>
+        <p class="eyebrow">Druck vermeiden</p>
+        <h2 id="vermeiden-title">Was solltest du vermeiden, wenn deine Katze angespannt reagiert?</h2>
+
+        <div class="rules-grid">
+          <article class="rule-card">
+            <h3>Verhalten als Absicht deuten</h3>
+            <p>Nicht vorschnell annehmen, dass deine Katze „gegen das Baby“ handelt. Beobachte lieber Situation, Abstand und Auslöser.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Nähe erzwingen</h3>
+            <p>Die Katze muss nicht zum Baby gehen, es beschnuppern oder Kontakt aufnehmen.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Abwehr bestrafen</h3>
+            <p>Strafe kann zusätzliche Spannung erzeugen. Hilfreicher sind Abstand, Rückzug und ruhige Begleitung.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Auf gute Momente vertrauen</h3>
+            <p>Auch wenn es oft ruhig wirkt, bleiben Baby und Katze nicht unbeaufsichtigt zusammen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="hilfe" aria-labelledby="hilfe-title">
+      <div class="container grid grid-2">
+        <article class="article-panel">
+          <p class="eyebrow">Grenzen erkennen</p>
+          <h2 id="hilfe-title">Wann solltest du dir fachliche Hilfe holen?</h2>
+          <p>
+            Nicht jede Irritation ist automatisch ein Notfall. Gleichzeitig sollte Unsicherheit nicht ausgesessen werden.
+          </p>
+          <p>
+            Wenn eine Situation unsicher wirkt, deutliche Verhaltensänderungen anhalten oder es zu Angriffen, Kratz- oder Beißvorfällen kommt, sollten Tierarztpraxis oder qualifizierte Verhaltensberatung einbezogen werden. Bei Fragen zur Gesundheit des Babys oder nach Verletzungen ist medizinische Beratung zuständig.
+          </p>
+          <div class="cta-duo">
+            <a class="btn btn-ghost" href="/pinterest/erste-begegnung-baby-und-katze/" data-preserve-params>
+              Mehr dazu: Erste Begegnung ruhig gestalten
+            </a>
+            <a class="btn btn-ghost" href="/pinterest/baby-und-katze-zusammenfuehren/" data-preserve-params>
+              Mehr dazu: Baby und Katze zusammenführen
+            </a>
+          </div>
+        </article>
+
+        <aside class="article-panel warm" aria-label="Fachliche Hilfe">
+          <h3>Lieber früh klären als lange grübeln</h3>
+          <p>Wenn du dich mit einer Situation nicht sicher fühlst, ist fachliche Unterstützung kein Scheitern. Sie kann helfen, Verhalten einzuordnen und einen passenden Plan für euer Zuhause zu entwickeln.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section alt" id="kurzantworten" aria-labelledby="kurzantworten-title">
+      <div class="container">
+        <h2 id="kurzantworten-title">Kurzantworten: Katze eifersüchtig aufs Baby</h2>
         <div class="pinterest-answers">
           <details class="card">
-            <summary>Ist meine Katze wirklich eifersüchtig?</summary>
-            <p>Das lässt sich nicht pauschal sagen. Häufig geht es um veränderte Routinen, Aufmerksamkeit, Geräusche oder Rückzugsmöglichkeiten.</p>
+            <summary>Ist meine Katze wirklich eifersüchtig auf das Baby?</summary>
+            <p>Vielleicht wirkt es so. Für den Alltag ist aber hilfreicher, nicht sofort eine Absicht zu unterstellen, sondern konkrete Situationen zu beobachten: Wann wird deine Katze unruhig, wo kann sie sich zurückziehen und wann braucht es Abstand oder Aufsicht?</p>
           </details>
 
           <details class="card">
-            <summary>Was hilft zuerst?</summary>
-            <p>Rückzugsorte sichern, Begegnungen kurz halten und klare Pausen einplanen, wenn eine Situation kippt.</p>
+            <summary>Was mache ich, wenn meine Katze faucht?</summary>
+            <p>Schaffe ruhig Abstand, erzwinge keine Annäherung und bestrafe die Katze nicht. Wenn die Situation unsicher wirkt oder deutliche Veränderungen bestehen bleiben, hole dir fachliche Unterstützung.</p>
           </details>
 
           <details class="card">
-            <summary>Wann brauche ich Hilfe?</summary>
-            <p>Bei Verletzungen, wiederholten Angriffen, starken Stresszeichen oder deutlichen Verhaltensänderungen sollte fachliche Hilfe einbezogen werden.</p>
+            <summary>Was mache ich, wenn meine Katze sich zurückzieht?</summary>
+            <p>Lass ihr Rückzug. Abstand muss nicht negativ bewertet werden. Wichtig ist, dass sie einen ruhigen Bereich erreichen kann und Begegnungen mit dem Baby nicht erzwungen werden.</p>
+          </details>
+
+          <details class="card">
+            <summary>Darf meine Katze weiter in der Nähe des Babys sein?</summary>
+            <p>Nähe kann ruhig begleitet werden, wenn du aktiv aufmerksam bist. Eine sichere Vorgehensweise ist, Baby und Katze nicht unbeaufsichtigt zusammen zu lassen.</p>
+          </details>
+
+          <details class="card">
+            <summary>Muss ich meine Katze abgeben, wenn sie angespannt reagiert?</summary>
+            <p>Nicht aus einer einzelnen Situation heraus. Arbeite zuerst mit Rückzug, Abstand, Aufsicht und klaren Routinen. Wenn die Situation unsicher bleibt oder es zu Vorfällen kommt, hole dir fachliche Unterstützung.</p>
           </details>
         </div>
       </div>
     </section>
-    <section class="section alt" aria-labelledby="weitere-themen-title">
+
+    <section class="section" aria-labelledby="hinweis-title">
+      <div class="container">
+        <div class="source-note">
+          <h2 id="hinweis-title">Hinweis zu diesem Ratgeberbeitrag</h2>
+          <p>
+            Dieser Beitrag bietet alltagstaugliche Orientierung für Familien mit Baby und Katze. Er ersetzt keine individuelle tierärztliche, medizinische oder verhaltensbezogene Beratung. Wenn eine Situation unsicher wirkt oder du dir Sorgen um dein Baby oder deine Katze machst, hole dir passende fachliche Unterstützung.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" aria-labelledby="abschluss-buch-title">
+      <div class="container">
+        <div class="book-plan-card">
+          <p class="eyebrow">Vollständiger Familienplan</p>
+          <h2 id="abschluss-buch-title">Du willst Verhalten nicht nur deuten, sondern euren Alltag klarer regeln?</h2>
+          <p>Der Praxis-Ratgeber „Baby und Katze sicher zusammenführen“ verbindet Rückzug, Aufsicht, erste Begegnungen, Schlafplätze, Hygiene und Alltag zu einem Plan, der euch durch die verschiedenen Phasen begleitet.</p>
+          <div class="cta-duo">
+            <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="katze-eifersuechtig-baby-final-amazon">
+              Zum Praxis-Ratgeber auf Amazon
+            </a>
+            <a class="btn btn-ghost btn-large" href="/checkliste/?src=pinterest&campaign=katze-eifersuechtig-baby" data-preserve-params data-event="checklist_click" data-label="katze-eifersuechtig-baby-final-checklist">
+              Kostenlose Checkliste herunterladen
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="weitere-themen-title">
       <div class="container">
         <h2 id="weitere-themen-title">Weitere Themen rund um Baby &amp; Katze</h2>
         <div class="topic-nav" aria-label="Weitere Themen">
-          <a href="/pinterest/katze-im-babybett/" data-preserve-params>Katze im Babybett</a>
-          <a href="/pinterest/toxoplasmose-katze-schwangerschaft/" data-preserve-params>Toxoplasmose &amp; Schwangerschaft mit Katze</a>
+          <a href="/ratgeber/" data-preserve-params>Ratgeberübersicht Baby &amp; Katze</a>
           <a href="/pinterest/baby-und-katze-zusammenfuehren/" data-preserve-params>Baby und Katze zusammenführen</a>
           <a href="/pinterest/erste-begegnung-baby-und-katze/" data-preserve-params>Erste Begegnung Baby &amp; Katze</a>
+          <a href="/pinterest/katze-im-babybett/" data-preserve-params>Katze im Babybett</a>
           <a href="/pinterest/alltag-mit-baby-und-katze/" data-preserve-params>Alltag mit Baby und Katze</a>
+          <a href="/pinterest/toxoplasmose-katze-schwangerschaft/" data-preserve-params>Toxoplasmose &amp; Schwangerschaft mit Katze</a>
         </div>
       </div>
     </section>
-
   </main>
-   <footer class="footer">
+
+  <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-left">
         <p class="muted small">
-          Hinweis: Alltagsratgeber – ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung.
+          Hinweis: Alltagsratgeber - ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung.
         </p>
         <p class="muted small">
           <a href="../../legal/impressum.html" data-preserve-params>Impressum</a> ·
