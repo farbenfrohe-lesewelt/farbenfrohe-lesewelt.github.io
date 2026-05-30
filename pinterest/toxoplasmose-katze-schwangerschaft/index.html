@@ -5,19 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#fbf7f0" />
 
-  <title>Toxoplasmose & Katze in der Schwangerschaft – ruhig sortieren | Baby und Katze</title>
+  <title>Toxoplasmose in der Schwangerschaft mit Katze ruhig einordnen | Farbenfrohe Lesewelt</title>
   <meta
     name="description"
-    content="Toxoplasmose und Katze in der Schwangerschaft: ruhige Einordnung und alltagstaugliche Standards für Hygiene, Katzenklo und Familienalltag."
+    content="Toxoplasmose, Schwangerschaft und Katze: Ruhige Orientierung zu Katzenklo, Lebensmitteln, Hygiene und Fragen, die du ärztlich klären solltest."
   />
 
   <!-- Social -->
-  <meta property="og:title" content="Toxoplasmose & Katze in der Schwangerschaft – ruhig sortieren" />
+  <meta property="og:title" content="Toxoplasmose in der Schwangerschaft mit Katze ruhig einordnen | Farbenfrohe Lesewelt" />
   <meta
     property="og:description"
-    content="Ruhige Orientierung statt Alarmismus: Katzenklo, Hygiene und Alltag mit Katze in der Schwangerschaft verständlich eingeordnet."
+    content="Toxoplasmose, Schwangerschaft und Katze: Ruhige Orientierung zu Katzenklo, Lebensmitteln, Hygiene und Fragen, die du ärztlich klären solltest."
   />
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://farbenfrohe-lesewelt.github.io/pinterest/toxoplasmose-katze-schwangerschaft/" />
   <meta property="og:image" content="../../assets/cover-thumb.webp" />
 
   <link rel="stylesheet" href="../../styles.css" />
@@ -25,85 +26,151 @@
   <link rel="icon" type="image/png" sizes="256x256" href="../../assets/favicon-256.png">
 
   <style>
-    .article-hero{
-      padding:1.8rem 0 1.15rem;
-    }
-
     .article-copy{
-      max-width:780px;
+      max-width:820px;
     }
 
-    .article-copy .hero-cta{
-      margin-top:1rem;
+    .article-copy h1{
+      font-size:clamp(2.05rem, 3.6vw, 3.3rem);
+      line-height:1.08;
+      overflow-wrap:normal;
+      word-break:normal;
+      hyphens:none;
     }
 
-    .article-layout{
-      display:grid;
-      grid-template-columns:minmax(0, 1fr) 320px;
-      gap:1.25rem;
-      align-items:start;
+    .article-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem .8rem;
+      margin-top:.9rem;
+      color:var(--muted);
+      font-size:.94rem;
+      line-height:1.5;
     }
 
-    .article-main,
-    .article-side{
+    .article-toc{
+      border:1px solid var(--border);
+      border-radius:20px;
+      background:rgba(255,255,255,.78);
+      padding:1rem;
+      box-shadow:0 12px 28px rgba(18,24,35,.07);
+    }
+
+    .article-toc p{
+      margin:0 0 .65rem;
+      font-weight:800;
+      color:var(--text);
+    }
+
+    .article-toc nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.55rem;
+    }
+
+    .article-toc a{
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:rgba(251,247,240,.78);
+      color:var(--text);
+      font-weight:700;
+      padding:.55rem .75rem;
+      text-decoration:none;
+    }
+
+    .article-toc a:hover{
+      border-color:rgba(59,91,219,.28);
+      box-shadow:0 10px 22px rgba(18,24,35,.08);
+    }
+
+    .article-panel,
+    .book-plan-card,
+    .source-note{
       border:1px solid var(--border);
       border-radius:24px;
       background:rgba(255,255,255,.78);
       box-shadow:0 14px 34px rgba(18,24,35,.08);
+      padding:1.2rem;
     }
 
-    .article-main{
-      padding:1.25rem;
+    .article-panel.warm,
+    .book-plan-card{
+      background:rgba(255,248,234,.92);
+      border-color:rgba(191,141,78,.22);
     }
 
-    .article-side{
-      padding:1rem;
-      position:sticky;
-      top:1rem;
-    }
-
-    .key-points{
+    .steps-grid,
+    .rules-grid{
       display:grid;
       gap:.85rem;
       margin-top:1rem;
     }
 
-    .point{
-      padding:1rem;
-      border:1px solid var(--border);
-      border-radius:18px;
-      background:rgba(255,255,255,.62);
+    .rules-grid{
+      grid-template-columns:repeat(3, minmax(0, 1fr));
     }
 
-    .point h3{
+    .step-card,
+    .rule-card{
+      border:1px solid var(--border);
+      border-radius:18px;
+      background:rgba(255,255,255,.72);
+      padding:1rem;
+    }
+
+    .step-card{
+      display:grid;
+      grid-template-columns:2.1rem minmax(0, 1fr);
+      gap:.75rem;
+      align-items:start;
+    }
+
+    .step-number{
+      width:2.1rem;
+      height:2.1rem;
+      border-radius:999px;
+      display:inline-grid;
+      place-items:center;
+      background:var(--accent);
+      color:white;
+      font-weight:800;
+    }
+
+    .step-card h3,
+    .rule-card h3{
       margin-bottom:.35rem;
     }
 
-    .mini-list{
-      display:grid;
-      gap:.75rem;
+    .callout-rule{
       margin-top:1rem;
-    }
-
-    .mini-item{
-      padding:.85rem .95rem;
-      border-radius:16px;
-      background:rgba(255,247,236,.92);
-      border:1px solid rgba(191, 141, 78, .18);
-    }
-
-    .cta-stack{
-      display:grid;
-      gap:.75rem;
-      margin-top:1rem;
-    }
-
-    .note-box{
-      margin-top:1rem;
+      border:1px solid rgba(59,91,219,.18);
+      border-radius:20px;
+      background:rgba(244,247,255,.94);
       padding:1rem;
-      border-radius:18px;
-      background:rgba(255,248,234,.92);
-      border:1px solid rgba(191, 141, 78, .22);
+    }
+
+    .source-note{
+      background:rgba(255,255,255,.86);
+    }
+
+    .source-list{
+      display:grid;
+      gap:.75rem;
+      margin:1rem 0 0;
+      padding:0;
+      list-style:none;
+    }
+
+    .source-list a{
+      color:var(--text);
+      font-weight:800;
+    }
+
+    .cta-duo{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.75rem;
+      margin-top:1rem;
     }
 
     .topic-nav{
@@ -130,25 +197,93 @@
       border-color:rgba(59,91,219,.24);
     }
 
-    .cta-duo{
-      display:flex;
-      flex-wrap:wrap;
-      gap:.75rem;
-      margin-top:1rem;
+    @media (max-width: 1080px){
+      .rules-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
     }
 
-    @media (max-width: 980px){
-      .article-layout{
+    @media (max-width: 640px){
+      .rules-grid{
         grid-template-columns:1fr;
       }
 
-      .article-side{
-        position:static;
+      .article-toc nav{
+        display:grid;
+      }
+
+      .article-toc a{
+        border-radius:14px;
+      }
+
+      .step-card{
+        grid-template-columns:1fr;
       }
     }
   </style>
   <meta name="p:domain_verify" content="a274749c6a702b70280e6ed805266518"/>
   <link rel="canonical" href="https://farbenfrohe-lesewelt.github.io/pinterest/toxoplasmose-katze-schwangerschaft/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://farbenfrohe-lesewelt.github.io/pinterest/toxoplasmose-katze-schwangerschaft/#webpage",
+        "url": "https://farbenfrohe-lesewelt.github.io/pinterest/toxoplasmose-katze-schwangerschaft/",
+        "name": "Toxoplasmose und Katze in der Schwangerschaft: Ruhig einordnen, klar handeln",
+        "description": "Toxoplasmose, Schwangerschaft und Katze: Ruhige Orientierung zu Katzenklo, Lebensmitteln, Hygiene und Fragen, die du ärztlich klären solltest.",
+        "inLanguage": "de"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://farbenfrohe-lesewelt.github.io/pinterest/toxoplasmose-katze-schwangerschaft/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Startseite",
+            "item": "https://farbenfrohe-lesewelt.github.io/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Ratgeber",
+            "item": "https://farbenfrohe-lesewelt.github.io/ratgeber/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Toxoplasmose & Schwangerschaft mit Katze",
+            "item": "https://farbenfrohe-lesewelt.github.io/pinterest/toxoplasmose-katze-schwangerschaft/"
+          }
+        ]
+      },
+      {
+        "@type": "Article",
+        "@id": "https://farbenfrohe-lesewelt.github.io/pinterest/toxoplasmose-katze-schwangerschaft/#article",
+        "headline": "Toxoplasmose und Katze in der Schwangerschaft: Ruhig einordnen, klar handeln",
+        "description": "Toxoplasmose, Schwangerschaft und Katze: Ruhige Orientierung zu Katzenklo, Lebensmitteln, Hygiene und Fragen, die du ärztlich klären solltest.",
+        "mainEntityOfPage": "https://farbenfrohe-lesewelt.github.io/pinterest/toxoplasmose-katze-schwangerschaft/",
+        "author": {
+          "@type": "Organization",
+          "name": "Farbenfrohe Lesewelt Verlag",
+          "url": "https://farbenfrohe-lesewelt.github.io/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Farbenfrohe Lesewelt Verlag",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://farbenfrohe-lesewelt.github.io/assets/flw-logo.webp"
+          }
+        },
+        "image": "https://farbenfrohe-lesewelt.github.io/assets/cover-thumb.webp",
+        "dateModified": "2026-05-30"
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body data-page-type="pinterest" data-page-name="toxoplasmose-katze-schwangerschaft">
@@ -163,278 +298,353 @@
 
       <nav class="top-actions" aria-label="Aktionen">
         <a class="btn btn-ghost" href="/ratgeber/" data-preserve-params>Ratgeberübersicht</a>
-        <a class="btn btn-primary" href="/checkliste/?src=pinterest&campaign=toxoplasmose-katze-schwangerschaft" data-preserve-params data-event="checklist_click" data-label="toxoplasmose-katze-schwangerschaft-header-checklist">
-          Checkliste
+        <a class="btn btn-primary" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="toxoplasmose-katze-schwangerschaft-header-amazon">
+          Buch ansehen
         </a>
       </nav>
     </div>
   </header>
 
   <main id="content">
-    <section class="article-hero">
-      <div class="container">
-        <div class="article-copy">
+    <section class="pinterest-sales-hero">
+      <div class="container pinterest-sales-grid">
+        <div class="pinterest-sales-copy article-copy">
           <p class="eyebrow">Ratgeber · Baby &amp; Katze · Schwangerschaft</p>
-
-          <h1>Toxoplasmose &amp; Katze in der Schwangerschaft – was wirklich zählt</h1>
-
-          <p class="hero-identity">
-            Rund um Toxoplasmose, Katzen und Schwangerschaft entsteht oft unnötig viel Angst.
-          </p>
-
+          <h1>Toxoplasmose und Katze in der Schwangerschaft: Ruhig einordnen, klar handeln</h1>
           <p class="lead">
-            Viele werdende Eltern fragen sich: Muss ich den Alltag mit Katze jetzt komplett ändern? Welche Vorsicht ist sinnvoll?
-            Darf ich noch aufs Sofa, die Katze streicheln oder das Katzenklo überhaupt noch sehen?
-            Wichtig ist: Im Alltag helfen ruhige, klare Vorsichtsregeln mehr als Panik.
+            Toxoplasmose ist in der Schwangerschaft ein Thema, das du ernst nehmen solltest - aber nicht mit Panik lösen musst. Wichtig ist eine ruhige Einordnung: Eine Infektion kann über verschiedene Wege entstehen, unter anderem über unzureichend erhitztes Fleisch, ungewaschene Lebensmittel, Erde oder Sand sowie Kontakt mit Katzenkot. Das reine Zusammenleben mit einer Katze ist nicht automatisch der einzige Fokus. Praktisch helfen klare Hygienestandards: Katzenklo möglichst delegieren oder mit Handschuhen und gründlichem Händewaschen reinigen, Lebensmittel sorgfältig vorbereiten und medizinische Fragen mit deiner ärztlichen Betreuung klären.
           </p>
+          <p class="article-meta">
+            <span>Ein Ratgeberbeitrag des Farbenfrohe Lesewelt Verlags · zum Buch von Andrea Blum</span>
+            <span>Aktualisiert: 30. Mai 2026</span>
+          </p>
+        </div>
 
-          <div class="pinterest-relief">
-            <strong>Ruhig sortieren statt sich in Angst verlieren.</strong>
-            <p>Bei medizinischen Fragen gehören Ärztin, Arzt oder Hebamme dazu. Für den Alltag helfen klare Hygiene- und Zuständigkeitsstandards.</p>
+        <aside class="pinterest-sales-card" aria-label="Buch Baby und Katze sicher zusammenführen">
+          <div class="pinterest-sales-cover">
+            <img src="../../assets/cover-thumb.webp" alt="Buchcover Baby und Katze sicher zusammenführen" loading="eager">
           </div>
-
-          <div class="quick-proof" aria-label="Kurzüberblick">
-            <div class="qp-item">
-              <span class="qp-ico" aria-hidden="true">🧼</span>
-              <span><strong>Hygiene ja</strong> – aber ohne übertriebene Angst</span>
-            </div>
-            <div class="qp-item">
-              <span class="qp-ico" aria-hidden="true">🐱</span>
-              <span><strong>Die Katze ist nicht automatisch das Problem</strong></span>
-            </div>
-            <div class="qp-item">
-              <span class="qp-ico" aria-hidden="true">🧭</span>
-              <span><strong>Klare Alltagsregeln</strong> geben Ruhe und Sicherheit</span>
-            </div>
+          <h2>Baby und Katze sicher zusammenführen</h2>
+          <p>Der Praxis-Ratgeber für Schwangerschaft, Hygiene, Rückzug, Aufsicht, erste Begegnungen und Alltag mit Baby und Katze.</p>
+          <div class="pinterest-sales-actions">
+            <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="toxoplasmose-katze-schwangerschaft-side-amazon">
+              Zum vollständigen Ratgeber auf Amazon
+            </a>
           </div>
+        </aside>
+      </div>
+    </section>
 
-          <div class="pinterest-funnel-box" id="kostenlose-checkliste" aria-label="Kostenfreie Checkliste">
-            <p class="eyebrow">Kostenfreie Checkliste</p>
-            <h2>Sofort-Standards für Schwangerschaft, Hygiene und Alltag</h2>
-            <p class="muted">Die Checkliste hilft, Aufsicht, Zonen und wiederkehrende Abläufe klar zu halten, ohne medizinische Beratung zu ersetzen.</p>
-            <div class="cta-duo">
-              <a class="btn btn-primary btn-large" href="/checkliste/?src=pinterest&campaign=toxoplasmose-katze-schwangerschaft" data-preserve-params data-event="checklist_click" data-label="toxoplasmose-katze-schwangerschaft-hero-checklist">
-                Checkliste ansehen
-              </a>
-              <a class="btn btn-ghost btn-large" href="/pinterest/baby-und-katze-zusammenfuehren/" data-preserve-params>
-                Weiter: Baby und Katze vorbereiten
-              </a>
-            </div>
-          </div>
-
-          <div class="book-plan-card" aria-label="Ratgeber Baby und Katze">
-            <h2 class="book-plan-title">Wenn ihr Schwangerschaft und Alltag zusammen planen wollt</h2>
-            <p class="book-plan-text">Der Ratgeber verbindet Vorbereitung, erste Begegnungen und Familienalltag mit klaren, ruhigen Standards für Baby und Katze.</p>
-            <div class="book-plan-actions">
-              <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="toxoplasmose-katze-schwangerschaft-book-plan-amazon">
-                Zum Ratgeber auf Amazon
-              </a>
-              <a class="btn btn-ghost btn-large" href="#kostenlose-checkliste" data-event="checklist_click" data-label="toxoplasmose-katze-schwangerschaft-book-plan-checklist">
-                Zur Checkliste springen
-              </a>
-            </div>
+    <section class="section" aria-labelledby="buch-plan-title">
+      <div class="container">
+        <div class="book-plan-card">
+          <p class="eyebrow">Praxis-Ratgeber</p>
+          <h2 id="buch-plan-title">Du willst Schwangerschaft, Katze und Alltag nicht aus Angst heraus sortieren?</h2>
+          <p>
+            Der Praxis-Ratgeber „Baby und Katze sicher zusammenführen“ hilft dir, typische Fragen rund um Schwangerschaft, Hygiene, Vorbereitung, erste Begegnungen und Alltag in klare, alltagstaugliche Standards zu übersetzen - ohne Panik und ohne deine Katze zum Problem zu machen.
+          </p>
+          <div class="cta-duo">
+            <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="toxoplasmose-katze-schwangerschaft-book-plan-amazon">
+              Zum vollständigen Ratgeber auf Amazon
+            </a>
+            <a class="btn btn-ghost btn-large" href="/checkliste/?src=pinterest&campaign=toxoplasmose-katze-schwangerschaft" data-preserve-params data-event="checklist_click" data-label="toxoplasmose-katze-schwangerschaft-book-plan-checklist">
+              Kostenlose Checkliste ansehen
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section alt" aria-label="Auf dieser Seite">
       <div class="container">
-        <div class="article-layout">
-          <article class="article-main" aria-label="Hauptinhalt">
-            <h2>Worum es im Alltag wirklich geht</h2>
+        <div class="article-toc">
+          <p>Auf dieser Seite</p>
+          <nav aria-label="Sprungnavigation">
+            <a href="#was-ist-toxoplasmose">Was ist Toxoplasmose?</a>
+            <a href="#wege">Welche Wege sind im Alltag relevant?</a>
+            <a href="#katzenklo">Katzenklo und Katze</a>
+            <a href="#kueche">Lebensmittel und Küche</a>
+            <a href="#arztpraxis">Welche Fragen gehören in die Arztpraxis?</a>
+            <a href="#kurzantworten">Kurzantworten</a>
+            <a href="#quellen">Quellen</a>
+          </nav>
+        </div>
+      </div>
+    </section>
 
-            <p>
-              Beim Thema Toxoplasmose kippen viele Gespräche schnell in zwei Extreme:
-              entweder in unnötige Panik oder in ein zu lockeres „wird schon nichts passieren“.
-              Beides hilft werdenden Eltern nicht.
-            </p>
+    <section class="section" id="was-ist-toxoplasmose" aria-labelledby="was-ist-toxoplasmose-title">
+      <div class="container">
+        <p class="eyebrow">Ruhige Einordnung</p>
+        <h2 id="was-ist-toxoplasmose-title">Was ist Toxoplasmose - und warum ist sie in der Schwangerschaft ein Thema?</h2>
+        <p class="lead">
+          Toxoplasmose ist eine Infektion durch den Parasiten Toxoplasma gondii. Bei gesunden Erwachsenen kann eine Infektion unbemerkt oder mit milden Beschwerden verlaufen; in der Schwangerschaft ist vor allem eine Erstinfektion wichtig, weil der Erreger auf das ungeborene Kind übertragen werden kann.
+        </p>
+        <p>
+          Ob dein Toxoplasmose-Status bestimmt werden sollte, wie ein Befund zu verstehen ist oder was bei einem Verdacht zu tun ist, gehört in deine ärztliche Betreuung. Diese Seite hilft dir dabei, die alltagspraktischen Vorsichtsmaßnahmen ruhig zu sortieren.
+        </p>
 
-            <p>
-              Sinnvoller ist ein nüchterner Mittelweg:
-              <strong>Risiken ernst nehmen, aber nicht dramatisieren.</strong>
-              Für die meisten Familien bedeutet das vor allem, einige klare Hygienestandards festzulegen,
-              statt die Katze plötzlich wie ein Sicherheitsproblem zu behandeln.
-            </p>
+        <div class="callout-rule">
+          <h3>Ruhig einordnen</h3>
+          <p>Die Frage ist nicht: „Muss die Katze weg?“ Sondern: Welche Kontakte und Alltagsroutinen erhöhen vermeidbare Risiken - und welche Standards machen deinen Alltag sicherer und ruhiger?</p>
+        </div>
+      </div>
+    </section>
 
-            <div class="key-points" aria-label="Wichtige Punkte">
-              <section class="point">
-                <h3>1. Das Katzenklo ist das zentrale Alltagsthema</h3>
-                <p>
-                  Wenn werdende Eltern im Zusammenhang mit Toxoplasmose an etwas denken sollten,
-                  dann zuerst an das Katzenklo und den Umgang damit.
-                  Genau hier entsteht häufig die größte Unsicherheit.
-                  Darum ist es hilfreich, früh eine feste Lösung festzulegen:
-                  Wer übernimmt das Reinigen? Wie läuft das im Alltag? Was gilt, wenn es doch mal schnell gehen muss?
-                </p>
-              </section>
+    <section class="section alt" id="wege" aria-labelledby="wege-title">
+      <div class="container">
+        <p class="eyebrow">Übertragungswege sortieren</p>
+        <h2 id="wege-title">Wie kann man sich mit Toxoplasmose infizieren?</h2>
+        <p class="lead">
+          Bei der Vorsorge geht es nicht nur um die Katze. Mehrere Alltagsbereiche können relevant sein: Lebensmittel, Küche, Erde oder Sand und der Umgang mit Katzenkot.
+        </p>
 
-              <section class="point">
-                <h3>2. Händehygiene schlägt hektische Sonderregeln</h3>
-                <p>
-                  Viele Familien verheddern sich in hundert kleinen Verbotsideen,
-                  statt die wenigen wirklich hilfreichen Gewohnheiten sauber umzusetzen.
-                  Klare Händehygiene nach bestimmten Tätigkeiten ist im Alltag meist deutlich hilfreicher
-                  als ständiges Grübeln, ob jede Berührung schon ein Problem war.
-                </p>
-              </section>
-
-              <section class="point">
-                <h3>3. Die Katze muss nicht plötzlich auf Distanz leben</h3>
-                <p>
-                  Schwangerschaft bedeutet nicht automatisch,
-                  dass Nähe, Streicheln oder gemeinsamer Alltag mit der Katze grundsätzlich problematisch sind.
-                  Für viele Familien ist gerade die emotionale Reaktion das Problem:
-                  Aus Sorge wird die Katze abrupt ausgeschlossen.
-                  Das macht den Alltag oft unnötig schwer und kann zusätzlichen Stress erzeugen.
-                </p>
-              </section>
-
-              <section class="point">
-                <h3>4. Früh festgelegte Routinen schaffen Ruhe</h3>
-                <p>
-                  Besonders entlastend ist es,
-                  wenn wichtige Regeln nicht jeden Tag neu diskutiert werden.
-                  Wer schon in der Schwangerschaft klare Standards für Hygiene, Räume und Zuständigkeiten definiert,
-                  startet meist deutlich ruhiger in die erste Zeit mit Baby.
-                </p>
-              </section>
-            </div>
-
-            <div class="note-box">
-              <strong>Wichtig:</strong>
-              Diese Seite ersetzt keine medizinische Beratung.
-              Sie hilft vor allem dabei, das Thema im Alltag ruhig und praktisch einzuordnen.
-              Bei individuellen gesundheitlichen Fragen sollte die ärztliche Einschätzung maßgeblich sein.
-            </div>
-
-            <h2 style="margin-top:1.4rem;">Drei alltagstaugliche Grundregeln</h2>
-
-            <div class="mini-list">
-              <div class="mini-item">
-                <strong>Grundregel 1:</strong>
-                Nicht alles dramatisieren – aber die wirklich relevanten Hygienepunkte sauber regeln.
-              </div>
-              <div class="mini-item">
-                <strong>Grundregel 2:</strong>
-                Das Katzenklo nicht „irgendwie nebenbei“ lösen, sondern als feste Routine organisieren.
-              </div>
-              <div class="mini-item">
-                <strong>Grundregel 3:</strong>
-                Die Katze nicht pauschal aus dem Alltag ausschließen, sondern ruhig und planvoll vorgehen.
-              </div>
-            </div>
-
-            <h2 style="margin-top:1.4rem;">Warum ein vollständiger Plan oft entlastet</h2>
-            <p>
-              Toxoplasmose ist selten das einzige Thema, das in der Schwangerschaft plötzlich auftaucht.
-              Meist kommen direkt weitere Fragen dazu:
-              Was gilt fürs Schlafzimmer? Wie bereiten wir Schlafplätze vor? Was ist später bei der ersten Begegnung wichtig?
-            </p>
-
-            <p>
-              Genau deshalb hilft vielen Familien kein einzelner Tipp,
-              sondern ein durchgehender, ruhiger Plan für Schwangerschaft, Geburt und die erste Zeit mit Baby und Katze.
-            </p>
-
-            <div class="hero-cta" style="margin-top:1rem;">
-                <div class="pinterest-inline-cta" aria-label="Nächster Schritt">
-              <div class="cta-duo">
-                <a class="btn btn-primary btn-large" href="/checkliste/?src=pinterest&campaign=toxoplasmose-katze-schwangerschaft" data-preserve-params data-event="checklist_click" data-label="toxoplasmose-katze-schwangerschaft-inline-checklist">
-                  Checkliste ansehen
-                </a>
-                <a class="btn btn-ghost btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="toxoplasmose-katze-schwangerschaft-inline-amazon">
-                  Mehr zum Buch
-                </a>
-                <a class="btn btn-ghost btn-large" href="/pinterest/baby-und-katze-zusammenfuehren/" data-preserve-params>
-                  Weiter: Baby und Katze vorbereiten
-                </a>
-              </div>
-            </div>
-            </div>
+        <div class="rules-grid">
+          <article class="rule-card">
+            <h3>Unzureichend erhitztes Fleisch</h3>
+            <p>Ein relevanter Weg kann der Verzehr von rohem oder unzureichend erhitztem Fleisch beziehungsweise bestimmten Rohfleischerzeugnissen sein. Für konkrete Ernährungsfragen in der Schwangerschaft gilt: ärztliche beziehungsweise Hebammenberatung einbeziehen.</p>
           </article>
 
-          <aside class="article-side" aria-label="Seitliche Hinweise">
-            <h3>Auf einen Blick</h3>
-            <p class="muted">
-              Diese Seite ist besonders passend für dich,
-              wenn du in der Schwangerschaft Orientierung suchst und das Thema Katze sachlich statt panisch klären willst.
-            </p>
+          <article class="rule-card">
+            <h3>Ungewaschenes Obst und Gemüse</h3>
+            <p>Lebensmittel, die mit Erde in Kontakt kommen können, sollten gründlich gewaschen und je nach Situation geschält oder erhitzt werden.</p>
+          </article>
 
-            <div class="cta-stack">
-              <a class="btn btn-primary" href="/checkliste/?src=pinterest&campaign=toxoplasmose-katze-schwangerschaft" data-preserve-params data-event="checklist_click" data-label="toxoplasmose-katze-schwangerschaft-side-checklist">
-                Checkliste ansehen
-              </a>
-              <a class="btn btn-ghost" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="toxoplasmose-katze-schwangerschaft-side-amazon">
-                Buch auf Amazon ansehen
-              </a>
-              <a class="btn btn-ghost" href="/pinterest/baby-und-katze-zusammenfuehren/" data-preserve-params>
-                Weiter: Baby und Katze vorbereiten
-              </a>
-            </div>
+          <article class="rule-card">
+            <h3>Erde, Sand und Gartenarbeit</h3>
+            <p>Bei Erde oder Sand können Handschuhe und gründliches Händewaschen helfen. Das gilt besonders für Gartenarbeit oder Kontakt mit potenziell verunreinigtem Boden.</p>
+          </article>
 
-            <hr style="margin:1rem 0;border:none;border-top:1px solid var(--border);">
-
-            <h3>Passende weitere Themen</h3>
-            <div class="topic-nav">
-              <a href="/pinterest/baby-und-katze-zusammenfuehren/" data-preserve-params>
-                Baby und Katze sicher zusammenführen
-              </a>
-              <a href="/pinterest/erste-begegnung-baby-und-katze/" data-preserve-params>
-                Erste Begegnung Baby und Katze
-              </a>
-              <a href="/pinterest/alltag-mit-baby-und-katze/" data-preserve-params>
-                Alltag mit Baby und Katze
-              </a>
-              <a href="/pinterest/katze-im-babybett/" data-preserve-params>
-                Katze im Babybett
-              </a>
-            </div>
-          </aside>
+          <article class="rule-card">
+            <h3>Katzenkot und Katzentoilette</h3>
+            <p>Relevant ist vor allem der Kontakt mit Katzenkot beziehungsweise verunreinigter Einstreu - nicht das bloße Streicheln oder Zusammenleben mit einer Katze.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section alt" aria-labelledby="kurzantworten-title">
+    <section class="section" id="katzenklo" aria-labelledby="katzenklo-title">
       <div class="container">
-        <h2 id="kurzantworten-title">Kurzantworten</h2>
+        <p class="eyebrow">Katzenalltag in der Schwangerschaft</p>
+        <h2 id="katzenklo-title">Was gilt für Katzenklo und Katze in der Schwangerschaft?</h2>
+        <p class="lead">
+          Viele Schwangere fragen sich nicht abstrakt nach Toxoplasmose, sondern ganz konkret: Wer macht jetzt das Katzenklo? Darf ich meine Katze noch streicheln? Was ist mit Freigängern?
+        </p>
+
+        <div class="rules-grid">
+          <article class="rule-card">
+            <h3>Katzenklo möglichst delegieren</h3>
+            <p>Wenn möglich, übernimmt eine andere Person die Reinigung. Das ist die einfachste Lösung, wenn du schwanger bist und dir Unsicherheit ersparen möchtest.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Wenn du reinigen musst: Schutz und Händewaschen</h3>
+            <p>Wenn du die Katzentoilette selbst reinigen musst, nutze Handschuhe, reinige sorgfältig und wasche danach gründlich die Hände.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Täglich reinigen</h3>
+            <p>Die tägliche Reinigung ist sinnvoll, weil Toxoplasma-Oozysten nach dem Ausscheiden nicht sofort infektiös sind, sondern Zeit zur Reifung brauchen.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Katze nicht mit rohem Fleisch füttern</h3>
+            <p>Füttere keine rohen oder unzureichend gegarten Fleischreste. So bleibt die Küchen- und Fütterungsroutine klarer.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Streicheln ist nicht das Katzenklo</h3>
+            <p>Das bloße Streicheln oder Zusammenleben mit einer Katze ist nicht dasselbe wie Kontakt mit Katzenkot. Nach normalem Kontakt und vor dem Essen bleibt gründliches Händewaschen eine einfache Routine.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Freigänger-Katzen ruhig einordnen</h3>
+            <p>Bei Freigängern ist besonders wichtig, Katzenkot, Erde und Sand hygienisch einzuordnen und individuelle Fragen bei Bedarf mit Ärztin, Arzt oder Tierarztpraxis zu besprechen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="kueche" aria-labelledby="kueche-title">
+      <div class="container">
+        <p class="eyebrow">Lebensmittelhygiene</p>
+        <h2 id="kueche-title">Welche Küchenregeln helfen in der Schwangerschaft?</h2>
+
+        <div class="rules-grid">
+          <article class="rule-card">
+            <h3>Fleisch gut erhitzen</h3>
+            <p>Rohes oder unzureichend erhitztes Fleisch und bestimmte Rohfleischprodukte können ein Risiko darstellen. Fleisch sollte ausreichend erhitzt werden.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Rohfleisch getrennt verarbeiten</h3>
+            <p>Arbeitsflächen, Messer und Bretter nach Kontakt mit rohem Fleisch gründlich reinigen.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Obst und Gemüse gründlich waschen</h3>
+            <p>Besonders erdnah gewachsene Lebensmittel sorgfältig waschen und je nach Situation schälen oder erhitzen.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Hände waschen</h3>
+            <p>Regelmäßig Hände waschen - insbesondere vor dem Essen und nach Kontakt mit rohem Fleisch, ungewaschenem Gemüse, Erde, Sand oder Katzenklo.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Keine Küchenpanik</h3>
+            <p>Die Regeln sollen dir Sicherheit geben, nicht deinen Alltag lähmen. Wenige feste Standards sind hilfreicher als ständiges Grübeln.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="arztpraxis" aria-labelledby="arztpraxis-title">
+      <div class="container grid grid-2">
+        <article class="article-panel">
+          <p class="eyebrow">Medizinische Grenze</p>
+          <h2 id="arztpraxis-title">Welche Fragen solltest du mit Ärztin, Arzt oder Hebamme klären?</h2>
+          <p>
+            Ob ein Test sinnvoll ist, wie ein Ergebnis zu verstehen ist oder welche Schritte bei Verdacht nötig sind, gehört in medizinische Betreuung. Wenn du schwanger bist und unsicher bist, sprich die Frage aktiv in der Vorsorge an.
+          </p>
+          <p>
+            Nimm besonders Kontakt auf, wenn du mögliche Symptome, einen konkreten Expositionsverdacht oder große Sorge hast. Diese Website bietet Orientierung für Alltagsroutinen, aber keine medizinische Entscheidung.
+          </p>
+        </article>
+
+        <aside class="article-panel warm" aria-label="Gute Fragen für deinen Termin">
+          <h3>Gute Fragen für deinen Termin</h3>
+          <ul>
+            <li>Sollte mein Toxoplasmose-Status bestimmt werden?</li>
+            <li>Was bedeutet ein vorhandener oder fehlender Immunschutz für meinen Alltag?</li>
+            <li>Welche Lebensmittel sollte ich in meiner Schwangerschaft konkret meiden?</li>
+            <li>Was soll ich tun, wenn ich Kontakt mit Katzenkot, rohem Fleisch oder Erde hatte und unsicher bin?</li>
+            <li>Was gilt für meine individuelle Situation, Vorerkrankungen oder besondere Risiken?</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section alt" aria-labelledby="familienplan-title">
+      <div class="container">
+        <div class="book-plan-card">
+          <p class="eyebrow">Schwangerschaft ist nur der Anfang</p>
+          <h2 id="familienplan-title">Nach der Toxoplasmose-Frage kommen die Alltagsfragen</h2>
+          <p>Wenn die wichtigsten medizinischen Fragen geklärt sind, bleibt der Familienalltag: Schlafplätze, Rückzug, erste Begegnungen, Aufsicht, Hygiene und die Zeit, in der dein Baby mobiler wird. Genau dafür ist der Praxis-Ratgeber gemacht.</p>
+          <div class="cta-duo">
+            <a class="btn btn-primary" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="toxoplasmose-katze-schwangerschaft-family-plan-amazon">
+              Den vollständigen Familienplan ansehen
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="kurzantworten" aria-labelledby="kurzantworten-title">
+      <div class="container">
+        <h2 id="kurzantworten-title">Kurzantworten: Toxoplasmose, Schwangerschaft und Katze</h2>
         <div class="pinterest-answers">
           <details class="card">
-            <summary>Ersetzt diese Seite medizinische Beratung?</summary>
-            <p>Nein. Toxoplasmose und Schwangerschaft gehören bei Unsicherheit in ärztliche oder hebammenkundliche Beratung.</p>
+            <summary>Muss ich meine Katze in der Schwangerschaft abgeben?</summary>
+            <p>Nein, eine pauschale Abgabe ist aus den hier dargestellten Vorsichtsmaßnahmen nicht ableitbar. Entscheidend sind sinnvolle Hygienestandards, vorsichtiger Umgang mit Katzenkot und medizinische Rücksprache bei individuellen Fragen.</p>
           </details>
 
           <details class="card">
-            <summary>Was kann ich im Alltag sofort klären?</summary>
-            <p>Wer macht das Katzenklo, welche Hygieneroutine gilt und welche Bereiche werden vor der Geburt neu sortiert.</p>
+            <summary>Darf ich meine Katze noch streicheln?</summary>
+            <p>Das bloße Streicheln einer Katze ist nicht dasselbe wie Kontakt mit Katzenkot. Wasche dir im Alltag regelmäßig die Hände, besonders vor dem Essen und nach potenziell verunreinigten Kontakten.</p>
           </details>
 
           <details class="card">
-            <summary>Warum trotzdem eine Baby-Katze-Checkliste?</summary>
-            <p>Weil neben Hygiene auch Schlafplätze, Aufsicht, Rückzug und spätere Begegnungen früh vorbereitet werden können.</p>
+            <summary>Wer sollte das Katzenklo reinigen?</summary>
+            <p>Wenn möglich, übernimmt eine andere Person die Reinigung. Wenn du es selbst machen musst, nutze Handschuhe, reinige sorgfältig und wasche danach gründlich die Hände.</p>
+          </details>
+
+          <details class="card">
+            <summary>Warum wird tägliche Reinigung empfohlen?</summary>
+            <p>Mit dem Kot ausgeschiedene Toxoplasma-Oozysten werden nicht sofort infektiös, sondern benötigen Zeit zur Reifung. Deshalb wird die regelmäßige beziehungsweise tägliche Reinigung als Hygienemaßnahme empfohlen.</p>
+          </details>
+
+          <details class="card">
+            <summary>Ist Essen wichtiger als die Katze?</summary>
+            <p>Es geht nicht um ein Entweder-oder. Toxoplasmose-Vorsorge betrifft mehrere Alltagsbereiche: Lebensmittel, Küchenhygiene, Erde/Sand und Katzenkot. Eine gute Routine berücksichtigt alle diese Punkte.</p>
+          </details>
+
+          <details class="card">
+            <summary>Sollte ich mich auf Toxoplasmose testen lassen?</summary>
+            <p>Ob ein Test sinnvoll ist, wie ein Ergebnis einzuordnen ist oder welche Konsequenzen daraus folgen, klärst du mit deiner Ärztin, deinem Arzt oder deiner Hebamme. Diese Seite ersetzt keine medizinische Beratung.</p>
           </details>
         </div>
       </div>
     </section>
+
+    <section class="section alt" id="quellen" aria-labelledby="quellen-title">
+      <div class="container">
+        <div class="source-note">
+          <h2 id="quellen-title">Quellen und Einordnung</h2>
+          <p>
+            Dieser Beitrag fasst alltagstaugliche Vorsichtsmaßnahmen zusammen und ersetzt keine individuelle medizinische Beratung. Die Hinweise orientieren sich an öffentlich zugänglichen Informationen seriöser Gesundheits- und Risikobewertungsstellen.
+          </p>
+          <ul class="source-list">
+            <li>
+              <a href="https://www.bfr.bund.de/cm/350/verbrauchertipps_schutz_vor_toxoplasmose.pdf" rel="noopener" target="_blank">
+                Bundesinstitut für Risikobewertung (BfR): Verbrauchertipps - Schutz vor Toxoplasmose
+              </a>
+            </li>
+            <li>
+              <a href="https://www.cdc.gov/toxoplasmosis/prevention/index.html" rel="noopener" target="_blank">
+                CDC: Preventing Toxoplasmosis
+              </a>
+            </li>
+            <li>
+              <a href="https://www.nhs.uk/conditions/toxoplasmosis/" rel="noopener" target="_blank">
+                NHS: Toxoplasmosis
+              </a>
+            </li>
+          </ul>
+          <p>
+            Dieser Beitrag bietet alltagstaugliche Orientierung für Schwangere mit Katze. Er ersetzt keine individuelle medizinische, kinderärztliche, tierärztliche oder verhaltensbezogene Beratung. Fragen zu Tests, Befunden, Symptomen oder persönlichen Risiken klärst du bitte mit deiner ärztlichen Betreuung beziehungsweise deiner Hebamme.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="abschluss-buch-title">
+      <div class="container">
+        <div class="book-plan-card">
+          <p class="eyebrow">Vollständiger Familienplan</p>
+          <h2 id="abschluss-buch-title">Du willst Schwangerschaft, Katze und Alltag in einem klaren Plan verbinden?</h2>
+          <p>Der Praxis-Ratgeber „Baby und Katze sicher zusammenführen“ begleitet dich von der Schwangerschaft über Hygiene, Vorbereitung und erste Begegnungen bis zu Rückzug, Aufsicht, Schlafplätzen und Alltag mit einem mobiler werdenden Baby.</p>
+          <div class="cta-duo">
+            <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="toxoplasmose-katze-schwangerschaft-final-amazon">
+              Zum Praxis-Ratgeber auf Amazon
+            </a>
+            <a class="btn btn-ghost btn-large" href="/checkliste/?src=pinterest&campaign=toxoplasmose-katze-schwangerschaft" data-preserve-params data-event="checklist_click" data-label="toxoplasmose-katze-schwangerschaft-final-checklist">
+              Kostenlose Checkliste herunterladen
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section alt" aria-labelledby="weitere-themen-title">
       <div class="container">
         <h2 id="weitere-themen-title">Weitere Themen rund um Baby &amp; Katze</h2>
         <div class="topic-nav" aria-label="Weitere Themen">
-          <a href="/pinterest/katze-im-babybett/" data-preserve-params>Katze im Babybett</a>
+          <a href="/ratgeber/" data-preserve-params>Ratgeberübersicht Baby &amp; Katze</a>
           <a href="/pinterest/baby-und-katze-zusammenfuehren/" data-preserve-params>Baby und Katze zusammenführen</a>
-          <a href="/pinterest/katze-eifersuechtig-baby/" data-preserve-params>Katze eifersüchtig aufs Baby?</a>
           <a href="/pinterest/erste-begegnung-baby-und-katze/" data-preserve-params>Erste Begegnung Baby &amp; Katze</a>
+          <a href="/pinterest/katze-im-babybett/" data-preserve-params>Katze im Babybett</a>
+          <a href="/pinterest/katze-eifersuechtig-baby/" data-preserve-params>Verhalten der Katze ruhig einordnen</a>
           <a href="/pinterest/alltag-mit-baby-und-katze/" data-preserve-params>Alltag mit Baby und Katze</a>
         </div>
       </div>
     </section>
-
   </main>
-   <footer class="footer">
+
+  <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-left">
         <p class="muted small">
-          Hinweis: Alltagsratgeber – ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung.
+          Hinweis: Alltagsratgeber - ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung.
         </p>
         <p class="muted small">
           <a href="../../legal/impressum.html" data-preserve-params>Impressum</a> ·
