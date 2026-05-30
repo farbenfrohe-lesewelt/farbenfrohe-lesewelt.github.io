@@ -5,19 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#fbf7f0" />
 
-  <title>Alltag mit Baby und Katze – klare Regeln für ruhige Familienmomente</title>
+  <title>Alltag mit Baby und Katze: Klare Routinen für Eltern | Farbenfrohe Lesewelt</title>
   <meta
     name="description"
-    content="Alltag mit Baby und Katze: klare Regeln für Schlafplätze, Besuch, unruhige Momente und Routinen – ruhig, alltagstauglich und ohne Panik."
+    content="Alltag mit Baby und Katze: Klare Routinen für Rückzug, Aufsicht, Schlafplätze, Besuch und müde Momente - ruhig und praktisch erklärt."
   />
 
   <!-- Social -->
-  <meta property="og:title" content="Alltag mit Baby und Katze – klare Regeln für ruhige Familienmomente" />
+  <meta property="og:title" content="Alltag mit Baby und Katze: Klare Routinen für Eltern | Farbenfrohe Lesewelt" />
   <meta
     property="og:description"
-    content="Wie Baby und Katze im Alltag zusammen funktionieren können: weniger Improvisation, mehr klare Standards für müde und hektische Momente."
+    content="Alltag mit Baby und Katze: Klare Routinen für Rückzug, Aufsicht, Schlafplätze, Besuch und müde Momente - ruhig und praktisch erklärt."
   />
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://farbenfrohe-lesewelt.github.io/pinterest/alltag-mit-baby-und-katze/" />
   <meta property="og:image" content="../../assets/cover-thumb.webp" />
 
   <link rel="stylesheet" href="../../styles.css" />
@@ -25,83 +26,136 @@
   <link rel="icon" type="image/png" sizes="256x256" href="../../assets/favicon-256.png">
 
   <style>
-    .article-hero{
-      padding:1.8rem 0 1.15rem;
-    }
-
     .article-copy{
-      max-width:780px;
+      max-width:820px;
     }
 
-    .article-copy .hero-cta{
-      margin-top:1rem;
+    .article-copy h1{
+      font-size:clamp(2.05rem, 3.6vw, 3.3rem);
+      line-height:1.08;
+      overflow-wrap:normal;
+      word-break:normal;
+      hyphens:none;
     }
 
-    .article-layout{
-      display:grid;
-      grid-template-columns:minmax(0, 1fr) 320px;
-      gap:1.25rem;
-      align-items:start;
+    .article-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem .8rem;
+      margin-top:.9rem;
+      color:var(--muted);
+      font-size:.94rem;
+      line-height:1.5;
     }
 
-    .article-main,
-    .article-side{
+    .article-toc{
+      border:1px solid var(--border);
+      border-radius:20px;
+      background:rgba(255,255,255,.78);
+      padding:1rem;
+      box-shadow:0 12px 28px rgba(18,24,35,.07);
+    }
+
+    .article-toc p{
+      margin:0 0 .65rem;
+      font-weight:800;
+      color:var(--text);
+    }
+
+    .article-toc nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.55rem;
+    }
+
+    .article-toc a{
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:rgba(251,247,240,.78);
+      color:var(--text);
+      font-weight:700;
+      padding:.55rem .75rem;
+      text-decoration:none;
+    }
+
+    .article-toc a:hover{
+      border-color:rgba(59,91,219,.28);
+      box-shadow:0 10px 22px rgba(18,24,35,.08);
+    }
+
+    .article-panel,
+    .book-plan-card,
+    .source-note{
       border:1px solid var(--border);
       border-radius:24px;
       background:rgba(255,255,255,.78);
       box-shadow:0 14px 34px rgba(18,24,35,.08);
+      padding:1.2rem;
     }
 
-    .article-main{
-      padding:1.25rem;
+    .article-panel.warm,
+    .book-plan-card{
+      background:rgba(255,248,234,.92);
+      border-color:rgba(191,141,78,.22);
     }
 
-    .article-side{
-      padding:1rem;
-      position:sticky;
-      top:1rem;
-    }
-
-    .key-points{
+    .steps-grid,
+    .rules-grid{
       display:grid;
       gap:.85rem;
       margin-top:1rem;
     }
 
-    .point{
-      padding:1rem;
-      border:1px solid var(--border);
-      border-radius:18px;
-      background:rgba(255,255,255,.62);
+    .rules-grid{
+      grid-template-columns:repeat(3, minmax(0, 1fr));
     }
 
-    .point h3{
+    .step-card,
+    .rule-card{
+      border:1px solid var(--border);
+      border-radius:18px;
+      background:rgba(255,255,255,.72);
+      padding:1rem;
+    }
+
+    .step-card{
+      display:grid;
+      grid-template-columns:2.1rem minmax(0, 1fr);
+      gap:.75rem;
+      align-items:start;
+    }
+
+    .step-number{
+      width:2.1rem;
+      height:2.1rem;
+      border-radius:999px;
+      display:inline-grid;
+      place-items:center;
+      background:var(--accent);
+      color:white;
+      font-weight:800;
+    }
+
+    .step-card h3,
+    .rule-card h3{
       margin-bottom:.35rem;
     }
 
-    .mini-list{
-      display:grid;
-      gap:.75rem;
+    .callout-rule{
       margin-top:1rem;
-    }
-
-    .mini-item{
-      padding:.9rem 1rem;
-      border-radius:16px;
-      background:rgba(244,251,248,.95);
-      border:1px solid rgba(86, 155, 124, .16);
-    }
-
-    .note-box{
-      margin-top:1rem;
+      border:1px solid rgba(59,91,219,.18);
+      border-radius:20px;
+      background:rgba(244,247,255,.94);
       padding:1rem;
-      border-radius:18px;
-      background:rgba(255,248,234,.92);
-      border:1px solid rgba(191, 141, 78, .22);
     }
 
-    .cta-stack{
-      display:grid;
+    .source-note{
+      background:rgba(255,255,255,.86);
+    }
+
+    .cta-duo{
+      display:flex;
+      flex-wrap:wrap;
       gap:.75rem;
       margin-top:1rem;
     }
@@ -130,25 +184,93 @@
       border-color:rgba(59,91,219,.24);
     }
 
-    .cta-duo{
-      display:flex;
-      flex-wrap:wrap;
-      gap:.75rem;
-      margin-top:1rem;
+    @media (max-width: 1080px){
+      .rules-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
     }
 
-    @media (max-width: 980px){
-      .article-layout{
+    @media (max-width: 640px){
+      .rules-grid{
         grid-template-columns:1fr;
       }
 
-      .article-side{
-        position:static;
+      .article-toc nav{
+        display:grid;
+      }
+
+      .article-toc a{
+        border-radius:14px;
+      }
+
+      .step-card{
+        grid-template-columns:1fr;
       }
     }
   </style>
   <meta name="p:domain_verify" content="a274749c6a702b70280e6ed805266518"/>
   <link rel="canonical" href="https://farbenfrohe-lesewelt.github.io/pinterest/alltag-mit-baby-und-katze/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://farbenfrohe-lesewelt.github.io/pinterest/alltag-mit-baby-und-katze/#webpage",
+        "url": "https://farbenfrohe-lesewelt.github.io/pinterest/alltag-mit-baby-und-katze/",
+        "name": "Alltag mit Baby und Katze: Klare Routinen für müde Tage",
+        "description": "Alltag mit Baby und Katze: Klare Routinen für Rückzug, Aufsicht, Schlafplätze, Besuch und müde Momente - ruhig und praktisch erklärt.",
+        "inLanguage": "de"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://farbenfrohe-lesewelt.github.io/pinterest/alltag-mit-baby-und-katze/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Startseite",
+            "item": "https://farbenfrohe-lesewelt.github.io/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Ratgeber",
+            "item": "https://farbenfrohe-lesewelt.github.io/ratgeber/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Alltag mit Baby und Katze",
+            "item": "https://farbenfrohe-lesewelt.github.io/pinterest/alltag-mit-baby-und-katze/"
+          }
+        ]
+      },
+      {
+        "@type": "Article",
+        "@id": "https://farbenfrohe-lesewelt.github.io/pinterest/alltag-mit-baby-und-katze/#article",
+        "headline": "Alltag mit Baby und Katze: Klare Routinen für müde Tage",
+        "description": "Alltag mit Baby und Katze: Klare Routinen für Rückzug, Aufsicht, Schlafplätze, Besuch und müde Momente - ruhig und praktisch erklärt.",
+        "mainEntityOfPage": "https://farbenfrohe-lesewelt.github.io/pinterest/alltag-mit-baby-und-katze/",
+        "author": {
+          "@type": "Organization",
+          "name": "Farbenfrohe Lesewelt Verlag",
+          "url": "https://farbenfrohe-lesewelt.github.io/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Farbenfrohe Lesewelt Verlag",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://farbenfrohe-lesewelt.github.io/assets/flw-logo.webp"
+          }
+        },
+        "image": "https://farbenfrohe-lesewelt.github.io/assets/cover-thumb.webp",
+        "dateModified": "2026-05-30"
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body data-page-type="pinterest" data-page-name="alltag-mit-baby-und-katze">
@@ -163,282 +285,352 @@
 
       <nav class="top-actions" aria-label="Aktionen">
         <a class="btn btn-ghost" href="/ratgeber/" data-preserve-params>Ratgeberübersicht</a>
-        <a class="btn btn-primary" href="/checkliste/?src=pinterest&campaign=alltag-mit-baby-und-katze" data-preserve-params data-event="checklist_click" data-label="alltag-mit-baby-und-katze-header-checklist">
-          Checkliste
+        <a class="btn btn-primary" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="alltag-mit-baby-und-katze-header-amazon">
+          Buch ansehen
         </a>
       </nav>
     </div>
   </header>
 
   <main id="content">
-    <section class="article-hero">
-      <div class="container">
-        <div class="article-copy">
+    <section class="pinterest-sales-hero">
+      <div class="container pinterest-sales-grid">
+        <div class="pinterest-sales-copy article-copy">
           <p class="eyebrow">Ratgeber · Baby &amp; Katze · Alltag</p>
-
-          <h1>Alltag mit Baby und Katze – klare Regeln für ruhige Familienmomente</h1>
-
-          <p class="hero-identity">
-            Die eigentliche Herausforderung beginnt oft nicht bei der ersten Begegnung — sondern an den ganz normalen Tagen danach.
-          </p>
-
+          <h1>Alltag mit Baby und Katze: Klare Routinen für müde Tage</h1>
           <p class="lead">
-            Wenn Baby und Katze im selben Zuhause leben, sind es selten die großen Dramen, die Familien stressen.
-            Meist sind es die vielen kleinen Situationen:
-            Wer schläft wo? Was gilt nachts? Wie läuft Besuch ab? Was tun, wenn alle müde sind und niemand nachdenken will?
-            Genau hier helfen klare Standards deutlich mehr als tägliches Improvisieren.
+            Alltag mit Baby und Katze wird leichter, wenn du nicht jeden Moment neu bewerten musst. Hilfreich sind wenige klare Standards: Rückzugsorte bleiben erreichbar, Begegnungen werden begleitet, und wenn du nicht aktiv aufpassen kannst, organisierst du eine sichere Trennung. Dazu kommen kleine Routinen für Schlafplatz, Besuch, Pflege, Füttern, Spielen und die Zeit, in der dein Baby mobiler wird. Es geht nicht um perfekte Kontrolle, sondern um Regeln, die auch an müden Tagen funktionieren.
           </p>
+          <p class="article-meta">
+            <span>Ein Ratgeberbeitrag des Farbenfrohe Lesewelt Verlags · zum Buch von Andrea Blum</span>
+            <span>Aktualisiert: 30. Mai 2026</span>
+          </p>
+        </div>
 
-          <div class="pinterest-relief">
-            <strong>Der Alltag braucht keine perfekten Abläufe.</strong>
-            <p>Er braucht ein paar Standards, die auch funktionieren, wenn Besuch da ist, das Baby weint oder alle müde sind.</p>
+        <aside class="pinterest-sales-card" aria-label="Buch Baby und Katze sicher zusammenführen">
+          <div class="pinterest-sales-cover">
+            <img src="../../assets/cover-thumb.webp" alt="Buchcover Baby und Katze sicher zusammenführen" loading="eager">
           </div>
-
-          <div class="quick-proof" aria-label="Kurzüberblick">
-            <div class="qp-item">
-              <span class="qp-ico" aria-hidden="true">🌙</span>
-              <span><strong>Klare Regeln für müde Momente</strong> statt täglicher Neuverhandlung</span>
-            </div>
-            <div class="qp-item">
-              <span class="qp-ico" aria-hidden="true">🏡</span>
-              <span><strong>Räume, Ruhe und Routinen</strong> geben Sicherheit für alle</span>
-            </div>
-            <div class="qp-item">
-              <span class="qp-ico" aria-hidden="true">🧭</span>
-              <span><strong>Alltag schlägt Einzeltipp</strong> — Struktur entlastet dauerhaft</span>
-            </div>
+          <h2>Baby und Katze sicher zusammenführen</h2>
+          <p>Der Praxis-Ratgeber für Rückzug, Aufsicht, Schlafplätze, Hygiene, erste Begegnungen und Alltag mit Baby und Katze.</p>
+          <div class="pinterest-sales-actions">
+            <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="alltag-mit-baby-und-katze-side-amazon">
+              Zum vollständigen Ratgeber auf Amazon
+            </a>
           </div>
+        </aside>
+      </div>
+    </section>
 
-          <div class="pinterest-funnel-box" id="kostenlose-checkliste" aria-label="Kostenfreie Checkliste">
-            <p class="eyebrow">Kostenfreie Checkliste</p>
-            <h2>Fünf Regeln für wiederkehrende Familienmomente</h2>
-            <p class="muted">Die Checkliste bringt Schlaf, Aufsicht, Zonen und kurze Pausenregeln in eine Form, die ihr schnell wiederfindet.</p>
-            <div class="cta-duo">
-              <a class="btn btn-primary btn-large" href="/checkliste/?src=pinterest&campaign=alltag-mit-baby-und-katze" data-preserve-params data-event="checklist_click" data-label="alltag-mit-baby-und-katze-hero-checklist">
-                Checkliste ansehen
-              </a>
-              <a class="btn btn-ghost btn-large" href="/pinterest/katze-eifersuechtig-baby/" data-preserve-params>
-                Weiter: unruhiger Alltag
-              </a>
-            </div>
-          </div>
-
-          <div class="book-plan-card" aria-label="Ratgeber Baby und Katze">
-            <h2 class="book-plan-title">Wenn aus einzelnen Regeln ein Familiensystem werden soll</h2>
-            <p class="book-plan-text">Der Ratgeber zeigt, wie ihr Standards über Wochenbett, Babyzeit und Kleinkindphase hinweg ruhig weiterentwickelt.</p>
-            <div class="book-plan-actions">
-              <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="alltag-mit-baby-und-katze-book-plan-amazon">
-                Zum Ratgeber auf Amazon
-              </a>
-              <a class="btn btn-ghost btn-large" href="#kostenlose-checkliste" data-event="checklist_click" data-label="alltag-mit-baby-und-katze-book-plan-checklist">
-                Zur Checkliste springen
-              </a>
-            </div>
+    <section class="section" aria-labelledby="buch-plan-title">
+      <div class="container">
+        <div class="book-plan-card">
+          <p class="eyebrow">Praxis-Ratgeber</p>
+          <h2 id="buch-plan-title">Du willst im Alltag nicht ständig neu überlegen müssen?</h2>
+          <p>
+            Der Praxis-Ratgeber „Baby und Katze sicher zusammenführen“ hilft dir, typische Alltagssituationen mit Baby und Katze in klare Standards zu übersetzen - mit Rückzugsorten, Aufsicht, Wenn-Dann-Regeln und Routinen für müde Momente.
+          </p>
+          <div class="cta-duo">
+            <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="alltag-mit-baby-und-katze-book-plan-amazon">
+              Zum vollständigen Ratgeber auf Amazon
+            </a>
+            <a class="btn btn-ghost btn-large" href="/checkliste/?src=pinterest&campaign=alltag-mit-baby-und-katze" data-preserve-params data-event="checklist_click" data-label="alltag-mit-baby-und-katze-book-plan-checklist">
+              Kostenlose Checkliste ansehen
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section alt" aria-label="Auf dieser Seite">
       <div class="container">
-        <div class="article-layout">
-          <article class="article-main" aria-label="Hauptinhalt">
-            <h2>Warum der Alltag oft der eigentliche Knackpunkt ist</h2>
+        <div class="article-toc">
+          <p>Auf dieser Seite</p>
+          <nav aria-label="Sprungnavigation">
+            <a href="#grundregeln">Die drei Grundregeln</a>
+            <a href="#routinen">Routinen für typische Alltagssituationen</a>
+            <a href="#mobiler">Wenn dein Baby mobiler wird</a>
+            <a href="#stress">Besuch, Stress und Unterbrechungen</a>
+            <a href="#vermeiden">Was du lieber vermeidest</a>
+            <a href="#kurzantworten">Kurzantworten</a>
+          </nav>
+        </div>
+      </div>
+    </section>
 
-            <p>
-              Viele Eltern bereiten sich auf den ersten Kontakt gut vor — und denken danach:
-              „Jetzt wird es schon irgendwie laufen.“
-              Genau dort beginnt aber häufig die eigentliche Unsicherheit.
-              Denn Alltag heißt nicht eine einzelne Situation, sondern viele kleine Entscheidungen hintereinander.
-            </p>
+    <section class="section" id="grundregeln" aria-labelledby="grundregeln-title">
+      <div class="container">
+        <p class="eyebrow">Alltagsstandards</p>
+        <h2 id="grundregeln-title">Welche Grundregeln helfen im Alltag mit Baby und Katze?</h2>
+        <p class="lead">
+          Du brauchst nicht für jede Situation eine neue Lösung. Für viele Alltagssituationen helfen drei ruhige Standards, an denen du dich orientieren kannst.
+        </p>
 
-            <p>
-              Wenn für diese Momente keine klaren Regeln bestehen, entsteht schnell Reibung:
-              Heute darf die Katze ins Schlafzimmer, morgen nicht.
-              Tagsüber ist das Babybett tabu, nachts wird improvisiert.
-              Besuch findet die Katze süß, aber plötzlich ist alles laut, eng und unübersichtlich.
-              Nicht einzelne Ausnahmen machen den Alltag schwierig — sondern fehlende Verlässlichkeit.
-            </p>
+        <div class="rules-grid">
+          <article class="rule-card">
+            <h3>Rückzug bleibt erreichbar</h3>
+            <p>Die Katze braucht einen Bereich, an den das Baby nicht einfach herankommt. Rückzug ist keine Ablehnung, sondern eine Möglichkeit, Druck aus der Situation zu nehmen.</p>
+          </article>
 
-            <div class="key-points" aria-label="Wichtige Punkte">
-              <section class="point">
-                <h3>1. Feste Regeln entlasten mehr als spontane Entscheidungen</h3>
-                <p>
-                  Im Familienalltag ist nicht jede Situation neu zu lösen.
-                  Viel hilfreicher ist es, wenn bestimmte Dinge von Anfang an klar sind:
-                  Welche Räume gelten als ruhig? Welche Schlafplätze bleiben frei? Was passiert in unbeaufsichtigten Momenten?
-                  Je weniger neu verhandelt werden muss, desto entspannter wird der Alltag.
-                </p>
-              </section>
+          <article class="rule-card">
+            <h3>Begegnungen werden begleitet</h3>
+            <p>Nähe muss nicht erzwungen werden. Du beobachtest ruhig und schaffst Abstand, wenn die Situation unübersichtlich oder angespannt wird.</p>
+          </article>
 
-              <section class="point">
-                <h3>2. Müdigkeit ist ein Risikofaktor für schlechte Entscheidungen</h3>
-                <p>
-                  Viele Regeln klingen tagsüber selbstverständlich – und kippen nachts oder in Stresssituationen.
-                  Gerade deshalb braucht es Standards, die auch dann noch tragen,
-                  wenn ihr müde, erschöpft oder mit anderen Dingen beschäftigt seid.
-                </p>
-              </section>
+          <article class="rule-card">
+            <h3>Ohne aktive Aufsicht wird getrennt</h3>
+            <p>Eine sichere Vorgehensweise ist, Baby und Katze nicht unbeaufsichtigt zusammen zu lassen. Praktisch heißt das: Behalte Aufsicht oder trenne beide kurzzeitig in sichere Bereiche.</p>
+          </article>
+        </div>
 
-              <section class="point">
-                <h3>3. Räume und Zonen helfen enorm</h3>
-                <p>
-                  Nicht jede Katze braucht ständig denselben Zugang zu allem.
-                  Und nicht jeder Bereich muss gleichzeitig für Baby, Eltern, Besuch und Katze offen sein.
-                  Klare Zonen sorgen oft für deutlich mehr Ruhe — ohne dass daraus ein harter „Ausschluss“ der Katze wird.
-                </p>
-              </section>
+        <div class="callout-rule">
+          <h3>Die wichtigste Alltagsregel</h3>
+          <p>Wenn du den Raum verlässt, abgelenkt bist oder gerade nicht aktiv beobachten kannst, dann organisierst du kurz eine sichere Trennung - nicht aus Panik, sondern weil klare Standards müde Tage leichter machen.</p>
+        </div>
+      </div>
+    </section>
 
-              <section class="point">
-                <h3>4. Kleine Reibungspunkte summieren sich</h3>
-                <p>
-                  Das Babybett hier, Besuch da, ein unruhiger Abend, eine Katze, die mehr Nähe sucht oder sich zurückzieht:
-                  Jede Situation für sich wirkt klein. Zusammen können sie den Alltag aber schnell unübersichtlich machen.
-                  Genau deshalb hilft ein Gesamtplan mehr als lauter Einzellösungen.
-                </p>
-              </section>
-            </div>
+    <section class="section alt" id="routinen" aria-labelledby="routinen-title">
+      <div class="container">
+        <p class="eyebrow">Typische Situationen</p>
+        <h2 id="routinen-title">Welche Routinen helfen in typischen Alltagssituationen?</h2>
 
-            <div class="note-box">
-              <strong>Wichtig:</strong>
-              Diese Seite ist als ruhige Orientierung für typische Alltagssituationen gedacht.
-              Sie ersetzt keine individuelle medizinische oder tierärztliche Beratung,
-              hilft aber dabei, Struktur statt Unsicherheit in den Familienalltag zu bringen.
-            </div>
+        <div class="rules-grid">
+          <article class="rule-card">
+            <h3>Füttern und Wickeln</h3>
+            <p>Überlege vorher, wo die Katze in diesen Momenten sein kann und welcher Rückzugsort erreichbar bleibt. Nicht jede Unterbrechung muss spontan gelöst werden.</p>
+          </article>
 
-            <h2 style="margin-top:1.4rem;">Drei Standards, die im Alltag besonders viel bringen</h2>
+          <article class="rule-card">
+            <h3>Baby schläft</h3>
+            <p>Der Schlafplatz des Babys bleibt frei. Für Details zu Babybett und Beistellbett findest du eine eigene Vertiefung auf der Babybett-Seite.</p>
+          </article>
 
-            <div class="mini-list">
-              <div class="mini-item">
-                <strong>Standard 1:</strong>
-                Schlafplätze und unbeaufsichtigte Momente sind klar geregelt — ohne Ausnahmen nach Tagesform.
-              </div>
-              <div class="mini-item">
-                <strong>Standard 2:</strong>
-                Die Katze hat eigene, attraktive Ruhe- und Rückzugsorte, statt ständig in Konkurrenz zu geraten.
-              </div>
-              <div class="mini-item">
-                <strong>Standard 3:</strong>
-                Begegnungen, Besuchssituationen und hektische Phasen laufen nach wenigen klaren Mustern ab.
-              </div>
-            </div>
+          <article class="rule-card">
+            <h3>Besuch kommt</h3>
+            <p>Besuch verändert Lautstärke, Türen und Aufmerksamkeit. Hilfreich ist ein ruhiger Rückzugsort und eine klare Regel, wer die Situation im Blick behält.</p>
+          </article>
 
-            <h2 style="margin-top:1.4rem;">Typische Alltagssituationen, bei denen Familien ins Grübeln kommen</h2>
-            <p>
-              Besonders oft kippt die Unsicherheit nicht bei einem großen Problem,
-              sondern in ganz normalen Szenen:
-              nachts im Schlafzimmer, beim Stillen oder Füttern, bei Besuch,
-              wenn das Baby auf dem Boden liegt oder wenn die Katze plötzlich mehr Nähe sucht.
-            </p>
+          <article class="rule-card">
+            <h3>Katze sucht Nähe</h3>
+            <p>Nähe kann ruhig begleitet werden, wenn du aktiv aufmerksam bist. Ohne aktive Aufsicht gilt eine verlässliche Trennung.</p>
+          </article>
 
-            <p>
-              Genau in solchen Momenten hilft ein Ratgeber, der nicht nur einzelne Fragen beantwortet,
-              sondern einen durchgehenden Familienplan liefert — mit klaren Regeln für Schlafplätze,
-              Begegnungen, Hygiene, Verhalten und die typischen Reibungspunkte im Alltag.
-            </p>
+          <article class="rule-card">
+            <h3>Katze zieht sich zurück</h3>
+            <p>Rückzug nicht sofort negativ bewerten. Wichtig ist, dass die Katze einen sicheren Bereich erreichen kann und nicht verfolgt wird.</p>
+          </article>
 
-            <div class="hero-cta" style="margin-top:1rem;">
-                <div class="pinterest-inline-cta" aria-label="Nächster Schritt">
-              <div class="cta-duo">
-                <a class="btn btn-primary btn-large" href="/checkliste/?src=pinterest&campaign=alltag-mit-baby-und-katze" data-preserve-params data-event="checklist_click" data-label="alltag-mit-baby-und-katze-inline-checklist">
-                  Checkliste ansehen
-                </a>
-                <a class="btn btn-ghost btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="alltag-mit-baby-und-katze-inline-amazon">
-                  Mehr zum Buch
-                </a>
-                <a class="btn btn-ghost btn-large" href="/pinterest/katze-eifersuechtig-baby/" data-preserve-params>
-                  Weiter: unruhiger Alltag
-                </a>
-              </div>
-            </div>
+          <article class="rule-card">
+            <h3>Du bist müde oder abgelenkt</h3>
+            <p>Genau für diese Momente sind Wenn-Dann-Regeln wertvoller als spontane Bauchentscheidungen.</p>
+          </article>
+        </div>
+
+        <div class="callout-rule">
+          <p><strong>Du möchtest die wichtigsten Standards kompakt zur Hand haben?</strong></p>
+          <div class="cta-duo">
+            <a class="btn btn-ghost" href="/checkliste/?src=pinterest&campaign=alltag-mit-baby-und-katze" data-preserve-params data-event="checklist_click" data-label="alltag-mit-baby-und-katze-routines-checklist">
+              Zur kostenlosen Checkliste
+            </a>
+            <a class="btn btn-ghost" href="/pinterest/katze-im-babybett/" data-preserve-params>
+              Mehr dazu: Katze im Babybett
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mobiler" aria-labelledby="mobiler-title">
+      <div class="container grid grid-2">
+        <article class="article-panel">
+          <p class="eyebrow">Wenn sich der Alltag verändert</p>
+          <h2 id="mobiler-title">Was ändert sich, wenn dein Baby mobiler wird?</h2>
+          <p>
+            Wenn Babys anfangen zu greifen, zu robben, zu krabbeln oder Räume aktiver zu erkunden, verändern sich Begegnungen. Die Katze braucht dann erreichbare Rückzugsorte, und Zonen, Zugänge und Begegnungen müssen neu geprüft werden.
+          </p>
+          <p>
+            Begegnungen bleiben begleitet. Ohne aktive Aufsicht bleibt sichere Trennung der Standard. Es geht nicht darum, alles komplizierter zu machen, sondern die Regeln an die nächste Familienphase anzupassen.
+          </p>
+          <div class="cta-duo">
+            <a class="btn btn-ghost" href="/pinterest/baby-und-katze-zusammenfuehren/" data-preserve-params>
+              Mehr dazu: Baby und Katze zusammenführen
+            </a>
+          </div>
+        </article>
+
+        <aside class="article-panel warm" aria-label="Regeln dürfen mitwachsen">
+          <h3>Regeln dürfen mitwachsen</h3>
+          <p>Was in den ersten Wochen funktioniert, muss später angepasst werden. Wenn dein Baby mobiler wird, prüfe Rückzugsorte, Zugänge, Schlafplätze und Begegnungen neu.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section alt" id="stress" aria-labelledby="stress-title">
+      <div class="container">
+        <p class="eyebrow">Wenn mehrere Dinge gleichzeitig passieren</p>
+        <h2 id="stress-title">Was hilft bei Besuch, Stress und unruhigen Tagen?</h2>
+        <p class="lead">
+          Schwierige Situationen entstehen oft nicht im perfekten Plan, sondern wenn mehrere Dinge gleichzeitig passieren: Besuch, Klingel, Füttern, Wickeln, Schlafmangel oder laute Momente können Abläufe unübersichtlich machen.
+        </p>
+
+        <div class="steps-grid">
+          <article class="step-card">
+            <span class="step-number">1</span>
+            <div>
+              <h3>Rückzugsort zugänglich halten</h3>
+              <p>Die Katze sollte einen ruhigen Bereich erreichen können, ohne bedrängt oder zurückgeholt zu werden.</p>
             </div>
           </article>
 
-          <aside class="article-side" aria-label="Seitliche Hinweise">
-            <h3>Auf einen Blick</h3>
-            <p class="muted">
-              Diese Seite ist besonders passend für dich,
-              wenn nicht eine einzelne Situation das Problem ist,
-              sondern der ganz normale Alltag mit Baby und Katze.
-            </p>
-
-            <div class="cta-stack">
-              <a class="btn btn-primary" href="/checkliste/?src=pinterest&campaign=alltag-mit-baby-und-katze" data-preserve-params data-event="checklist_click" data-label="alltag-mit-baby-und-katze-side-checklist">
-                Checkliste ansehen
-              </a>
-              <a class="btn btn-ghost" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="alltag-mit-baby-und-katze-side-amazon">
-                Buch auf Amazon ansehen
-              </a>
-              <a class="btn btn-ghost" href="/pinterest/katze-eifersuechtig-baby/" data-preserve-params>
-                Weiter: unruhiger Alltag
-              </a>
+          <article class="step-card">
+            <span class="step-number">2</span>
+            <div>
+              <h3>Tür, Barriere oder Raumregel klären</h3>
+              <p>Eine vorbereitete Trennung nimmt Druck heraus, wenn gerade nicht genug Aufmerksamkeit für eine Begegnung da ist.</p>
             </div>
+          </article>
 
-            <hr style="margin:1rem 0;border:none;border-top:1px solid var(--border);">
-
-            <h3>Passende weitere Themen</h3>
-            <div class="topic-nav">
-              <a href="/pinterest/baby-und-katze-zusammenfuehren/" data-preserve-params>
-                Baby und Katze sicher zusammenführen
-              </a>
-              <a href="/pinterest/erste-begegnung-baby-und-katze/" data-preserve-params>
-                Erste Begegnung Baby und Katze
-              </a>
-              <a href="/pinterest/katze-im-babybett/" data-preserve-params>
-                Katze im Babybett
-              </a>
-              <a href="/pinterest/katze-eifersuechtig-baby/" data-preserve-params>
-                Katze eifersüchtig aufs Baby
-              </a>
-              <a href="/pinterest/toxoplasmose-katze-schwangerschaft/" data-preserve-params>
-                Toxoplasmose &amp; Schwangerschaft
-              </a>
+          <article class="step-card">
+            <span class="step-number">3</span>
+            <div>
+              <h3>Begegnungen kurz und begleitet halten</h3>
+              <p>Bei Besuch oder Unruhe ist ein kurzer, klar geführter Kontakt oft hilfreicher als eine lange, unübersichtliche Situation.</p>
             </div>
-          </aside>
+          </article>
+
+          <article class="step-card">
+            <span class="step-number">4</span>
+            <div>
+              <h3>Bei Unsicherheit Tempo herausnehmen</h3>
+              <p>Schaffe ruhig Abstand und sortiere die Situation neu, statt im vollen Moment weiter zu improvisieren.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="book-plan-card" style="margin-top:1rem;">
+          <p class="eyebrow">Für echte Alltagstage</p>
+          <h3>Der Plan muss funktionieren, wenn nicht alles ruhig ist</h3>
+          <p>Im Praxis-Ratgeber findest du keine perfekten Bilderbuchsituationen, sondern klare Standards für müde Momente: Rückzug, Aufsicht, Schlafplätze, Hygiene, Besuch und die Phase, in der dein Baby mobiler wird.</p>
+          <div class="cta-duo">
+            <a class="btn btn-primary" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="alltag-mit-baby-und-katze-family-plan-amazon">
+              Den vollständigen Familienplan ansehen
+            </a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section alt" aria-labelledby="kurzantworten-title">
+    <section class="section" id="vermeiden" aria-labelledby="vermeiden-title">
       <div class="container">
-        <h2 id="kurzantworten-title">Kurzantworten</h2>
+        <p class="eyebrow">Druck vermeiden</p>
+        <h2 id="vermeiden-title">Was solltest du im Alltag lieber vermeiden?</h2>
+
+        <div class="rules-grid">
+          <article class="rule-card">
+            <h3>Jede Situation spontan entscheiden</h3>
+            <p>Wenn du müde bist, sind klare Wenn-Dann-Regeln hilfreicher als jedes Mal neu zu überlegen.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Rückzug als Problem sehen</h3>
+            <p>Wenn die Katze Abstand nimmt, muss das nicht als Scheitern bewertet werden. Rückzug kann Druck herausnehmen.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Nähe erzwingen</h3>
+            <p>Baby und Katze müssen keine Nähe herstellen. Begegnungen dürfen kurz, begleitet und mit Abstand bleiben.</p>
+          </article>
+
+          <article class="rule-card">
+            <h3>Auf ruhige Momente vertrauen</h3>
+            <p>Auch wenn vieles friedlich wirkt, bleiben Baby und Katze nicht unbeaufsichtigt zusammen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="kurzantworten" aria-labelledby="kurzantworten-title">
+      <div class="container">
+        <h2 id="kurzantworten-title">Kurzantworten: Alltag mit Baby und Katze</h2>
         <div class="pinterest-answers">
           <details class="card">
-            <summary>Was hilft im müden Alltag am meisten?</summary>
-            <p>Vorher festgelegte Standards: unbeaufsichtigt trennen, Schlafplätze schützen und Rückzug der Katze respektieren.</p>
+            <summary>Was ist die wichtigste Regel im Alltag mit Baby und Katze?</summary>
+            <p>Eine sichere Vorgehensweise ist, Baby und Katze nicht unbeaufsichtigt zusammen zu lassen. Wenn du nicht aktiv aufpassen kannst, trennst du beide kurzzeitig in sichere Bereiche.</p>
           </details>
 
           <details class="card">
-            <summary>Wie bleibt die Katze Teil der Familie?</summary>
-            <p>Mit eigenen sicheren Orten, verlässlichen Routinen und Begegnungen, die kurz und ruhig bleiben dürfen.</p>
+            <summary>Wie viel Kontakt zwischen Baby und Katze ist sinnvoll?</summary>
+            <p>Es geht nicht um eine feste Menge an Kontakt. Sinnvoll sind ruhige, begleitete Begegnungen, bei denen Rückzug möglich bleibt und Nähe nicht erzwungen wird.</p>
           </details>
 
           <details class="card">
-            <summary>Was mache ich, wenn eine Situation kippt?</summary>
-            <p>Kurz trennen, durchatmen, später neu starten. Nicht im Moment verhandeln.</p>
+            <summary>Was mache ich, wenn der Alltag chaotisch wird?</summary>
+            <p>Greife auf einfache Wenn-Dann-Regeln zurück: Rückzug sichern, Kontakt begleiten, bei fehlender aktiver Aufsicht trennen und die Situation später ruhiger neu sortieren.</p>
+          </details>
+
+          <details class="card">
+            <summary>Was ändert sich, wenn mein Baby mobiler wird?</summary>
+            <p>Dann müssen Rückzugsorte, Zugänge und Begegnungen neu geprüft werden. Was in den ersten Wochen funktioniert, kann später angepasst werden müssen.</p>
+          </details>
+
+          <details class="card">
+            <summary>Brauche ich einen kompletten Plan oder reichen einzelne Tipps?</summary>
+            <p>Einzelne Tipps können helfen. Im Alltag sind aber wiederholbare Standards oft wertvoller, weil du in müden oder unruhigen Momenten nicht jedes Mal neu entscheiden musst.</p>
           </details>
         </div>
       </div>
     </section>
-    <section class="section alt" aria-labelledby="weitere-themen-title">
+
+    <section class="section" aria-labelledby="hinweis-title">
+      <div class="container">
+        <div class="source-note">
+          <h2 id="hinweis-title">Hinweis zu diesem Ratgeberbeitrag</h2>
+          <p>
+            Dieser Beitrag bietet alltagstaugliche Orientierung für Familien mit Baby und Katze. Er ersetzt keine individuelle tierärztliche, medizinische oder verhaltensbezogene Beratung. Wenn eine Situation unsicher wirkt oder du dir Sorgen um dein Baby oder deine Katze machst, hole dir passende fachliche Unterstützung.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" aria-labelledby="abschluss-buch-title">
+      <div class="container">
+        <div class="book-plan-card">
+          <p class="eyebrow">Vollständiger Familienplan</p>
+          <h2 id="abschluss-buch-title">Du willst aus einzelnen Alltagstipps einen klaren Plan machen?</h2>
+          <p>Der Praxis-Ratgeber „Baby und Katze sicher zusammenführen“ verbindet Rückzug, Aufsicht, erste Begegnungen, Schlafplätze, Hygiene, Besuch und den Alltag mit einem mobiler werdenden Baby zu einem Plan, der euch durch die verschiedenen Phasen begleitet.</p>
+          <div class="cta-duo">
+            <a class="btn btn-primary btn-large" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow" data-event="amazon_click" data-label="alltag-mit-baby-und-katze-final-amazon">
+              Zum Praxis-Ratgeber auf Amazon
+            </a>
+            <a class="btn btn-ghost btn-large" href="/checkliste/?src=pinterest&campaign=alltag-mit-baby-und-katze" data-preserve-params data-event="checklist_click" data-label="alltag-mit-baby-und-katze-final-checklist">
+              Kostenlose Checkliste herunterladen
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="weitere-themen-title">
       <div class="container">
         <h2 id="weitere-themen-title">Weitere Themen rund um Baby &amp; Katze</h2>
         <div class="topic-nav" aria-label="Weitere Themen">
-          <a href="/pinterest/katze-im-babybett/" data-preserve-params>Katze im Babybett</a>
-          <a href="/pinterest/toxoplasmose-katze-schwangerschaft/" data-preserve-params>Toxoplasmose &amp; Schwangerschaft mit Katze</a>
+          <a href="/ratgeber/" data-preserve-params>Ratgeberübersicht Baby &amp; Katze</a>
           <a href="/pinterest/baby-und-katze-zusammenfuehren/" data-preserve-params>Baby und Katze zusammenführen</a>
-          <a href="/pinterest/katze-eifersuechtig-baby/" data-preserve-params>Katze eifersüchtig aufs Baby?</a>
           <a href="/pinterest/erste-begegnung-baby-und-katze/" data-preserve-params>Erste Begegnung Baby &amp; Katze</a>
+          <a href="/pinterest/katze-im-babybett/" data-preserve-params>Katze im Babybett</a>
+          <a href="/pinterest/katze-eifersuechtig-baby/" data-preserve-params>Verhalten der Katze ruhig einordnen</a>
+          <a href="/pinterest/toxoplasmose-katze-schwangerschaft/" data-preserve-params>Toxoplasmose &amp; Schwangerschaft mit Katze</a>
         </div>
       </div>
     </section>
-
   </main>
-   <footer class="footer">
+
+  <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-left">
         <p class="muted small">
-          Hinweis: Alltagsratgeber – ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung.
+          Hinweis: Alltagsratgeber - ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung.
         </p>
         <p class="muted small">
           <a href="../../legal/impressum.html" data-preserve-params>Impressum</a> ·
