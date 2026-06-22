@@ -1,0 +1,5 @@
+# The core tool uses the Python standard library.
+# Optional for future richer parsing/config support:
+# beautifulsoup4>=4.12
+# httpx>=0.27
+# PyYAML>=6.0

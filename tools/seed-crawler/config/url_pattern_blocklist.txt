@@ -1,0 +1,12 @@
+/login
+/signin
+/account
+/konto
+/cart
+/warenkorb
+/checkout
+/shop/
+/produkt/
+/product/
+/wp-login
+/admin

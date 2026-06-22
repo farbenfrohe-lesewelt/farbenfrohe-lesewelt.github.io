@@ -1,0 +1,64 @@
+book_blog:
+  quota: 30
+  queries:
+    - '"Rezensionsexemplar" Ratgeber Familie'
+    - '"Rezensionsexemplare" Sachbuch Eltern'
+    - '"Buecher zur Rezension" Familie'
+    - '"Buchvorstellung" Haustiere'
+    - '"Buchblog" Katze Ratgeber'
+    - '"Rezensionsexemplar anfragen" Sachbuch'
+    - '"Neuerscheinungen einsenden" Buchblog'
+    - 'Buchblog inurl:rezension'
+    - 'Buchblog inurl:rezensionsexemplar'
+    - 'Sachbuchblog inurl:rezension'
+    - 'Ratgeber Buchblog Rezension'
+    - 'Familienratgeber Buchrezension'
+    - 'Haustier Sachbuch Rezension'
+
+cat_pet_media:
+  quota: 30
+  queries:
+    - '"Katzenblog" Kooperation'
+    - '"Katzenblog" Gastbeitrag'
+    - '"Katze" "Themenvorschlag"'
+    - '"Haustiermagazin" Presse'
+    - '"Tiermagazin" Redaktion'
+    - '"Katze und Baby" Blog'
+    - '"Haustier und Kind" Magazin'
+    - 'Katzenblog inurl:kooperation'
+    - 'Katzenblog inurl:gastbeitrag'
+    - 'Haustiermagazin inurl:redaktion'
+    - 'Katzenmagazin inurl:presse'
+    - 'Katzenblog Buchvorstellung'
+    - 'Katzenblog Rezension'
+
+parent_family_media:
+  quota: 25
+  queries:
+    - '"Elternblog" Kooperation'
+    - '"Familienblog" Gastbeitrag'
+    - '"Schwangerschaftsblog" Kooperation'
+    - '"Elternmagazin" Themenvorschlag'
+    - '"Familienmagazin" Redaktion'
+    - '"Baby" "Rezensionsexemplar"'
+    - '"Schwangerschaft" "Buchvorstellung"'
+    - 'Elternblog inurl:gastbeitrag'
+    - 'Familienblog inurl:kooperation'
+    - 'Elternmagazin inurl:redaktion'
+    - 'Familienmagazin inurl:presse'
+    - 'Elternblog Buchrezension'
+    - 'Familienblog Ratgeber Rezension'
+
+podcast:
+  quota: 15
+  queries:
+    - '"Elternpodcast" Gast'
+    - '"Familienpodcast" Interview'
+    - '"Katzenpodcast" Gast'
+    - '"Haustierpodcast" Interview'
+    - '"Podcastgast werden" Eltern'
+    - '"Podcast Gast Bewerbung" Familie'
+    - 'Elternpodcast inurl:gast'
+    - 'Familienpodcast inurl:interview'
+    - 'Katzenpodcast inurl:kontakt'
+    - 'Haustierpodcast inurl:gaeste'

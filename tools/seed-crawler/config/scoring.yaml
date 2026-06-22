@@ -1,0 +1,15 @@
+# Simple key/value YAML. Values are intentionally easy to tune.
+min_score: 65
+topic_max: 30
+editorial_max: 25
+activity_max: 20
+credibility_max: 15
+approachability_max: 10
+penalty_paid_publication: 40
+penalty_dofollow_sale: 60
+penalty_affiliate: 15
+penalty_contentfarm: 30
+penalty_no_contact: 10
+penalty_large_portal: 15
+penalty_inactive: 20
+penalty_romance_only: 25

@@ -1,5 +1,8 @@
 ﻿/reference/
 local-data/mention-radar/
+tools/seed-crawler/.env
+tools/seed-crawler/.venv/
+tools/seed-crawler/**/__pycache__/
 # Python cache
 __pycache__/
 *.py[cod]
