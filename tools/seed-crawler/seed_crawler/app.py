@@ -8,7 +8,6 @@ import json
 import logging
 import os
 import re
-import socket
 import sys
 import time
 from collections import Counter, defaultdict
@@ -191,6 +190,29 @@ class NoRedirectHandler(HTTPRedirectHandler):
         return None
 
 
+def _parse_url_safely(url: str):
+    try:
+        parsed = urlparse(url)
+        _host = parsed.hostname
+        _port = parsed.port
+        return parsed, ""
+    except ValueError as exc:
+        message = str(exc).lower()
+        if "port" in message:
+            return None, "invalid_port"
+        return None, "url_parse_error"
+
+
+def _join_url_safely(base_url: str, href: str) -> tuple[str, str]:
+    try:
+        joined = urljoin(base_url, href)
+    except ValueError as exc:
+        message = str(exc).lower()
+        return "", "invalid_port" if "port" in message else "url_parse_error"
+    normalized, reason = normalize_url_with_reason(joined)
+    return normalized, reason
+
+
 class BraveSearchProvider:
     name = "brave"
 
@@ -313,7 +335,9 @@ class TinyHTMLParser(HTMLParser):
             rel = attrs_dict.get("rel", "").lower()
             href = attrs_dict.get("href", "").strip()
             if "canonical" in rel and href:
-                self.canonical_url = urljoin(self.base_url, href)
+                canonical_url, _reason = _join_url_safely(self.base_url, href)
+                if canonical_url:
+                    self.canonical_url = canonical_url
         if tag == "time":
             dt = attrs_dict.get("datetime", "").strip()
             if dt:
@@ -321,8 +345,10 @@ class TinyHTMLParser(HTMLParser):
         if tag == "a":
             href = attrs_dict.get("href", "").strip()
             if href:
-                self._current_link = urljoin(self.base_url, href)
-                self._current_link_text = []
+                link_url, _reason = _join_url_safely(self.base_url, href)
+                if link_url:
+                    self._current_link = link_url
+                    self._current_link_text = []
 
     def handle_endtag(self, tag: str) -> None:
         tag = tag.lower()
@@ -373,20 +399,25 @@ def slug_text(value: str) -> str:
     )
 
 
-def normalize_url(url: str, prefer_https: bool = False) -> str:
+def normalize_url_with_reason(url: str, prefer_https: bool = False) -> tuple[str, str]:
     url = clean_space(url)
     if not url:
-        return ""
-    parsed = urlparse(url if "://" in url else f"https://{url}")
+        return "", "invalid_url"
+    parsed, parse_reason = _parse_url_safely(url if "://" in url else f"https://{url}")
+    if parsed is None:
+        return "", parse_reason
     if parsed.scheme not in {"http", "https"}:
-        return ""
+        return "", "blocked_scheme"
     if parsed.username or parsed.password:
-        return ""
+        return "", "credentials_in_url"
     scheme = "https" if prefer_https else parsed.scheme.lower()
-    host = parsed.hostname.lower() if parsed.hostname else ""
+    host = (parsed.hostname or "").lower()
     if not host:
-        return ""
-    port = parsed.port
+        return "", "invalid_url"
+    try:
+        port = parsed.port
+    except ValueError:
+        return "", "invalid_port"
     netloc = host
     if port and not ((scheme == "http" and port == 80) or (scheme == "https" and port == 443)):
         netloc = f"{host}:{port}"
@@ -395,7 +426,12 @@ def normalize_url(url: str, prefer_https: bool = False) -> str:
     for key, value in parse_qsl(parsed.query, keep_blank_values=True):
         if key.lower() not in TRACKING_PARAMS:
             query_pairs.append((key, value))
-    return urlunparse((scheme, netloc, path, "", urlencode(query_pairs, doseq=True), ""))
+    return urlunparse((scheme, netloc, path, "", urlencode(query_pairs, doseq=True), "")), ""
+
+
+def normalize_url(url: str, prefer_https: bool = False) -> str:
+    normalized, _reason = normalize_url_with_reason(url, prefer_https)
+    return normalized
 
 
 def is_private_or_reserved_host(host: str) -> bool:
@@ -419,7 +455,9 @@ def is_private_or_reserved_host(host: str) -> bool:
 
 
 def is_safe_public_url(url: str) -> tuple[bool, str]:
-    parsed = urlparse(url)
+    parsed, parse_reason = _parse_url_safely(url)
+    if parsed is None:
+        return False, parse_reason
     if parsed.scheme not in {"http", "https"}:
         return False, "blocked_scheme"
     if parsed.username or parsed.password:
@@ -430,7 +468,11 @@ def is_safe_public_url(url: str) -> tuple[bool, str]:
 
 
 def registered_domain(url_or_host: str) -> str:
-    host = urlparse(url_or_host).hostname if "://" in url_or_host else url_or_host
+    if "://" in url_or_host:
+        parsed, _reason = _parse_url_safely(url_or_host)
+        host = parsed.hostname if parsed else ""
+    else:
+        host = url_or_host
     host = (host or "").lower().strip(".")
     if host.startswith("www."):
         host = host[4:]
@@ -447,7 +489,9 @@ def registered_domain(url_or_host: str) -> str:
 
 
 def is_absolute_http_url(url: str) -> bool:
-    parsed = urlparse(url)
+    parsed, _reason = _parse_url_safely(url)
+    if parsed is None:
+        return False
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
@@ -625,11 +669,11 @@ def read_search_results_file(path: Path) -> list[SearchResult]:
                         if match:
                             url = match.group(0)
                             break
-                normalized = normalize_url(url)
-                if normalized:
+                normalized, _reason = normalize_url_with_reason(url)
+                if normalized or clean_space(url):
                     rows.append(
                         SearchResult(
-                            url=normalized,
+                            url=normalized or clean_space(url),
                             title=row.get("title", "") or row.get("name", "") or row.get("Name", ""),
                             snippet=row.get("snippet", "") or row.get("notes", ""),
                             provider="file",
@@ -642,9 +686,10 @@ def read_search_results_file(path: Path) -> list[SearchResult]:
             handle.seek(0)
             for raw in handle:
                 for match in url_pattern.finditer(raw):
-                    normalized = normalize_url(match.group(0))
-                    if normalized:
-                        rows.append(SearchResult(url=normalized, provider="file"))
+                    raw_url = match.group(0)
+                    normalized, _reason = normalize_url_with_reason(raw_url)
+                    if normalized or clean_space(raw_url):
+                        rows.append(SearchResult(url=normalized or clean_space(raw_url), provider="file"))
     return rows
 
 
@@ -655,15 +700,21 @@ class Blocklists:
         self.negative_terms = load_lines(config_dir / "negative_terms.txt")
 
     def blocked_domain_reason(self, url: str) -> str:
-        host = (urlparse(url).hostname or "").lower()
+        parsed, reason = _parse_url_safely(url)
+        if parsed is None:
+            return reason
+        host = (parsed.hostname or "").lower()
         for term in self.domain_terms:
             if term in host:
                 return f"blocked_domain:{term}"
         return ""
 
     def blocked_url_reason(self, url: str) -> str:
+        parsed, reason = _parse_url_safely(url)
+        if parsed is None:
+            return reason
         lowered = url.lower()
-        path = urlparse(url).path.lower()
+        path = parsed.path.lower()
         for pattern in self.url_patterns:
             if pattern in lowered or pattern in path:
                 return f"blocked_url_pattern:{pattern}"
@@ -752,7 +803,9 @@ class ControlledCrawler:
         return snapshots[: self.max_pages_per_domain]
 
     def _initial_urls(self, url: str) -> list[str]:
-        parsed = urlparse(url)
+        parsed, _reason = _parse_url_safely(url)
+        if parsed is None:
+            return [url]
         home = urlunparse((parsed.scheme, parsed.netloc, "/", "", "", ""))
         urls = [url]
         if home != url:
@@ -762,7 +815,11 @@ class ControlledCrawler:
         return urls
 
     def _robots_for(self, url: str) -> RobotFileParser:
-        parsed = urlparse(url)
+        parsed, _reason = _parse_url_safely(url)
+        if parsed is None:
+            parser = RobotFileParser()
+            parser.parse(["User-agent: *", "Disallow: /"])
+            return parser
         base = f"{parsed.scheme}://{parsed.netloc}"
         if base in self.robots:
             return self.robots[base]
@@ -801,7 +858,10 @@ class ControlledCrawler:
         cached = self.cache.get(normalized)
         if cached:
             return PageSnapshot(**cached)
-        host = urlparse(normalized).netloc.lower()
+        parsed, parse_reason = _parse_url_safely(normalized)
+        if parsed is None:
+            return PageSnapshot(url, normalized, fetched_at=fetched_at, skipped_reason=parse_reason)
+        host = parsed.netloc.lower()
         self._wait(host)
         current_url = normalized
         try:
@@ -821,7 +881,12 @@ class ControlledCrawler:
                             snapshot = PageSnapshot(url, current_url, status_code=exc.code, fetched_at=fetched_at, skipped_reason="redirect_limit")
                             self.cache.set(normalized, asdict(snapshot))
                             return snapshot
-                        current_url = normalize_url(urljoin(current_url, exc.headers["Location"]))
+                        redirect_url, redirect_reason = _join_url_safely(current_url, exc.headers["Location"])
+                        if not redirect_url:
+                            snapshot = PageSnapshot(url, current_url, status_code=exc.code, fetched_at=fetched_at, skipped_reason=f"redirect_{redirect_reason or 'invalid_url'}")
+                            self.cache.set(normalized, asdict(snapshot))
+                            return snapshot
+                        current_url = redirect_url
                         continue
                     raise
             else:
@@ -831,7 +896,11 @@ class ControlledCrawler:
             with response:
                 status = getattr(response, "status", 0) or 0
                 content_type = response.headers.get("content-type", "").lower()
-                final_url = response.geturl()
+                final_url, final_reason = normalize_url_with_reason(response.geturl())
+                if not final_url:
+                    snapshot = PageSnapshot(url, current_url, status_code=status, fetched_at=fetched_at, skipped_reason=f"redirect_{final_reason or 'invalid_url'}")
+                    self.cache.set(normalized, asdict(snapshot))
+                    return snapshot
                 safe, unsafe_reason = is_safe_public_url(final_url)
                 if not safe:
                     snapshot = PageSnapshot(url, final_url, status_code=status, fetched_at=fetched_at, skipped_reason=f"redirect_{unsafe_reason}")
@@ -872,7 +941,10 @@ class ControlledCrawler:
         snapshot.status_code = status
         snapshot.fetched_at = fetched_at
         if snapshot.canonical_url:
-            snapshot.final_url = normalize_url(snapshot.canonical_url) or final_url
+            canonical_url, canonical_reason = normalize_url_with_reason(snapshot.canonical_url)
+            snapshot.final_url = canonical_url or final_url
+            if not canonical_url and canonical_reason:
+                snapshot.skipped_reason = f"canonical_{canonical_reason}"
         else:
             snapshot.final_url = normalize_url(final_url) or normalized
         self.cache.set(normalized, asdict(snapshot))
@@ -925,11 +997,16 @@ def dedupe_links(links: Iterable[tuple[str, str]]) -> list[tuple[str, str]]:
 
 def relevant_internal_links(page: PageSnapshot) -> list[str]:
     base_domain = registered_domain(page.final_url)
+    if not base_domain:
+        return []
     scored: list[tuple[int, str]] = []
     for url, label in page.links:
         if registered_domain(url) != base_domain:
             continue
-        haystack = slug_text(urlparse(url).path + " " + label)
+        parsed, _reason = _parse_url_safely(url)
+        if parsed is None:
+            continue
+        haystack = slug_text(parsed.path + " " + label)
         score = max((weight for slug, weight in SLUG_PRIORITY if slug in haystack), default=0)
         if score:
             scored.append((score, url))
@@ -975,9 +1052,10 @@ def evaluate_domain(
         rejection_reason = f"score_below_min:{total}"
     contact_signal = contact_signal_for(lowered)
     notes = build_notes(category, editorial_signal, lowered, activity_signal, total)
+    final_seed_url = normalize_url(best_page.final_url, prefer_https=best_page.final_url.lower().startswith("https://")) or normalize_url(search_result.url)
     return Candidate(
         candidate_url=search_result.url,
-        final_seed_url=normalize_url(best_page.final_url, prefer_https=urlparse(best_page.final_url).scheme == "https"),
+        final_seed_url=final_seed_url,
         domain=domain,
         name=name,
         category=category,
@@ -1559,9 +1637,12 @@ def run_discovery(args: argparse.Namespace, *, pilot_mode: bool = False) -> tupl
     deduped_results: dict[str, SearchResult] = {}
     rejected: list[Candidate] = []
     for result in raw_results:
-        normalized = normalize_url(result.url)
+        normalized, invalid_reason = normalize_url_with_reason(result.url)
         if not normalized:
-            rejected.append(Candidate(result.url, result.url, "", "", result.category_hint, source_for(result), result.query_id, rejection_reason="invalid_url"))
+            reason = invalid_reason or "invalid_url"
+            if getattr(args, "verbose", False):
+                print(f"Ungueltige URL uebersprungen: {reason}")
+            rejected.append(Candidate(result.url, "", "", "", result.category_hint, source_for(result), result.query_id, rejection_reason=reason))
             continue
         domain_reason = blocklists.blocked_domain_reason(normalized)
         url_reason = blocklists.blocked_url_reason(normalized)

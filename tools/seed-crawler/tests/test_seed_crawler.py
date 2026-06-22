@@ -4,7 +4,7 @@ import os
 import sys
 import tempfile
 import unittest
-from contextlib import redirect_stdout, redirect_stderr
+from contextlib import redirect_stdout
 from pathlib import Path
 from urllib.error import HTTPError
 from urllib.robotparser import RobotFileParser
@@ -250,6 +250,30 @@ class SeedCrawlerTest(unittest.TestCase):
             self.assertFalse(safe, url)
             self.assertTrue(reason)
 
+    def test_malformed_url_ports_and_ipv6_are_rejected(self):
+        cases = [
+            ("https://example.org:99999/path", "invalid_port"),
+            ("https://example.org:-1/path", "invalid_port"),
+            ("https://example.org:notaport/path", "invalid_port"),
+            ("https://[::1/path", "url_parse_error"),
+        ]
+        for url, reason in cases:
+            with self.subTest(url=url):
+                normalized, actual_reason = app.normalize_url_with_reason(url)
+                self.assertEqual(normalized, "")
+                self.assertEqual(actual_reason, reason)
+                safe, safe_reason = app.is_safe_public_url(url)
+                self.assertFalse(safe)
+                self.assertEqual(safe_reason, reason)
+
+    def test_url_with_credentials_is_rejected(self):
+        normalized, reason = app.normalize_url_with_reason("https://user:password@example.org/path")
+        self.assertEqual(normalized, "")
+        self.assertEqual(reason, "credentials_in_url")
+        safe, safe_reason = app.is_safe_public_url("https://user:password@example.org/path")
+        self.assertFalse(safe)
+        self.assertEqual(safe_reason, "credentials_in_url")
+
     def test_redirect_to_private_target_is_blocked(self):
         class RedirectOpener:
             def open(self, request, *args, **kwargs):
@@ -262,6 +286,27 @@ class SeedCrawlerTest(unittest.TestCase):
         crawler.opener = RedirectOpener()
         result = crawler.fetch("https://example.com/")
         self.assertIn("private_or_local_host", result.skipped_reason)
+
+    def test_invalid_redirect_url_is_blocked(self):
+        class RedirectOpener:
+            def open(self, request, *args, **kwargs):
+                raise HTTPError(request.full_url, 302, "Found", {"Location": "https://example.org:99999/private"}, None)
+
+        crawler = app.ControlledCrawler(self.blocklists, app.Cache(Path("unused"), enabled=False))
+        parser = RobotFileParser()
+        parser.parse(["User-agent: *", "Allow: /"])
+        crawler.robots["https://example.com"] = parser
+        crawler.opener = RedirectOpener()
+        result = crawler.fetch("https://example.com/")
+        self.assertEqual(result.skipped_reason, "redirect_invalid_port")
+
+    def test_invalid_canonical_url_is_ignored(self):
+        page = app.parse_html(
+            '<html><head><link rel="canonical" href="https://example.org:99999/bad"></head><body><h1>Ok</h1>Kontakt Impressum Katze</body></html>',
+            "https://example.org/",
+        )
+        self.assertEqual(page.canonical_url, "")
+        self.assertEqual(page.text.startswith("Ok"), True)
 
     def test_pilot_quota_is_3_3_2_2_and_max_ten(self):
         candidates = []
@@ -411,6 +456,77 @@ class SeedCrawlerTest(unittest.TestCase):
             finally:
                 app.ControlledCrawler = old_crawler
                 app.DEFAULT_LOCAL_DATA_DIR = old_dir
+
+    def test_invalid_brave_result_is_rejected_without_aborting_valid_results(self):
+        class FakeProvider:
+            name = "brave"
+
+            def search(self, query, limit):
+                return [
+                    app.SearchResult("https://bad.example:99999/path", provider="brave", query_id=query.query_id, category_hint=query.category),
+                    app.SearchResult(f"https://valid-{query.category}.example/", "Valid", "Snippet", "brave", query.query_id, query.text, query.category),
+                ]
+
+        class FakeCrawler:
+            errors = []
+
+            def __init__(self, *args, **kwargs):
+                pass
+
+            def crawl_domain(self, url):
+                if "book_blog" in url:
+                    text = "Buchblog Sachbuch Ratgeber Rezensionsexemplare willkommen Familie Katze Kontakt Impressum Autorin"
+                elif "cat_pet_media" in url:
+                    text = "Katzenblog Haustier Katze Magazin Redaktion Presse Kontakt Impressum Autor"
+                elif "parent_family_media" in url:
+                    text = "Elternblog Familie Baby Schwangerschaft Gastbeitrag Themenvorschlag Kontakt Impressum Autorin"
+                else:
+                    text = "Elternpodcast Podcast Interview Podcastgast Familie Kontakt Impressum Episoden Redaktion"
+                return [app.PageSnapshot(url, url, 200, "Valid", "Valid", ["Valid"], text, [], "", ["2026-05-01"], "", "", app.now_iso())]
+
+        with tempfile.TemporaryDirectory() as tmp:
+            old_make_provider = app.make_provider
+            old_crawler = app.ControlledCrawler
+            try:
+                app.make_provider = lambda args: FakeProvider()
+                app.ControlledCrawler = FakeCrawler
+                args = type(
+                    "Args",
+                    (),
+                    {
+                        "provider": "brave",
+                        "target": 4,
+                        "output": str(Path(tmp) / "seeds.csv"),
+                        "dry_run": False,
+                        "overwrite": False,
+                        "resume": False,
+                        "max_pages_per_domain": 6,
+                        "min_score": 65,
+                        "category": "",
+                        "search_results": "",
+                        "allow_unofficial_search": False,
+                        "verbose": True,
+                        "queries": "",
+                        "scoring": "",
+                        "cache_dir": str(Path(tmp) / "cache"),
+                        "query_limit": 4,
+                        "results_per_query": 10,
+                        "max_candidate_domains": 120,
+                    },
+                )()
+                out = io.StringIO()
+                with redirect_stdout(out):
+                    code, report, final = app.run_discovery(args)
+                self.assertEqual(code, 0)
+                self.assertIn("Ungueltige URL uebersprungen: invalid_port", out.getvalue())
+                self.assertGreaterEqual(report["rejection_reasons"].get("invalid_port", 0), 1)
+                self.assertGreater(len(final), 0)
+                self.assertTrue((Path(tmp) / "seeds.csv").exists())
+                self.assertTrue((Path(tmp) / "seed_audit.csv").exists())
+                self.assertTrue((Path(tmp) / "run_report.json").exists())
+            finally:
+                app.make_provider = old_make_provider
+                app.ControlledCrawler = old_crawler
 
 
 if __name__ == "__main__":
