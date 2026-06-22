@@ -134,6 +134,28 @@ Dabei gelten weiterhin `robots.txt`, Rate-Limit, Domain-Seitenlimit, HTML-Groess
 
 Nur Klasse A erhaelt einen Entwurf. Klasse B bleibt fuer manuelle Pruefung. Klasse C und D werden ausgeschlossen.
 
+## Individuelle Outreach-Entwuerfe
+
+Der separate Generator `mention_radar.tailored_drafts` erstellt nach einem Radar-Lauf individuellere Outreach-Entwuerfe aus `candidates.csv`. Er verwendet nicht die technischen Standardentwuerfe aus `drafts/` oder `drafts-technical-discarded/`, sendet keine Nachrichten und legt keine E-Mails an.
+
+Beispiel:
+
+```powershell
+.\tools\mention-radar\.venv\Scripts\python.exe -m mention_radar.tailored_drafts `
+  --candidates .\local-data\mention-radar\runs\initial-seed-batch-20260622-135140\candidates.csv `
+  --output-dir .\local-data\mention-radar\runs\initial-seed-batch-20260622-135140\tailored-outreach
+```
+
+Alternativ:
+
+```powershell
+.\tools\mention-radar\generate-tailored-drafts.ps1 `
+  -Candidates .\local-data\mention-radar\runs\initial-seed-batch-20260622-135140\candidates.csv `
+  -OutputDir .\local-data\mention-radar\runs\initial-seed-batch-20260622-135140\tailored-outreach
+```
+
+Der Generator dedupliziert pro Website, verwirft Share- und Kommentarlinks als Kontaktwege, erzeugt fertige Markdown-Dateien nur fuer `ready`-Faelle und schreibt `manual_review.csv` sowie `rejected.csv` fuer unsichere oder unpassende Kandidaten.
+
 ## Woechentlicher 30-Minuten-Workflow
 
 1. Fuenf bis zehn neue Start-URLs oder Feed-Treffer lokal sammeln.
