@@ -141,7 +141,7 @@ Der separate Generator `mention_radar.tailored_drafts` erstellt nach einem Radar
 Beispiel:
 
 ```powershell
-.\tools\mention-radar\.venv\Scripts\python.exe -m mention_radar.tailored_drafts `
+.\tools\mention-radar\.venv\Scripts\python.exe .\tools\mention-radar\mention_radar\tailored_drafts.py `
   --candidates .\local-data\mention-radar\runs\initial-seed-batch-20260622-135140\candidates.csv `
   --output-dir .\local-data\mention-radar\runs\initial-seed-batch-20260622-135140\tailored-outreach
 ```

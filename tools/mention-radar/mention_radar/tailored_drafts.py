@@ -463,14 +463,14 @@ def display_name(candidate: CandidateRow) -> str:
     return name
 
 
-def safe_filename_part(value: str) -> str:
+def safe_filename_part(value: str, limit: int = 38) -> str:
     value = slug_text(value)
     value = re.sub(r"[^a-z0-9]+", "-", value).strip("-")
-    return value[:60] or "website"
+    return value[:limit].strip("-") or "website"
 
 
 def draft_filename(rank: int, candidate: CandidateRow) -> str:
-    return f"{rank:02d}-{safe_filename_part(display_name(candidate))}-{safe_filename_part(candidate.domain)}-{candidate.candidate_id}.md"
+    return f"{rank:02d}-{safe_filename_part(display_name(candidate), 34)}-{safe_filename_part(candidate.domain, 34)}-{candidate.candidate_id}.md"
 
 
 def yaml_value(value: str | int) -> str:
@@ -504,6 +504,8 @@ def write_outputs(decisions: list[DraftDecision], output_dir: Path) -> dict[str,
     ready_dir = output_dir / "ready"
     ready_dir.mkdir(parents=True, exist_ok=True)
     output_dir.mkdir(parents=True, exist_ok=True)
+    for stale in ready_dir.glob("*.md"):
+        stale.unlink()
     index_rows: list[dict[str, str | int]] = []
     manual_rows: list[dict[str, str | int]] = []
     rejected_rows: list[dict[str, str | int]] = []
