@@ -522,6 +522,103 @@ class SeedCrawlerTest(unittest.TestCase):
                 rows = list(csv.DictReader(handle))
         self.assertEqual(rows[0]["reason"], "no_own_site_found")
 
+    def test_smallnature_company_prices_remain_b_even_with_private_exception(self):
+        page = self.page(
+            "https://smallnature.de/kooperation-katzenblog/",
+            "Kooperation Katzenblog Smallnature",
+            "Katzenblog Katzenmagazin Katze Haustier Ratgeber Kooperation. Fuer Unternehmen ist eine kommerzielle Zusammenarbeit kostenpflichtig. Preise ab 250 Euro netto. Werbepaket und Mediadaten/Preise. Private oder besonders passende Projekte eventuell kostenlos. Kontakt Impressum Archiv.",
+            ["2026-05-01"],
+            site_name="Smallnature",
+        )
+        candidate = self.candidate_for("smallnature.de", [page], "cat_pet_media")
+        self.assertEqual(candidate.candidate_mode, "B")
+        self.assertEqual(candidate.commercial_model, "mixed_editorial_commercial")
+        self.assertEqual(candidate.explicit_payment_evidence, "paid_for_companies_private_exception_possible")
+        self.assertEqual(candidate.candidate_mode_reason, "paid_for_companies_private_exception_possible")
+
+    def test_site_topic_dominates_article_topic_for_family_book_and_cat_media(self):
+        family_article = self.page("https://www.familie.de/baby/baby-und-katze/", "Baby und Katze", "Katze Katzen Katzenbett Haustier Baby.", ["2026-05-01"], site_name="familie.de")
+        family_home = self.page("https://www.familie.de/", "familie.de Familienportal", "Familienmagazin Eltern Baby Schwangerschaft Kind Kleinkind Familie Kontakt Impressum Archiv.", ["2026-05-02"], site_name="familie.de")
+        family = self.candidate_for("familie.de", [family_article, family_home], "cat_pet_media")
+        self.assertEqual(family.entity_type, "parent_family_editorial")
+        self.assertEqual(family.category, "parent_family_media")
+
+        book = self.candidate_for(
+            "lesestunden.de",
+            [self.page("https://lesestunden.de/katzenbuch/", "Katzenbuchtitel", "Katze Katzen einzelner Buchtitel. Buchblog Rezensionen Buchvorstellungen Kontakt Impressum Archiv.", ["2026-05-01"], site_name="Lesestunden")],
+            "book_blog",
+        )
+        self.assertEqual(book.entity_type, "independent_book_blog")
+        self.assertEqual(book.category, "book_blog")
+
+        cat = self.candidate_for(
+            "haustiger.info",
+            [self.page("https://haustiger.info/katze-und-baby/", "Katze und Baby", "Baby Familie einzelner Artikel. Katzenblog Katzenmagazin Katze Haustier Ratgeber Kontakt Impressum Archiv.", ["2026-05-01"], site_name="Haustiger")],
+            "parent_family_media",
+        )
+        self.assertEqual(cat.entity_type, "cat_pet_editorial")
+        self.assertEqual(cat.category, "cat_pet_media")
+
+    def test_interview_quote_about_paid_articles_is_not_operator_payment_evidence(self):
+        article = self.page(
+            "https://elternmagazin.info/interview/blog-monetarisierung/",
+            "Interview ueber Blog-Monetarisierung",
+            "Familienmagazin Eltern Baby Familie Interview. Ein Interviewpartner sagt: Manche Blogs haben Artikel gegen Bezahlung veroeffentlicht. Dies ist ein Erfahrungsbericht Dritter. Kontakt Impressum.",
+            ["2026-05-01"],
+            site_name="Elternmagazin",
+        )
+        contact = self.page(
+            "https://elternmagazin.info/redaktion/",
+            "Redaktion Elternmagazin",
+            "Familienmagazin Eltern Baby Schwangerschaft Kind Redaktion kontaktieren Themenvorschlag Kontakt Impressum Archiv.",
+            ["2026-05-02"],
+            site_name="Elternmagazin",
+        )
+        candidate = self.candidate_for("elternmagazin.info", [article, contact], "parent_family_media")
+        self.assertEqual(candidate.explicit_payment_evidence, "")
+        self.assertEqual(candidate.candidate_mode, "A")
+
+    def test_own_media_prices_page_is_payment_evidence(self):
+        page = self.page(
+            "https://kuckuck-magazin.de/mediadaten/",
+            "Mediadaten und Preise",
+            "Familienmagazin Eltern Baby Schwangerschaft Familie Kind Kleinkind Mediadaten und Preise Werbepreise Werbebuchung Anzeigenpreise Kontakt Impressum Archiv Redaktion Autorin RSS Newsletter.",
+            ["2026-05-01"],
+            site_name="Kuckuck Magazin",
+        )
+        candidate = self.candidate_for("kuckuck-magazin.de", [page], "parent_family_media")
+        self.assertEqual(candidate.explicit_payment_evidence, "advertising_rates_or_booking")
+        self.assertEqual(candidate.candidate_mode, "B")
+
+    def test_reevaluate_keeps_lesestunden_when_final_seed_url_is_cached(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            audit = tmp_path / "seed_audit.csv"
+            final_url = "https://lesestunden.de/kontakt/"
+            audit.write_text("candidate_url,final_seed_url,category,query_id,name\nhttps://lesestunden.de/suche/,https://lesestunden.de/kontakt/,book_blog,q01,Lesestunden\n", encoding="utf-8")
+            cache = app.Cache(tmp_path / "cache" / "pages", enabled=True)
+            page = self.page(final_url, "Lesestunden Buchblog Kontakt", "Buchblog Rezensionen Buchvorstellungen Literatur Klassiker Kontakt Impressum Archiv Autorin.", ["2026-05-01"], site_name="Lesestunden")
+            cache.set(final_url, app.asdict(page))
+            out_dir = tmp_path / "out"
+            code = app.reevaluate(type("Args", (), {"audit": str(audit), "cache_dir": str(tmp_path / "cache"), "output_dir": str(out_dir), "target": 10, "overwrite": True})())
+            self.assertEqual(code, 0)
+            with (out_dir / "seeds.csv").open("r", encoding="utf-8", newline="") as handle:
+                rows = list(csv.DictReader(handle))
+            self.assertEqual(rows[0]["url"], final_url)
+            report = app.json.loads((out_dir / "run_report.json").read_text(encoding="utf-8"))
+            self.assertEqual(report["eligible_a_candidates_by_category"]["book_blog"], 1)
+            self.assertEqual(report["selected_a_candidates_by_category"]["book_blog"], 1)
+
+    def test_book_blog_quota_is_not_displaced_by_family_media(self):
+        candidates = [
+            app.Candidate("https://lesestunden.de/", "https://lesestunden.de/", "lesestunden.de", "Lesestunden", "book_blog", "crawler:file:book_blog:q01", "q01", total_score=72, status="accepted", hard_gate_passed=True, entity_type="independent_book_blog", candidate_mode="A"),
+            app.Candidate("https://family1.example/", "https://family1.example/", "family1.example", "Family 1", "parent_family_media", "crawler:file:parent_family_media:q01", "q01", total_score=99, status="accepted", hard_gate_passed=True, entity_type="parent_family_editorial", candidate_mode="A"),
+            app.Candidate("https://family2.example/", "https://family2.example/", "family2.example", "Family 2", "parent_family_media", "crawler:file:parent_family_media:q02", "q02", total_score=98, status="accepted", hard_gate_passed=True, entity_type="parent_family_editorial", candidate_mode="A"),
+        ]
+        selected, _missing = app.select_final(candidates, {"book_blog": 1, "cat_pet_media": 0, "parent_family_media": 1, "podcast": 0}, 2)
+        self.assertIn("lesestunden.de", {candidate.domain for candidate in selected})
+        self.assertEqual(app.unselected_a_counts(candidates, selected)["parent_family_media"], 1)
+
     def test_env_file_is_loaded_without_overriding_os_environment(self):
         with tempfile.TemporaryDirectory() as tmp:
             env_file = Path(tmp) / ".env"

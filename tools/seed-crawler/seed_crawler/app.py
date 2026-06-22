@@ -1312,16 +1312,58 @@ def page_topic_score(category: str, page: PageSnapshot, search_result: SearchRes
     return topic_score_and_evidence(category, [page], search_result)
 
 
+def site_identity_context(domain: str, pages: list[PageSnapshot], search_result: SearchResult) -> str:
+    parts = [domain, search_result.title, search_result.snippet]
+    for page in pages:
+        if page_is_site_level(page) or page.site_name:
+            parts.extend([page.site_name, page.title, page.meta_description, " ".join(page.headings[:2])])
+    return slug_text(" ".join(parts))
+
+
+def dominant_site_entity(domain: str, pages: list[PageSnapshot], search_result: SearchResult) -> tuple[str, str]:
+    context = site_identity_context(domain, pages, search_result)
+    book = count_terms(context, ["buchblog", "buecherblog", "rezensionen", "buchvorstellung"])
+    family = count_terms(context, ["familie", "familienmagazin", "familienblog", "eltern", "elternblog", "baby", "schwangerschaft", "mama", "papa"])
+    cat = count_terms(context, ["katze", "katzen", "katzenblog", "katzenmagazin", "haustiermagazin", "tiermagazin", "tierblog"])
+    if book and book >= family and book >= cat:
+        return "independent_book_blog", f"Site-Identitaet Buchblog ({book})"
+    if family and family >= cat:
+        return "parent_family_editorial", f"Site-Identitaet Familie/Eltern ({family})"
+    if cat:
+        return "cat_pet_editorial", f"Site-Identitaet Katze/Haustier ({cat})"
+    return "", ""
+
+
 def detect_explicit_payment(text: str) -> str:
+    if re.search(r"(preise?\s+ab|ab\s+\d{2,4})\D{0,30}(\d{2,4}|euro|eur|€)", text) or re.search(r"\d{2,4}\s*(euro|eur|€)\s*(netto|zzgl)", text):
+        return "paid_for_companies_private_exception_possible"
     checks = [
-        ("paid_for_companies_private_exception_possible", ["preise ab 250", "250 euro netto", "fuer unternehmen kostenpflichtig", "privat kostenlos", "private projekte kostenlos"]),
-        ("advertising_rates_or_booking", ["werbepreise", "werbebuchung", "anzeigenpreise", "anzeigenschaltung", "mediadaten"]),
+        ("paid_for_companies_private_exception_possible", ["preise ab", "euro netto", "eur netto", "fuer unternehmen kostenpflichtig", "unternehmen zahlen", "kommerzielle zusammenarbeit", "werbepaket", "privat kostenlos", "private projekte kostenlos", "besonders passende projekte"]),
+        ("advertising_rates_or_booking", ["werbepreise", "werbebuchung", "anzeigenpreise", "anzeigenschaltung", "mediadaten/preise", "mediadaten und preise"]),
         ("paid_cooperation", ["kostenpflichtige kooperation", "bezahlte kooperation", "sponsored post", "advertorial", "preis auf anfrage"]),
     ]
     for label, terms in checks:
         if any(term in text for term in terms):
             return label
     return ""
+
+
+def page_is_operator_commercial_context(page: PageSnapshot) -> bool:
+    path = slug_text(page.final_url)
+    title = slug_text(page.title + " " + page.site_name + " " + " ".join(page.headings[:2]))
+    context = page_context(page, 1600)
+    if any(term in path for term in ["kooperation", "werbung", "mediadaten", "media-kit", "mediakit", "advertorial", "preise", "leistungen", "sponsoring"]):
+        return True
+    if any(term in title for term in ["kooperation", "werbung", "mediadaten", "mediakit", "advertorial", "preise"]):
+        return True
+    if any(term in context for term in ["werben sie", "buchen sie", "unsere angebote", "unsere preise", "kooperationsmoeglichkeiten", "kooperationsmöglichkeiten", "wir bieten werbung"]):
+        return True
+    return False
+
+
+def commercial_context_text(pages: list[PageSnapshot]) -> str:
+    selected = [page for page in pages if page_is_operator_commercial_context(page)]
+    return slug_text(" ".join(page.final_url + " " + page.title + " " + " ".join(page.headings[:2]) + " " + page.text[:5000] for page in selected))
 
 
 def detect_guest_post_effort(text: str, channel_type: str) -> str:
@@ -1332,10 +1374,11 @@ def detect_guest_post_effort(text: str, channel_type: str) -> str:
     return ""
 
 
-def commercial_model_for(text: str, channel_type: str) -> tuple[str, int, str, str, str]:
-    explicit_payment = detect_explicit_payment(text)
-    guest_effort = detect_guest_post_effort(text, channel_type)
-    if any(term in text for term in ["dofollow-link kaufen", "dofollow link kaufen", "backlink kaufen", "linkplatzierung", "garantierte veroeffentlichung", "garantierte publikation"]):
+def commercial_model_for(text: str, channel_type: str, operator_text: str = "") -> tuple[str, int, str, str, str]:
+    explicit_payment = detect_explicit_payment(operator_text)
+    guest_effort = detect_guest_post_effort(operator_text or text, channel_type)
+    payment_context = operator_text or text
+    if any(term in payment_context for term in ["dofollow-link kaufen", "dofollow link kaufen", "backlink kaufen", "linkplatzierung", "garantierte veroeffentlichung", "garantierte publikation"]):
         return "paid_only", 60, "bezahlte Link-/Veroeffentlichungssignale", explicit_payment or "paid_link_publication", guest_effort
     if explicit_payment or guest_effort == "full_exclusive_guest_article_required":
         return "mixed_editorial_commercial", 6, explicit_payment or guest_effort, explicit_payment, guest_effort
@@ -1365,6 +1408,9 @@ def infer_entity_type(domain: str, pages: list[PageSnapshot], search_result: Sea
                 return "podcast_show", f"Selbstbeschreibung: {description}"
         else:
             return described_entity, f"Selbstbeschreibung: {description}"
+    dominant_entity, dominant_evidence = dominant_site_entity(domain, pages, search_result)
+    if dominant_entity:
+        return dominant_entity, dominant_evidence
     if any(term in text for term in ["forum", "community", "thread", "beitrag beantworten"]):
         return "forum", "Forum-/Community-Signal"
     if any(term in text for term in ["branchenbuch", "webverzeichnis", "directory", "portal eintragen"]):
@@ -1673,7 +1719,8 @@ def evaluate_domain(
     credibility_score = score_credibility(usable_pages, lowered)
     approachability_score = score_approachability(usable_pages, lowered)
     penalty_score, penalty_reasons = score_penalties(lowered, scoring)
-    commercial_model, commercial_penalty, commercial_evidence, explicit_payment_evidence, guest_post_effort = commercial_model_for(lowered, channel_type)
+    operator_commercial_text = commercial_context_text(usable_pages)
+    commercial_model, commercial_penalty, commercial_evidence, explicit_payment_evidence, guest_post_effort = commercial_model_for(lowered, channel_type, operator_commercial_text)
     penalty_score += commercial_penalty
     if contact_score < 12:
         penalty_score += scoring["penalty_no_contact"]
@@ -2132,6 +2179,28 @@ def select_final(candidates: list[Candidate], quotas: dict[str, int], target: in
     return selected[:target], missing
 
 
+def eligible_a_candidates(candidates: list[Candidate]) -> list[Candidate]:
+    return [
+        candidate
+        for candidate in candidates
+        if candidate.candidate_mode == "A"
+        and candidate.status == "accepted"
+        and candidate.hard_gate_passed
+        and candidate.entity_type in (REGULAR_ALLOWED_ENTITY_TYPES | {"commercial_brand_blog"})
+        and candidate.total_score >= FINAL_MIN_SCORE
+    ]
+
+
+def category_count_dict(candidates: Iterable[Candidate]) -> dict[str, int]:
+    counts = Counter(candidate.category for candidate in candidates)
+    return {category: counts.get(category, 0) for category in CATEGORY_ORDER}
+
+
+def unselected_a_counts(candidates: list[Candidate], selected: list[Candidate]) -> dict[str, int]:
+    selected_domains = {candidate.domain for candidate in selected}
+    return category_count_dict(candidate for candidate in eligible_a_candidates(candidates) if candidate.domain not in selected_domains)
+
+
 def compute_quotas(quotas: dict[str, int], target: int) -> dict[str, int]:
     total = sum(quotas.get(category, 0) for category in CATEGORY_ORDER) or 1
     if target == total:
@@ -2565,6 +2634,9 @@ def run_discovery(args: argparse.Namespace, *, pilot_mode: bool = False) -> tupl
         "accepted_candidates": sum(1 for item in candidates if item.candidate_mode == "A"),
         "b_candidates": sum(1 for item in candidates if item.candidate_mode == "B"),
         "rejected_candidates": sum(1 for item in candidates if item.status != "accepted"),
+        "eligible_a_candidates_by_category": category_count_dict(eligible_a_candidates(candidates)),
+        "selected_a_candidates_by_category": category_count_dict(final),
+        "unselected_a_candidates_by_category": unselected_a_counts(candidates, final),
         "rejection_reasons": dict(Counter(item.rejection_reason or "none" for item in candidates if item.status != "accepted")),
         "final_count_by_category": dict(Counter(item.category for item in final)),
         "missing_category_quotas": missing,
@@ -2698,6 +2770,20 @@ def cached_pages_for_url(url: str, cache: Cache, blocklists: Blocklists) -> list
     return pages
 
 
+def cached_pages_for_audit_row(row: dict[str, str], cache: Cache, blocklists: Blocklists) -> tuple[str, list[PageSnapshot]]:
+    urls = [row.get("candidate_url", ""), row.get("final_seed_url", "")]
+    seen: set[str] = set()
+    for url in urls:
+        normalized = normalize_url(url)
+        if not normalized or normalized in seen:
+            continue
+        seen.add(normalized)
+        pages = cached_pages_for_url(normalized, cache, blocklists)
+        if pages:
+            return normalized, pages
+    return normalize_url(urls[0] or urls[1] or ""), []
+
+
 def reevaluate(args: argparse.Namespace) -> int:
     audit_path = resolve_workspace_path(args.audit)
     output_dir = resolve_workspace_path(args.output_dir)
@@ -2716,8 +2802,8 @@ def reevaluate(args: argparse.Namespace) -> int:
             if not url:
                 continue
             category_hint = row.get("category", "")
-            pages = cached_pages_for_url(url, page_cache, blocklists)
-            result = SearchResult(url=url, provider="reevaluate", query_id=row.get("query_id", "reeval"), category_hint=category_hint)
+            resolved_url, pages = cached_pages_for_audit_row(row, page_cache, blocklists)
+            result = SearchResult(url=resolved_url or url, provider="reevaluate", query_id=row.get("query_id", "reeval"), category_hint=category_hint)
             if pages:
                 candidates.append(evaluate_domain(result, pages, blocklists, scoring, FINAL_MIN_SCORE))
             else:
@@ -2743,6 +2829,9 @@ def reevaluate(args: argparse.Namespace) -> int:
             "accepted_candidates": sum(1 for candidate in candidates if candidate.candidate_mode == "A"),
             "b_candidates": sum(1 for candidate in candidates if candidate.candidate_mode == "B"),
             "rejected_candidates": sum(1 for candidate in candidates if candidate.candidate_mode == "C"),
+            "eligible_a_candidates_by_category": category_count_dict(eligible_a_candidates(candidates)),
+            "selected_a_candidates_by_category": category_count_dict(final),
+            "unselected_a_candidates_by_category": unselected_a_counts(candidates, final),
             "missing_category_quotas": missing,
             "note": "Reevaluate nutzt nur vorhandene Page-Cache-Eintraege und fuehrt keine Brave-Suchanfragen aus.",
             "output_paths": {"seeds_csv": str(seeds_path), "seed_audit_csv": str(audit_out), "seed_candidates_b_csv": str(b_out), "podcast_leads_unresolved_csv": str(podcast_unresolved_out), "run_report_json": str(report_out)},
