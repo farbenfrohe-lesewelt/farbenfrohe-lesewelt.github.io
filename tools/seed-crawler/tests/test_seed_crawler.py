@@ -385,6 +385,143 @@ class SeedCrawlerTest(unittest.TestCase):
         self.assertTrue(candidate.entity_gate_passed)
         self.assertTrue(candidate.quality_gate_passed)
 
+    def test_final_ab_modes_for_real_editorial_media(self):
+        cases = [
+            (
+                "lesestunden.de",
+                "book_blog",
+                "Lesestunden Buchblog",
+                "Buchblog Literatur Klassiker Rezensionen Buchvorstellungen mehrere eigene Rezensionen Sachbuch Kontakt Impressum Autorin Archiv Blog.",
+                "A",
+            ),
+            (
+                "the-pets-team.com",
+                "cat_pet_media",
+                "The Pets Team Haustiermagazin",
+                "Haustiermagazin Katze Katzen Hund Ratgeber Tierverhalten Redaktion Themenvorschlag Kontakt Impressum GmbH Magazin Archiv Autorin.",
+                "A",
+            ),
+            (
+                "papammunity.de",
+                "parent_family_media",
+                "Papammunity Elternblog",
+                "Elternblog Familienblog Schwangerschaft Baby Elternsein Familie Kind Kooperation Anzeigen Produkttests Kontakt Impressum Archiv Autor.",
+                "A",
+            ),
+            (
+                "elternmagazin.info",
+                "parent_family_media",
+                "Elternmagazin Familienmagazin Redaktion",
+                "Familienmagazin Eltern Baby Schwangerschaft Kind Kleinkind Redaktion kontaktieren Themenvorschlag Kontakt Impressum Archiv Magazin.",
+                "A",
+            ),
+            (
+                "grossekoepfe.de",
+                "parent_family_media",
+                "Grosse Koepfe Elternblog",
+                "Elternblog Familienblog Schwangerschaft Baby Familie Lesen Kooperation Kontakt Presse Impressum Archiv Autorinnen.",
+                "A",
+            ),
+        ]
+        for domain, category, title, text, mode in cases:
+            with self.subTest(domain=domain):
+                candidate = self.candidate_for(domain, [self.page(f"https://{domain}/kontakt/", title, text, ["2026-05-01"], site_name=title)], category)
+                self.assertEqual(candidate.candidate_mode, mode)
+                self.assertNotIn("Podcast", candidate.notes)
+
+    def test_b_modes_require_explicit_payment_or_high_effort(self):
+        cases = [
+            (
+                "smallnature.de",
+                "cat_pet_media",
+                "Smallnature Katzenblog Kooperation",
+                "Katzenblog Katzenmagazin Katze Haustier Ratgeber Kooperation Gastbeitrag fuer Unternehmen kostenpflichtig Preise ab 250 Euro netto private Projekte kostenlos Kontakt Impressum Archiv.",
+                "paid_for_companies_private_exception_possible",
+            ),
+            (
+                "pola-magazin.de",
+                "parent_family_media",
+                "Pola Familienmagazin Mediadaten",
+                "Familienmagazin Eltern Baby Kleinkind Familie Mediadaten Werbepreise Werbebuchung Kontakt Impressum Archiv Redaktion.",
+                "advertising_rates_or_booking",
+            ),
+            (
+                "katzenguru.de",
+                "cat_pet_media",
+                "Katzenguru Gastbeitrag",
+                "Katzenblog Katze Haustier Ratgeber Gastbeitrag vollstaendiger unveroeffentlichter Gastartikel exklusive Nutzungsrechte Kontakt Impressum Archiv.",
+                "full_exclusive_guest_article_required",
+            ),
+            (
+                "kuckuck-magazin.de",
+                "parent_family_media",
+                "Kuckuck Familienmagazin Mediadaten",
+                "Familienmagazin Baby Eltern Familie Schwangerschaft Kind Kleinkind Mediadaten Werbebuchung Kontakt Impressum RSS Newsletter Archiv.",
+                "advertising_rates_or_booking",
+            ),
+            (
+                "lieblingskatze.net",
+                "cat_pet_media",
+                "Lieblingskatze Katzenblog Kooperation",
+                "Katzenblog Katzenmagazin Katze Haustier Ratgeber bezahlte Kooperation Werbung Kontakt Impressum Archiv.",
+                "paid_cooperation",
+            ),
+        ]
+        for domain, category, title, text, reason in cases:
+            with self.subTest(domain=domain):
+                candidate = self.candidate_for(domain, [self.page(f"https://{domain}/kooperation/", title, text, ["2026-05-01"], site_name=title)], category)
+                self.assertEqual(candidate.candidate_mode, "B")
+                self.assertEqual(candidate.candidate_mode_reason, reason)
+
+    def test_c_modes_for_pressroom_subscription_shop_brand_and_stale_article(self):
+        cases = [
+            ("agila.de", "cat_pet_media", "AGILA Newsroom", "Newsroom Pressemitteilung Unternehmensnews Versicherung AG Hund Katze Presse Kontakt.", ["2026-05-01"], "corporate_pressroom"),
+            ("famileo.com", "parent_family_media", "Famileo Familienmagazin", "Abo Abonnement Produkt Service private Familienmagazin erstellen fuer Grosseltern bestellen App Kontakt.", ["2026-05-01"], "subscription_product"),
+            ("zooplus.de", "cat_pet_media", "Zooplus Magazin", "Shop Warenkorb Produkt kaufen Versandkosten Katzenmagazin Ratgeber Marke Unternehmen Kontakt.", ["2026-05-01"], "online_shop"),
+            ("mypostcard.com", "parent_family_media", "MyPostcard Blog", "Brand Blog Marke Unternehmen Produkt Service Ratgeber Familie Urlaub keine Redaktion fuer Themenvorschlag.", ["2026-05-01"], "brand_owned_editorial"),
+        ]
+        for domain, category, title, text, dates, entity_type in cases:
+            with self.subTest(domain=domain):
+                candidate = self.candidate_for(domain, [self.page(f"https://{domain}/", title, text, dates, site_name=title)], category)
+                self.assertEqual(candidate.entity_type, entity_type)
+                self.assertEqual(candidate.candidate_mode, "C")
+        stale = self.candidate_for(
+            "sonnenkinderleben.de",
+            [
+                self.page(
+                    "https://sonnenkinderleben.de/2023/02/23/beduerfnisorientiert-grenzen-setzen/",
+                    "Beduerfnisorientiert Grenzen setzen",
+                    "Familienblog Elternblog Familie Baby Kind Artikel vom 23.02.2023 Podcast Empfehlung fremder Podcasts Kontakt Impressum Archiv Termine 2027.",
+                    ["2023-02-23", "2027-01-01"],
+                    site_name="Sonnenkinderleben",
+                )
+            ],
+            "parent_family_media",
+        )
+        self.assertEqual(stale.candidate_mode, "C")
+        self.assertEqual(stale.latest_verified_editorial_date, "2023-02-23")
+        self.assertNotIn("vor 0 Monaten", stale.activity_signal)
+
+    def test_page_and_site_topic_fit_are_separate(self):
+        page = self.page("https://familie.example/baby/baby-und-katze/", "Baby und Katze", "Familienmagazin Eltern Baby Schwangerschaft Kind Katzenartikel Kontakt Impressum.", ["2026-05-01"], site_name="Familie")
+        home = self.page("https://familie.example/", "Familienmagazin", "Familienmagazin Eltern Baby Schwangerschaft Kind Kleinkind Archiv Kontakt Impressum.", ["2026-05-02"], site_name="Familie")
+        candidate = self.candidate_for("familie.example", [page, home], "parent_family_media")
+        self.assertEqual(candidate.category, "parent_family_media")
+        self.assertGreaterEqual(candidate.page_topic_fit, candidate.site_topic_fit)
+
+    def test_podcast_platform_lead_queries_and_unresolved_writer(self):
+        result = app.SearchResult("https://podcasts.apple.com/de/podcast/familienleben/id123", "Familienleben - Apple Podcasts", "", "brave", "q01", "", "podcast")
+        self.assertTrue(app.is_podcast_platform_result(result))
+        self.assertEqual(app.extract_podcast_show_title(result), "Familienleben")
+        queries = app.podcast_resolver_queries("Familienleben", 0)
+        self.assertIn('"Familienleben" Podcast Website', queries[0].text)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "podcast_leads_unresolved.csv"
+            app.write_podcast_leads_unresolved_csv(path, [{"show_title": "Familienleben", "platform_url": result.url, "source_query_id": "q01", "reason": "no_own_site_found"}])
+            with path.open("r", encoding="utf-8", newline="") as handle:
+                rows = list(csv.DictReader(handle))
+        self.assertEqual(rows[0]["reason"], "no_own_site_found")
+
     def test_env_file_is_loaded_without_overriding_os_environment(self):
         with tempfile.TemporaryDirectory() as tmp:
             env_file = Path(tmp) / ".env"

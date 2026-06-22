@@ -4,7 +4,9 @@ Der Seed Crawler findet, prueft und bewertet oeffentlich erreichbare Webseiten, 
 
 Ein Seed ist eine absolute HTTP- oder HTTPS-URL zu einer Website oder Unterseite, die fuer eine redaktionelle Erwaehnung, Rezension, ein Interview, einen Gastbeitrag oder eine Buchvorstellung in Frage kommt.
 
-Seit dem Pilot-Workflow gelten zusaetzliche harte Qualitaets-Gates: Nur echte unabhaengige Buchblogs, Katzen-/Haustiermedien, Eltern-/Familienmedien und eigene Podcastshows werden regulaer final ausgewaehlt. Verlage, Shops, persoenliche Pressearchive, Coachingseiten, Verzeichnisse und Plattformen werden standardmaessig abgelehnt. Finale Seeds brauchen passende Entity- und Qualitaets-Gates, belastbare Themenpassung, redaktionelle Kontakt-Evidenz, keine klare Inaktivitaet, mindestens 70 Punkte und den Kandidatenmodus `A`.
+Seit dem Pilot-Workflow gelten zusaetzliche harte Qualitaets-Gates: Nur echte unabhaengige Buchblogs, Katzen-/Haustiermedien, Eltern-/Familienmedien und eigene Podcastshows werden regulaer final ausgewaehlt. Verlage, Shops, Unternehmens-Newsrooms, Produkt-/Abo-Dienste, persoenliche Pressearchive, Coachingseiten, Verzeichnisse und Plattformen werden standardmaessig abgelehnt. Finale Seeds brauchen passende Entity- und Qualitaets-Gates, belastbare Site-Themenpassung, redaktionelle Kontakt-Evidenz, aktuelle redaktionelle Aktivitaet, mindestens 70 Punkte und den Kandidatenmodus `A`.
+
+Die finale Auswahl trennt drei Modi: `A` steht fuer klar redaktionelle Outreach-Ziele ohne erkannte Pflichtzahlung oder Pflicht-Gastartikel, `B` fuer passende aber kommerzielle oder aufwendige Kanaele, und `C` fuer ungeeignete Kandidaten. Normale Kooperation, Anzeigen, Affiliate-Hinweise oder Produkttests allein machen einen Kandidaten nicht zu `B`; erst belegte Zahlungspflicht, Werbepreise/Mediadaten-Buchung oder hoher Pflichtaufwand loesen `B` aus.
 
 ## Was gesucht wird
 
@@ -251,12 +253,12 @@ Vorhandene Pilot-Audits koennen ohne neue Brave-Suchanfragen aus dem Page-Cache 
 
 ```powershell
 python -m seed_crawler reevaluate `
-  --audit .\local-data\mention-radar\pilot-10b\seed_audit.csv `
+  --audit .\local-data\mention-radar\pilot-10c\seed_audit.csv `
   --cache-dir .\local-data\mention-radar\seed-crawler-cache `
-  --output-dir .\local-data\mention-radar\pilot-10c-reevaluated
+  --output-dir .\local-data\mention-radar\pilot-10d-reevaluated
 ```
 
-Der Reevaluate-Modus nutzt nur vorhandene Cache-Eintraege. Kandidaten ohne gecachte HTML-Seiten werden mit `no_cached_pages` im Audit dokumentiert.
+Der Reevaluate-Modus nutzt nur vorhandene Cache-Eintraege. Kandidaten ohne gecachte HTML-Seiten werden mit `no_cached_pages` im Audit dokumentiert. Podcast-Plattformtreffer werden im normalen Live-Pilot als Leads genutzt; dafuer koennen spaetere Live-Laeufe zusaetzliche Folgequeries nach Show-Website, Kontakt, Gast, Interview und Impressum ausfuehren. `reevaluate` fuehrt keine solchen neuen Suchanfragen aus.
 
 ## Vorhandene seeds.csv sichern
 
@@ -284,6 +286,7 @@ Der Lauf schreibt neben der finalen Datei:
 local-data/mention-radar/seeds.csv
 local-data/mention-radar/seed_audit.csv
 local-data/mention-radar/seed_candidates_b.csv
+local-data/mention-radar/podcast_leads_unresolved.csv
 local-data/mention-radar/run_report.json
 ```
 
@@ -293,9 +296,11 @@ local-data/mention-radar/run_report.json
 url,name,source,notes
 ```
 
-`seed_audit.csv` enthaelt interne Spalten fuer Scorebestandteile, Kategorie, Entity-Type, Plattform-Domain-Abgleich, Selbstbeschreibung, redaktionelle Inhaltsdichte, Social-Link-Zaehler, Kontakt-Gate, kommerzielles Modell, getrennte Entity-/Qualitaets-/Score-Gates, Kandidatenmodus, Status und Ablehnungsgruende.
+`seed_audit.csv` enthaelt interne Spalten fuer Scorebestandteile, Kategorie, Entity-Type, Plattform-Domain-Abgleich, Selbstbeschreibung, redaktionelle Inhaltsdichte, Social-Link-Zaehler, Kontakt-Gate, kommerzielles Modell, getrennte Entity-/Qualitaets-/Score-Gates, Kandidatenmodus, Kandidatenmodus-Grund, Zahlungs- und Gastartikel-Evidenz, getrennte Seed-Seiten- und Site-Aktivitaet, Page-/Site-Themenpassung, Status und Ablehnungsgruende.
 
-`seed_candidates_b.csv` enthaelt passende, aber kommerziellere oder aufwendigere B-Kandidaten, zum Beispiel kostenpflichtige Kooperationen, Mediakit-Faelle oder exklusive Gastartikel. Diese Datei wird nicht von Mention Radar importiert.
+`seed_candidates_b.csv` enthaelt passende, aber kommerziellere oder aufwendigere B-Kandidaten, zum Beispiel kostenpflichtige Kooperationen, Werbepreise/Mediadaten-Buchung oder exklusive Gastartikel. Diese Datei wird nicht von Mention Radar importiert.
+
+`podcast_leads_unresolved.csv` enthaelt Podcast-Plattformtreffer, fuer die keine eigene Show-Website oder zugehoerige Kontaktseite gefunden wurde. Diese Datei wird nicht von Mention Radar importiert.
 
 `run_report.json` dokumentiert Start/Ende, Provider, Suchanfragen, Roh-URLs, gepruefte Domains, akzeptierte und abgelehnte Kandidaten, Ablehnungsgruende, finale Kategorien, fehlende Quoten, Fehler/Timeouts und Dateipfade.
 

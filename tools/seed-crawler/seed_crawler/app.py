@@ -134,6 +134,9 @@ ENTITY_TYPES = {
     "directory_or_aggregator",
     "social_or_podcast_platform",
     "government_or_institution",
+    "corporate_pressroom",
+    "subscription_product",
+    "brand_owned_editorial",
     "unknown",
 }
 REGULAR_ALLOWED_ENTITY_TYPES = {
@@ -177,6 +180,12 @@ FORCED_DOMAIN_ENTITY = {
     "pola-magazin.de": ("parent_family_editorial", "Familienmagazin mit Baby-/Kleinkindbereich"),
     "grossekoepfe.de": ("parent_family_editorial", "Elternblog/Familienmedium"),
     "kuckuck-magazin.de": ("parent_family_editorial", "Familienmagazin mit Babybereich"),
+    "lesestunden.de": ("independent_book_blog", "unabhaengiger Buchblog"),
+    "the-pets-team.com": ("cat_pet_editorial", "Haustiermagazin mit redaktionellen Katzen-/Hundethemen"),
+    "agila.de": ("corporate_pressroom", "Unternehmens-Newsroom einer Versicherung"),
+    "famileo.com": ("subscription_product", "Abo-/Produktdienst fuer private Familienmagazine"),
+    "zooplus.de": ("online_shop", "grosser kommerzieller Shop/Brand-Publisher"),
+    "mypostcard.com": ("brand_owned_editorial", "kommerzieller Brand-Blog"),
 }
 ENTITY_CATEGORY = {
     "independent_book_blog": "book_blog",
@@ -291,6 +300,28 @@ class Candidate:
     quality_gate_passed: bool = False
     score_gate_passed: bool = False
     candidate_mode: str = "C"
+    candidate_mode_reason: str = ""
+    explicit_payment_evidence: str = ""
+    guest_post_effort: str = ""
+    seed_page_published_date: str = ""
+    latest_verified_editorial_date: str = ""
+    latest_editorial_evidence_url: str = ""
+    activity_source_type: str = ""
+    page_topic_fit: int = 0
+    site_topic_fit: int = 0
+
+
+@dataclass(frozen=True)
+class ActivityAssessment:
+    score: int
+    signal: str
+    evidence_url: str = ""
+    evidence_date: str = ""
+    confidence: str = "low"
+    seed_page_published_date: str = ""
+    latest_verified_editorial_date: str = ""
+    latest_editorial_evidence_url: str = ""
+    source_type: str = "unknown"
 
 
 class SearchProvider(Protocol):
@@ -453,7 +484,7 @@ class TinyHTMLParser(HTMLParser):
                 self.site_name = content
             if prop in {"description", "og:description"} and content:
                 self.meta_description = content
-            if prop in {"article:published_time", "article:modified_time", "date", "dc.date"} and content:
+            if prop in {"article:published_time", "date", "dc.date"} and content:
                 self.dates.append(content)
         if tag == "link":
             rel = attrs_dict.get("rel", "").lower()
@@ -525,7 +556,7 @@ class TinyHTMLParser(HTMLParser):
             item = stack.pop()
             if isinstance(item, dict):
                 for key, value in item.items():
-                    if key in {"datePublished", "dateModified"} and isinstance(value, str):
+                    if key == "datePublished" and isinstance(value, str):
                         self.jsonld_dates.append(value)
                     elif isinstance(value, (dict, list)):
                         stack.append(value)
@@ -1254,14 +1285,65 @@ def editorial_quality_score(pages: list[PageSnapshot], text: str, category: str)
     return min(25, score), label, content_count
 
 
-def commercial_model_for(text: str, channel_type: str) -> tuple[str, int, str]:
+def page_is_site_level(page: PageSnapshot) -> bool:
+    path = slug_text(urlparse(page.final_url).path if _parse_url_safely(page.final_url)[0] else page.final_url)
+    if path in {"", "/"}:
+        return True
+    segments = [segment for segment in path.strip("/").split("/") if segment]
+    if any(segment in {"blog", "magazin", "archiv", "category", "kategorie", "rezensionen", "artikel", "ratgeber", "podcast", "episoden", "feed", "rss"} for segment in segments):
+        return True
+    return any(term in path for term in ["/category/", "/kategorie/", "/archiv/", "/feed/", "/rss/"])
+
+
+def page_is_single_article(page: PageSnapshot) -> bool:
+    path = slug_text(urlparse(page.final_url).path if _parse_url_safely(page.final_url)[0] else page.final_url)
+    context = page_context(page, 1200)
+    if re.search(r"/20\d{2}/\d{1,2}/\d{1,2}/", path) or re.search(r"/20\d{2}/\d{1,2}/", path):
+        return True
+    return any(term in path for term in ["artikel", "beitrag", "post", "folge"]) and not page_is_site_level(page) and "archiv" not in context
+
+
+def site_topic_score(category: str, pages: list[PageSnapshot], search_result: SearchResult) -> tuple[int, str]:
+    site_pages = [page for page in pages if page_is_site_level(page)] or pages[:2]
+    return topic_score_and_evidence(category, site_pages, search_result)
+
+
+def page_topic_score(category: str, page: PageSnapshot, search_result: SearchResult) -> tuple[int, str]:
+    return topic_score_and_evidence(category, [page], search_result)
+
+
+def detect_explicit_payment(text: str) -> str:
+    checks = [
+        ("paid_for_companies_private_exception_possible", ["preise ab 250", "250 euro netto", "fuer unternehmen kostenpflichtig", "privat kostenlos", "private projekte kostenlos"]),
+        ("advertising_rates_or_booking", ["werbepreise", "werbebuchung", "anzeigenpreise", "anzeigenschaltung", "mediadaten"]),
+        ("paid_cooperation", ["kostenpflichtige kooperation", "bezahlte kooperation", "sponsored post", "advertorial", "preis auf anfrage"]),
+    ]
+    for label, terms in checks:
+        if any(term in text for term in terms):
+            return label
+    return ""
+
+
+def detect_guest_post_effort(text: str, channel_type: str) -> str:
+    if any(term in text for term in ["vollstaendiger gastartikel", "vollstandiger gastartikel", "unveroeffentlichter gastartikel", "exklusive nutzungsrechte", "exklusivitaet", "mindestens 800 woerter", "mindestens 1000 woerter"]):
+        return "full_exclusive_guest_article_required"
+    if channel_type == "guest_post":
+        return "guest_post_possible"
+    return ""
+
+
+def commercial_model_for(text: str, channel_type: str) -> tuple[str, int, str, str, str]:
+    explicit_payment = detect_explicit_payment(text)
+    guest_effort = detect_guest_post_effort(text, channel_type)
     if any(term in text for term in ["dofollow-link kaufen", "dofollow link kaufen", "backlink kaufen", "linkplatzierung", "garantierte veroeffentlichung", "garantierte publikation"]):
-        return "paid_only", 60, "bezahlte Link-/Veroeffentlichungssignale"
-    if any(term in text for term in ["kostenpflichtige kooperation", "mediakit", "media kit", "advertorial", "sponsored post", "werbung", "anzeigen", "kooperationsanfrage", "affiliate"]) or channel_type == "guest_post":
-        return "mixed_editorial_commercial", 6, "gemischtes redaktionell-kommerzielles Modell"
+        return "paid_only", 60, "bezahlte Link-/Veroeffentlichungssignale", explicit_payment or "paid_link_publication", guest_effort
+    if explicit_payment or guest_effort == "full_exclusive_guest_article_required":
+        return "mixed_editorial_commercial", 6, explicit_payment or guest_effort, explicit_payment, guest_effort
+    if any(term in text for term in ["werbung", "anzeigen", "affiliate", "produkttest", "produkttests", "kooperation"]) or channel_type in {"cooperation", "media_kit"}:
+        return "editorial_unpaid_possible", 0, "normale Monetarisierungs-/Kooperationssignale", "", guest_effort
     if channel_type in {"review_copy", "book_pitch", "topic_pitch", "editorial_contact", "press_contact", "general_contact", "podcast_guest", "interview_pitch"}:
-        return "editorial_unpaid_possible", 0, "normaler redaktioneller Kontaktweg"
-    return "unknown", 0, "kommerzielles Modell unklar"
+        return "editorial_unpaid_possible", 0, "normaler redaktioneller Kontaktweg", "", guest_effort
+    return "unknown", 0, "kommerzielles Modell unklar", "", guest_effort
 
 
 def infer_entity_type(domain: str, pages: list[PageSnapshot], search_result: SearchResult) -> tuple[str, str]:
@@ -1289,6 +1371,10 @@ def infer_entity_type(domain: str, pages: list[PageSnapshot], search_result: Sea
         return "directory_or_aggregator", "Verzeichnis-/Aggregator-Signal"
     if any(term in text for term in ["ministerium", "behoerde", "stadtverwaltung", "universitaet", "institut"]):
         return "government_or_institution", "Institutionelles Signal"
+    if any(term in text for term in ["pressemitteilung", "newsroom", "unternehmensnews", "presseraum"]) and any(term in text for term in ["versicherung", "gmbh", "ag ", "unternehmen", "konzern"]):
+        return "corporate_pressroom", "Unternehmens-Newsroom/Presseraum"
+    if any(term in text for term in ["abo", "abonnement", "familienmagazin erstellen", "private familienzeitung", "fuer grosseltern", "grosseltern"]) and any(term in text for term in ["bestellen", "produkt", "app", "service"]):
+        return "subscription_product", "Abo-/Produktdienst"
     if any(term in text for term in ["verlag", "verlagsprogramm", "unsere autoren", "buch bestellen"]) and any(term in text for term in ["warenkorb", "shop", "produkt", "isbn"]):
         return "publisher", "Verlag/Verlagsshop-Signal"
     if any(term in text for term in ["buchhandlung", "buchshop", "buecher kaufen"]):
@@ -1311,18 +1397,18 @@ def infer_entity_type(domain: str, pages: list[PageSnapshot], search_result: Sea
     review_count = count_terms(text, ["rezension", "rezensionen", "buchvorstellung", "gelesen", "lesemonat", "buecherblog", "buchblog"])
     if ("buchblog" in title_context or "buecherblog" in title_context or "buchblog" in text or review_count >= 3) and not any(term in text for term in ["verlagsprogramm", "coaching", "buchhandlung"]):
         return "independent_book_blog", "unabhaengige Buch-/Rezensionssignale"
-    if any(term in text for term in ["shop", "produkt", "marke", "unternehmen"]) and any(term in text for term in ["magazin", "blog", "ratgeber"]):
-        return "commercial_brand_blog", "kommerzielles Markenblog/Magazin"
+    if any(term in text for term in ["marke", "unternehmen", "gmbh", "ag ", "produkt", "service"]) and any(term in text for term in ["magazin", "blog", "ratgeber", "redaktion"]):
+        return "brand_owned_editorial", "markengefuehrtes redaktionelles Angebot"
     return "unknown", "kein eindeutiger Medientyp"
 
 
 def category_for_entity(entity_type: str, category_hint: str, text: str) -> tuple[str, str]:
     if entity_type in ENTITY_CATEGORY:
         return ENTITY_CATEGORY[entity_type], f"entity_type={entity_type}"
-    if entity_type == "commercial_brand_blog":
+    if entity_type in {"commercial_brand_blog", "brand_owned_editorial"}:
         if count_terms(text, ["katze", "katzen", "haustier"]) >= count_terms(text, ["baby", "familie", "eltern"]):
-            return "cat_pet_media", "commercial_brand_blog mit Tierfokus"
-        return "parent_family_media", "commercial_brand_blog mit Familienfokus"
+            return "cat_pet_media", f"{entity_type} mit Tierfokus"
+        return "parent_family_media", f"{entity_type} mit Familienfokus"
     if category_hint in CATEGORY_ORDER and category_hint != "podcast":
         return category_hint, "nur Suchhint; Hard Gate erforderlich"
     return "cat_pet_media", "Fallback ohne Hard-Gate"
@@ -1416,34 +1502,81 @@ def topic_score_and_evidence(category: str, pages: list[PageSnapshot], search_re
     return 0, "keine belastbare Themenpassung"
 
 
-def assess_activity(pages: list[PageSnapshot]) -> tuple[int, str, str, str, str]:
+def page_date_candidates(page: PageSnapshot, now: datetime) -> list[tuple[int, datetime, str, str]]:
+    candidates: list[tuple[int, datetime, str, str]] = []
+    page_context_short = page_context(page, 2500)
+    for raw in page.jsonld_dates:
+        parsed = parse_date(raw)
+        if parsed and parsed <= now:
+            candidates.append((1, parsed, page.final_url, raw))
+    for raw in page.dates:
+        parsed = parse_date(raw)
+        if parsed and parsed <= now:
+            if any(term in page_context_short for term in ["copyright", "kommentar", "veranstaltung", "termine"]) and "article" not in page_context_short and "artikel" not in page_context_short and "episode" not in page_context_short and "blog" not in page_context_short and "magazin" not in page_context_short:
+                continue
+            candidates.append((2, parsed, page.final_url, raw))
+    return candidates
+
+
+def activity_from_newest(newest: datetime, url: str, source_type: str, seed_page_date: str) -> ActivityAssessment:
     now = datetime.now(UTC)
-    evidence: list[tuple[int, datetime, str, str]] = []
+    months = max(0, int((now - newest).days / 30))
+    date_value = newest.date().isoformat()
+    if newest >= now - timedelta(days=183):
+        score = 20
+        confidence = "high"
+        signal = f"letzter Inhalt vor {months} Monaten"
+    elif newest >= now - timedelta(days=365):
+        score = 15
+        confidence = "high"
+        signal = f"letzter Inhalt vor {months} Monaten"
+    elif newest >= now - timedelta(days=548):
+        score = 4
+        confidence = "medium"
+        signal = f"letzter datierter Inhalt vor {months} Monaten"
+    else:
+        score = 0
+        confidence = "high"
+        signal = f"letzter datierter Inhalt vor {months} Monaten"
+    return ActivityAssessment(
+        score=score,
+        signal=signal,
+        evidence_url=url,
+        evidence_date=date_value,
+        confidence=confidence,
+        seed_page_published_date=seed_page_date,
+        latest_verified_editorial_date=date_value,
+        latest_editorial_evidence_url=url,
+        source_type=source_type,
+    )
+
+
+def assess_activity(pages: list[PageSnapshot], seed_page: PageSnapshot | None = None) -> ActivityAssessment:
+    now = datetime.now(UTC)
+    site_evidence: list[tuple[int, datetime, str, str]] = []
+    article_evidence: list[tuple[int, datetime, str, str]] = []
+    seed_dates: list[datetime] = []
     for page in pages:
-        for raw in page.jsonld_dates:
-            parsed = parse_date(raw)
-            if parsed and parsed <= now:
-                evidence.append((1, parsed, page.final_url, raw))
-        for raw in page.dates:
-            parsed = parse_date(raw)
-            if parsed and parsed <= now:
-                page_context_short = page_context(page, 2500)
-                if any(term in page_context_short for term in ["copyright", "kommentar", "veranstaltung", "termine"]) and "article" not in page_context_short and "artikel" not in page_context_short and "episode" not in page_context_short and "blog" not in page_context_short and "magazin" not in page_context_short:
-                    continue
-                evidence.append((2, parsed, page.final_url, raw))
-    if evidence:
-        evidence.sort(key=lambda item: (item[1], -item[0]), reverse=True)
-        _priority, newest, url, raw = evidence[0]
-        months = max(0, int((now - newest).days / 30))
-        if newest >= now - timedelta(days=365):
-            return (20 if newest >= now - timedelta(days=183) else 15, f"letzter Inhalt vor {months} Monaten", url, newest.date().isoformat(), "high")
-        if newest >= now - timedelta(days=548):
-            return 4, f"letzter datierter Inhalt vor {months} Monaten", url, newest.date().isoformat(), "medium"
-        return 0, f"letzter datierter Inhalt vor {months} Monaten", url, newest.date().isoformat(), "high"
+        candidates = page_date_candidates(page, now)
+        if seed_page and page.final_url == seed_page.final_url:
+            seed_dates.extend(item[1] for item in candidates)
+        if page_is_site_level(page):
+            site_evidence.extend(candidates)
+        else:
+            article_evidence.extend(candidates)
+    seed_page_date = max(seed_dates).date().isoformat() if seed_dates else ""
+    if site_evidence:
+        site_evidence.sort(key=lambda item: (item[1], -item[0]), reverse=True)
+        _priority, newest, url, _raw = site_evidence[0]
+        return activity_from_newest(newest, url, "site_archive_or_listing", seed_page_date)
+    if article_evidence:
+        article_evidence.sort(key=lambda item: (item[1], -item[0]), reverse=True)
+        _priority, newest, url, _raw = article_evidence[0]
+        return activity_from_newest(newest, url, "single_article_date", seed_page_date)
     combined = slug_text(" ".join(page.title + " " + page.text[:2000] for page in pages))
     if any(term in combined for term in ["aktuelle beitraege", "neueste beitraege", "neue folge", "aktuelle folge"]):
-        return 6, "Aktivitaet nicht eindeutig datierbar", "", "", "low"
-    return 2, "Aktivitaet nicht eindeutig datierbar", "", "", "low"
+        return ActivityAssessment(6, "Aktivitaet nicht eindeutig datierbar", confidence="low", seed_page_published_date=seed_page_date, source_type="undated_site_signal")
+    return ActivityAssessment(2, "Aktivitaet nicht eindeutig datierbar", confidence="low", seed_page_published_date=seed_page_date, source_type="unknown")
 
 
 def hard_gate_check(
@@ -1475,6 +1608,38 @@ def hard_gate_check(
     return True, "passed"
 
 
+def determine_candidate_mode(
+    *,
+    hard_gate_passed: bool,
+    score_gate_passed: bool,
+    entity_type: str,
+    commercial_model: str,
+    explicit_payment_evidence: str,
+    guest_post_effort: str,
+    activity_score: int,
+    block_reason: str,
+) -> tuple[str, str]:
+    if block_reason:
+        return "C", block_reason
+    if not hard_gate_passed:
+        return "C", "hard_gate_failed"
+    if not score_gate_passed:
+        return "C", "score_below_min"
+    if commercial_model == "paid_only":
+        return "C", "paid_only_or_link_sale"
+    if entity_type in {"corporate_pressroom", "subscription_product", "publisher", "online_shop", "personal_official_site", "author_site", "coach_or_service_provider", "social_or_podcast_platform"}:
+        return "C", f"entity_type_not_outreach_medium:{entity_type}"
+    if entity_type == "brand_owned_editorial":
+        return "B", "brand_owned_editorial"
+    if explicit_payment_evidence:
+        return "B", explicit_payment_evidence
+    if guest_post_effort == "full_exclusive_guest_article_required":
+        return "B", guest_post_effort
+    if activity_score == 4:
+        return "B", "activity_12_to_18_months"
+    return "A", "clear_editorial_outreach"
+
+
 def evaluate_domain(
     search_result: SearchResult,
     pages: list[PageSnapshot],
@@ -1493,32 +1658,48 @@ def evaluate_domain(
     category, category_evidence = category_for_entity(entity_type, search_result.category_hint, lowered)
     block_reason = negative_content_reason(lowered, blocklists.negative_terms)
     name = determine_name(best_page, domain)
-    topic_score, topic_evidence = topic_score_and_evidence(category, usable_pages, search_result)
+    page_topic_fit, page_topic_evidence = page_topic_score(category, best_page, search_result)
+    site_topic_fit, site_topic_evidence = site_topic_score(category, usable_pages, search_result)
+    topic_score = max(site_topic_fit, page_topic_fit)
+    topic_evidence = f"site: {site_topic_evidence}; page: {page_topic_evidence}"
     contact_score, contact_signal_label, contact_url, contact_text, channel_type = find_contact_evidence(usable_pages, category, entity_type)
-    activity_score, activity_signal, activity_url, activity_date, activity_confidence = assess_activity(usable_pages)
+    activity = assess_activity(usable_pages, best_page)
+    activity_score = activity.score
+    activity_signal = activity.signal
+    activity_url = activity.evidence_url
+    activity_date = activity.evidence_date
+    activity_confidence = activity.confidence
     editorial_score, editorial_signal, editorial_content_count = editorial_quality_score(usable_pages, lowered, category)
     credibility_score = score_credibility(usable_pages, lowered)
     approachability_score = score_approachability(usable_pages, lowered)
     penalty_score, penalty_reasons = score_penalties(lowered, scoring)
-    commercial_model, commercial_penalty, commercial_evidence = commercial_model_for(lowered, channel_type)
+    commercial_model, commercial_penalty, commercial_evidence, explicit_payment_evidence, guest_post_effort = commercial_model_for(lowered, channel_type)
     penalty_score += commercial_penalty
     if contact_score < 12:
         penalty_score += scoring["penalty_no_contact"]
         penalty_reasons.append("kein Kontaktweg")
     total = max(0, min(100, topic_score + editorial_score + activity_score + credibility_score + approachability_score - penalty_score))
-    entity_gate_passed = entity_type in REGULAR_ALLOWED_ENTITY_TYPES or (entity_type == "commercial_brand_blog" and contact_score >= 18 and topic_score >= 24)
+    entity_gate_passed = entity_type in REGULAR_ALLOWED_ENTITY_TYPES or (entity_type in {"commercial_brand_blog", "brand_owned_editorial"} and contact_score >= 18 and topic_score >= 24)
     quality_gate_passed, quality_gate_reason = hard_gate_check(entity_type, category, topic_score, contact_score, activity_score, activity_confidence, lowered)
     score_gate_passed = total >= max(min_score, FINAL_MIN_SCORE)
     hard_gate_passed = entity_gate_passed and quality_gate_passed
     hard_gate_reason = "passed" if hard_gate_passed else (f"entity_type_not_allowed:{entity_type}" if not entity_gate_passed else quality_gate_reason)
     rejection_reason = block_reason or ("" if hard_gate_passed and score_gate_passed else (hard_gate_reason if not hard_gate_passed else f"score_below_min:{total}"))
-    candidate_mode = "C"
-    if hard_gate_passed and score_gate_passed and commercial_model != "paid_only":
-        candidate_mode = "B" if commercial_model == "mixed_editorial_commercial" or channel_type in {"guest_post", "media_kit", "cooperation"} else "A"
+    candidate_mode, candidate_mode_reason = determine_candidate_mode(
+        hard_gate_passed=hard_gate_passed,
+        score_gate_passed=score_gate_passed,
+        entity_type=entity_type,
+        commercial_model=commercial_model,
+        explicit_payment_evidence=explicit_payment_evidence,
+        guest_post_effort=guest_post_effort,
+        activity_score=activity_score,
+        block_reason=block_reason,
+    )
     status = "accepted" if candidate_mode == "A" else ("conditional" if candidate_mode == "B" else "rejected")
     if block_reason:
         status = "rejected"
         candidate_mode = "C"
+        candidate_mode_reason = block_reason
         total = min(total, 40)
         hard_gate_passed = False
         hard_gate_reason = block_reason
@@ -1527,13 +1708,13 @@ def evaluate_domain(
     elif not score_gate_passed:
         status = "rejected"
         rejection_reason = f"score_below_min:{total}"
-        hard_gate_reason = rejection_reason
         candidate_mode = "C"
+        candidate_mode_reason = "score_below_min"
     elif commercial_model == "paid_only":
         status = "rejected"
         rejection_reason = "commercial_model_paid_only"
-        hard_gate_reason = rejection_reason
         candidate_mode = "C"
+        candidate_mode_reason = "paid_only_or_link_sale"
     contact_signal = channel_type or contact_signal_for(lowered)
     notes = build_notes(category, editorial_signal, lowered, activity_signal, total)
     final_seed_url = normalize_url(best_page.final_url, prefer_https=best_page.final_url.lower().startswith("https://")) or normalize_url(search_result.url)
@@ -1580,6 +1761,15 @@ def evaluate_domain(
         quality_gate_passed=quality_gate_passed,
         score_gate_passed=score_gate_passed,
         candidate_mode=candidate_mode,
+        candidate_mode_reason=candidate_mode_reason,
+        explicit_payment_evidence=explicit_payment_evidence,
+        guest_post_effort=guest_post_effort,
+        seed_page_published_date=activity.seed_page_published_date,
+        latest_verified_editorial_date=activity.latest_verified_editorial_date,
+        latest_editorial_evidence_url=activity.latest_editorial_evidence_url,
+        activity_source_type=activity.source_type,
+        page_topic_fit=page_topic_fit,
+        site_topic_fit=site_topic_fit,
     )
 
 
@@ -1690,8 +1880,8 @@ def parse_date(value: str) -> datetime | None:
 
 
 def score_activity(pages: list[PageSnapshot]) -> tuple[int, str]:
-    score, signal, _url, _date, _confidence = assess_activity(pages)
-    return score, signal
+    activity = assess_activity(pages)
+    return activity.score, activity.signal
 
 
 def score_credibility(pages: list[PageSnapshot], text: str) -> int:
@@ -1805,6 +1995,88 @@ def source_for(result: SearchResult) -> str:
     return f"crawler:{result.provider or 'unknown'}:{category}:{query_id}".replace(",", "")
 
 
+def is_podcast_platform_result(result: SearchResult) -> bool:
+    if result.category_hint != "podcast":
+        return False
+    host = exact_host(result.url)
+    domain = registered_domain(result.url)
+    return bool(platform_domain_match_for(host, domain))
+
+
+def extract_podcast_show_title(result: SearchResult) -> str:
+    raw = clean_space(result.title or result.snippet or registered_domain(result.url))
+    raw = re.sub(r"\s*[-|:]\s*(Apple Podcasts|Spotify|YouTube|Podigee|SoundCloud|Podcast|Podcasts).*$", "", raw, flags=re.IGNORECASE)
+    raw = re.sub(r"\b(on|bei|auf)\s+(Apple Podcasts|Spotify|YouTube|Podigee|SoundCloud)\b", "", raw, flags=re.IGNORECASE)
+    raw = clean_space(raw.strip(" -|:"))
+    if not raw or "." in raw and len(raw.split()) <= 2:
+        raw = registered_domain(result.url).split(".")[0].replace("-", " ").title()
+    return raw[:90]
+
+
+def podcast_resolver_queries(show_title: str, start_index: int) -> list[QuerySpec]:
+    templates = [
+        '"{title}" Podcast Website',
+        '"{title}" Kontakt',
+        '"{title}" Gast',
+        '"{title}" Interview',
+        '"{title}" Impressum',
+    ]
+    return [QuerySpec("podcast", f"podres{start_index + index:02d}", template.format(title=show_title), generated=True) for index, template in enumerate(templates, start=1)]
+
+
+def resolve_podcast_platform_leads(
+    provider: SearchProvider,
+    search_cache: Cache,
+    raw_results: list[SearchResult],
+    per_query_limit: int,
+    verbose: bool,
+) -> tuple[list[SearchResult], list[dict[str, str]], int]:
+    platform_results = [result for result in raw_results if is_podcast_platform_result(result)]
+    seen_titles: set[str] = set()
+    added: list[SearchResult] = []
+    unresolved: list[dict[str, str]] = []
+    query_count = 0
+    for result in platform_results[:4]:
+        show_title = extract_podcast_show_title(result)
+        key = slug_text(show_title)
+        if not key or key in seen_titles:
+            continue
+        seen_titles.add(key)
+        found_own_site = False
+        for query in podcast_resolver_queries(show_title, query_count):
+            query_count += 1
+            if verbose:
+                print(f"Podcast-Resolver: {show_title} -> {query.text}")
+            cache_key = f"search:{provider.name}:{query.category}:{query.query_id}:{query.text}:{min(5, per_query_limit)}"
+            cached_results = search_cache.get(cache_key)
+            if cached_results:
+                found = [SearchResult(**item) for item in cached_results]
+            else:
+                found = provider.search(query, min(5, per_query_limit))
+                search_cache.set(cache_key, [asdict(item) for item in found])
+            for found_result in found:
+                normalized = normalize_url(found_result.url)
+                if not normalized:
+                    continue
+                if platform_domain_match_for(exact_host(normalized), registered_domain(normalized)):
+                    continue
+                found_own_site = True
+                added.append(SearchResult(normalized, found_result.title, found_result.snippet, provider.name, query.query_id, query.text, "podcast"))
+        if not found_own_site:
+            unresolved.append({"show_title": show_title, "platform_url": result.url, "source_query_id": result.query_id, "reason": "no_own_site_found"})
+    return added, unresolved, query_count
+
+
+def write_podcast_leads_unresolved_csv(path: Path, leads: list[dict[str, str]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fields = ["show_title", "platform_url", "source_query_id", "reason"]
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        for lead in leads:
+            writer.writerow({field: safe_summary_text(lead.get(field, "")) for field in fields})
+
+
 def build_notes(category: str, editorial_signal: str, text: str, activity_signal: str, score: int) -> str:
     topics: list[str] = []
     if any(term in text for term in ["katze", "katzen"]):
@@ -1813,7 +2085,7 @@ def build_notes(category: str, editorial_signal: str, text: str, activity_signal
         topics.append("Familienthemen")
     if any(term in text for term in ["sachbuch", "ratgeber", "buchrezension"]):
         topics.append("Sachbuch/Ratgeber")
-    if any(term in text for term in ["podcast", "episode"]):
+    if category == "podcast" and any(term in text for term in ["podcast", "episode"]):
         topics.append("Podcast")
     topic = " und ".join(topics[:2]) if topics else "thematisch passend"
     parts = [CATEGORY_LABELS.get(category, category), editorial_signal, topic, activity_signal, f"Score {score}/100"]
@@ -1905,6 +2177,8 @@ def write_audit_csv(path: Path, candidates: list[Candidate]) -> None:
         "social_links_detected",
         "category_evidence",
         "topic_evidence",
+        "page_topic_fit",
+        "site_topic_fit",
         "discovery_source",
         "query_id",
         "topic_score",
@@ -1920,6 +2194,10 @@ def write_audit_csv(path: Path, candidates: list[Candidate]) -> None:
         "activity_signal",
         "activity_evidence_url",
         "activity_evidence_date",
+        "seed_page_published_date",
+        "latest_verified_editorial_date",
+        "latest_editorial_evidence_url",
+        "activity_source_type",
         "activity_confidence",
         "editorial_signal",
         "hard_gate_passed",
@@ -1931,6 +2209,9 @@ def write_audit_csv(path: Path, candidates: list[Candidate]) -> None:
         "quality_gate_passed",
         "score_gate_passed",
         "candidate_mode",
+        "candidate_mode_reason",
+        "explicit_payment_evidence",
+        "guest_post_effort",
         "rejection_reason",
         "status",
     ]
@@ -1943,7 +2224,7 @@ def write_audit_csv(path: Path, candidates: list[Candidate]) -> None:
 
 def write_b_candidates_csv(path: Path, candidates: list[Candidate]) -> None:
     b_candidates = sorted([candidate for candidate in candidates if candidate.candidate_mode == "B"], key=lambda item: (-item.total_score, item.domain))
-    fields = ["url", "name", "category", "entity_type", "score", "channel_type", "commercial_model", "notes"]
+    fields = ["url", "name", "category", "entity_type", "score", "candidate_mode_reason", "channel_type", "commercial_model", "explicit_payment_evidence", "guest_post_effort", "notes"]
     with path.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
@@ -1955,8 +2236,11 @@ def write_b_candidates_csv(path: Path, candidates: list[Candidate]) -> None:
                     "category": candidate.category,
                     "entity_type": candidate.entity_type,
                     "score": candidate.total_score,
+                    "candidate_mode_reason": candidate.candidate_mode_reason,
                     "channel_type": candidate.channel_type,
                     "commercial_model": candidate.commercial_model,
+                    "explicit_payment_evidence": candidate.explicit_payment_evidence,
+                    "guest_post_effort": candidate.guest_post_effort,
                     "notes": candidate.notes,
                 }
             )
@@ -2204,6 +2488,16 @@ def run_discovery(args: argparse.Namespace, *, pilot_mode: bool = False) -> tupl
                 print(f"Rohresultate bisher: {len(raw_results)}")
         except Exception as exc:
             errors.append(f"{query.query_id}:{type(exc).__name__}:{exc}")
+    podcast_unresolved: list[dict[str, str]] = []
+    podcast_resolver_query_count = 0
+    if args.provider != "file" and any(is_podcast_platform_result(result) for result in raw_results):
+        try:
+            resolved_results, podcast_unresolved, podcast_resolver_query_count = resolve_podcast_platform_leads(provider, search_cache, raw_results, per_query_limit, getattr(args, "verbose", False))
+            raw_results.extend(resolved_results)
+            if getattr(args, "verbose", False) and resolved_results:
+                print(f"Podcast-Resolver Ergebnisse: {len(resolved_results)}")
+        except Exception as exc:
+            errors.append(f"podcast_resolver:{type(exc).__name__}:{exc}")
     deduped_results: dict[str, SearchResult] = {}
     rejected: list[Candidate] = []
     for result in raw_results:
@@ -2232,16 +2526,19 @@ def run_discovery(args: argparse.Namespace, *, pilot_mode: bool = False) -> tupl
         candidate = evaluate_domain(result, pages, blocklists, scoring, min_score)
         candidates.append(candidate)
         if getattr(args, "verbose", False):
-            if candidate.status == "accepted":
-                print(f"akzeptiert: category={candidate.category} score={candidate.total_score}")
+            if candidate.candidate_mode == "A":
+                print(f"A-Kandidat akzeptiert: category={candidate.category} score={candidate.total_score} reason={candidate.candidate_mode_reason}")
+            elif candidate.candidate_mode == "B":
+                print(f"B-Kandidat: category={candidate.category} score={candidate.total_score} reason={candidate.candidate_mode_reason}")
             else:
-                print(f"uebersprungen: entity_type={candidate.entity_type} reason={candidate.hard_gate_reason or candidate.rejection_reason}")
+                print(f"abgelehnt: entity_type={candidate.entity_type} reason={candidate.rejection_reason or candidate.hard_gate_reason or candidate.candidate_mode_reason}")
     if args.category:
         quotas = {category: (args.target if category == args.category else 0) for category in CATEGORY_ORDER}
     final, missing = select_final(candidates, quotas, args.target)
     output_path = resolve_workspace_path(args.output)
     audit_path = output_path.with_name("seed_audit.csv")
     b_candidates_path = output_path.with_name("seed_candidates_b.csv")
+    podcast_unresolved_path = output_path.with_name("podcast_leads_unresolved.csv")
     report_path = output_path.with_name("run_report.json")
     summary_path = output_path.with_name("pilot_summary.md")
     backup_path = None
@@ -2249,6 +2546,7 @@ def run_discovery(args: argparse.Namespace, *, pilot_mode: bool = False) -> tupl
         backup_path = write_seed_csv(output_path, final, args.overwrite)
         write_audit_csv(audit_path, candidates)
         write_b_candidates_csv(b_candidates_path, candidates)
+        write_podcast_leads_unresolved_csv(podcast_unresolved_path, podcast_unresolved)
     generated_queries = [asdict(query) for query in queries if query.generated]
     report = {
         "started_at": start,
@@ -2258,6 +2556,7 @@ def run_discovery(args: argparse.Namespace, *, pilot_mode: bool = False) -> tupl
         "min_score": min_score,
         "search_query_count": len(queries),
         "estimated_search_api_requests": len(queries),
+        "podcast_resolver_search_requests": podcast_resolver_query_count,
         "results_per_query": per_query_limit,
         "max_candidate_domains": int(getattr(args, "max_candidate_domains", 10_000)),
         "generated_queries": generated_queries,
@@ -2276,6 +2575,7 @@ def run_discovery(args: argparse.Namespace, *, pilot_mode: bool = False) -> tupl
             "run_report_json": str(report_path),
             "pilot_summary_md": str(summary_path) if pilot_mode else "",
             "seed_candidates_b_csv": str(b_candidates_path),
+            "podcast_leads_unresolved_csv": str(podcast_unresolved_path),
             "backup_csv": str(backup_path) if backup_path else "",
         },
         "dry_run": args.dry_run,
@@ -2295,6 +2595,7 @@ def run_discovery(args: argparse.Namespace, *, pilot_mode: bool = False) -> tupl
         print(f"seeds.csv: {output_path}")
         print(f"seed_audit.csv: {audit_path}")
         print(f"seed_candidates_b.csv: {b_candidates_path}")
+        print(f"podcast_leads_unresolved.csv: {podcast_unresolved_path}")
         print(f"run_report.json: {report_path}")
         if pilot_mode:
             print(f"pilot_summary.md: {summary_path}")
@@ -2425,10 +2726,12 @@ def reevaluate(args: argparse.Namespace) -> int:
     seeds_path = output_dir / "seeds.csv"
     audit_out = output_dir / "seed_audit.csv"
     b_out = output_dir / "seed_candidates_b.csv"
+    podcast_unresolved_out = output_dir / "podcast_leads_unresolved.csv"
     report_out = output_dir / "run_report.json"
     write_seed_csv(seeds_path, final, overwrite=args.overwrite)
     write_audit_csv(audit_out, candidates)
     write_b_candidates_csv(b_out, candidates)
+    write_podcast_leads_unresolved_csv(podcast_unresolved_out, [])
     write_report(
         report_out,
         {
@@ -2442,7 +2745,7 @@ def reevaluate(args: argparse.Namespace) -> int:
             "rejected_candidates": sum(1 for candidate in candidates if candidate.candidate_mode == "C"),
             "missing_category_quotas": missing,
             "note": "Reevaluate nutzt nur vorhandene Page-Cache-Eintraege und fuehrt keine Brave-Suchanfragen aus.",
-            "output_paths": {"seeds_csv": str(seeds_path), "seed_audit_csv": str(audit_out), "seed_candidates_b_csv": str(b_out), "run_report_json": str(report_out)},
+            "output_paths": {"seeds_csv": str(seeds_path), "seed_audit_csv": str(audit_out), "seed_candidates_b_csv": str(b_out), "podcast_leads_unresolved_csv": str(podcast_unresolved_out), "run_report_json": str(report_out)},
         },
     )
     print(f"Reevaluierte Kandidaten: {len(candidates)}")
