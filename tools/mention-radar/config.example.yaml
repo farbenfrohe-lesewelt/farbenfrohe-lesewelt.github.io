@@ -1,0 +1,12 @@
+request_delay_seconds: 3
+maximum_pages_per_domain: 5
+timeout_seconds: 15
+maximum_html_bytes: 2000000
+maximum_redirects: 5
+output_dir: local-data/mention-radar
+generate_drafts: true
+
+official_search_api:
+  enabled: false
+  provider: ""
+  api_key_env: ""
