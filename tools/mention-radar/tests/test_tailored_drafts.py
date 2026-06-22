@@ -110,7 +110,9 @@ class TailoredDraftsTest(unittest.TestCase):
     def test_filename_contains_name_domain_and_candidate_id(self):
         candidate = td.CandidateRow(row(candidate_id="1d65e6ff06b8", name="Die Taubertalperser", website="https://www.vom-taubertal.de/"))
         filename = td.draft_filename(1, candidate)
-        self.assertTrue(filename.startswith("01-die-taubertalperser-vom-taubertal-de-1d65e6ff06b8"))
+        self.assertTrue(filename.startswith("01-die-taubertalper"))
+        self.assertIn("vom-taubertal-de", filename)
+        self.assertTrue(filename.endswith("-1d65e6ff06b8.md"))
 
     def test_incomplete_evidence_is_not_quoted(self):
         candidate = td.CandidateRow(row(permission_evidence="e: Pet Expo Beijing Buchvorstellungen Wenn ihr ein Buch habt", website="https://www.vom-taubertal.de/", name="Die Taubertalperser"))

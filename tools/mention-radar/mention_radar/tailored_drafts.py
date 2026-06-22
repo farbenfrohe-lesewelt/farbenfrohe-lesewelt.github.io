@@ -470,7 +470,7 @@ def safe_filename_part(value: str, limit: int = 38) -> str:
 
 
 def draft_filename(rank: int, candidate: CandidateRow) -> str:
-    return f"{rank:02d}-{safe_filename_part(display_name(candidate), 34)}-{safe_filename_part(candidate.domain, 34)}-{candidate.candidate_id}.md"
+    return f"{rank:02d}-{safe_filename_part(display_name(candidate), 18)}-{safe_filename_part(candidate.domain, 18)}-{candidate.candidate_id}.md"
 
 
 def yaml_value(value: str | int) -> str:
