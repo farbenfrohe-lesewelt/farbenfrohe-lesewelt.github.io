@@ -142,6 +142,7 @@ class SeedCrawlerTest(unittest.TestCase):
                         "podcast": "podcast_show",
                     }[category],
                     hard_gate_passed=True,
+                    candidate_mode="A",
                 )
             )
         selected, _missing = app.select_final(candidates, quotas, 4)
@@ -310,6 +311,80 @@ class SeedCrawlerTest(unittest.TestCase):
         page = self.page("https://katzenguru.de/suche/", "Suche", "Katzenblog Katzenmagazin Haustier Katze Tierverhalten Tierschutz Kontakt Impressum.", ["2026-04-01"], site_name="Suche")
         self.assertEqual(app.determine_name(page, "katzenguru.de"), "Katzenguru")
 
+    def test_social_links_and_cookie_text_do_not_override_own_domain_entity(self):
+        page = self.page(
+            "https://meinekatzenmaedchen.de/kooperation/",
+            "Meine Katzenmaedchen Katzenblog Kooperation",
+            "Katzenblog Katzenmagazin Haustier Katze Tierverhalten Tierschutz Blogarchiv Ratgeber Buchrezensionen Gastbeitrag Kooperation Kontakt Impressum. Cookie Einstellungen fuer Instagram YouTube Spotify.",
+            ["2026-05-01"],
+            links=[("https://instagram.com/meinekatzenmaedchen", "Instagram"), ("https://youtube.com/example", "YouTube")],
+            site_name="Meine Katzenmaedchen",
+        )
+        candidate = self.candidate_for("meinekatzenmaedchen.de", [page], "cat_pet_media")
+        self.assertEqual(candidate.entity_type, "cat_pet_editorial")
+        self.assertEqual(candidate.category, "cat_pet_media")
+        self.assertNotEqual(candidate.entity_type, "social_or_podcast_platform")
+        self.assertGreaterEqual(candidate.social_links_detected, 2)
+
+    def test_platform_entity_only_for_platform_domain(self):
+        page = self.page("https://instagram.com/example/", "Instagram", "Katzenblog Katze Kontakt", ["2026-05-01"])
+        candidate = self.candidate_for("instagram.com", [page], "cat_pet_media")
+        self.assertEqual(candidate.entity_type, "social_or_podcast_platform")
+        self.assertEqual(candidate.platform_domain_match, "instagram.com")
+        self.assertFalse(candidate.entity_gate_passed)
+
+    def test_real_second_pilot_media_are_typed_correctly(self):
+        cases = [
+            ("smallnature.de", "Smallnature Katzenblog", "Katzenblog Katzenmagazin Haustier Katze Tierverhalten Tierschutz Kooperation Gastbeitrag kostenpflichtige Kooperation Mediakit Kontakt Impressum Blogarchiv Ratgeber.", "cat_pet_editorial", "cat_pet_media"),
+            ("lieblingskatze.net", "Lieblingskatze Katzenblog Kooperation", "Katzenblog Katzenmagazin Katze Haustier Tierverhalten Tierschutz Kooperationsseite Werbung Affiliate Kontakt Impressum Ratgeber Archiv.", "cat_pet_editorial", "cat_pet_media"),
+            ("haustiger.info", "Haustiger Katzenblog Redaktion", "Katzenblog Katzenmagazin Katze Haustier Tierverhalten Tierschutz Redaktionskontakt Kontakt Impressum Ratgeber Archiv Autorin.", "cat_pet_editorial", "cat_pet_media"),
+            ("pola-magazin.de", "Pola Familienmagazin Kooperation", "Familienmagazin Eltern Baby Kleinkind Familie Schwangerschaft Buecher Medien Kooperation Mediakit Kontakt Impressum Archiv Kategorien.", "parent_family_editorial", "parent_family_media"),
+            ("grossekoepfe.de", "Grosse Koepfe Elternblog", "Elternblog Familienblog Eltern Familie Schwangerschaft Baby Lesen Kooperation Mediakit Presse Kontakt Impressum Archiv Autorinnen.", "parent_family_editorial", "parent_family_media"),
+            ("kuckuck-magazin.de", "Kuckuck Familienmagazin", "Familienmagazin Babybereich Eltern Familie Baby Kind RSS Newsletter Mediadaten Kontakt Impressum Redaktion Archiv.", "parent_family_editorial", "parent_family_media"),
+            ("papammunity.de", "Papammunity Elternblog", "Elternblog Familienblog werdende Eltern Familie Baby Schwangerschaft Kind Kleinkind Kontakt Impressum aktuelle Beitraege Fachbeitrag Interview Archiv.", "parent_family_editorial", "parent_family_media"),
+            ("buchblog.schreibtrieb.com", "Schreibtrieb Buchblog", "Buchblog Rezensionen Buchvorstellung Sachbuch Ratgeber mehrere Rezensionen Kontakt Impressum Aktualisierung 2026 Autorin.", "independent_book_blog", "book_blog"),
+        ]
+        for domain, title, text, entity_type, category in cases:
+            with self.subTest(domain=domain):
+                candidate = self.candidate_for(domain, [self.page(f"https://{domain}/kontakt/", title, text, ["2026-05-01"], site_name=title)], category)
+                self.assertEqual(candidate.entity_type, entity_type)
+                self.assertEqual(candidate.category, category)
+                self.assertNotEqual(candidate.entity_type, "social_or_podcast_platform")
+                self.assertGreater(candidate.editorial_score, 0)
+
+    def test_mediakit_and_single_affiliate_are_not_automatic_exclusion(self):
+        candidate = self.candidate_for(
+            "pola-magazin.de",
+            [self.page("https://pola-magazin.de/kooperation/", "Pola Familienmagazin", "Familienmagazin Eltern Familie Baby Kleinkind Kooperation Mediakit Affiliate Kontakt Impressum Archiv Kategorien Autorin.", ["2026-04-01"], site_name="Pola Magazin")],
+            "parent_family_media",
+        )
+        self.assertNotEqual(candidate.commercial_model, "paid_only")
+        self.assertNotEqual(candidate.candidate_mode, "C")
+
+    def test_paid_link_placement_remains_excluded(self):
+        candidate = self.candidate_for(
+            "spam.example",
+            [self.page("https://spam.example/kooperation/", "Katzenblog", "Katzenblog Katzenmagazin Katze Haustier Tierverhalten Tierschutz Dofollow-Link kaufen Backlink kaufen garantierte Veroeffentlichung Kontakt Impressum.", ["2026-04-01"])],
+            "cat_pet_media",
+        )
+        self.assertEqual(candidate.commercial_model, "paid_only")
+        self.assertEqual(candidate.candidate_mode, "C")
+
+    def test_general_contact_suffices_for_real_cat_and_family_media(self):
+        cat = self.candidate_for("haustiger.info", [self.page("https://haustiger.info/kontakt/", "Haustiger Katzenblog", "Katzenblog Katzenmagazin Katze Haustier Tierverhalten Tierschutz Kontakt Impressum Archiv Ratgeber Autorin.", ["2026-05-01"])], "cat_pet_media")
+        family = self.candidate_for("papammunity.de", [self.page("https://papammunity.de/kontakt/", "Papammunity Elternblog", "Elternblog Familienblog Eltern Familie Baby Schwangerschaft Kind Kleinkind Kontakt Impressum Archiv Autor.", ["2026-05-01"])], "parent_family_media")
+        self.assertTrue(cat.quality_gate_passed)
+        self.assertTrue(family.quality_gate_passed)
+
+    def test_buchblog_with_reviews_and_contact_passes_without_review_copy_page(self):
+        candidate = self.candidate_for(
+            "buchblog.schreibtrieb.com",
+            [self.page("https://buchblog.schreibtrieb.com/kontakt/", "Schreibtrieb Buchblog", "Buchblog Rezensionen Buchvorstellung Sachbuch Ratgeber mehrere Rezensionen Kontakt Impressum Autorin Archiv.", ["2026-05-01"])],
+            "book_blog",
+        )
+        self.assertTrue(candidate.entity_gate_passed)
+        self.assertTrue(candidate.quality_gate_passed)
+
     def test_env_file_is_loaded_without_overriding_os_environment(self):
         with tempfile.TemporaryDirectory() as tmp:
             env_file = Path(tmp) / ".env"
@@ -438,6 +513,7 @@ class SeedCrawlerTest(unittest.TestCase):
                             "podcast": "podcast_show",
                         }[category],
                         hard_gate_passed=True,
+                        candidate_mode="A",
                     )
                 )
         selected, missing = app.select_final(candidates, app.PILOT_QUOTAS, app.PILOT_TARGET)

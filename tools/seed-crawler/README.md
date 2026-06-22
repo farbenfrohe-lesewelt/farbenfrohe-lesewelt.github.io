@@ -4,7 +4,7 @@ Der Seed Crawler findet, prueft und bewertet oeffentlich erreichbare Webseiten, 
 
 Ein Seed ist eine absolute HTTP- oder HTTPS-URL zu einer Website oder Unterseite, die fuer eine redaktionelle Erwaehnung, Rezension, ein Interview, einen Gastbeitrag oder eine Buchvorstellung in Frage kommt.
 
-Seit dem Pilot-Workflow gelten zusaetzliche harte Qualitaets-Gates: Nur echte unabhaengige Buchblogs, Katzen-/Haustiermedien, Eltern-/Familienmedien und eigene Podcastshows werden regulaer final ausgewaehlt. Verlage, Shops, persoenliche Pressearchive, Coachingseiten, Verzeichnisse und Plattformen werden standardmaessig abgelehnt. Finale Seeds brauchen `hard_gate_passed=true`, belastbare Themenpassung, redaktionelle Kontakt-Evidenz, keine klare Inaktivitaet und mindestens 70 Punkte.
+Seit dem Pilot-Workflow gelten zusaetzliche harte Qualitaets-Gates: Nur echte unabhaengige Buchblogs, Katzen-/Haustiermedien, Eltern-/Familienmedien und eigene Podcastshows werden regulaer final ausgewaehlt. Verlage, Shops, persoenliche Pressearchive, Coachingseiten, Verzeichnisse und Plattformen werden standardmaessig abgelehnt. Finale Seeds brauchen passende Entity- und Qualitaets-Gates, belastbare Themenpassung, redaktionelle Kontakt-Evidenz, keine klare Inaktivitaet, mindestens 70 Punkte und den Kandidatenmodus `A`.
 
 ## Was gesucht wird
 
@@ -247,6 +247,17 @@ Fortsetzen:
 python -m seed_crawler discover --provider brave --target 100 --resume --output .\local-data\mention-radar\seeds.csv
 ```
 
+Vorhandene Pilot-Audits koennen ohne neue Brave-Suchanfragen aus dem Page-Cache neu bewertet werden:
+
+```powershell
+python -m seed_crawler reevaluate `
+  --audit .\local-data\mention-radar\pilot-10b\seed_audit.csv `
+  --cache-dir .\local-data\mention-radar\seed-crawler-cache `
+  --output-dir .\local-data\mention-radar\pilot-10c-reevaluated
+```
+
+Der Reevaluate-Modus nutzt nur vorhandene Cache-Eintraege. Kandidaten ohne gecachte HTML-Seiten werden mit `no_cached_pages` im Audit dokumentiert.
+
 ## Vorhandene seeds.csv sichern
 
 Eine vorhandene `seeds.csv` wird nicht still ueberschrieben. Vor dem Schreiben wird automatisch eine zeitgestempelte Backup-Datei daneben angelegt, zum Beispiel:
@@ -272,6 +283,7 @@ Der Lauf schreibt neben der finalen Datei:
 ```text
 local-data/mention-radar/seeds.csv
 local-data/mention-radar/seed_audit.csv
+local-data/mention-radar/seed_candidates_b.csv
 local-data/mention-radar/run_report.json
 ```
 
@@ -281,7 +293,9 @@ local-data/mention-radar/run_report.json
 url,name,source,notes
 ```
 
-`seed_audit.csv` enthaelt interne Spalten fuer Scorebestandteile, Kategorie, Signale, Status und Ablehnungsgruende.
+`seed_audit.csv` enthaelt interne Spalten fuer Scorebestandteile, Kategorie, Entity-Type, Plattform-Domain-Abgleich, Selbstbeschreibung, redaktionelle Inhaltsdichte, Social-Link-Zaehler, Kontakt-Gate, kommerzielles Modell, getrennte Entity-/Qualitaets-/Score-Gates, Kandidatenmodus, Status und Ablehnungsgruende.
+
+`seed_candidates_b.csv` enthaelt passende, aber kommerziellere oder aufwendigere B-Kandidaten, zum Beispiel kostenpflichtige Kooperationen, Mediakit-Faelle oder exklusive Gastartikel. Diese Datei wird nicht von Mention Radar importiert.
 
 `run_report.json` dokumentiert Start/Ende, Provider, Suchanfragen, Roh-URLs, gepruefte Domains, akzeptierte und abgelehnte Kandidaten, Ablehnungsgruende, finale Kategorien, fehlende Quoten, Fehler/Timeouts und Dateipfade.
 
