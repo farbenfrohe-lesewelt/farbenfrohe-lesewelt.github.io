@@ -21,18 +21,35 @@
 
   <style>
     .editorial-hero{ padding:var(--space-7) 0 var(--space-5); }
-    .editorial-grid{ display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:var(--space-5); align-items:center; }
+    .editorial-grid{ display:grid; grid-template-columns:minmax(0,680px) 320px; gap:var(--space-5); align-items:center; }
+    .editorial-hero h1{
+      max-width:660px;
+      font-size:clamp(2rem, 5vw, 3.45rem);
+      line-height:1.08;
+      word-break:normal;
+      overflow-wrap:normal;
+      hyphens:none;
+    }
+    .editorial-hero .lead{ max-width:700px; }
     .editorial-panel{ border:1px solid var(--border); border-radius:var(--radius-xl); background:rgba(255,255,255,.76); padding:1.2rem; box-shadow:var(--shadow); }
     .editorial-list{ display:grid; gap:.75rem; margin:1rem 0 0; padding:0; list-style:none; }
     .editorial-list li{ border:1px solid var(--border); border-radius:var(--radius); background:rgba(255,255,255,.62); padding:.85rem 1rem; }
+    .principle-panel{ border:1px solid var(--border-trust); border-radius:var(--radius-xl); background:var(--surface-trust); padding:1.1rem; margin-top:1rem; }
+    .principle-panel h3{ margin-bottom:.35rem; }
+    .why-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+    .why-card{ border:1px solid var(--border); border-radius:var(--radius); background:rgba(255,255,255,.72); padding:1rem; box-shadow:var(--shadow-soft); }
+    .boundary-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin-top:1rem; }
+    .boundary-card{ border:1px solid var(--border); border-radius:var(--radius); background:rgba(255,255,255,.72); padding:1rem; box-shadow:var(--shadow-soft); }
+    .boundary-card ul{ margin:.65rem 0 0; padding-left:1.2rem; }
+    .boundary-card li + li{ margin-top:.45rem; }
     .process-list{ counter-reset:step; display:grid; gap:.85rem; margin:1rem 0 0; padding:0; list-style:none; }
     .process-list li{ counter-increment:step; display:grid; grid-template-columns:2.2rem minmax(0,1fr); gap:.75rem; align-items:start; border:1px solid var(--border); border-radius:var(--radius); background:rgba(255,255,255,.68); padding:1rem; }
     .process-list li::before{ content:counter(step); width:2.2rem; height:2.2rem; border-radius:999px; display:grid; place-items:center; background:var(--accent); color:#fff; font-weight:800; }
-    .link-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.8rem; margin-top:1rem; }
+    .link-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.8rem; margin-top:1rem; }
     .link-grid a{ border:1px solid var(--border); border-radius:var(--radius); background:rgba(255,255,255,.7); padding:.85rem 1rem; font-weight:750; text-decoration:none; }
     .link-grid a:hover{ border-color:var(--accent-border); box-shadow:var(--shadow-soft); }
-    @media (max-width: 860px){ .editorial-grid{ grid-template-columns:1fr; } .link-grid{ grid-template-columns:1fr 1fr; } }
-    @media (max-width: 560px){ .link-grid{ grid-template-columns:1fr; } .process-list li{ grid-template-columns:1fr; } }
+    @media (max-width: 860px){ .editorial-grid,.why-grid,.boundary-grid{ grid-template-columns:1fr; } .link-grid{ grid-template-columns:1fr 1fr; } }
+    @media (max-width: 560px){ .editorial-hero h1{ font-size:clamp(1.9rem, 8vw, 2.35rem); } .link-grid{ grid-template-columns:1fr; } .process-list li{ grid-template-columns:1fr; } }
   </style>
 
   <script type="application/ld+json">
@@ -43,7 +60,7 @@
         "@type": "AboutPage",
         "@id": "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/#webpage",
         "url": "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/",
-        "name": "Über den Ratgeber und seine redaktionelle Grundlage",
+        "name": "Wie der Ratgeber entstanden ist",
         "description": "Wie der Ratgeber Baby und Katze sicher zusammenführen recherchiert, redaktionell begrenzt und aktualisiert wird.",
         "inLanguage": "de",
         "about": {
@@ -111,12 +128,9 @@
       <div class="container editorial-grid">
         <div>
           <p class="eyebrow">Farbenfrohe Lesewelt · Redaktionelle Grundlage</p>
-          <h1>Wie der Ratgeber „Baby und Katze sicher zusammenführen“ entstanden ist</h1>
+          <h1>Wie der Ratgeber entstanden ist</h1>
           <p class="lead">
-            Der Ratgeber wurde entwickelt, um widersprüchliche Einzelinformationen zu Schwangerschaft, Sicherheit, Katzenverhalten und Familienalltag in einen ruhigen, praktisch nutzbaren Plan zu übersetzen. Er ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung, hilft Familien aber dabei, Fragen zu sortieren, Standards festzulegen und zu erkennen, wann fachliche Unterstützung sinnvoll ist.
-          </p>
-          <p class="muted">
-            <a class="text-link" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow">Buch ansehen</a>
+            „Baby und Katze sicher zusammenführen“ wurde entwickelt, um widersprüchliche Einzelinformationen zu Schwangerschaft, Sicherheit, Katzenverhalten und Familienalltag in einen ruhigen, praktisch nutzbaren Plan zu übersetzen. Der Ratgeber ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung, hilft Familien aber dabei, Fragen zu sortieren, Standards festzulegen und zu erkennen, wann fachliche Unterstützung sinnvoll ist.
           </p>
         </div>
 
@@ -124,6 +138,7 @@
           <img src="../assets/cover-thumb.webp" alt="Buchcover Baby und Katze sicher zusammenführen" loading="eager">
           <p class="booktitle">Baby und Katze sicher zusammenführen</p>
           <p class="muted small">Andrea Blum · Farbenfrohe Lesewelt Verlag</p>
+          <p><a class="btn btn-ghost btn-block" href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow">Zum Buch auf Amazon</a></p>
         </aside>
       </div>
     </section>
@@ -134,6 +149,12 @@
         <p class="sublead">
           Andrea Blum ist die Autorin des Ratgebers „Baby und Katze sicher zusammenführen“. Herausgegeben wird das Buch vom Farbenfrohe Lesewelt Verlag. Der Ratgeber bietet alltagstaugliche Orientierung für Familien mit Baby und Katze, ersetzt jedoch keine medizinische, tierärztliche oder individuelle verhaltensbezogene Beratung.
         </p>
+        <div class="principle-panel">
+          <h3>Wofür Andrea Blum schreibt</h3>
+          <p>Andrea Blum schreibt für Familien, die Orientierung suchen, ohne ihren Alltag in ein perfektes Ideal verwandeln zu müssen. Der Ratgeber setzt deshalb auf klare Standards, kleine wiederholbare Schritte und Entscheidungen, die auch dann funktionieren sollen, wenn Zeit, Schlaf und Aufmerksamkeit knapp sind.</p>
+          <h3>Systeme statt Perfektion</h3>
+          <p>Der Ratgeber soll nicht beeindrucken, sondern den nächsten Schritt leichter machen.</p>
+        </div>
         <p class="muted">Rechtliche Angaben zum Verlag finden Sie im <a href="../legal/impressum.html">Impressum</a>.</p>
       </div>
     </section>
@@ -141,12 +162,14 @@
     <section class="section" aria-labelledby="warum-title">
       <div class="container">
         <h2 id="warum-title">Warum dieser Ratgeber entstanden ist</h2>
-        <div class="grid grid-2">
-          <div class="editorial-panel">
-            <p>Familien stoßen häufig auf viele einzelne und teils widersprüchliche Tipps. Zwischen Alarmismus und einem pauschalen „wird schon“ fehlt oft ein praktisch nutzbarer Mittelweg.</p>
+        <div class="why-grid">
+          <div class="why-card">
+            <h3>Viele einzelne Informationen</h3>
+            <p>Familien stoßen häufig auf viele einzelne und teils widersprüchliche Tipps. Das macht Entscheidungen im Alltag nicht automatisch leichter.</p>
           </div>
-          <div class="editorial-panel">
-            <p>Der Ratgeber ordnet typische Fragen in klare Phasen, Zonen, Standards, Checklisten und Wenn-Dann-Regeln. Ziel ist Entscheidungsentlastung, nicht ein Null-Risiko- oder Garantieversprechen.</p>
+          <div class="why-card">
+            <h3>Ein ruhiger Mittelweg</h3>
+            <p>Zwischen Alarmismus und einem pauschalen „wird schon“ ordnet der Ratgeber typische Fragen in klare Phasen, Standards und Wenn-Dann-Regeln. Ziel ist Entscheidungsentlastung, nicht ein Garantieversprechen.</p>
           </div>
         </div>
       </div>
@@ -188,15 +211,27 @@
     <section class="section alt" aria-labelledby="grenzen-title">
       <div class="container">
         <h2 id="grenzen-title">Was dieser Ratgeber nicht ersetzt</h2>
-        <ul class="editorial-list">
-          <li>keine medizinische Diagnose oder Therapie</li>
-          <li>keine kinderärztliche Beratung</li>
-          <li>keine tierärztliche Diagnose</li>
-          <li>keine individuelle Katzenverhaltensberatung</li>
-          <li>keine Garantie für einen bestimmten Verlauf</li>
-          <li>keine Empfehlung, akute oder unsichere Situationen ausschließlich anhand der Website zu lösen</li>
-        </ul>
-        <p class="sublead">Der Ratgeber hilft dabei, den Alltag zu strukturieren, Fragen für Fachpersonen vorzubereiten und klare Standards für wiederkehrende Situationen zu entwickeln.</p>
+        <div class="boundary-grid">
+          <article class="boundary-card">
+            <h3>Wobei der Ratgeber hilft</h3>
+            <ul>
+              <li>Alltag und wiederkehrende Situationen strukturieren</li>
+              <li>klare Standards für Schlafplätze, Aufsicht und Begegnungen vorbereiten</li>
+              <li>Fragen für Ärztin, Arzt, Tierarztpraxis oder Verhaltensberatung sortieren</li>
+              <li>Warnzeichen erkennen, bei denen individuelle Unterstützung sinnvoll ist</li>
+            </ul>
+          </article>
+          <article class="boundary-card">
+            <h3>Wann individuelle Fachberatung wichtig ist</h3>
+            <ul>
+              <li>medizinische Beschwerden, Symptome oder Befunde</li>
+              <li>tierärztliche Auffälligkeiten oder Erkrankungen</li>
+              <li>anhaltende Stressanzeichen oder sicherheitsrelevante Vorfälle</li>
+              <li>Situationen, die sich nicht mit allgemeinen Alltagsregeln lösen lassen</li>
+            </ul>
+          </article>
+        </div>
+        <p class="sublead">Der Ratgeber ersetzt keine medizinische, kinderärztliche, tierärztliche oder individuelle verhaltensbezogene Beratung und gibt keine Garantie für einen bestimmten Verlauf.</p>
       </div>
     </section>
 
@@ -205,7 +240,7 @@
         <h2 id="aktualisierung-title">Wie Inhalte aktualisiert werden</h2>
         <div class="editorial-panel">
           <p>Sichtbare Ratgeberseiten tragen ein Aktualisierungsdatum. Wesentliche Änderungen an gesundheits- oder sicherheitsbezogenen Aussagen werden anhand geeigneter Quellen geprüft. Hinweise auf sachliche Fehler oder defekte Quellen sind willkommen.</p>
-          <p class="muted">Für redaktionelle Hinweise kann die öffentlich genannte Verlagsadresse genutzt werden: <a href="mailto:farbenfrohe-lesewelt@web.de?subject=Hinweis%20zum%20Ratgeber%20Baby%20und%20Katze">farbenfrohe-lesewelt@web.de</a>. Weitere Angaben stehen im <a href="../legal/impressum.html">Impressum</a>.</p>
+          <p class="muted">Sachliche Hinweise, Korrekturen oder defekte Quellen kannst du an <a href="mailto:farbenfrohe-lesewelt@web.de?subject=Hinweis%20zum%20Ratgeber%20Baby%20und%20Katze">farbenfrohe-lesewelt@web.de</a> senden. Weitere rechtliche Angaben stehen im <a href="../legal/impressum.html">Impressum</a>.</p>
         </div>
       </div>
     </section>
@@ -218,8 +253,6 @@
           <a href="/presse/">Presse</a>
           <a href="/checkliste/">Checkliste</a>
           <a href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow">Buch auf Amazon</a>
-          <a href="../legal/impressum.html">Impressum</a>
-          <a href="../legal/datenschutz.html">Datenschutz</a>
         </nav>
       </div>
     </section>
