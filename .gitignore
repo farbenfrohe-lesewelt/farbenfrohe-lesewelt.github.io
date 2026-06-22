@@ -1,2 +1,8 @@
 ﻿/reference/
 local-data/mention-radar/
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+tools/mention-radar/.venv/
