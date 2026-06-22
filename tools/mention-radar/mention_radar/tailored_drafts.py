@@ -232,7 +232,7 @@ def is_own_contact_url(url: str, domain: str) -> bool:
         return False
     if any(term in path for term in ("woher-bekommt", "wie-bekomme", "erklaert", "ratgeber-artikel")):
         return False
-    return any(term in path for term in ("kontakt", "redaktion", "presse", "kooperation", "rezension", "buchvorstellung", "impressum"))
+    return any(term in path for term in ("kontakt", "redaktion", "presse", "kooperation", "rezensionsexemplar", "impressum"))
 
 
 def best_contact_url(candidate: CandidateRow) -> str:

@@ -98,6 +98,16 @@ class TailoredDraftsTest(unittest.TestCase):
         )
         self.assertEqual(td.best_contact_url(candidate), "")
 
+    def test_ordinary_book_review_article_is_not_contact(self):
+        candidate = td.CandidateRow(
+            row(
+                website="https://mutter-und-sohn.blog/",
+                public_contact_method="https://mutter-und-sohn.blog/2024/05/04/sei-stolz-eine-frau-zu-sein-buchrezension/",
+                evidence_url="https://mutter-und-sohn.blog/2024/05/04/sei-stolz-eine-frau-zu-sein-buchrezension/",
+            )
+        )
+        self.assertEqual(td.best_contact_url(candidate), "")
+
     def test_one_website_creates_at_most_one_ready_draft(self):
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)
