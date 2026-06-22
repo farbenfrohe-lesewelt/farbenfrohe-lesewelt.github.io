@@ -4,6 +4,8 @@ Der Seed Crawler findet, prueft und bewertet oeffentlich erreichbare Webseiten, 
 
 Ein Seed ist eine absolute HTTP- oder HTTPS-URL zu einer Website oder Unterseite, die fuer eine redaktionelle Erwaehnung, Rezension, ein Interview, einen Gastbeitrag oder eine Buchvorstellung in Frage kommt.
 
+Seit dem Pilot-Workflow gelten zusaetzliche harte Qualitaets-Gates: Nur echte unabhaengige Buchblogs, Katzen-/Haustiermedien, Eltern-/Familienmedien und eigene Podcastshows werden regulaer final ausgewaehlt. Verlage, Shops, persoenliche Pressearchive, Coachingseiten, Verzeichnisse und Plattformen werden standardmaessig abgelehnt. Finale Seeds brauchen `hard_gate_passed=true`, belastbare Themenpassung, redaktionelle Kontakt-Evidenz, keine klare Inaktivitaet und mindestens 70 Punkte.
+
 ## Was gesucht wird
 
 Geeignet sind vor allem:
@@ -167,6 +169,12 @@ Einzeilige PowerShell-Variante:
 .\tools\seed-crawler\.venv\Scripts\python.exe -m seed_crawler pilot --provider brave --output-dir .\local-data\mention-radar\pilot-10 --verbose
 ```
 
+Zweiter Pilotlauf mit persistentem Cache:
+
+```powershell
+.\tools\seed-crawler\.venv\Scripts\python.exe -m seed_crawler pilot --provider brave --output-dir .\local-data\mention-radar\pilot-10b --cache-dir .\local-data\mention-radar\seed-crawler-cache --verbose
+```
+
 8. Pilot validieren:
 
 ```powershell
@@ -230,6 +238,8 @@ Der Cache liegt standardmaessig unter:
 ```text
 local-data/mention-radar/seed-crawler-cache/
 ```
+
+Suchergebnisse und HTML-Seiten werden getrennt gecacht. Ein alter Pilot-Cache aus `local-data/mention-radar/pilot-10/seed-crawler-cache/` wird beim Pilotstart in den persistenten Cache uebernommen, sofern dort Dateien fehlen. Nach Aenderungen an Scoring und Klassifikation koennen gecachte Seiten neu bewertet werden, ohne sie erneut herunterzuladen.
 
 Fortsetzen:
 

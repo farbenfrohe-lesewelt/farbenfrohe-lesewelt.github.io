@@ -34,6 +34,10 @@ class SeedCrawlerTest(unittest.TestCase):
             fetched_at=app.now_iso(),
         )
 
+    def candidate_for(self, domain, pages, category_hint="cat_pet_media", title=""):
+        result = app.SearchResult(f"https://{domain}/", title or domain, "", "file", "import01", "", category_hint)
+        return app.evaluate_domain(result, pages, self.blocklists, self.scoring, 70)
+
     def test_csv_output_uses_comma_quotes_notes_and_utf8(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "seeds.csv"
@@ -131,6 +135,13 @@ class SeedCrawlerTest(unittest.TestCase):
                     "import01",
                     total_score=90 - index,
                     status="accepted",
+                    entity_type={
+                        "book_blog": "independent_book_blog",
+                        "cat_pet_media": "cat_pet_editorial",
+                        "parent_family_media": "parent_family_editorial",
+                        "podcast": "podcast_show",
+                    }[category],
+                    hard_gate_passed=True,
                 )
             )
         selected, _missing = app.select_final(candidates, quotas, 4)
@@ -201,6 +212,103 @@ class SeedCrawlerTest(unittest.TestCase):
         candidate = app.evaluate_domain(result, pages, self.blocklists, self.scoring, 65)
         self.assertEqual(candidate.status, "rejected")
         self.assertIn("negative_term", candidate.rejection_reason)
+
+    def test_regression_schreibtrieb_is_book_blog_not_cat_boosted_by_title(self):
+        pages = [
+            self.page(
+                "https://buchblog.schreibtrieb.com/kontakt/",
+                "Schreibtrieb Buchblog Kontakt",
+                "Unabhaengiger Buchblog mit Rezensionen Buchvorstellung Sachbuch Ratgeber. Buchvorschlag und Rezensionsexemplare willkommen. Kontaktformular Impressum Autorin.",
+                ["2026-04-01"],
+                site_name="Schreibtrieb Buchblog",
+            )
+        ]
+        candidate = self.candidate_for("buchblog.schreibtrieb.com", pages, "book_blog")
+        self.assertEqual(candidate.entity_type, "independent_book_blog")
+        self.assertEqual(candidate.category, "book_blog")
+        self.assertTrue(candidate.hard_gate_passed)
+
+    def test_regression_haustiger_and_katzenguru_are_cat_media_not_book_blog(self):
+        haustiger = self.candidate_for(
+            "haustiger.info",
+            [self.page("https://haustiger.info/kontakt/", "Haustiger Katzenblog", "Katzenblog Katzenmagazin Haustier Katze Tierverhalten Tierschutz Redaktion kontaktieren Presseanfrage Kontakt Impressum Autorin.", ["2026-03-01"], site_name="Haustiger")],
+            "cat_pet_media",
+        )
+        katzenguru = self.candidate_for(
+            "katzenguru.de",
+            [self.page("https://katzenguru.de/gastbeitrag/", "Katzenguru Gastbeitrag", "Katzenblog Katzenmagazin Haustier Katze Tierverhalten Tierschutz Gastbeitrag einreichen vollstaendiger unveroeffentlichter Gastartikel exklusive Nutzungsrechte Kontakt Impressum.", ["2026-02-01"], site_name="Katzenguru")],
+            "cat_pet_media",
+        )
+        self.assertEqual(haustiger.category, "cat_pet_media")
+        self.assertEqual(haustiger.entity_type, "cat_pet_editorial")
+        self.assertEqual(katzenguru.category, "cat_pet_media")
+        self.assertEqual(katzenguru.channel_type, "guest_post")
+        self.assertNotEqual(katzenguru.channel_type, "review_copy")
+
+    def test_regression_parent_family_media_acceptance_and_best_url(self):
+        papammunity = self.candidate_for(
+            "papammunity.de",
+            [self.page("https://papammunity.de/interviews/", "Papammunity Elternblog", "Elternblog Familienmagazin Familie Baby Schwangerschaft Kind Kleinkind Interviews Fachbeitrag Gastbeitrag Themenvorschlag Buch PR Kontakt Impressum Autor.", ["2026-05-01"], site_name="Papammunity")],
+            "parent_family_media",
+        )
+        article = self.page("https://elternmagazin.info/blog/fremder-elternblog/", "Artikel ueber anderen Elternblog", "Eltern Familie Baby fremder Blog Podcast Empfehlung.", ["2026-04-01"], site_name="Elternmagazin")
+        contact = self.page("https://elternmagazin.info/redaktion/", "Redaktion", "Elternmagazin Familienmagazin Eltern Familie Baby Schwangerschaft Kind Kleinkind Redaktion kontaktieren Themenvorschlag Presseanfrage Kontakt Impressum.", ["2026-04-02"], site_name="Elternmagazin")
+        elternmagazin = self.candidate_for("elternmagazin.info", [article, contact], "parent_family_media")
+        self.assertEqual(papammunity.entity_type, "parent_family_editorial")
+        self.assertTrue(papammunity.hard_gate_passed)
+        self.assertEqual(elternmagazin.category, "parent_family_media")
+        self.assertEqual(elternmagazin.final_seed_url, "https://elternmagazin.info/redaktion/")
+
+    def test_regression_reject_publisher_personal_shop_coach(self):
+        cases = [
+            ("dorlingkindersley.de", "DK Verlag Verlagsshop Verlagsprogramm Buch bestellen Warenkorb Produkt ISBN Shop Ratgeber Kontakt Presse.", "publisher"),
+            ("ralf-seeger.com", "Offizielle Website Ralf Seeger Vita Pressearchiv Termine Presse Hunde TV Kontakt.", "personal_official_site"),
+            ("vtg-tiergesundheit.de", "Shop Tiergesundheit Warenkorb Produkt kaufen Versandkosten Magazin Katze Hund Ratgeber Kontakt.", "online_shop"),
+            ("buchhebamme.de", "Schreibcoach Selfpublishing Beratung Coaching Kurs Rezensionsexemplare eigene Buecher versenden Autorinnenseite Kontakt.", "coach_or_service_provider"),
+        ]
+        for domain, text, entity_type in cases:
+            with self.subTest(domain=domain):
+                candidate = self.candidate_for(domain, [self.page(f"https://{domain}/", domain, text, ["2026-03-01"], site_name=domain)], "book_blog")
+                self.assertEqual(candidate.entity_type, entity_type)
+                self.assertEqual(candidate.status, "rejected")
+                self.assertFalse(candidate.hard_gate_passed)
+
+    def test_regression_sonnenkinderleben_old_article_is_not_podcast(self):
+        page = self.page(
+            "https://sonnenkinderleben.de/podcast-tipps/",
+            "Podcast Empfehlungen fuer Eltern",
+            "Artikel vom 23.02.2023. Familienblog Elternblog Familie Baby Kind Podcast Empfehlungen Spotify Apple Podcasts Liste fremder Podcasts Kontakt Impressum Archiv 2026 Termine 2027.",
+            ["2023-02-23", "2027-01-01"],
+            site_name="Sonnenkinderleben",
+        )
+        candidate = self.candidate_for("sonnenkinderleben.de", [page], "podcast")
+        self.assertEqual(candidate.entity_type, "parent_family_editorial")
+        self.assertNotEqual(candidate.category, "podcast")
+        self.assertEqual(candidate.activity_evidence_date, "2023-02-23")
+        self.assertEqual(candidate.status, "rejected")
+
+    def test_regression_isolated_topic_words_do_not_create_high_relevance(self):
+        page = self.page("https://example.org/", "Gemischte Seite", "Ein Artikel erwaehnt Katze Baby Podcast Rezensionsexemplar einmal. Kontakt Impressum.", ["2026-04-01"])
+        candidate = self.candidate_for("example.org", [page], "cat_pet_media")
+        self.assertLess(candidate.topic_score, 18)
+        self.assertEqual(candidate.status, "rejected")
+
+    def test_regression_real_podcast_show_is_detected(self):
+        page = self.page(
+            "https://familienpodcast.example/gaeste/",
+            "Familienpodcast Gaeste",
+            "Familienpodcast Podcastshow Episode Episoden Folge RSS Feed Show Interview Podcastgast werden Interviewvorschlag Eltern Familie Kontakt Impressum Redaktion.",
+            ["2026-04-15"],
+            site_name="Familienpodcast",
+        )
+        candidate = self.candidate_for("familienpodcast.example", [page], "podcast")
+        self.assertEqual(candidate.entity_type, "podcast_show")
+        self.assertEqual(candidate.category, "podcast")
+        self.assertTrue(candidate.hard_gate_passed)
+
+    def test_regression_name_extraction_ignores_suche_for_katzenguru(self):
+        page = self.page("https://katzenguru.de/suche/", "Suche", "Katzenblog Katzenmagazin Haustier Katze Tierverhalten Tierschutz Kontakt Impressum.", ["2026-04-01"], site_name="Suche")
+        self.assertEqual(app.determine_name(page, "katzenguru.de"), "Katzenguru")
 
     def test_env_file_is_loaded_without_overriding_os_environment(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -323,6 +431,13 @@ class SeedCrawlerTest(unittest.TestCase):
                         "import01",
                         total_score=95 - index,
                         status="accepted",
+                        entity_type={
+                            "book_blog": "independent_book_blog",
+                            "cat_pet_media": "cat_pet_editorial",
+                            "parent_family_media": "parent_family_editorial",
+                            "podcast": "podcast_show",
+                        }[category],
+                        hard_gate_passed=True,
                     )
                 )
         selected, missing = app.select_final(candidates, app.PILOT_QUOTAS, app.PILOT_TARGET)
@@ -398,13 +513,13 @@ class SeedCrawlerTest(unittest.TestCase):
             def crawl_domain(self, url):
                 host = app.registered_domain(url).split(".")[0]
                 if host.startswith("book"):
-                    category_text = "Buchblog Sachbuch Ratgeber Rezensionsexemplare willkommen Familie Katze Kontakt Impressum Autorin"
+                    category_text = "Buchblog Rezensionen Buchvorstellung Sachbuch Ratgeber Rezensionsexemplare willkommen Buchvorschlag Kontakt Impressum Autorin"
                 elif host.startswith("cat"):
-                    category_text = "Katzenblog Haustier Katze Magazin Redaktion Presse Kontakt Impressum Autor"
+                    category_text = "Katzenblog Katzenmagazin Haustier Katze Tierverhalten Tierschutz Redaktion kontaktieren Presseanfrage Kontakt Impressum Autor"
                 elif host.startswith("family"):
-                    category_text = "Elternblog Familie Baby Schwangerschaft Gastbeitrag Themenvorschlag Kontakt Impressum Autorin"
+                    category_text = "Elternblog Familienmagazin Familie Baby Schwangerschaft Kind Kleinkind Gastbeitrag Themenvorschlag Kontakt Impressum Autorin"
                 else:
-                    category_text = "Elternpodcast Podcast Interview Podcastgast Familie Kontakt Impressum Episoden Redaktion"
+                    category_text = "Elternpodcast Podcastshow Podcast Interview Podcastgast werden Episode Episoden Folge RSS Show Familie Kontakt Impressum Redaktion"
                 return [self_page(url, "Pilot", category_text)]
 
             errors = []
@@ -475,13 +590,13 @@ class SeedCrawlerTest(unittest.TestCase):
 
             def crawl_domain(self, url):
                 if "book_blog" in url:
-                    text = "Buchblog Sachbuch Ratgeber Rezensionsexemplare willkommen Familie Katze Kontakt Impressum Autorin"
+                    text = "Buchblog Rezensionen Buchvorstellung Sachbuch Ratgeber Rezensionsexemplare willkommen Buchvorschlag Kontakt Impressum Autorin"
                 elif "cat_pet_media" in url:
-                    text = "Katzenblog Haustier Katze Magazin Redaktion Presse Kontakt Impressum Autor"
+                    text = "Katzenblog Katzenmagazin Haustier Katze Tierverhalten Tierschutz Redaktion kontaktieren Presseanfrage Kontakt Impressum Autor"
                 elif "parent_family_media" in url:
-                    text = "Elternblog Familie Baby Schwangerschaft Gastbeitrag Themenvorschlag Kontakt Impressum Autorin"
+                    text = "Elternblog Familienmagazin Familie Baby Schwangerschaft Kind Kleinkind Gastbeitrag Themenvorschlag Kontakt Impressum Autorin"
                 else:
-                    text = "Elternpodcast Podcast Interview Podcastgast Familie Kontakt Impressum Episoden Redaktion"
+                    text = "Elternpodcast Podcastshow Podcast Interview Podcastgast werden Episode Episoden Folge RSS Show Familie Kontakt Impressum Redaktion"
                 return [app.PageSnapshot(url, url, 200, "Valid", "Valid", ["Valid"], text, [], "", ["2026-05-01"], "", "", app.now_iso())]
 
         with tempfile.TemporaryDirectory() as tmp:

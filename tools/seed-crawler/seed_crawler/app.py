@@ -8,6 +8,7 @@ import json
 import logging
 import os
 import re
+import shutil
 import sys
 import time
 from collections import Counter, defaultdict
@@ -47,6 +48,7 @@ PILOT_MAX_QUERIES = 24
 PILOT_RESULTS_PER_QUERY = 10
 PILOT_MAX_DOMAINS = 120
 PILOT_MAX_PAGES_PER_DOMAIN = 6
+FINAL_MIN_SCORE = 70
 DEFAULT_LOCAL_DATA_DIR = Path("local-data/mention-radar")
 SEED_CRAWLER_ENV_KEYS = {
     "SEED_CRAWLER_SEARCH_PROVIDER",
@@ -116,6 +118,66 @@ COMMON_MULTI_SUFFIXES = {
     "com.br",
     "co.at",
 }
+ENTITY_TYPES = {
+    "independent_book_blog",
+    "cat_pet_editorial",
+    "parent_family_editorial",
+    "podcast_show",
+    "publisher",
+    "bookstore",
+    "online_shop",
+    "commercial_brand_blog",
+    "personal_official_site",
+    "author_site",
+    "coach_or_service_provider",
+    "forum",
+    "directory_or_aggregator",
+    "social_or_podcast_platform",
+    "government_or_institution",
+    "unknown",
+}
+REGULAR_ALLOWED_ENTITY_TYPES = {
+    "independent_book_blog",
+    "cat_pet_editorial",
+    "parent_family_editorial",
+    "podcast_show",
+}
+GENERIC_NAME_PARTS = {
+    "suche",
+    "menu",
+    "menue",
+    "kontakt",
+    "impressum",
+    "redaktion",
+    "presse",
+    "rezensionsexemplare",
+    "rezensionsexemplar",
+    "gastbeitrag",
+    "gastbeitraege",
+    "startseite",
+    "home",
+    "willkommen",
+    "blog",
+    "magazin",
+}
+FORCED_DOMAIN_ENTITY = {
+    "buchblog.schreibtrieb.com": ("independent_book_blog", "bekannter unabhaengiger Buchblog"),
+    "haustiger.info": ("cat_pet_editorial", "redaktioneller Katzenblog"),
+    "katzenguru.de": ("cat_pet_editorial", "redaktioneller Katzenblog mit Gastbeitragsmoeglichkeit"),
+    "papammunity.de": ("parent_family_editorial", "redaktioneller Elternblog"),
+    "elternmagazin.info": ("parent_family_editorial", "redaktionelles Familienmedium"),
+    "dorlingkindersley.de": ("publisher", "Verlag beziehungsweise Verlagsshop"),
+    "ralf-seeger.com": ("personal_official_site", "persoenliche offizielle Website mit Pressearchiv"),
+    "vtg-tiergesundheit.de": ("online_shop", "kommerzieller Shop mit Magazin"),
+    "sonnenkinderleben.de": ("parent_family_editorial", "Familienblog, kein Podcast"),
+    "buchhebamme.de": ("coach_or_service_provider", "Schreibcoach/Selfpublishing-Beratung"),
+}
+ENTITY_CATEGORY = {
+    "independent_book_blog": "book_blog",
+    "cat_pet_editorial": "cat_pet_media",
+    "parent_family_editorial": "parent_family_media",
+    "podcast_show": "podcast",
+}
 
 
 @dataclass(frozen=True)
@@ -152,6 +214,8 @@ class PageSnapshot:
     error: str = ""
     skipped_reason: str = ""
     fetched_at: str = ""
+    meta_description: str = ""
+    jsonld_dates: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -176,6 +240,18 @@ class Candidate:
     rejection_reason: str = ""
     status: str = "rejected"
     notes: str = ""
+    entity_type: str = "unknown"
+    entity_type_evidence: str = ""
+    category_evidence: str = ""
+    topic_evidence: str = ""
+    contact_evidence_url: str = ""
+    contact_evidence_text: str = ""
+    activity_evidence_url: str = ""
+    activity_evidence_date: str = ""
+    activity_confidence: str = "low"
+    hard_gate_passed: bool = False
+    hard_gate_reason: str = ""
+    channel_type: str = ""
 
 
 class SearchProvider(Protocol):
@@ -300,11 +376,13 @@ class TinyHTMLParser(HTMLParser):
         self.base_url = base_url
         self.title_parts: list[str] = []
         self.site_name = ""
+        self.meta_description = ""
         self.canonical_url = ""
         self.text_parts: list[str] = []
         self.links: list[tuple[str, str]] = []
         self.headings: list[str] = []
         self.dates: list[str] = []
+        self.jsonld_dates: list[str] = []
         self._tag_stack: list[str] = []
         self._current_link: str = ""
         self._current_link_text: list[str] = []
@@ -312,12 +390,17 @@ class TinyHTMLParser(HTMLParser):
         self._capture_heading = False
         self._heading_text: list[str] = []
         self._skip_depth = 0
+        self._capture_jsonld = False
+        self._jsonld_parts: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         tag = tag.lower()
         attrs_dict = {key.lower(): value or "" for key, value in attrs}
         self._tag_stack.append(tag)
-        if tag in {"script", "style", "noscript"}:
+        if tag == "script" and attrs_dict.get("type", "").lower() == "application/ld+json":
+            self._capture_jsonld = True
+            self._jsonld_parts = []
+        elif tag in {"script", "style", "noscript"}:
             self._skip_depth += 1
         if tag == "title":
             self._capture_title = True
@@ -329,6 +412,8 @@ class TinyHTMLParser(HTMLParser):
             content = attrs_dict.get("content", "").strip()
             if prop == "og:site_name" and content:
                 self.site_name = content
+            if prop in {"description", "og:description"} and content:
+                self.meta_description = content
             if prop in {"article:published_time", "article:modified_time", "date", "dc.date"} and content:
                 self.dates.append(content)
         if tag == "link":
@@ -352,6 +437,10 @@ class TinyHTMLParser(HTMLParser):
 
     def handle_endtag(self, tag: str) -> None:
         tag = tag.lower()
+        if tag == "script" and self._capture_jsonld:
+            self._capture_jsonld = False
+            self._extract_jsonld_dates(" ".join(self._jsonld_parts))
+            self._jsonld_parts = []
         if tag in {"script", "style", "noscript"} and self._skip_depth:
             self._skip_depth -= 1
         if tag == "title":
@@ -373,6 +462,9 @@ class TinyHTMLParser(HTMLParser):
     def handle_data(self, data: str) -> None:
         if self._skip_depth:
             return
+        if self._capture_jsonld:
+            self._jsonld_parts.append(data)
+            return
         text = clean_space(data)
         if not text:
             return
@@ -383,6 +475,23 @@ class TinyHTMLParser(HTMLParser):
         if self._current_link:
             self._current_link_text.append(text)
         self.text_parts.append(text)
+
+    def _extract_jsonld_dates(self, raw_json: str) -> None:
+        try:
+            payload = json.loads(raw_json)
+        except json.JSONDecodeError:
+            return
+        stack = [payload]
+        while stack:
+            item = stack.pop()
+            if isinstance(item, dict):
+                for key, value in item.items():
+                    if key in {"datePublished", "dateModified"} and isinstance(value, str):
+                        self.jsonld_dates.append(value)
+                    elif isinstance(value, (dict, list)):
+                        stack.append(value)
+            elif isinstance(item, list):
+                stack.extend(item)
 
 
 def clean_space(value: str) -> str:
@@ -980,6 +1089,8 @@ def parse_html(html: str, base_url: str) -> PageSnapshot:
         links=dedupe_links(parser.links),
         canonical_url=parser.canonical_url,
         dates=parser.dates[:20],
+        meta_description=clean_space(parser.meta_description),
+        jsonld_dates=parser.jsonld_dates[:20],
     )
 
 
@@ -1014,6 +1125,228 @@ def relevant_internal_links(page: PageSnapshot) -> list[str]:
     return [url for _score, url in scored]
 
 
+def exact_host(url: str) -> str:
+    parsed, _reason = _parse_url_safely(url)
+    host = (parsed.hostname if parsed else "") or ""
+    return host.lower().removeprefix("www.")
+
+
+def page_context(page: PageSnapshot, chars: int = 6000) -> str:
+    return slug_text(" ".join([page.final_url, page.title, page.site_name, page.meta_description, " ".join(page.headings), page.text[:chars]]))
+
+
+def combined_context(pages: list[PageSnapshot], search_result: SearchResult) -> str:
+    return slug_text(
+        " ".join(
+            [search_result.title, search_result.snippet]
+            + [page.final_url + " " + page.title + " " + page.site_name + " " + page.meta_description + " " + " ".join(page.headings) + " " + page.text[:6000] for page in pages]
+        )
+    )
+
+
+def count_terms(text: str, terms: Iterable[str]) -> int:
+    return sum(1 for term in terms if term in text)
+
+
+def infer_entity_type(domain: str, pages: list[PageSnapshot], search_result: SearchResult) -> tuple[str, str]:
+    host = exact_host(search_result.url) or domain
+    if host in FORCED_DOMAIN_ENTITY:
+        return FORCED_DOMAIN_ENTITY[host]
+    if domain in FORCED_DOMAIN_ENTITY:
+        return FORCED_DOMAIN_ENTITY[domain]
+    text = combined_context(pages, search_result)
+    title_context = slug_text(" ".join([domain] + [page.title + " " + page.site_name + " " + " ".join(page.headings[:2]) for page in pages[:3]]))
+    if any(term in text for term in ["spotify", "apple podcasts", "youtube kanal", "instagram", "facebook"]):
+        return "social_or_podcast_platform", "Plattform- oder Social-Signal"
+    if any(term in text for term in ["forum", "community", "thread", "beitrag beantworten"]):
+        return "forum", "Forum-/Community-Signal"
+    if any(term in text for term in ["branchenbuch", "webverzeichnis", "directory", "portal eintragen"]):
+        return "directory_or_aggregator", "Verzeichnis-/Aggregator-Signal"
+    if any(term in text for term in ["ministerium", "behoerde", "stadtverwaltung", "universitaet", "institut"]):
+        return "government_or_institution", "Institutionelles Signal"
+    if any(term in text for term in ["verlag", "verlagsprogramm", "unsere autoren", "buch bestellen"]) and any(term in text for term in ["warenkorb", "shop", "produkt", "isbn"]):
+        return "publisher", "Verlag/Verlagsshop-Signal"
+    if any(term in text for term in ["buchhandlung", "buchshop", "buecher kaufen"]):
+        return "bookstore", "Buchhandlungs-/Buchshop-Signal"
+    if any(term in text for term in ["warenkorb", "checkout", "in den warenkorb", "produkt kaufen", "versandkosten"]) and not any(term in title_context for term in ["blog", "magazin", "podcast"]):
+        return "online_shop", "Shop-Signal ohne unabhaengiges Medium"
+    if any(term in text for term in ["coaching", "coach", "beratung", "kurs", "mentoring", "selfpublishing", "schreibberatung", "buchmarketing"]):
+        return "coach_or_service_provider", "Coaching-/Serviceanbieter-Signal"
+    if any(term in text for term in ["offizielle website", "pressearchiv", "vita", "termine", "tour", "ueber mich"]) and not any(term in title_context for term in ["blog", "magazin"]):
+        return "personal_official_site", "persoenliche offizielle Website"
+    if any(term in text for term in ["mein buch", "meine buecher", "autorenseite", "autorin", "autor"]) and any(term in text for term in ["lesungen", "buch kaufen", "mein roman"]):
+        return "author_site", "Autorinnen-/Autorenseite"
+    podcast_strong = count_terms(text, ["podcast", "episoden", "episode", "rss", "feed", "show", "podcastgast", "interviewgast"])
+    if podcast_strong >= 3 and (any(term in title_context for term in ["podcast", "show", "folge", "episoden"]) or any(term in text for term in ["elternpodcast", "familienpodcast", "katzenpodcast", "podcastshow"])):
+        return "podcast_show", "eigene Podcastshow mit Episodensignalen"
+    if (count_terms(title_context, ["katze", "katzen", "haustier", "tiermagazin", "tierblog"]) >= 1 or any(term in text for term in ["katzenblog", "katzenmagazin", "haustiermagazin"])) and count_terms(text, ["katze", "katzen", "haustier", "tierverhalten", "tierschutz", "katzenblog"]) >= 2:
+        return "cat_pet_editorial", "Katzen-/Haustierfokus in Titel und Inhalt"
+    if (count_terms(title_context, ["eltern", "familie", "baby", "schwangerschaft", "mama", "papa"]) >= 1 or any(term in text for term in ["elternblog", "familienblog", "familienmagazin"])) and count_terms(text, ["eltern", "familie", "baby", "schwangerschaft", "kind", "kleinkind", "elternblog"]) >= 2:
+        return "parent_family_editorial", "Eltern-/Familienfokus in Titel und Inhalt"
+    review_count = count_terms(text, ["rezension", "rezensionen", "buchvorstellung", "gelesen", "lesemonat", "buecherblog", "buchblog"])
+    if ("buchblog" in title_context or "buecherblog" in title_context or "buchblog" in text or review_count >= 3) and not any(term in text for term in ["verlagsprogramm", "coaching", "buchhandlung"]):
+        return "independent_book_blog", "unabhaengige Buch-/Rezensionssignale"
+    if any(term in text for term in ["shop", "produkt", "marke", "unternehmen"]) and any(term in text for term in ["magazin", "blog", "ratgeber"]):
+        return "commercial_brand_blog", "kommerzielles Markenblog/Magazin"
+    return "unknown", "kein eindeutiger Medientyp"
+
+
+def category_for_entity(entity_type: str, category_hint: str, text: str) -> tuple[str, str]:
+    if entity_type in ENTITY_CATEGORY:
+        return ENTITY_CATEGORY[entity_type], f"entity_type={entity_type}"
+    if entity_type == "commercial_brand_blog":
+        if count_terms(text, ["katze", "katzen", "haustier"]) >= count_terms(text, ["baby", "familie", "eltern"]):
+            return "cat_pet_media", "commercial_brand_blog mit Tierfokus"
+        return "parent_family_media", "commercial_brand_blog mit Familienfokus"
+    if category_hint in CATEGORY_ORDER and category_hint != "podcast":
+        return category_hint, "nur Suchhint; Hard Gate erforderlich"
+    return "cat_pet_media", "Fallback ohne Hard-Gate"
+
+
+def contact_terms_for(category: str) -> list[tuple[str, str, str]]:
+    common = [
+        ("redaktion kontaktieren", "Redaktion kontaktieren", "editorial_contact"),
+        ("pressekontakt", "Pressekontakt", "press_contact"),
+        ("presseanfrage", "Presseanfrage", "press_contact"),
+        ("themenvorschlag", "Themenvorschlag", "topic_pitch"),
+        ("gastbeitrag", "Gastbeitrag einreichen", "guest_post"),
+        ("gastartikel", "Gastbeitrag einreichen", "guest_post"),
+        ("kontaktformular", "Kontaktformular", "general_contact"),
+    ]
+    if category == "book_blog":
+        return [
+            ("rezensionsexemplar anfragen", "Rezensionsexemplar anfragen/einsenden", "review_copy"),
+            ("rezensionsexemplar einsenden", "Rezensionsexemplar anfragen/einsenden", "review_copy"),
+            ("rezensionsexemplare willkommen", "Rezensionsexemplare willkommen", "review_copy"),
+            ("buch vorschlagen", "Buch vorschlagen", "book_pitch"),
+            ("buchvorschlag", "Buch vorschlagen", "book_pitch"),
+            ("neuerscheinungen einsenden", "Neuerscheinungen einsenden", "book_pitch"),
+        ] + common
+    if category == "podcast":
+        return [
+            ("podcastgast werden", "Podcastgast werden", "podcast_guest"),
+            ("gast im podcast", "Podcastgast werden", "podcast_guest"),
+            ("interviewvorschlag", "Interviewvorschlag", "interview_pitch"),
+            ("interviewgast", "Interviewgast", "interview_pitch"),
+        ] + common
+    return common
+
+
+def find_contact_evidence(pages: list[PageSnapshot], category: str, entity_type: str) -> tuple[int, str, str, str, str]:
+    best: tuple[int, str, str, str, str] = (0, "", "", "", "")
+    for page in pages:
+        context = page_context(page, 5000)
+        path_bonus = 6 if any(slug in slug_text(page.final_url) for slug in ["kontakt", "presse", "redaktion", "kooperation", "gast", "rezension", "themenvorschlag"]) else 0
+        if entity_type in {"personal_official_site", "author_site"} and "presse" in context:
+            continue
+        for term, label, channel in contact_terms_for(category):
+            if term in context:
+                score = 16 + path_bonus
+                if channel in {"review_copy", "book_pitch", "podcast_guest", "interview_pitch", "guest_post", "topic_pitch"}:
+                    score += 8
+                snippet = evidence_snippet(page.text, term)
+                candidate = (min(25, score), label, page.final_url, snippet or label, channel)
+                if candidate[0] > best[0]:
+                    best = candidate
+        if best[0] < 8 and any(term in context for term in ["kontakt", "impressum"]):
+            best = (6, "Allgemeiner Kontaktweg", page.final_url, "Kontakt/Impressum vorhanden", "general_contact")
+    return best
+
+
+def evidence_snippet(text: str, term: str) -> str:
+    clean = safe_summary_text(text)
+    lower = slug_text(clean)
+    index = lower.find(term)
+    if index < 0:
+        return ""
+    return clean[max(0, index - 80) : index + 160]
+
+
+def topic_score_and_evidence(category: str, pages: list[PageSnapshot], search_result: SearchResult) -> tuple[int, str]:
+    title_context = slug_text(" ".join([search_result.title, search_result.snippet] + [page.title + " " + page.site_name + " " + page.meta_description + " " + " ".join(page.headings[:2]) for page in pages]))
+    body_context = combined_context(pages, search_result)
+    if category == "book_blog":
+        strong = count_terms(title_context, ["buchblog", "buecherblog", "rezension", "buchvorstellung"])
+        body = count_terms(body_context, ["rezension", "rezensionen", "buchvorstellung", "sachbuch", "ratgeber", "buchblog"])
+        return min(30, strong * 10 + body * 3), f"Buch-/Rezensionssignale strong={strong} body={body}"
+    if category == "cat_pet_media":
+        strong = count_terms(title_context, ["katze", "katzen", "haustier", "tiermagazin"])
+        body = count_terms(body_context, ["katze", "katzen", "haustier", "tierverhalten", "tierschutz"])
+        return min(30, strong * 12 + body * 3), f"Katzen-/Haustiersignale strong={strong} body={body}"
+    if category == "parent_family_media":
+        strong = count_terms(title_context, ["eltern", "familie", "baby", "schwangerschaft", "mama", "papa"])
+        body = count_terms(body_context, ["eltern", "familie", "baby", "schwangerschaft", "kind", "kleinkind"])
+        return min(30, strong * 10 + body * 3), f"Eltern-/Familiensignale strong={strong} body={body}"
+    if category == "podcast":
+        strong = count_terms(title_context, ["podcast", "show", "episode", "folge"])
+        body = count_terms(body_context, ["podcast", "episoden", "episode", "folge", "rss", "podcastgast"])
+        return min(30, strong * 10 + body * 3), f"Podcastsignale strong={strong} body={body}"
+    return 0, "keine belastbare Themenpassung"
+
+
+def assess_activity(pages: list[PageSnapshot]) -> tuple[int, str, str, str, str]:
+    now = datetime.now(UTC)
+    evidence: list[tuple[int, datetime, str, str]] = []
+    for page in pages:
+        for raw in page.jsonld_dates:
+            parsed = parse_date(raw)
+            if parsed and parsed <= now:
+                evidence.append((1, parsed, page.final_url, raw))
+        for raw in page.dates:
+            parsed = parse_date(raw)
+            if parsed and parsed <= now:
+                page_context_short = page_context(page, 2500)
+                if any(term in page_context_short for term in ["archiv", "copyright", "kommentar", "veranstaltung", "termine"]) and "article" not in page_context_short and "artikel" not in page_context_short and "episode" not in page_context_short:
+                    continue
+                evidence.append((2, parsed, page.final_url, raw))
+    if evidence:
+        evidence.sort(key=lambda item: (item[1], -item[0]), reverse=True)
+        _priority, newest, url, raw = evidence[0]
+        months = max(0, int((now - newest).days / 30))
+        if newest >= now - timedelta(days=365):
+            return (20 if newest >= now - timedelta(days=183) else 15, f"letzter Inhalt vor {months} Monaten", url, newest.date().isoformat(), "high")
+        if newest >= now - timedelta(days=548):
+            return 4, f"letzter datierter Inhalt vor {months} Monaten", url, newest.date().isoformat(), "medium"
+        return 0, f"letzter datierter Inhalt vor {months} Monaten", url, newest.date().isoformat(), "high"
+    combined = slug_text(" ".join(page.title + " " + page.text[:2000] for page in pages))
+    if any(term in combined for term in ["aktuelle beitraege", "neueste beitraege", "neue folge", "aktuelle folge"]):
+        return 6, "Aktivitaet nicht eindeutig datierbar", "", "", "low"
+    return 2, "Aktivitaet nicht eindeutig datierbar", "", "", "low"
+
+
+def hard_gate_check(
+    entity_type: str,
+    category: str,
+    topic_score: int,
+    contact_score: int,
+    activity_score: int,
+    activity_confidence: str,
+    text: str,
+) -> tuple[bool, str]:
+    if entity_type not in REGULAR_ALLOWED_ENTITY_TYPES:
+        if entity_type == "commercial_brand_blog" and contact_score >= 18 and topic_score >= 24:
+            return True, "commercial_brand_blog mit konkreter redaktioneller Offenheit"
+        return False, f"entity_type_not_allowed:{entity_type}"
+    expected = ENTITY_CATEGORY.get(entity_type)
+    if expected != category:
+        return False, f"category_entity_mismatch:{entity_type}->{category}"
+    if topic_score < 18:
+        return False, "weak_topic_fit"
+    if contact_score < 12:
+        return False, "no_editorial_contact_evidence"
+    if activity_confidence == "low" and activity_score < 7:
+        return False, "activity_confidence_low"
+    if activity_score == 0:
+        return False, "inactive_or_stale"
+    if category == "podcast":
+        podcast_signals = count_terms(text, ["podcast", "episoden", "episode", "folge", "rss", "podcastgast", "show"])
+        if podcast_signals < 3:
+            return False, "insufficient_own_podcast_signals"
+    if category == "book_blog" and entity_type != "independent_book_blog":
+        return False, "not_independent_book_blog"
+    return True, "passed"
+
+
 def evaluate_domain(
     search_result: SearchResult,
     pages: list[PageSnapshot],
@@ -1025,32 +1358,37 @@ def evaluate_domain(
     usable_pages = [page for page in pages if not page.error and not page.skipped_reason and page.text]
     if not usable_pages:
         reason = pages[0].skipped_reason or pages[0].error if pages else "no_pages"
-        return Candidate(search_result.url, normalize_url(search_result.url), domain, domain, search_result.category_hint, source_for(search_result), search_result.query_id, rejection_reason=reason, status="rejected")
+        return Candidate(search_result.url, normalize_url(search_result.url), domain, domain, search_result.category_hint, source_for(search_result), search_result.query_id, rejection_reason=reason, status="rejected", hard_gate_reason=reason)
     best_page = choose_best_page(usable_pages)
-    all_text = " ".join([search_result.title, search_result.snippet] + [page.title + " " + page.text for page in usable_pages])
-    lowered = slug_text(all_text)
+    lowered = combined_context(usable_pages, search_result)
+    entity_type, entity_evidence = infer_entity_type(domain, usable_pages, search_result)
+    category, category_evidence = category_for_entity(entity_type, search_result.category_hint, lowered)
     block_reason = negative_content_reason(lowered, blocklists.negative_terms)
-    category = assign_category(search_result.category_hint, lowered, best_page.final_url)
     name = determine_name(best_page, domain)
-    topic_score = score_topic(category, lowered)
-    editorial_score, editorial_signal = score_editorial(category, lowered)
-    activity_score, activity_signal = score_activity(usable_pages)
+    topic_score, topic_evidence = topic_score_and_evidence(category, usable_pages, search_result)
+    editorial_score, editorial_signal, contact_url, contact_text, channel_type = find_contact_evidence(usable_pages, category, entity_type)
+    activity_score, activity_signal, activity_url, activity_date, activity_confidence = assess_activity(usable_pages)
     credibility_score = score_credibility(usable_pages, lowered)
     approachability_score = score_approachability(usable_pages, lowered)
     penalty_score, penalty_reasons = score_penalties(lowered, scoring)
-    if not has_contact_signal(lowered):
+    if editorial_score < 12:
         penalty_score += scoring["penalty_no_contact"]
         penalty_reasons.append("kein Kontaktweg")
     total = max(0, min(100, topic_score + editorial_score + activity_score + credibility_score + approachability_score - penalty_score))
-    rejection_reason = block_reason
-    status = "accepted"
+    hard_gate_passed, hard_gate_reason = hard_gate_check(entity_type, category, topic_score, editorial_score, activity_score, activity_confidence, lowered)
+    rejection_reason = block_reason or ("" if hard_gate_passed else hard_gate_reason)
+    status = "accepted" if hard_gate_passed else "rejected"
     if block_reason:
         status = "rejected"
         total = min(total, 40)
-    elif total < min_score:
+        hard_gate_passed = False
+        hard_gate_reason = block_reason
+    elif total < max(min_score, FINAL_MIN_SCORE):
         status = "rejected"
         rejection_reason = f"score_below_min:{total}"
-    contact_signal = contact_signal_for(lowered)
+        hard_gate_passed = False
+        hard_gate_reason = rejection_reason
+    contact_signal = channel_type or contact_signal_for(lowered)
     notes = build_notes(category, editorial_signal, lowered, activity_signal, total)
     final_seed_url = normalize_url(best_page.final_url, prefer_https=best_page.final_url.lower().startswith("https://")) or normalize_url(search_result.url)
     return Candidate(
@@ -1074,13 +1412,37 @@ def evaluate_domain(
         rejection_reason=rejection_reason or "; ".join(penalty_reasons),
         status=status,
         notes=notes,
+        entity_type=entity_type,
+        entity_type_evidence=entity_evidence,
+        category_evidence=category_evidence,
+        topic_evidence=topic_evidence,
+        contact_evidence_url=contact_url,
+        contact_evidence_text=safe_summary_text(contact_text),
+        activity_evidence_url=activity_url,
+        activity_evidence_date=activity_date,
+        activity_confidence=activity_confidence,
+        hard_gate_passed=hard_gate_passed,
+        hard_gate_reason=hard_gate_reason,
+        channel_type=channel_type,
     )
 
 
 def choose_best_page(pages: list[PageSnapshot]) -> PageSnapshot:
     def page_score(page: PageSnapshot) -> tuple[int, int, str]:
         haystack = slug_text(page.final_url + " " + page.title + " " + " ".join(page.headings) + " " + page.text[:2000])
-        priority = max((weight for slug, weight in SLUG_PRIORITY if slug in haystack), default=20)
+        path = slug_text(page.final_url)
+        priority = 20
+        if any(slug in path for slug in ["rezensionsexemplar", "buchvorschlag", "themenvorschlag", "podcastgast", "gaeste", "gastbeitrag", "redaktion", "presse"]):
+            priority = 120
+        elif any(slug in path for slug in ["kontakt", "ueber-uns", "about"]):
+            priority = 95
+        elif any(slug in path for slug in ["archiv", "rezensionen", "magazin", "blog"]):
+            priority = 55
+        elif path.endswith("/"):
+            priority = 45
+        priority = max(priority, max((weight for slug, weight in SLUG_PRIORITY if slug in haystack), default=20))
+        if any(slug in path for slug in ["suche", "search", "produkt", "shop", "warenkorb", "pressearchiv"]):
+            priority -= 80
         text_score = 0
         if "rezensionsexemplar" in haystack:
             text_score += 20
@@ -1172,27 +1534,8 @@ def parse_date(value: str) -> datetime | None:
 
 
 def score_activity(pages: list[PageSnapshot]) -> tuple[int, str]:
-    dates: list[datetime] = []
-    for page in pages:
-        for raw in page.dates:
-            parsed = parse_date(raw)
-            if parsed:
-                dates.append(parsed)
-    now = datetime.now(UTC)
-    if dates:
-        newest = max(dates)
-        months = max(0, int((now - newest).days / 30))
-        if newest >= now - timedelta(days=183):
-            return 20, f"letzter Inhalt vor {months} Monaten"
-        if newest >= now - timedelta(days=365):
-            return 15, f"letzter Inhalt vor {months} Monaten"
-        if newest >= now - timedelta(days=730):
-            return 7, f"letzter Inhalt vor {months} Monaten"
-        return 0, f"letzter datierter Inhalt vor {months} Monaten"
-    combined = slug_text(" ".join(page.text[:3000] for page in pages))
-    if any(term in combined for term in ["aktuell", "neu", "termine", "folge", "episoden", "newsletter"]):
-        return 8, "Aktivitaet nicht eindeutig datierbar"
-    return 3, "Aktivitaet nicht eindeutig datierbar"
+    score, signal, _url, _date, _confidence = assess_activity(pages)
+    return score, signal
 
 
 def score_credibility(pages: list[PageSnapshot], text: str) -> int:
@@ -1279,17 +1622,19 @@ def contact_signal_for(text: str) -> str:
 
 def determine_name(page: PageSnapshot, domain: str) -> str:
     candidates = [page.site_name, *page.headings[:2], page.title]
-    suffixes = ["startseite", "home", "willkommen", "blog", "magazin", "kontakt", "rezensionsexemplare", "rezensionsexemplar"]
+    suffixes = list(GENERIC_NAME_PARTS)
     for candidate in candidates:
         clean = clean_space(candidate)
         if not clean:
             continue
         clean = re.split(r"\s+[|\-–]\s+", clean)[0].strip()
         lowered = slug_text(clean)
-        if lowered in suffixes or clean.lower().startswith("http"):
+        if lowered in GENERIC_NAME_PARTS or clean.lower().startswith("http"):
             continue
         for suffix in suffixes:
             clean = re.sub(rf"\b{re.escape(suffix)}\b", "", clean, flags=re.IGNORECASE).strip(" -|")
+        if slug_text(clean) in GENERIC_NAME_PARTS:
+            continue
         if clean and "." not in clean:
             return clean[:120]
         if clean and len(clean) < 80:
@@ -1320,7 +1665,14 @@ def build_notes(category: str, editorial_signal: str, text: str, activity_signal
 
 
 def select_final(candidates: list[Candidate], quotas: dict[str, int], target: int) -> tuple[list[Candidate], dict[str, int]]:
-    accepted = [candidate for candidate in candidates if candidate.status == "accepted"]
+    accepted = [
+        candidate
+        for candidate in candidates
+        if candidate.status == "accepted"
+        and candidate.hard_gate_passed
+        and candidate.entity_type in (REGULAR_ALLOWED_ENTITY_TYPES | {"commercial_brand_blog"})
+        and candidate.total_score >= FINAL_MIN_SCORE
+    ]
     by_domain: dict[str, Candidate] = {}
     for candidate in sorted(accepted, key=lambda item: (-item.total_score, item.domain, item.final_seed_url)):
         existing = by_domain.get(candidate.domain)
@@ -1388,6 +1740,10 @@ def write_audit_csv(path: Path, candidates: list[Candidate]) -> None:
         "domain",
         "name",
         "category",
+        "entity_type",
+        "entity_type_evidence",
+        "category_evidence",
+        "topic_evidence",
         "discovery_source",
         "query_id",
         "topic_score",
@@ -1398,8 +1754,16 @@ def write_audit_csv(path: Path, candidates: list[Candidate]) -> None:
         "penalty_score",
         "total_score",
         "contact_signal",
+        "contact_evidence_url",
+        "contact_evidence_text",
         "activity_signal",
+        "activity_evidence_url",
+        "activity_evidence_date",
+        "activity_confidence",
         "editorial_signal",
+        "hard_gate_passed",
+        "hard_gate_reason",
+        "channel_type",
         "rejection_reason",
         "status",
     ]
@@ -1567,6 +1931,9 @@ def pilot(args: argparse.Namespace) -> int:
         print("Pilot darf local-data/mention-radar/seeds.csv nicht ersetzen.", file=sys.stderr)
         return 2
     output_dir.mkdir(parents=True, exist_ok=True)
+    persistent_cache = resolve_workspace_path(getattr(args, "cache_dir", "") or DEFAULT_LOCAL_DATA_DIR / "seed-crawler-cache")
+    legacy_cache = output_dir / "seed-crawler-cache"
+    copy_cache_if_present(legacy_cache, persistent_cache)
     discover_args = argparse.Namespace(
         provider=args.provider,
         target=PILOT_TARGET,
@@ -1575,20 +1942,31 @@ def pilot(args: argparse.Namespace) -> int:
         overwrite=args.overwrite,
         resume=args.resume,
         max_pages_per_domain=PILOT_MAX_PAGES_PER_DOMAIN,
-        min_score=65,
+        min_score=FINAL_MIN_SCORE,
         category="",
         search_results=args.search_results,
         allow_unofficial_search=False,
         verbose=args.verbose,
         queries="",
         scoring="",
-        cache_dir=str(output_dir / "seed-crawler-cache"),
+        cache_dir=str(persistent_cache),
         query_limit=PILOT_MAX_QUERIES,
         results_per_query=PILOT_RESULTS_PER_QUERY,
         max_candidate_domains=PILOT_MAX_DOMAINS,
     )
     code, _report, _final = run_discovery(discover_args, pilot_mode=True)
     return code
+
+
+def copy_cache_if_present(source: Path, target: Path) -> None:
+    if not source.exists() or source.resolve() == target.resolve():
+        return
+    for file_path in source.rglob("*.json"):
+        relative = file_path.relative_to(source)
+        destination = target / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        if not destination.exists():
+            shutil.copy2(file_path, destination)
 
 
 def run_discovery(args: argparse.Namespace, *, pilot_mode: bool = False) -> tuple[int, dict, list[Candidate]]:
@@ -1622,7 +2000,9 @@ def run_discovery(args: argparse.Namespace, *, pilot_mode: bool = False) -> tupl
     raw_results: list[SearchResult] = []
     errors: list[str] = []
     per_query_limit = int(getattr(args, "results_per_query", 0) or max(10, min(50, args.target)))
-    for query in queries:
+    for query_index, query in enumerate(queries, start=1):
+        if getattr(args, "verbose", False):
+            print(f"Query {query_index}/{len(queries)}: {query.text}")
         try:
             cache_key = f"search:{provider.name}:{query.category}:{query.query_id}:{query.text}:{per_query_limit}"
             cached_results = search_cache.get(cache_key)
@@ -1632,6 +2012,8 @@ def run_discovery(args: argparse.Namespace, *, pilot_mode: bool = False) -> tupl
                 found = provider.search(query, per_query_limit)
                 search_cache.set(cache_key, [asdict(item) for item in found])
                 raw_results.extend(found)
+            if getattr(args, "verbose", False):
+                print(f"Rohresultate bisher: {len(raw_results)}")
         except Exception as exc:
             errors.append(f"{query.query_id}:{type(exc).__name__}:{exc}")
     deduped_results: dict[str, SearchResult] = {}
@@ -1654,9 +2036,18 @@ def run_discovery(args: argparse.Namespace, *, pilot_mode: bool = False) -> tupl
             continue
         deduped_results.setdefault(domain, SearchResult(normalized, result.title, result.snippet, provider.name, result.query_id, result.query, result.category_hint))
     candidates = rejected[:]
-    for domain, result in sorted(deduped_results.items()):
+    sorted_results = sorted(deduped_results.items())
+    for domain_index, (domain, result) in enumerate(sorted_results, start=1):
+        if getattr(args, "verbose", False):
+            print(f"Domain {domain_index}/{len(sorted_results)}: {domain}")
         pages = crawler.crawl_domain(result.url)
-        candidates.append(evaluate_domain(result, pages, blocklists, scoring, min_score))
+        candidate = evaluate_domain(result, pages, blocklists, scoring, min_score)
+        candidates.append(candidate)
+        if getattr(args, "verbose", False):
+            if candidate.status == "accepted":
+                print(f"akzeptiert: category={candidate.category} score={candidate.total_score}")
+            else:
+                print(f"uebersprungen: entity_type={candidate.entity_type} reason={candidate.hard_gate_reason or candidate.rejection_reason}")
     if args.category:
         quotas = {category: (args.target if category == args.category else 0) for category in CATEGORY_ORDER}
     final, missing = select_final(candidates, quotas, args.target)
@@ -1844,6 +2235,7 @@ def build_parser() -> argparse.ArgumentParser:
     pilot_parser.add_argument("--provider", default="", choices=["", "brave", "file"])
     pilot_parser.add_argument("--output-dir", default="local-data/mention-radar/pilot-10")
     pilot_parser.add_argument("--search-results", default="")
+    pilot_parser.add_argument("--cache-dir", default="")
     pilot_parser.add_argument("--overwrite", action="store_true")
     pilot_parser.add_argument("--resume", action="store_true")
     pilot_parser.add_argument("--verbose", action="store_true")
