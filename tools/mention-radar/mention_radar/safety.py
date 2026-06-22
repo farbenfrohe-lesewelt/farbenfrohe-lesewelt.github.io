@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import os
 import re
+from datetime import datetime
 from pathlib import Path
 from typing import Iterable, List
 from urllib.parse import urldefrag, urlparse, urlunparse
@@ -20,6 +21,7 @@ USER_AGENT = "FarbenfroheLesewelt-MentionResearch/1.0"
 DEFAULT_CONFIG = {
     "request_delay_seconds": 3,
     "maximum_pages_per_domain": 5,
+    "maximum_follow_links_per_seed": 5,
     "timeout_seconds": 15,
     "maximum_html_bytes": 2_000_000,
     "maximum_redirects": 5,
@@ -41,6 +43,16 @@ STATUS_VALUES = {
     "no_response",
     "excluded",
 }
+
+TRACKING_COLUMNS = [
+    "candidate_id",
+    "review_status",
+    "notes",
+    "contacted_at",
+    "follow_up_at",
+    "response",
+    "publication_url",
+]
 
 BLOCKED_PATH_PARTS = {
     "login",
@@ -79,9 +91,9 @@ RISK_PATTERNS = [
     "bezahlte dofollow",
     "linktausch",
     "backlink erforderlich",
-    "garantierte veröffentlichung",
+    "garantierte veroeffentlichung",
     "garantierte publikation",
-    "veröffentlichungsgarantie",
+    "veroeffentlichungsgarantie",
     "positive rezension erforderlich",
     "nur positive bewertungen",
     "presseportal",
@@ -94,7 +106,7 @@ def load_config(path: str | None = None) -> dict:
     config["official_search_api"] = dict(DEFAULT_CONFIG["official_search_api"])
     if path:
         if yaml is None:
-            raise RuntimeError("PyYAML wird zum Lesen der Konfiguration benötigt.")
+            raise RuntimeError("PyYAML wird zum Lesen der Konfiguration benoetigt.")
         with open(path, "r", encoding="utf-8") as handle:
             loaded = yaml.safe_load(handle) or {}
         for key, value in loaded.items():
@@ -106,6 +118,10 @@ def load_config(path: str | None = None) -> dict:
     if bool(api.get("enabled")) and api.get("api_key_env") and not os.getenv(str(api.get("api_key_env"))):
         config["official_search_api"]["enabled"] = False
     return config
+
+
+def default_run_dir(base_dir: str | Path = "local-data/mention-radar") -> Path:
+    return Path(base_dir) / "runs" / datetime.now().strftime("%Y-%m-%d_%H%M%S")
 
 
 def ensure_output_dirs(output_dir: str | Path) -> Path:
@@ -180,3 +196,13 @@ def extract_urls_from_csv(path: str | Path) -> List[str]:
             for cell in row:
                 urls.extend(match.group(0).rstrip(").]") for match in pattern.finditer(cell or ""))
     return dedupe_urls(urls)
+
+
+def read_feed_list(path: str | Path) -> List[str]:
+    feeds: List[str] = []
+    with open(path, "r", encoding="utf-8-sig") as handle:
+        for line in handle:
+            clean = line.strip()
+            if clean and not clean.startswith("#"):
+                feeds.append(normalize_url(clean))
+    return dedupe_urls(feeds)

@@ -24,6 +24,9 @@ class FetchResult:
     error: str = ""
     skipped_reason: str = ""
     contact_methods: List[str] = field(default_factory=list)
+    follow_links: List[str] = field(default_factory=list)
+    seed_url: str = ""
+    discovery_source: str = "seed"
 
 
 @dataclass
@@ -46,3 +49,10 @@ class Candidate:
     fetched_at: str
     review_status: str = "new"
     notes: str = ""
+    seed_url: str = ""
+    discovery_source: str = "seed"
+    contacted_at: str = ""
+    follow_up_at: str = ""
+    response: str = ""
+    publication_url: str = ""
+    known_candidate: bool = False

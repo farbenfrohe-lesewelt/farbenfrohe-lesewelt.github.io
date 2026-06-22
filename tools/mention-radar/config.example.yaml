@@ -1,5 +1,6 @@
 request_delay_seconds: 3
 maximum_pages_per_domain: 5
+maximum_follow_links_per_seed: 5
 timeout_seconds: 15
 maximum_html_bytes: 2000000
 maximum_redirects: 5

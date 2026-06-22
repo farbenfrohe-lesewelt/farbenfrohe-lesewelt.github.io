@@ -1,19 +1,20 @@
 # Mention Radar
 
-Mention Radar ist ein lokales Python-Werkzeug für menschengeprüfte Recherche zu redaktionellen Erwähnungsmöglichkeiten. Es unterstützt dabei, öffentlich zugängliche Seiten, RSS-Feeds oder manuell exportierte URL-Listen zu prüfen, Hinweise auf Einreichungsmöglichkeiten zu dokumentieren und für passende Fälle einen ersten Entwurf vorzubereiten.
+Mention Radar ist ein lokales Python-Werkzeug fuer menschengepruefte Recherche zu redaktionellen Erwaehnungsmoeglichkeiten. Es hilft dabei, oeffentlich zugaengliche Seiten, RSS-Feeds oder manuell exportierte URL-Listen zu pruefen, Einreichungshinweise zu dokumentieren und fuer passende Klasse-A-Faelle einen ersten Entwurf vorzubereiten.
 
-Das Werkzeug sendet keine Nachrichten, legt keine Profile an, veröffentlicht keine Kommentare und füllt keine Formulare aus. Es dient nur der Vorbereitung. Die Entscheidung, ob und wie ein Kontakt erfolgt, bleibt immer manuell.
+Das Werkzeug sendet keine Nachrichten, legt keine Profile an, veroeffentlicht keine Kommentare und fuellt keine Formulare aus. Es ist ein Recherche- und Dokumentationshelfer; jede Kontaktaufnahme bleibt manuell.
 
-## Grenzen
+## Grenzen der Automatisierung
 
 - keine automatisierte Nutzung von Suchmaschinenergebnisseiten
-- keine Umgehung von Logins, Captchas, Paywalls oder Zugriffsbeschränkungen
+- keine Umgehung von Logins, Captchas, Paywalls oder Zugriffsbeschraenkungen
 - keine automatische Ermittlung privater Kontaktdaten
 - keine gekauften, getauschten oder geforderten Backlinks
-- keine Kopplung eines Rezensionsexemplars an Veröffentlichung, Bewertung oder Verlinkung
-- keine erfundenen Reichweiten-, Ranking- oder Autoritätswerte
+- keine Kopplung eines Rezensionsexemplars an Veroeffentlichung, Bewertung oder Verlinkung
+- keine erfundenen Reichweiten-, Ranking- oder Autoritaetswerte
+- keine automatische Kontaktaufnahme
 
-## Installation
+## Erstinstallation
 
 Voraussetzung ist Python 3.11 oder neuer.
 
@@ -22,9 +23,17 @@ python -m venv .\tools\mention-radar\.venv
 .\tools\mention-radar\.venv\Scripts\python.exe -m pip install -r .\tools\mention-radar\requirements.txt
 ```
 
+Der Windows-Runner kann die Umgebung ebenfalls anlegen:
+
+```powershell
+.\tools\mention-radar\run-mention-radar.ps1 -Url "https://example.com/rezensionen"
+```
+
+Mit `-NoInstall` wird die Paketinstallation uebersprungen, wenn die Umgebung bereits eingerichtet ist.
+
 ## CSV-Aufbau
 
-Eine manuelle Seed-Datei enthält mindestens die Spalte `url`.
+Eine manuelle Seed-Datei enthaelt mindestens die Spalte `url`.
 
 ```csv
 url,name,source,notes
@@ -32,84 +41,106 @@ https://example.com/rezensionen,Beispiel Rezensionsseite,manual,Fiktive Beispiel
 https://example.org/presse,Beispiel Presseseite,manual,Fiktive Beispielzeile
 ```
 
-Echte Arbeitsdateien gehören nach `local-data/mention-radar/` und werden nicht versioniert.
+Echte Arbeitsdateien gehoeren nach `local-data/mention-radar/` und werden nicht versioniert.
 
-## Beispiele
-
-Einzelne URL prüfen:
-
-```powershell
-python .\tools\mention-radar\mention_radar.py --url "https://example.com/rezensionen"
-```
-
-Manuelle CSV prüfen:
-
-```powershell
-python .\tools\mention-radar\mention_radar.py --input-csv ".\local-data\mention-radar\seeds.csv"
-```
-
-RSS- oder Atom-Feed einlesen:
-
-```powershell
-python .\tools\mention-radar\mention_radar.py --feed "https://example.com/feed.xml"
-```
-
-Windows-Workflow:
+## Erster CSV-Lauf
 
 ```powershell
 .\tools\mention-radar\run-mention-radar.ps1 -InputCsv ".\local-data\mention-radar\seeds.csv"
 ```
 
+## Einzelne URL
+
+```powershell
+.\tools\mention-radar\run-mention-radar.ps1 -Url "https://example.com/rezensionen"
+```
+
+## Mehrere URLs
+
+```powershell
+.\tools\mention-radar\run-mention-radar.ps1 `
+  -Url "https://example.com/rezensionen" `
+  -Url "https://example.org/presse"
+```
+
+## RSS-Feed
+
+```powershell
+.\tools\mention-radar\run-mention-radar.ps1 -Feed "https://example.com/feed.xml"
+```
+
+## Feed-Liste
+
+Eine Feed-Liste ist eine lokale Textdatei mit einer Feed-URL pro Zeile. Leerzeilen und Zeilen mit `#` am Anfang werden ignoriert.
+
+```powershell
+.\tools\mention-radar\run-mention-radar.ps1 -FeedList ".\local-data\mention-radar\feeds.txt"
+```
+
+`feed-list.example.txt` ist nur eine fiktive Vorlage. Echte Feed-Sammlungen nicht committen.
+
+## Datierte Runs
+
+Ohne `--output-dir` beziehungsweise ohne `-OutputDir` schreibt jeder Lauf in einen eigenen Ordner:
+
+```text
+local-data/mention-radar/runs/YYYY-MM-DD_HHMMSS/
+```
+
+Dadurch werden aeltere Ergebnisse und Entwuerfe nicht unbemerkt ueberschrieben. Ein expliziter Ausgabeordner bleibt moeglich:
+
+```powershell
+.\tools\mention-radar\run-mention-radar.ps1 `
+  -Url "https://example.com/rezensionen" `
+  -OutputDir ".\local-data\mention-radar\manual-run"
+```
+
+## tracking.csv
+
+Die dauerhafte lokale Datei `local-data/mention-radar/tracking.csv` bewahrt manuelle Felder anhand der `candidate_id`:
+
+- `review_status`
+- `notes`
+- `contacted_at`
+- `follow_up_at`
+- `response`
+- `publication_url`
+
+Wenn ein Kandidat erneut gefunden wird, werden vorhandene manuelle Werte uebernommen und nicht auf `new` zurueckgesetzt.
+
 ## Ausgaben
 
-Alle lokalen Ergebnisse werden unter `local-data/mention-radar/` geschrieben:
+Jeder Run erzeugt:
 
-- `candidates.csv`: alle geprüften Kandidaten mit Klasse, Score, Beleg und Status
-- `opportunities.md`: maximal zehn beste Klasse-A- und prüfenswerte Klasse-B-Einträge
-- `excluded.csv`: ausgeschlossene Klasse-C- und Klasse-D-Einträge
-- `drafts/`: Entwürfe nur für Klasse A
+- `candidates.csv`: alle geprueften Kandidaten mit Klasse, Score, Seed, Fundstelle und Status
+- `opportunities.md`: maximal zehn beste Klasse-A- und pruefenswerte Klasse-B-Eintraege
+- `excluded.csv`: ausgeschlossene Klasse-C- und Klasse-D-Eintraege
+- `drafts/`: Entwuerfe nur fuer Klasse A
+
+Der Kandidatenexport zeigt in `discovery_source`, ob eine Einreichungsmoeglichkeit direkt auf der Seed-URL oder auf einer kontrolliert gefolgten Unterseite gefunden wurde.
+
+## Kontrolliertes Folgen interner Links
+
+Wenn eine ausdruecklich uebergebene Startseite passende interne Links enthaelt, prueft Mention Radar innerhalb derselben Domain bis zu fuenf zusaetzliche Seiten mit passenden Linktexten oder Pfaden, zum Beispiel Presse, Redaktion, Rezension, Buchvorstellung, Interview, Podcast oder Kooperation.
+
+Dabei gelten weiterhin `robots.txt`, Rate-Limit, Domain-Seitenlimit, HTML-Groessenlimit und die Sperre fuer Login-, Konto- und Kaufbereiche. Externe Links werden nicht automatisch verfolgt.
 
 ## Klassen
 
-- A: ausdrückliche Einreichungsmöglichkeit, etwa Rezensionsexemplar, Themenvorschlag, Interview oder Medienanfrage
-- B: öffentlicher redaktioneller Kontakt ohne eindeutige Einladung
-- C: keine erkennbare Einreichungsmöglichkeit
-- D: ungeeignet oder riskant, etwa Linkverkauf, Veröffentlichungsgarantie, Linktausch oder thematisch unpassende Seite
+- A: ausdrueckliche Einreichungsmoeglichkeit, etwa Rezensionsexemplar, Themenvorschlag, Interview oder Medienanfrage
+- B: oeffentlicher redaktioneller Kontakt ohne eindeutige Einladung
+- C: keine erkennbare Einreichungsmoeglichkeit
+- D: ungeeignet oder riskant, etwa Linkverkauf, Veroeffentlichungsgarantie, Linktausch oder thematisch unpassende Seite
 
-Nur Klasse A erhält einen Entwurf. Klasse B bleibt für manuelle Prüfung. Klasse C und D werden ausgeschlossen.
+Nur Klasse A erhaelt einen Entwurf. Klasse B bleibt fuer manuelle Pruefung. Klasse C und D werden ausgeschlossen.
 
-## Scoring
+## Woechentlicher 30-Minuten-Workflow
 
-Der Score liegt zwischen 0 und 100:
-
-- thematische Übereinstimmung: bis 30
-- Zielgruppenübereinstimmung: bis 20
-- ausdrückliche Einreichungsmöglichkeit: bis 20
-- redaktionelle Qualität: bis 15
-- Aktualität: bis 10
-- Anschlussfähigkeit an vorhandenes Material: bis 5
-
-Abzüge gibt es unter anderem für überwiegende Werbeinhalte, geringe redaktionelle Substanz, veraltete Seiten oder generisch wirkende Inhalte. SEO-Metriken werden nicht erfunden.
-
-## Datenschutz und Kontaktwege
-
-Das Werkzeug erfasst nur Kontaktwege, die auf der geprüften Seite öffentlich sichtbar angeboten werden, bevorzugt als URL einer Presse-, Kontakt- oder Einreichungsseite. Echte Arbeitslisten, sichtbare E-Mail-Adressen, Notizen und Entwürfe bleiben lokal im ignorierten Ordner.
-
-## robots.txt und Rate-Limits
-
-Der Crawler verwendet den User-Agent `FarbenfroheLesewelt-MentionResearch/1.0`, prüft `robots.txt`, wartet standardmäßig mindestens drei Sekunden zwischen Abrufen derselben Domain, begrenzt die Seitenzahl pro Domain und lädt keine Binärdateien. Login-, Konto- und Kaufbereiche werden übersprungen.
-
-## Entwürfe prüfen
-
-Entwürfe sind Arbeitsmaterial. Bitte jeden Text individuell kürzen, korrigieren und mit der Fundstelle abgleichen. Mention Radar behauptet nicht, eine komplette Website gelesen zu haben, wenn nur eine Einreichungsseite geprüft wurde.
-
-## 30-Minuten-Wochenworkflow
-
-1. Fünf bis zehn neue Start-URLs oder Feed-Treffer in eine lokale CSV eintragen.
-2. Radar ausführen.
-3. Nur Klasse A und starke Klasse B öffnen und manuell prüfen.
-4. Maximal drei Klasse-A-Kandidaten auswählen.
-5. Entwürfe individuell korrigieren.
-6. Manuell über den ausdrücklich angebotenen Kontaktweg senden.
-7. Status in der lokalen Arbeitsdatei dokumentieren.
-8. Höchstens einmal nachfassen, nur wenn die Einreichungsbedingungen dies erlauben.
+1. Fuenf bis zehn neue Start-URLs oder Feed-Treffer lokal sammeln.
+2. Radar ausfuehren.
+3. Nur Klasse A und starke Klasse B oeffnen und manuell pruefen.
+4. Maximal drei Klasse-A-Kandidaten auswaehlen.
+5. Entwuerfe individuell korrigieren.
+6. Manuell ueber den ausdruecklich angebotenen Kontaktweg senden.
+7. Status in `tracking.csv` dokumentieren.
+8. Hoechstens einmal nachfassen, nur wenn die Einreichungsbedingungen dies erlauben.

@@ -1,0 +1,4 @@
+# Fiktive Feed-Liste fuer lokale Tests oder eigene Arbeitskopien.
+# Eine Feed-URL pro Zeile. Echte Recherche-Feeds nicht committen.
+https://example.com/feed.xml
+https://example.org/rss

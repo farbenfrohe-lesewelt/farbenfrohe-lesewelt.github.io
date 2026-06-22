@@ -77,7 +77,7 @@ class SafetyTest(unittest.TestCase):
         crawler.robots_cache["https://example.com"] = parser
         crawler.session = FakeSession(FakeResponse([b"1234", b"5678"]))
         result = crawler.fetch("https://example.com/page")
-        self.assertIn("Größenlimit", result.skipped_reason)
+        self.assertIn("Groessenlimit", result.skipped_reason)
 
     def test_redirect_limit_is_configured(self):
         if getattr(MentionCrawler, "__init__", None) is None:
@@ -110,7 +110,7 @@ class SafetyTest(unittest.TestCase):
         combined = "\n".join(
             path.read_text(encoding="utf-8", errors="ignore")
             for path in root.rglob("*")
-            if path.is_file() and "__pycache__" not in path.parts
+            if path.is_file() and "__pycache__" not in path.parts and ".venv" not in path.parts
         )
         disallowed = [
             "sm" + "tplib",

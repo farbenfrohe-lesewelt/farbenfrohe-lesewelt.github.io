@@ -9,12 +9,24 @@ from .safety import contains_risk_signal
 from .scoring import score_candidate
 
 
+OWN_MATERIAL_URLS = [
+    "https://farbenfrohe-lesewelt.github.io/presse/",
+    "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/",
+    "https://farbenfrohe-lesewelt.github.io/ratgeber/",
+    "https://farbenfrohe-lesewelt.github.io/checkliste/",
+    "https://farbenfrohe-lesewelt.github.io/pinterest/toxoplasmose-katze-schwangerschaft/",
+    "https://farbenfrohe-lesewelt.github.io/pinterest/baby-und-katze-zusammenfuehren/",
+    "https://farbenfrohe-lesewelt.github.io/pinterest/erste-begegnung-baby-und-katze/",
+    "https://farbenfrohe-lesewelt.github.io/pinterest/katze-im-babybett/",
+    "https://www.amazon.de/dp/B0GTDN1458",
+]
+
 TOPIC_TERMS = [
     "baby und katze",
     "katze und baby",
     "schwangerschaft mit katze",
     "katze und neugeborenes",
-    "katze an baby gewöhnen",
+    "katze an baby gewoehnen",
     "erste begegnung baby und katze",
     "katze im babybett",
     "katze im beistellbett",
@@ -49,11 +61,11 @@ AUDIENCE_TERMS = [
 PERMISSION_TERMS = [
     "rezensionsexemplar",
     "rezensionsexemplare willkommen",
-    "bücher zur rezension",
+    "buecher zur rezension",
     "buchvorstellungen",
     "neuerscheinungen einsenden",
     "themenvorschlag",
-    "themenvorschläge",
+    "themenvorschlaege",
     "presseanfrage",
     "redaktionskontakt",
     "gastbeitrag einreichen",
@@ -98,13 +110,11 @@ def classify(fetch: FetchResult, seed_name: str = "") -> Candidate:
         candidate_class = "B"
     else:
         candidate_class = "C"
-        notes = "Keine erkennbare Einreichungsmöglichkeit."
+        notes = "Keine erkennbare Einreichungsmoeglichkeit."
 
     topic_fit = min(30, topic_hits * 8 + min(6, audience_hits))
     audience_fit = min(20, audience_hits * 4)
-    submission_permission = "ja" if candidate_class == "A" else "nein"
     suggested_angle = suggest_angle(normalized)
-    suggested_material = suggest_material(suggested_angle, candidate_class)
     candidate = Candidate(
         candidate_id=_candidate_id(fetch.final_url or fetch.url),
         name=name[:120],
@@ -115,15 +125,17 @@ def classify(fetch: FetchResult, seed_name: str = "") -> Candidate:
         score=0,
         topic_fit=topic_fit,
         audience_fit=audience_fit,
-        submission_permission=submission_permission,
+        submission_permission="ja" if candidate_class == "A" else "nein",
         permission_evidence=evidence,
         evidence_url=(fetch.final_url or fetch.url) if evidence else "",
         public_contact_method=contact_method,
         suggested_angle=suggested_angle,
-        suggested_material=suggested_material,
+        suggested_material=suggest_material(suggested_angle, candidate_class),
         fetched_at=fetch.fetched_at,
         review_status="new" if candidate_class in {"A", "B"} else "excluded",
         notes=notes,
+        seed_url=fetch.seed_url or fetch.url,
+        discovery_source=fetch.discovery_source,
     )
     candidate.score = score_candidate(candidate, normalized)
     return candidate
@@ -132,13 +144,17 @@ def classify(fetch: FetchResult, seed_name: str = "") -> Candidate:
 def suggest_angle(text: str) -> str:
     if "toxoplasmose" in text:
         return "Toxoplasmose ruhig einordnen"
+    if "babybett" in text or "beistellbett" in text:
+        return "Schlafplatz und Babybett einordnen"
+    if "erste begegnung" in text:
+        return "Erste Begegnung Baby und Katze"
     if "podcast" in text:
-        return "Gespräch über Familienalltag mit Baby und Katze"
+        return "Gespraech ueber Familienalltag mit Baby und Katze"
     if "buchblog" in text or "rezension" in text:
-        return "Sachlicher Ratgeber für Familien mit Baby und Katze"
+        return "Sachlicher Ratgeber fuer Familien mit Baby und Katze"
     if "katze" in text:
         return "Baby kommt, Katze bleibt"
-    return "Orientierung für Familien mit Haustier und Baby"
+    return "Orientierung fuer Familien mit Haustier und Baby"
 
 
 def suggest_material(angle: str, candidate_class: str) -> str:
@@ -146,36 +162,47 @@ def suggest_material(angle: str, candidate_class: str) -> str:
         return ""
     material_map = {
         "Toxoplasmose ruhig einordnen": [
-            "https://farbenfrohe-lesewelt.github.io/schwangerschaft/",
+            "https://farbenfrohe-lesewelt.github.io/pinterest/toxoplasmose-katze-schwangerschaft/",
             "https://farbenfrohe-lesewelt.github.io/presse/",
             "https://www.amazon.de/dp/B0GTDN1458",
         ],
-        "Gespräch über Familienalltag mit Baby und Katze": [
+        "Schlafplatz und Babybett einordnen": [
+            "https://farbenfrohe-lesewelt.github.io/pinterest/katze-im-babybett/",
+            "https://farbenfrohe-lesewelt.github.io/presse/",
+            "Rezensionsexemplar",
+        ],
+        "Erste Begegnung Baby und Katze": [
+            "https://farbenfrohe-lesewelt.github.io/pinterest/erste-begegnung-baby-und-katze/",
+            "https://farbenfrohe-lesewelt.github.io/presse/",
+            "Rezensionsexemplar",
+        ],
+        "Gespraech ueber Familienalltag mit Baby und Katze": [
             "https://farbenfrohe-lesewelt.github.io/presse/",
             "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/",
             "https://farbenfrohe-lesewelt.github.io/ratgeber/",
         ],
-        "Sachlicher Ratgeber für Familien mit Baby und Katze": [
+        "Sachlicher Ratgeber fuer Familien mit Baby und Katze": [
             "https://farbenfrohe-lesewelt.github.io/presse/",
             "https://www.amazon.de/dp/B0GTDN1458",
             "Rezensionsexemplar",
         ],
         "Baby kommt, Katze bleibt": [
-            "https://farbenfrohe-lesewelt.github.io/baby/",
+            "https://farbenfrohe-lesewelt.github.io/pinterest/baby-und-katze-zusammenfuehren/",
             "https://farbenfrohe-lesewelt.github.io/presse/",
             "Rezensionsexemplar",
         ],
-        "Orientierung für Familien mit Haustier und Baby": [
+        "Orientierung fuer Familien mit Haustier und Baby": [
             "https://farbenfrohe-lesewelt.github.io/ratgeber/",
             "https://farbenfrohe-lesewelt.github.io/presse/",
             "https://farbenfrohe-lesewelt.github.io/checkliste/",
         ],
     }
-    return " | ".join(material_map.get(angle, material_map["Orientierung für Familien mit Haustier und Baby"])[:3])
+    return " | ".join(material_map.get(angle, material_map["Orientierung fuer Familien mit Haustier und Baby"])[:3])
 
 
 def _normalize(text: str) -> str:
-    return re.sub(r"\s+", " ", (text or "").lower())
+    replacements = str.maketrans({"ä": "ae", "ö": "oe", "ü": "ue", "Ä": "ae", "Ö": "oe", "Ü": "ue", "ß": "ss"})
+    return re.sub(r"\s+", " ", (text or "").translate(replacements).lower())
 
 
 def _count_hits(text: str, terms: list[str]) -> int:
@@ -184,7 +211,7 @@ def _count_hits(text: str, terms: list[str]) -> int:
 
 def _find_evidence(text: str, terms: list[str]) -> str:
     compact = re.sub(r"\s+", " ", text or "")
-    compact_lower = compact.lower()
+    compact_lower = _normalize(compact)
     for term in terms:
         index = compact_lower.find(term)
         if index >= 0:

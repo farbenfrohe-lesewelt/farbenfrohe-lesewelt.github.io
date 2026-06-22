@@ -13,7 +13,9 @@ CANDIDATE_COLUMNS = [
     "candidate_id",
     "name",
     "website",
+    "seed_url",
     "relevant_page",
+    "discovery_source",
     "page_title",
     "candidate_class",
     "score",
@@ -28,6 +30,10 @@ CANDIDATE_COLUMNS = [
     "fetched_at",
     "review_status",
     "notes",
+    "contacted_at",
+    "follow_up_at",
+    "response",
+    "publication_url",
 ]
 
 EXCLUDED_COLUMNS = ["URL", "Ausschlussgrund", "Klasse", "Datum"]
@@ -61,7 +67,7 @@ def write_excluded(candidates: List[Candidate], path: Path) -> None:
                 writer.writerow(
                     {
                         "URL": candidate.relevant_page,
-                        "Ausschlussgrund": candidate.notes or "Keine passende Einreichungsmöglichkeit.",
+                        "Ausschlussgrund": candidate.notes or "Keine passende Einreichungsmoeglichkeit.",
                         "Klasse": candidate.candidate_class,
                         "Datum": candidate.fetched_at,
                     }
@@ -73,9 +79,9 @@ def write_opportunities(candidates: List[Candidate], path: Path) -> None:
     selected.sort(key=lambda item: (item.candidate_class, -item.score))
     selected = selected[:10]
     lines = [
-        "# Mention Radar: prüfenswerte Möglichkeiten",
+        "# Mention Radar: pruefenswerte Moeglichkeiten",
         "",
-        "Diese Liste ist eine lokale Arbeitsansicht. Bitte jeden Eintrag manuell prüfen, bevor Kontakt aufgenommen wird.",
+        "Diese Liste ist eine lokale Arbeitsansicht. Bitte jeden Eintrag manuell pruefen, bevor Kontakt aufgenommen wird.",
         "",
     ]
     for candidate in selected:
@@ -85,9 +91,11 @@ def write_opportunities(candidates: List[Candidate], path: Path) -> None:
                 "",
                 f"- Klasse: {candidate.candidate_class}",
                 f"- Score: {candidate.score}",
+                f"- Seed: {candidate.seed_url}",
                 f"- Fundstelle: {candidate.relevant_page}",
-                f"- Beleg: {candidate.permission_evidence or 'kein ausdrücklicher Einreichungshinweis'}",
-                f"- Kontaktweg: {candidate.public_contact_method or 'manuell prüfen'}",
+                f"- Fundart: {candidate.discovery_source}",
+                f"- Beleg: {candidate.permission_evidence or 'kein ausdruecklicher Einreichungshinweis'}",
+                f"- Kontaktweg: {candidate.public_contact_method or 'manuell pruefen'}",
                 f"- Vorschlag: {candidate.suggested_angle}",
                 f"- Material: {candidate.suggested_material}",
                 "",
