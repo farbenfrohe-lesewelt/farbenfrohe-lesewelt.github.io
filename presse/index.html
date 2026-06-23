@@ -34,10 +34,15 @@
     .press-panel{ border:1px solid var(--border); border-radius:var(--radius-xl); background:rgba(255,255,255,.76); padding:1.2rem; box-shadow:var(--shadow); }
     .press-panel img{ display:block; width:100%; max-height:420px; object-fit:contain; }
     .booktitle{ font-weight:800; margin:.8rem 0 .15rem; }
-    .format-grid,.difference-grid,.topic-card-grid,.asset-grid{ display:grid; gap:1rem; margin-top:1rem; }
+    .format-grid,.difference-grid,.topic-card-grid,.asset-grid,.insight-grid{ display:grid; gap:1rem; margin-top:1rem; }
     .format-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); }
     .difference-grid,.topic-card-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
     .asset-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .asset-grid.primary-assets{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .insight-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .insight-grid.featured{ grid-template-columns:1.25fr .75fr; }
+    .asset-group{ margin-top:1.6rem; }
+    .asset-group h3{ margin-bottom:.25rem; }
     .press-card,.topic-card,.asset-card,.contact-card{ border:1px solid var(--border); border-radius:var(--radius); background:rgba(255,255,255,.72); padding:1rem; box-shadow:var(--shadow-soft); }
     .press-card h3,.topic-card h3,.asset-card h3{ margin-bottom:.35rem; }
     .data-list{ display:grid; gap:.42rem; margin:.75rem 0 0; }
@@ -50,19 +55,20 @@
     .mail-points li{ border:1px solid var(--border-trust); border-radius:var(--radius-sm); background:rgba(255,255,255,.58); padding:.72rem .85rem; }
     .asset-card{ display:flex; flex-direction:column; gap:.75rem; }
     .asset-card img{ width:100%; height:220px; object-fit:contain; border-radius:var(--radius-sm); background:rgba(251,247,240,.78); border:1px solid var(--border); padding:.6rem; }
+    .asset-card.featured img{ height:300px; }
     .asset-meta{ display:grid; gap:.2rem; font-size:.92rem; color:var(--muted); }
     .toc-details{ margin-top:1rem; }
     .toc-details summary{ cursor:pointer; font-weight:780; }
     .stand{ margin-top:.75rem; color:var(--muted); font-size:.94rem; }
     @media (max-width: 900px){
       .press-grid,.format-grid{ grid-template-columns:1fr; }
-      .asset-grid,.topic-card-grid,.difference-grid{ grid-template-columns:1fr 1fr; }
+      .asset-grid,.asset-grid.primary-assets,.insight-grid,.insight-grid.featured,.topic-card-grid,.difference-grid{ grid-template-columns:1fr 1fr; }
     }
     @media (max-width: 560px){
       .brand-text{ display:none; }
       .top-actions .btn{ padding-inline:12px; font-size:.9rem; }
       .press-hero h1{ font-size:clamp(1.78rem,8vw,2.15rem); }
-      .asset-grid,.topic-card-grid,.difference-grid{ grid-template-columns:1fr; }
+      .asset-grid,.asset-grid.primary-assets,.insight-grid,.insight-grid.featured,.topic-card-grid,.difference-grid{ grid-template-columns:1fr; }
       .asset-card img{ height:190px; }
       .data-row{ grid-template-columns:1fr; gap:.1rem; }
       .button-row .btn{ width:100%; white-space:normal; }
@@ -160,7 +166,7 @@
             <span class="meta-pill">für werdende Eltern und Familien mit Katze</span>
           </div>
           <div class="button-row">
-            <a class="btn btn-primary" href="/leseprobe/?variant=main">Leseprobe ansehen</a>
+            <a class="btn btn-primary" href="/leseprobe/?variant=press">Leseprobe ansehen</a>
             <a class="btn btn-ghost" href="#kontakt">Presse- oder Rezensionsanfrage</a>
           </div>
           <p class="stand">Stand: Juni 2026</p>
@@ -205,14 +211,13 @@
               <div class="data-row"><dt>Preis</dt><dd>8,99 €</dd></div>
               <div class="data-row"><dt>Datum</dt><dd>März 2026</dd></div>
               <div class="data-row"><dt>Vertrieb</dt><dd>erhältlich in gängigen E-Book-Shops</dd></div>
-              <div class="data-row"><dt>ISBN</dt><dd>keine eindeutig verifizierte E-Book-ISBN im Repository ausgewiesen</dd></div>
             </dl>
           </article>
         </div>
         <div class="press-card" style="margin-top:1rem">
           <h3>Bibliografische Zusatzdaten</h3>
           <p>Sprache: Deutsch · 1. Auflage · Zielgruppe: werdende Eltern und Familien mit Katze, Schwangerschaft bis Kleinkindalter · Imprint: Farbenfrohe Lesewelt Verlag.</p>
-          <p class="muted">BoD beziehungsweise KDP werden als Herstellung und Vertrieb einzelner Formate verstanden; das Imprint bleibt Farbenfrohe Lesewelt Verlag.</p>
+          <p class="muted">Verlag/Imprint: Farbenfrohe Lesewelt Verlag. Herstellung und Vertrieb erfolgen je nach Ausgabe über Amazon KDP beziehungsweise BoD.</p>
         </div>
       </div>
     </section>
@@ -224,7 +229,7 @@
           <article class="press-card"><h3>Durchgehender Fahrplan</h3><p class="muted">Von Schwangerschaft bis Kleinkindalter, ohne jedes Thema isoliert zu betrachten.</p></article>
           <article class="press-card"><h3>System statt Einzel-Tipps</h3><p class="muted">Zonen, feste Standards und Wenn-Dann-Regeln geben wiederkehrenden Situationen Struktur.</p></article>
           <article class="press-card"><h3>Baby und Katze gemeinsam gedacht</h3><p class="muted">Babysicherheit und Katzenbedürfnisse werden zusammen organisiert.</p></article>
-          <article class="press-card"><h3>Ruhige Einordnung</h3><p class="muted">Ohne Alarmismus, Verharmlosung oder Expertenpose.</p></article>
+          <article class="press-card"><h3>Ruhige Einordnung</h3><p class="muted">Mit transparenter Trennung zwischen Alltagshilfe und fachlicher Beratung.</p></article>
         </div>
       </div>
     </section>
@@ -253,15 +258,15 @@
 
     <section class="section alt" aria-labelledby="leseprobe-title">
       <div class="container">
-        <h2 id="leseprobe-title">Leseprobe und Inhaltsverzeichnis</h2>
+        <h2 id="leseprobe-title">Leseprobe und Themen</h2>
         <div class="sample-box">
-          <p>Die Leseprobe öffnet den bestehenden internen Reader der Website. Eine separate PDF-Leseprobe ist im Repository derzeit nicht ausgewiesen.</p>
+          <p>Die browserbasierte Leseprobe vermittelt einen direkten Eindruck von Ton, Aufbau und Arbeitsweise des Ratgebers.</p>
           <div class="button-row">
-            <a class="btn btn-primary" href="/leseprobe/?variant=main">Leseprobe herunterladen / ansehen</a>
+            <a class="btn btn-primary" href="/leseprobe/?variant=press">Leseprobe im Browser ansehen</a>
             <a class="btn btn-ghost" href="../assets/presse/buchdaten-baby-und-katze.txt" download>Bibliografische Daten herunterladen</a>
           </div>
           <details class="toc-details">
-            <summary>Inhaltsverzeichnis ansehen</summary>
+            <summary>Themen der Leseprobe</summary>
             <ul class="small-list">
               <li>Schwangerschaft mit Katze ruhig vorbereiten</li>
               <li>Zonen, Standards und sichere Schlafplätze</li>
@@ -278,7 +283,7 @@
       <div class="container">
         <h2 id="kontakt-title">Presse- und Rezensionskontakt</h2>
         <div class="mailbox">
-          <p><strong>Patrick Guttenberger</strong><br>Presse- und Rezensionsanfragen<br>Farbenfrohe Lesewelt<br>Kontaktaufnahme im Namen der Autorin Andrea Blum</p>
+          <p><strong>Patrick Guttenberger</strong><br>Presse- und Rezensionsanfragen<br>Farbenfrohe Lesewelt<br>Pressekontakt für Andrea Blum und Farbenfrohe Lesewelt</p>
           <p>E-Mail: <a href="mailto:farbenfrohe-lesewelt@web.de">farbenfrohe-lesewelt@web.de</a></p>
           <p class="muted">Mögliche Anfragen: gedrucktes oder digitales Prüf-/Rezensionsexemplar, kurze schriftliche Interviews, redaktionelle Rückfragen oder Statements, Buchdaten, Cover und Pressematerial.</p>
           <div class="button-row">
@@ -302,27 +307,97 @@
       <div class="container">
         <h2 id="bilder-title">Bildmaterial und Pressepaket</h2>
         <p class="muted">Das Material darf honorarfrei im Zusammenhang mit redaktioneller Berichterstattung über das Buch oder den Farbenfrohe Lesewelt Verlag verwendet werden. Sinnentstellende Bearbeitungen und eine davon unabhängige kommerzielle Nutzung sind nicht gestattet.</p>
-        <div class="asset-grid">
+        <div class="asset-grid primary-assets">
           <article class="asset-card">
             <img src="../assets/cover-thumb.webp" alt="Buchcover Baby und Katze sicher zusammenführen" loading="lazy">
             <h3>Buchcover</h3>
-            <div class="asset-meta"><span>WEBP · 1600 × 2560 px · ca. 139 KB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span><span>JPG-Original in höherer Auflösung liegt im Repository nicht vor.</span></div>
+            <div class="asset-meta"><span>WEBP · 1600 × 2560 px · ca. 139 KB</span><span>JPG · 1600 × 2560 px · ca. 395 KB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
             <a class="btn btn-ghost" href="../assets/cover-thumb.webp" download="buchcover-baby-und-katze.webp">Buchcover herunterladen</a>
+            <a class="btn btn-ghost" href="../assets/presse/buchcover-baby-und-katze.jpg" download>Cover als JPG herunterladen</a>
           </article>
           <article class="asset-card">
             <img src="../assets/flw-logo-cropped.png" alt="Logo Farbenfrohe Lesewelt Verlag" loading="lazy">
             <h3>Verlagslogo</h3>
-            <div class="asset-meta"><span>PNG · 648 × 363 px · ca. 140 KB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span><span>Transparente PNG-Datei vorhanden.</span></div>
+            <div class="asset-meta"><span>PNG · 648 × 363 px · ca. 140 KB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
             <a class="btn btn-ghost" href="../assets/flw-logo-cropped.png" download="farbenfrohe-lesewelt-logo.png">Verlagslogo herunterladen</a>
           </article>
+        </div>
+        <div class="asset-grid" style="margin-top:1rem">
           <article class="asset-card">
             <img src="../assets/baby-katze-alltag-mutter.webp" alt="KI-generiertes Symbolbild zu Baby, Katze und Familienalltag" loading="lazy">
-            <h3>Ratgebermotiv</h3>
+            <h3>Optionales KI-generiertes Symbolbild</h3>
             <div class="asset-meta"><span>WEBP · 1536 × 1024 px · ca. 116 KB</span><span>KI-generiertes Symbolbild · Bildnachweis: Farbenfrohe Lesewelt Verlag</span><span>Nicht als reales Familienfoto verwenden.</span></div>
-            <a class="btn btn-ghost" href="../assets/baby-katze-alltag-mutter.webp" download="ratgebermotiv-baby-katze-symbolbild.webp">Ratgebermotiv herunterladen</a>
+            <a class="btn btn-ghost" href="../assets/baby-katze-alltag-mutter.webp" download="ratgebermotiv-baby-katze-symbolbild.webp">Symbolbild herunterladen</a>
           </article>
         </div>
         <p><a class="btn btn-primary" href="../assets/presse/pressepaket-baby-und-katze.zip" download>Gesamtes Pressepaket herunterladen</a></p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="einblicke-title">
+      <div class="container">
+        <h2 id="einblicke-title">Weitere Produkt- und Einblicksmotive</h2>
+        <div class="asset-group">
+          <h3>Produktfotos</h3>
+          <p class="muted">Redaktionell nutzbare Produktfotos im Nutzungskontext.</p>
+          <div class="insight-grid featured">
+            <article class="asset-card featured">
+              <img src="../assets/presse/produktfotos-wohnraum-weit.png" alt="Produktfoto im Wohnraum mit Baby, Katze und aufgeschlagenem Buch" loading="lazy">
+              <h3>Produktfoto im Wohnraum</h3>
+              <div class="asset-meta"><span>PNG · 1672 × 941 px · ca. 2,0 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
+              <a class="btn btn-ghost" href="../assets/presse/produktfotos-wohnraum-weit.png" download>Produktfoto herunterladen</a>
+            </article>
+            <article class="asset-card">
+              <img src="../assets/presse/produktfotos-wohnraum-nah.png" alt="Näheres Produktfoto mit Baby, Katze und aufgeschlagenem Buch" loading="lazy">
+              <h3>Produktfoto, nähere Variante</h3>
+              <div class="asset-meta"><span>PNG · 1672 × 941 px · ca. 2,1 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
+              <a class="btn btn-ghost" href="../assets/presse/produktfotos-wohnraum-nah.png" download>Nahe Variante herunterladen</a>
+            </article>
+          </div>
+        </div>
+
+        <div class="asset-group">
+          <h3>Struktur und Blick ins Buch</h3>
+          <p class="muted">Inhaltliche Einblicke in Aufbau, Struktur und konkrete Arbeitsweise des Ratgebers.</p>
+          <div class="insight-grid">
+            <article class="asset-card featured">
+              <img src="../assets/presse/strukturmotiv-drei-phasen-ein-plan.png" alt="Strukturmotiv Drei Phasen. Ein Plan." loading="lazy">
+              <h3>Strukturmotiv: Drei Phasen. Ein Plan.</h3>
+              <div class="asset-meta"><span>PNG · 1254 × 1254 px · ca. 1,6 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
+              <a class="btn btn-ghost" href="../assets/presse/strukturmotiv-drei-phasen-ein-plan.png" download>Strukturmotiv herunterladen</a>
+            </article>
+            <article class="asset-card featured">
+              <img src="../assets/presse/blick-ins-buch-flatlay.png" alt="Blick ins Buch mit vier Beispielseiten" loading="lazy">
+              <h3>Blick ins Buch</h3>
+              <div class="asset-meta"><span>PNG · 1254 × 1254 px · ca. 1,9 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
+              <a class="btn btn-ghost" href="../assets/presse/blick-ins-buch-flatlay.png" download>Flatlay herunterladen</a>
+            </article>
+          </div>
+        </div>
+
+        <div class="asset-group">
+          <h3>Beispielseiten</h3>
+          <div class="insight-grid">
+            <article class="asset-card">
+              <img src="../assets/presse/beispielseite-sichere-naechte.png" alt="Beispielseite Sichere Standardregeln für Nächte" loading="lazy">
+              <h3>Beispielseite: Sichere Nächte</h3>
+              <div class="asset-meta"><span>PNG · 1254 × 1254 px · ca. 2,0 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
+              <a class="btn btn-ghost" href="../assets/presse/beispielseite-sichere-naechte.png" download>Beispielseite herunterladen</a>
+            </article>
+            <article class="asset-card">
+              <img src="../assets/presse/beispielseite-hygiene-katzenklo.png" alt="Beispielseite Handhygiene und Katzenklo" loading="lazy">
+              <h3>Beispielseite: Hygiene und Katzenklo</h3>
+              <div class="asset-meta"><span>PNG · 1254 × 1254 px · ca. 2,2 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
+              <a class="btn btn-ghost" href="../assets/presse/beispielseite-hygiene-katzenklo.png" download>Beispielseite herunterladen</a>
+            </article>
+            <article class="asset-card">
+              <img src="../assets/presse/beispielseite-stresszeichen-katzen.png" alt="Beispielseite Stresszeichen bei Katzen früh erkennen" loading="lazy">
+              <h3>Beispielseite: Stresszeichen bei Katzen</h3>
+              <div class="asset-meta"><span>PNG · 1254 × 1254 px · ca. 1,9 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
+              <a class="btn btn-ghost" href="../assets/presse/beispielseite-stresszeichen-katzen.png" download>Beispielseite herunterladen</a>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -341,8 +416,8 @@
     <section class="section alt" aria-labelledby="autor-title">
       <div class="container">
         <h2 id="autor-title">Über Andrea Blum</h2>
-        <p>Andrea Blum ist das Pseudonym der Autorin.</p>
-        <p>Sie schreibt alltagsnahe Ratgeber, die komplexe Familienfragen in klare Routinen und nächste Schritte übersetzen. Medizinische oder tierärztliche Fachautorität beansprucht sie nicht. Interviews und redaktionelle Anfragen werden über Farbenfrohe Lesewelt koordiniert.</p>
+        <p>Andrea Blum schreibt alltagsnahe Ratgeber, die komplexe Familienfragen in klare Routinen und nächste Schritte übersetzen. Ihr Ansatz verbindet sorgfältige Quellenarbeit mit praktischer Orientierung und transparenten Beratungsgrenzen.</p>
+        <p>Andrea Blum veröffentlicht unter Pseudonym; Presse- und Interviewanfragen werden über Farbenfrohe Lesewelt koordiniert.</p>
       </div>
     </section>
 

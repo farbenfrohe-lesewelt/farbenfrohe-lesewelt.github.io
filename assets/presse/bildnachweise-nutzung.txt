@@ -3,7 +3,14 @@ Bildnachweis: Farbenfrohe Lesewelt Verlag
 Das bereitgestellte Material darf honorarfrei im Zusammenhang mit redaktioneller Berichterstattung ueber das Buch "Baby und Katze sicher zusammenfuehren" oder den Farbenfrohe Lesewelt Verlag verwendet werden. Sinnentstellende Bearbeitungen und eine davon unabhaengige kommerzielle Nutzung sind nicht gestattet.
 
 Buchcover: vorhandene WEBP-Datei, 1600 x 2560 px.
+Buchcover JPG: Formatkonvertierung aus der vorhandenen Cover-WEBP-Datei, 1600 x 2560 px, ohne Hochskalierung.
 Verlagslogo: vorhandene PNG-Datei, 648 x 363 px.
-Ratgebermotiv: vorhandene WEBP-Datei, 1536 x 1024 px. Als KI-generiertes Symbolbild verwenden; nicht als reales Familienfoto ausweisen.
+Produktfoto im Wohnraum: redaktionell nutzbares Produktfoto, 1672 x 941 px.
+Produktfoto im Wohnraum, nahe Variante: redaktionell nutzbares Produktfoto, 1672 x 941 px.
+Strukturmotiv "Drei Phasen. Ein Plan.": inhaltlicher Einblick, 1254 x 1254 px.
+Blick ins Buch: inhaltlicher Einblick, 1254 x 1254 px.
+Beispielseite "Sichere Naechte": inhaltlicher Einblick, 1254 x 1254 px.
+Beispielseite "Hygiene und Katzenklo": inhaltlicher Einblick, 1254 x 1254 px.
+Beispielseite "Stresszeichen bei Katzen": inhaltlicher Einblick, 1254 x 1254 px.
 
-Hinweis: Hochaufloesende JPG-Dateien fuer Cover und Ratgebermotiv liegen im Repository derzeit nicht als separate Originalquellen vor.
+Optionales Ratgebermotiv: vorhandene WEBP-Datei, 1536 x 1024 px. Als KI-generiertes Symbolbild verwenden; nicht als reales Familienfoto ausweisen. Dieses Motiv ist separat verfuegbar und nicht Teil des Standard-Pressepakets.

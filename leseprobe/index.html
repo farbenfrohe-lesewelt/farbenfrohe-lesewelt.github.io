@@ -422,6 +422,39 @@
         useMeta: false,
         showConsentHint: false
       },
+      press: {
+        title: 'Leseprobe für Presse und Rezension | Baby und Katze sicher zusammenführen',
+        description: 'Leseprobe für Presse und Rezension zum Ratgeber Baby und Katze sicher zusammenführen.',
+        ogTitle: 'Leseprobe für Presse und Rezension | Baby und Katze sicher zusammenführen',
+        ogDescription: 'Ton, Aufbau und Arbeitsweise des Ratgebers direkt im Browser prüfen.',
+        eyebrow: 'Leseprobe für Presse und Rezension',
+        headline: 'Ton, Aufbau und Arbeitsweise prüfen',
+        lead: 'Dieser Auszug vermittelt einen direkten Eindruck davon, wie der Ratgeber Informationen ordnet und in alltagstaugliche Routinen übersetzt.',
+        note: 'Buchdaten, Pressematerial und Möglichkeiten für Prüf- oder Rezensionsexemplare finden Sie im Pressebereich.',
+        backHref: '../presse/',
+        backLabel: 'Zurück zum Pressebereich',
+        primaryHref: '../presse/#kontakt',
+        topPrimaryLabel: 'Pressekontakt',
+        inlinePrimaryLabel: 'Prüf- oder Rezensionsexemplar anfragen',
+        stickyPrimaryLabel: 'Zur Presseanfrage',
+        stickyTitle: 'Für Ihre redaktionelle Prüfung',
+        stickyText: 'Buchdaten, Pressematerial und Kontaktmöglichkeiten finden Sie im Pressebereich.',
+        pages: [
+          '../assets/samples/main/01.webp',
+          '../assets/samples/main/02.webp',
+          '../assets/samples/main/03.webp',
+          '../assets/samples/main/04.webp',
+          '../assets/samples/main/05.webp',
+          '../assets/samples/main/06.webp',
+          '../assets/samples/main/07.webp',
+          '../assets/samples/main/08.webp',
+          '../assets/samples/main/09.webp',
+          '../assets/samples/main/10.webp',
+          '../assets/samples/main/11.webp'
+        ],
+        useMeta: false,
+        showConsentHint: false
+      },
       schwangerschaft: {
         title: 'Kostenlose Leseprobe | Baby und Katze sicher zusammenführen',
         description: 'Leseprobe für werdende Eltern mit Katze – ruhig vorbereiten, bevor es hektisch wird.',
@@ -527,7 +560,7 @@
     setText('sampleLead', variant.lead);
     setText('sampleNote', variant.note);
 
-    const backHref = withPartner(variant.backHref);
+    const backHref = variant === variants.press ? variant.backHref : withPartner(variant.backHref);
 
     setHref('backTopLink', backHref);
     setHref('backInlineLink', backHref);
@@ -540,6 +573,30 @@
     setHref('amazonTopLink', amazonBookUrl);
     setHref('amazonInlineLink', amazonBookUrl);
     setHref('amazonStickyLink', amazonBookUrl);
+
+    const primaryHref = variant.primaryHref || amazonBookUrl;
+    const topPrimaryLabel = variant.topPrimaryLabel || 'Direkt zu Amazon';
+    const inlinePrimaryLabel = variant.inlinePrimaryLabel || 'Jetzt zum Buch auf Amazon';
+    const stickyPrimaryLabel = variant.stickyPrimaryLabel || 'Jetzt ganzes Buch ansehen';
+
+    setHref('amazonTopLink', primaryHref);
+    setHref('amazonInlineLink', primaryHref);
+    setHref('amazonStickyLink', primaryHref);
+    document.getElementById('amazonTopLink').textContent = topPrimaryLabel;
+    document.getElementById('amazonInlineLink').textContent = inlinePrimaryLabel;
+    document.getElementById('amazonStickyLink').textContent = stickyPrimaryLabel;
+    if (variant.primaryHref) {
+      document.getElementById('amazonTopLink').removeAttribute('rel');
+      document.getElementById('amazonInlineLink').removeAttribute('rel');
+      document.getElementById('amazonStickyLink').removeAttribute('rel');
+    }
+
+    if (variant.stickyTitle) {
+      document.querySelector('.sample-sticky-copy strong').textContent = variant.stickyTitle;
+    }
+    if (variant.stickyText) {
+      document.querySelector('.sample-sticky-copy span').textContent = variant.stickyText;
+    }
 
     renderSamplePages(variant.pages);
 
