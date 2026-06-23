@@ -2,15 +2,20 @@ Bildnachweis: Farbenfrohe Lesewelt Verlag
 
 Das bereitgestellte Material darf honorarfrei im Zusammenhang mit redaktioneller Berichterstattung ueber das Buch "Baby und Katze sicher zusammenfuehren" oder den Farbenfrohe Lesewelt Verlag verwendet werden. Sinnentstellende Bearbeitungen und eine davon unabhaengige kommerzielle Nutzung sind nicht gestattet.
 
-Buchcover: vorhandene WEBP-Datei, 1600 x 2560 px.
-Buchcover JPG: Formatkonvertierung aus der vorhandenen Cover-WEBP-Datei, 1600 x 2560 px, ohne Hochskalierung.
-Verlagslogo: vorhandene PNG-Datei, 648 x 363 px.
-Produktfoto im Wohnraum: redaktionell nutzbares Produktfoto, 1672 x 941 px.
-Produktfoto im Wohnraum, nahe Variante: redaktionell nutzbares Produktfoto, 1672 x 941 px.
-Strukturmotiv "Drei Phasen. Ein Plan.": inhaltlicher Einblick, 1254 x 1254 px.
-Blick ins Buch: inhaltlicher Einblick, 1254 x 1254 px.
-Beispielseite "Sichere Naechte": inhaltlicher Einblick, 1254 x 1254 px.
-Beispielseite "Hygiene und Katzenklo": inhaltlicher Einblick, 1254 x 1254 px.
-Beispielseite "Stresszeichen bei Katzen": inhaltlicher Einblick, 1254 x 1254 px.
+01-cover-und-logo
+- cover-thumb.webp: Buchcover, WEBP, 1600 x 2560 px. Art des Materials: Coverabbildung. Nutzungskontext: redaktionelle Berichterstattung ueber das Buch.
+- buchcover-baby-und-katze.jpg: Buchcover, JPG, 1600 x 2560 px. Art des Materials: Formatkonvertierung aus der vorhandenen Cover-WEBP-Datei ohne Hochskalierung. Nutzungskontext: redaktionelle Berichterstattung ueber das Buch.
+- flw-logo-cropped.png: Verlagslogo, PNG, 648 x 363 px. Art des Materials: Verlagslogo. Nutzungskontext: redaktionelle Berichterstattung ueber das Buch oder den Farbenfrohe Lesewelt Verlag.
 
-Optionales Ratgebermotiv: vorhandene WEBP-Datei, 1536 x 1024 px. Als KI-generiertes Symbolbild verwenden; nicht als reales Familienfoto ausweisen. Dieses Motiv ist separat verfuegbar und nicht Teil des Standard-Pressepakets.
+02-struktur-und-blick-ins-buch
+- strukturmotiv-drei-phasen-ein-plan.png: Strukturmotiv "Drei Phasen. Ein Plan.", PNG, 1254 x 1254 px. Art des Materials: Strukturmotiv zum Aufbau des Ratgebers. Nutzungskontext: redaktionelle Einordnung von Aufbau und Konzept des Buches.
+- blick-ins-buch-flatlay.png: Blick ins Buch, PNG, 1254 x 1254 px. Art des Materials: Visualisierung ausgewaehlter Buchseiten. Nutzungskontext: redaktionelle Einblicke in Struktur und Arbeitsweise des Ratgebers.
+
+03-inhaltliche-einblicke
+- beispielseite-sichere-naechte.png: Einblick "Sichere Naechte", PNG, 1254 x 1254 px. Art des Materials: Digitale Buchvisualisierung einer Seite aus dem Ratgeber. Nutzungskontext: redaktionelle Einblicke in die Arbeitsweise des Buches.
+- beispielseite-hygiene-katzenklo.png: Einblick "Hygiene und Katzenklo", PNG, 1254 x 1254 px. Art des Materials: Digitale Buchvisualisierung einer Doppelseite aus dem Ratgeber. Nutzungskontext: redaktionelle Einblicke in die Arbeitsweise des Buches.
+- beispielseite-stresszeichen-katzen.jpg: Einblick "Stresszeichen bei Katzen", JPG, 1254 x 1254 px. Art des Materials: Digitale Buchvisualisierung einer Seite aus dem Ratgeber. Nutzungskontext: redaktionelle Einblicke in die Arbeitsweise des Buches.
+
+Optionale digitale Produktvisualisierungen
+- produktfotos-wohnraum-weit.png: Digitale Produktvisualisierung - weite Variante, PNG, 1672 x 941 px. Art des Materials: Digitale Produktvisualisierung, KI-/Compositing-basiert. Nicht als reales Familien- oder Dokumentarfoto verwenden. Nicht Bestandteil des Standard-Pressepakets.
+- produktfotos-wohnraum-nah.png: Digitale Produktvisualisierung - nahe Variante, PNG, 1672 x 941 px. Art des Materials: Digitale Produktvisualisierung, KI-/Compositing-basiert. Nicht als reales Familien- oder Dokumentarfoto verwenden. Nicht Bestandteil des Standard-Pressepakets.

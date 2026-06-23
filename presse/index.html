@@ -43,6 +43,8 @@
     .insight-grid.featured{ grid-template-columns:1.25fr .75fr; }
     .asset-group{ margin-top:1.6rem; }
     .asset-group h3{ margin-bottom:.25rem; }
+    .asset-group summary{ cursor:pointer; font-weight:800; font-size:1.05rem; }
+    .asset-group[open] summary{ margin-bottom:.25rem; }
     .press-card,.topic-card,.asset-card,.contact-card{ border:1px solid var(--border); border-radius:var(--radius); background:rgba(255,255,255,.72); padding:1rem; box-shadow:var(--shadow-soft); }
     .press-card h3,.topic-card h3,.asset-card h3{ margin-bottom:.35rem; }
     .data-list{ display:grid; gap:.42rem; margin:.75rem 0 0; }
@@ -141,7 +143,7 @@
   <header class="topbar">
     <div class="container topbar-inner">
       <a class="brand" href="/" aria-label="Zur Startseite">
-        <img class="brand-logo" src="../assets/flw-logo.webp" alt="Farbenfrohe Lesewelt" loading="eager">
+        <img class="brand-logo" src="../assets/flw-logo.webp" width="648" height="363" alt="Farbenfrohe Lesewelt" loading="eager">
         <span class="brand-text">Farbenfrohe Lesewelt</span>
       </a>
       <nav class="top-actions" aria-label="Aktionen">
@@ -172,7 +174,7 @@
           <p class="stand">Stand: Juni 2026</p>
         </div>
         <aside class="press-panel" aria-label="Buchcover">
-          <img src="../assets/cover-thumb.webp" alt="Buchcover Baby und Katze sicher zusammenführen" loading="eager">
+          <img src="../assets/cover-thumb.webp" width="1600" height="2560" alt="Buchcover Baby und Katze sicher zusammenführen" loading="eager">
           <p class="booktitle">Baby und Katze sicher zusammenführen</p>
           <p class="muted small">Andrea Blum · Farbenfrohe Lesewelt Verlag</p>
         </aside>
@@ -283,7 +285,7 @@
       <div class="container">
         <h2 id="kontakt-title">Presse- und Rezensionskontakt</h2>
         <div class="mailbox">
-          <p><strong>Patrick Guttenberger</strong><br>Presse- und Rezensionsanfragen<br>Farbenfrohe Lesewelt<br>Pressekontakt für Andrea Blum und Farbenfrohe Lesewelt</p>
+          <p><strong>Patrick Guttenberger</strong><br>Presse- und Rezensionskontakt für Andrea Blum<br>Farbenfrohe Lesewelt</p>
           <p>E-Mail: <a href="mailto:farbenfrohe-lesewelt@web.de">farbenfrohe-lesewelt@web.de</a></p>
           <p class="muted">Mögliche Anfragen: gedrucktes oder digitales Prüf-/Rezensionsexemplar, kurze schriftliche Interviews, redaktionelle Rückfragen oder Statements, Buchdaten, Cover und Pressematerial.</p>
           <div class="button-row">
@@ -309,95 +311,83 @@
         <p class="muted">Das Material darf honorarfrei im Zusammenhang mit redaktioneller Berichterstattung über das Buch oder den Farbenfrohe Lesewelt Verlag verwendet werden. Sinnentstellende Bearbeitungen und eine davon unabhängige kommerzielle Nutzung sind nicht gestattet.</p>
         <div class="asset-grid primary-assets">
           <article class="asset-card">
-            <img src="../assets/cover-thumb.webp" alt="Buchcover Baby und Katze sicher zusammenführen" loading="lazy">
+            <img src="../assets/presse/previews/buchcover-baby-und-katze.webp" width="625" height="1000" alt="Buchcover Baby und Katze sicher zusammenführen" loading="lazy">
             <h3>Buchcover</h3>
             <div class="asset-meta"><span>WEBP · 1600 × 2560 px · ca. 139 KB</span><span>JPG · 1600 × 2560 px · ca. 395 KB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
             <a class="btn btn-ghost" href="../assets/cover-thumb.webp" download="buchcover-baby-und-katze.webp">Buchcover herunterladen</a>
             <a class="btn btn-ghost" href="../assets/presse/buchcover-baby-und-katze.jpg" download>Cover als JPG herunterladen</a>
           </article>
           <article class="asset-card">
-            <img src="../assets/flw-logo-cropped.png" alt="Logo Farbenfrohe Lesewelt Verlag" loading="lazy">
+            <img src="../assets/flw-logo-cropped.png" width="648" height="363" alt="Logo Farbenfrohe Lesewelt Verlag" loading="lazy">
             <h3>Verlagslogo</h3>
             <div class="asset-meta"><span>PNG · 648 × 363 px · ca. 140 KB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
             <a class="btn btn-ghost" href="../assets/flw-logo-cropped.png" download="farbenfrohe-lesewelt-logo.png">Verlagslogo herunterladen</a>
           </article>
         </div>
-        <div class="asset-grid" style="margin-top:1rem">
-          <article class="asset-card">
-            <img src="../assets/baby-katze-alltag-mutter.webp" alt="KI-generiertes Symbolbild zu Baby, Katze und Familienalltag" loading="lazy">
-            <h3>Optionales KI-generiertes Symbolbild</h3>
-            <div class="asset-meta"><span>WEBP · 1536 × 1024 px · ca. 116 KB</span><span>KI-generiertes Symbolbild · Bildnachweis: Farbenfrohe Lesewelt Verlag</span><span>Nicht als reales Familienfoto verwenden.</span></div>
-            <a class="btn btn-ghost" href="../assets/baby-katze-alltag-mutter.webp" download="ratgebermotiv-baby-katze-symbolbild.webp">Symbolbild herunterladen</a>
-          </article>
-        </div>
-        <p><a class="btn btn-primary" href="../assets/presse/pressepaket-baby-und-katze.zip" download>Gesamtes Pressepaket herunterladen</a></p>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="einblicke-title">
-      <div class="container">
-        <h2 id="einblicke-title">Weitere Produkt- und Einblicksmotive</h2>
-        <div class="asset-group">
-          <h3>Produktfotos</h3>
-          <p class="muted">Redaktionell nutzbare Produktfotos im Nutzungskontext.</p>
-          <div class="insight-grid featured">
-            <article class="asset-card featured">
-              <img src="../assets/presse/produktfotos-wohnraum-weit.png" alt="Produktfoto im Wohnraum mit Baby, Katze und aufgeschlagenem Buch" loading="lazy">
-              <h3>Produktfoto im Wohnraum</h3>
-              <div class="asset-meta"><span>PNG · 1672 × 941 px · ca. 2,0 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
-              <a class="btn btn-ghost" href="../assets/presse/produktfotos-wohnraum-weit.png" download>Produktfoto herunterladen</a>
-            </article>
-            <article class="asset-card">
-              <img src="../assets/presse/produktfotos-wohnraum-nah.png" alt="Näheres Produktfoto mit Baby, Katze und aufgeschlagenem Buch" loading="lazy">
-              <h3>Produktfoto, nähere Variante</h3>
-              <div class="asset-meta"><span>PNG · 1672 × 941 px · ca. 2,1 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
-              <a class="btn btn-ghost" href="../assets/presse/produktfotos-wohnraum-nah.png" download>Nahe Variante herunterladen</a>
-            </article>
-          </div>
-        </div>
-
         <div class="asset-group">
           <h3>Struktur und Blick ins Buch</h3>
           <p class="muted">Inhaltliche Einblicke in Aufbau, Struktur und konkrete Arbeitsweise des Ratgebers.</p>
           <div class="insight-grid">
             <article class="asset-card featured">
-              <img src="../assets/presse/strukturmotiv-drei-phasen-ein-plan.png" alt="Strukturmotiv Drei Phasen. Ein Plan." loading="lazy">
+              <img src="../assets/presse/previews/strukturmotiv-drei-phasen-ein-plan.webp" width="1000" height="1000" alt="Strukturmotiv Drei Phasen. Ein Plan." loading="lazy">
               <h3>Strukturmotiv: Drei Phasen. Ein Plan.</h3>
-              <div class="asset-meta"><span>PNG · 1254 × 1254 px · ca. 1,6 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
+              <div class="asset-meta"><span>PNG · 1254 × 1254 px · ca. 1,6 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span><span>Strukturmotiv zum Aufbau des Ratgebers</span></div>
               <a class="btn btn-ghost" href="../assets/presse/strukturmotiv-drei-phasen-ein-plan.png" download>Strukturmotiv herunterladen</a>
             </article>
             <article class="asset-card featured">
-              <img src="../assets/presse/blick-ins-buch-flatlay.png" alt="Blick ins Buch mit vier Beispielseiten" loading="lazy">
+              <img src="../assets/presse/previews/blick-ins-buch-flatlay.webp" width="1000" height="1000" alt="Visualisierung ausgewählter Buchseiten" loading="lazy">
               <h3>Blick ins Buch</h3>
-              <div class="asset-meta"><span>PNG · 1254 × 1254 px · ca. 1,9 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
+              <div class="asset-meta"><span>PNG · 1254 × 1254 px · ca. 1,9 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span><span>Visualisierung ausgewählter Buchseiten</span></div>
               <a class="btn btn-ghost" href="../assets/presse/blick-ins-buch-flatlay.png" download>Flatlay herunterladen</a>
             </article>
           </div>
         </div>
 
         <div class="asset-group">
-          <h3>Beispielseiten</h3>
+          <h3>Inhaltliche Einblicke</h3>
           <div class="insight-grid">
             <article class="asset-card">
-              <img src="../assets/presse/beispielseite-sichere-naechte.png" alt="Beispielseite Sichere Standardregeln für Nächte" loading="lazy">
-              <h3>Beispielseite: Sichere Nächte</h3>
-              <div class="asset-meta"><span>PNG · 1254 × 1254 px · ca. 2,0 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
+              <img src="../assets/presse/previews/beispielseite-sichere-naechte.webp" width="1000" height="1000" alt="Digitale Buchvisualisierung zur Beispielseite Sichere Standardregeln für Nächte" loading="lazy">
+              <h3>Einblick ins Buch: Sichere Nächte</h3>
+              <div class="asset-meta"><span>PNG · 1254 × 1254 px · ca. 2,0 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span><span>Digitale Buchvisualisierung einer Seite aus dem Ratgeber</span></div>
               <a class="btn btn-ghost" href="../assets/presse/beispielseite-sichere-naechte.png" download>Beispielseite herunterladen</a>
             </article>
             <article class="asset-card">
-              <img src="../assets/presse/beispielseite-hygiene-katzenklo.png" alt="Beispielseite Handhygiene und Katzenklo" loading="lazy">
-              <h3>Beispielseite: Hygiene und Katzenklo</h3>
-              <div class="asset-meta"><span>PNG · 1254 × 1254 px · ca. 2,2 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
+              <img src="../assets/presse/previews/beispielseite-hygiene-katzenklo.webp" width="1000" height="1000" alt="Digitale Buchvisualisierung zur Beispielseite Hygiene und Katzenklo" loading="lazy">
+              <h3>Einblick ins Buch: Hygiene und Katzenklo</h3>
+              <div class="asset-meta"><span>PNG · 1254 × 1254 px · ca. 2,2 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span><span>Digitale Buchvisualisierung einer Doppelseite aus dem Ratgeber</span></div>
               <a class="btn btn-ghost" href="../assets/presse/beispielseite-hygiene-katzenklo.png" download>Beispielseite herunterladen</a>
             </article>
             <article class="asset-card">
-              <img src="../assets/presse/beispielseite-stresszeichen-katzen.png" alt="Beispielseite Stresszeichen bei Katzen früh erkennen" loading="lazy">
-              <h3>Beispielseite: Stresszeichen bei Katzen</h3>
-              <div class="asset-meta"><span>PNG · 1254 × 1254 px · ca. 1,9 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span></div>
-              <a class="btn btn-ghost" href="../assets/presse/beispielseite-stresszeichen-katzen.png" download>Beispielseite herunterladen</a>
+              <img src="../assets/presse/previews/beispielseite-stresszeichen-katzen.webp" width="1000" height="1000" alt="Digitale Buchvisualisierung zur Buchseite Stresszeichen bei Katzen" loading="lazy">
+              <h3>Einblick ins Buch: Stresszeichen bei Katzen</h3>
+              <div class="asset-meta"><span>JPG · 1254 × 1254 px · ca. 1,1 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span><span>Digitale Buchvisualisierung einer Seite aus dem Ratgeber</span></div>
+              <p class="muted small">Darstellung einer Buchseite aus „Baby und Katze sicher zusammenführen“.</p>
+              <a class="btn btn-ghost" href="../assets/presse/beispielseite-stresszeichen-katzen.jpg" download>Beispielseite herunterladen</a>
             </article>
           </div>
         </div>
+
+        <p><a class="btn btn-primary" href="../assets/presse/pressepaket-baby-und-katze.zip" download>Gesamtes Pressepaket herunterladen</a></p>
+
+        <details class="asset-group">
+          <summary>Optionale digitale Produktvisualisierungen</summary>
+          <p class="muted">KI-/Compositing-basierte Produktvisualisierung. Nicht als reales Familien- oder Dokumentarfoto verwenden. Nicht Bestandteil des Standard-Pressepakets.</p>
+          <div class="insight-grid featured">
+            <article class="asset-card featured">
+              <img src="../assets/presse/previews/produktfotos-wohnraum-weit.webp" width="1000" height="563" alt="Digitale Produktvisualisierung mit Baby, Katze und aufgeschlagenem Buch, weite Variante" loading="lazy">
+              <h3>Digitale Produktvisualisierung – weite Variante</h3>
+              <div class="asset-meta"><span>PNG · 1672 × 941 px · ca. 2,0 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span><span>KI-/Compositing-basierte Produktvisualisierung. Nicht als reales Familien- oder Dokumentarfoto verwenden.</span></div>
+              <a class="btn btn-ghost" href="../assets/presse/produktfotos-wohnraum-weit.png" download>Visualisierung herunterladen</a>
+            </article>
+            <article class="asset-card">
+              <img src="../assets/presse/previews/produktfotos-wohnraum-nah.webp" width="1000" height="563" alt="Digitale Produktvisualisierung mit Baby, Katze und aufgeschlagenem Buch, nahe Variante" loading="lazy">
+              <h3>Digitale Produktvisualisierung – nahe Variante</h3>
+              <div class="asset-meta"><span>PNG · 1672 × 941 px · ca. 2,1 MB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span><span>KI-/Compositing-basierte Produktvisualisierung. Nicht als reales Familien- oder Dokumentarfoto verwenden.</span></div>
+              <a class="btn btn-ghost" href="../assets/presse/produktfotos-wohnraum-nah.png" download>Visualisierung herunterladen</a>
+            </article>
+          </div>
+        </details>
       </div>
     </section>
 
