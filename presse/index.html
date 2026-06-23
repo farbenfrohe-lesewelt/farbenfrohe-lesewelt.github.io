@@ -5,14 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#fbf7f0" />
 
-  <title>Presse &amp; Rezensionsexemplare | Baby und Katze sicher zusammenführen</title>
-  <meta name="description" content="Buchdaten, Bildmaterial und Rezensionsexemplare zum Ratgeber Baby und Katze sicher zusammenführen." />
+  <title>Pressebereich | Baby und Katze sicher zusammenführen</title>
+  <meta name="description" content="Pressebereich mit Buchdaten, Leseprobe, Bildmaterial und Rezensionsanfragen zum Ratgeber Baby und Katze sicher zusammenführen." />
 
-  <meta property="og:title" content="Presse &amp; Rezensionsexemplare | Baby und Katze sicher zusammenführen" />
-  <meta property="og:description" content="Buchdaten, Bildmaterial und Rezensionsexemplare zum Ratgeber Baby und Katze sicher zusammenführen." />
+  <meta property="og:title" content="Pressebereich | Baby und Katze sicher zusammenführen" />
+  <meta property="og:description" content="Buchdaten, Leseprobe, Bildmaterial und Kontakt für Presse- und Rezensionsanfragen." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://farbenfrohe-lesewelt.github.io/presse/" />
   <meta property="og:image" content="https://farbenfrohe-lesewelt.github.io/assets/cover-thumb.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pressebereich | Baby und Katze sicher zusammenführen" />
+  <meta name="twitter:description" content="Buchdaten, Leseprobe, Bildmaterial und Kontakt für Presse- und Rezensionsanfragen." />
+  <meta name="twitter:image" content="https://farbenfrohe-lesewelt.github.io/assets/cover-thumb.webp" />
 
   <link rel="canonical" href="https://farbenfrohe-lesewelt.github.io/presse/" />
   <link rel="stylesheet" href="../styles.css" />
@@ -21,39 +25,47 @@
 
   <style>
     .press-hero{ padding:var(--space-7) 0 var(--space-5); }
-    .press-grid{ display:grid; grid-template-columns:minmax(0,680px) 320px; gap:var(--space-5); align-items:center; }
-    .press-hero h1{
-      max-width:680px;
-      font-size:clamp(2rem, 5.8vw, 3.55rem);
-      line-height:1.08;
-      word-break:normal;
-      overflow-wrap:normal;
-      hyphens:none;
-    }
-    .press-hero .lead{ max-width:680px; }
+    .press-grid{ display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:var(--space-5); align-items:center; }
+    .press-hero h1{ max-width:760px; font-size:clamp(2rem,5.4vw,3.45rem); line-height:1.08; word-break:normal; overflow-wrap:normal; hyphens:none; }
+    .press-hero .lead{ max-width:760px; }
+    .meta-line{ display:flex; flex-wrap:wrap; gap:.5rem; margin:1rem 0; }
+    .meta-pill{ border:1px solid var(--border); border-radius:var(--pill); background:rgba(255,255,255,.72); padding:.42rem .72rem; color:var(--muted); font-size:.94rem; }
+    .button-row{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.15rem; }
     .press-panel{ border:1px solid var(--border); border-radius:var(--radius-xl); background:rgba(255,255,255,.76); padding:1.2rem; box-shadow:var(--shadow); }
-    .data-table{ width:100%; border-collapse:collapse; overflow:hidden; border-radius:var(--radius); }
-    .data-table th,.data-table td{ border-bottom:1px solid var(--border); padding:.85rem 0; text-align:left; vertical-align:top; }
-    .data-table th{ width:34%; color:var(--muted); font-weight:750; padding-right:1rem; }
-    .topic-card-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; margin-top:1rem; }
-    .topic-card{ border:1px solid var(--border); border-radius:var(--radius); background:rgba(255,255,255,.72); padding:1rem; box-shadow:var(--shadow-soft); }
-    .topic-card h3{ margin-bottom:.35rem; }
-    .asset-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; margin-top:1rem; }
-    .asset-card{ border:1px solid var(--border); border-radius:var(--radius); background:rgba(255,255,255,.72); padding:1rem; display:flex; flex-direction:column; gap:.75rem; }
-    .asset-card img{ width:100%; height:220px; object-fit:contain; border-radius:var(--radius-sm); background:rgba(251,247,240,.78); border:1px solid var(--border); padding:.6rem; }
-    .mailbox{ border:1px solid var(--border-trust); border-radius:var(--radius-xl); background:var(--surface-trust); padding:1.2rem; }
+    .press-panel img{ display:block; width:100%; max-height:420px; object-fit:contain; }
+    .booktitle{ font-weight:800; margin:.8rem 0 .15rem; }
+    .format-grid,.difference-grid,.topic-card-grid,.asset-grid{ display:grid; gap:1rem; margin-top:1rem; }
+    .format-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .difference-grid,.topic-card-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .asset-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .press-card,.topic-card,.asset-card,.contact-card{ border:1px solid var(--border); border-radius:var(--radius); background:rgba(255,255,255,.72); padding:1rem; box-shadow:var(--shadow-soft); }
+    .press-card h3,.topic-card h3,.asset-card h3{ margin-bottom:.35rem; }
+    .data-list{ display:grid; gap:.42rem; margin:.75rem 0 0; }
+    .data-row{ display:grid; grid-template-columns:120px minmax(0,1fr); gap:.75rem; border-top:1px solid var(--border); padding-top:.45rem; }
+    .data-row dt{ color:var(--muted); font-weight:760; }
+    .data-row dd{ margin:0; }
+    .small-list{ margin:.5rem 0 0; padding-left:1.1rem; }
+    .sample-box,.mailbox{ border:1px solid var(--border-trust); border-radius:var(--radius-xl); background:var(--surface-trust); padding:1.2rem; }
     .mail-points{ display:grid; gap:.55rem; margin:0 0 1rem; padding:0; list-style:none; }
     .mail-points li{ border:1px solid var(--border-trust); border-radius:var(--radius-sm); background:rgba(255,255,255,.58); padding:.72rem .85rem; }
-    @media (max-width: 900px){ .press-grid{ grid-template-columns:1fr; } .asset-grid,.topic-card-grid{ grid-template-columns:1fr 1fr; } }
+    .asset-card{ display:flex; flex-direction:column; gap:.75rem; }
+    .asset-card img{ width:100%; height:220px; object-fit:contain; border-radius:var(--radius-sm); background:rgba(251,247,240,.78); border:1px solid var(--border); padding:.6rem; }
+    .asset-meta{ display:grid; gap:.2rem; font-size:.92rem; color:var(--muted); }
+    .toc-details{ margin-top:1rem; }
+    .toc-details summary{ cursor:pointer; font-weight:780; }
+    .stand{ margin-top:.75rem; color:var(--muted); font-size:.94rem; }
+    @media (max-width: 900px){
+      .press-grid,.format-grid{ grid-template-columns:1fr; }
+      .asset-grid,.topic-card-grid,.difference-grid{ grid-template-columns:1fr 1fr; }
+    }
     @media (max-width: 560px){
       .brand-text{ display:none; }
       .top-actions .btn{ padding-inline:12px; font-size:.9rem; }
-      .press-hero h1{ font-size:clamp(1.78rem, 8vw, 2.15rem); }
-      .asset-grid,.topic-card-grid{ grid-template-columns:1fr; }
+      .press-hero h1{ font-size:clamp(1.78rem,8vw,2.15rem); }
+      .asset-grid,.topic-card-grid,.difference-grid{ grid-template-columns:1fr; }
       .asset-card img{ height:190px; }
-      .data-table th,.data-table td{ display:block; width:100%; padding:.55rem 0; }
-      .data-table th{ border-bottom:0; padding-bottom:.1rem; }
-      .data-table td{ padding-top:.1rem; line-height:1.55; overflow-wrap:break-word; }
+      .data-row{ grid-template-columns:1fr; gap:.1rem; }
+      .button-row .btn{ width:100%; white-space:normal; }
     }
   </style>
 
@@ -65,44 +77,52 @@
         "@type": "WebPage",
         "@id": "https://farbenfrohe-lesewelt.github.io/presse/#webpage",
         "url": "https://farbenfrohe-lesewelt.github.io/presse/",
-        "name": "Presse, Rezensionsexemplare und redaktionelle Anfragen",
-        "description": "Buchdaten, Bildmaterial und Rezensionsexemplare zum Ratgeber Baby und Katze sicher zusammenführen.",
+        "name": "Pressebereich | Baby und Katze sicher zusammenführen",
+        "description": "Pressebereich mit Buchdaten, Leseprobe, Bildmaterial und Rezensionsanfragen zum Ratgeber Baby und Katze sicher zusammenführen.",
         "inLanguage": "de"
       },
       {
         "@type": "BreadcrumbList",
         "@id": "https://farbenfrohe-lesewelt.github.io/presse/#breadcrumb",
         "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Startseite",
-            "item": "https://farbenfrohe-lesewelt.github.io/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Presse",
-            "item": "https://farbenfrohe-lesewelt.github.io/presse/"
-          }
+          {"@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://farbenfrohe-lesewelt.github.io/"},
+          {"@type": "ListItem", "position": 2, "name": "Presse", "item": "https://farbenfrohe-lesewelt.github.io/presse/"}
         ]
       },
       {
         "@type": "Book",
         "@id": "https://farbenfrohe-lesewelt.github.io/presse/#book",
         "name": "Baby und Katze sicher zusammenführen",
-        "description": "Der Praxis-Ratgeber für Eltern: Stress vermeiden, Kratzen vorbeugen, Hygiene & Alltag sicher klären - von Schwangerschaft bis Kleinkind",
-        "author": {
-          "@type": "Person",
-          "name": "Andrea Blum"
-        },
-        "publisher": {
-          "@type": "Organization",
-          "name": "Farbenfrohe Lesewelt Verlag"
-        },
-        "identifier": "B0GTDN1458",
-        "url": "https://www.amazon.de/dp/B0GTDN1458",
-        "image": "https://farbenfrohe-lesewelt.github.io/assets/cover-thumb.webp"
+        "description": "Alltagsnaher Praxisratgeber für Familien mit Baby und Katze, von Schwangerschaft bis Kleinkindalter.",
+        "author": {"@type": "Person", "name": "Andrea Blum"},
+        "publisher": {"@type": "Organization", "name": "Farbenfrohe Lesewelt Verlag"},
+        "inLanguage": "de",
+        "image": "https://farbenfrohe-lesewelt.github.io/assets/cover-thumb.webp",
+        "workExample": [
+          {
+            "@type": "Book",
+            "bookFormat": "https://schema.org/Paperback",
+            "isbn": "979-8252709192",
+            "numberOfPages": 132,
+            "datePublished": "2026-03-20",
+            "identifier": "B0GTDN1458",
+            "offers": {"@type": "Offer", "price": "16.99", "priceCurrency": "EUR", "url": "https://www.amazon.de/dp/B0GTDN1458"}
+          },
+          {
+            "@type": "Book",
+            "bookFormat": "https://schema.org/Hardcover",
+            "isbn": "9783819275623",
+            "numberOfPages": 130,
+            "datePublished": "2026-03-23",
+            "offers": {"@type": "Offer", "price": "24.99", "priceCurrency": "EUR"}
+          },
+          {
+            "@type": "Book",
+            "bookFormat": "https://schema.org/EBook",
+            "datePublished": "2026-03",
+            "offers": {"@type": "Offer", "price": "8.99", "priceCurrency": "EUR"}
+          }
+        ]
       }
     ]
   }
@@ -118,9 +138,8 @@
         <img class="brand-logo" src="../assets/flw-logo.webp" alt="Farbenfrohe Lesewelt" loading="eager">
         <span class="brand-text">Farbenfrohe Lesewelt</span>
       </a>
-
       <nav class="top-actions" aria-label="Aktionen">
-        <a class="btn btn-primary" href="#rezension-title">Rezensionsexemplar anfragen</a>
+        <a class="btn btn-primary" href="#kontakt">Presse- oder Rezensionsanfrage</a>
       </nav>
     </div>
   </header>
@@ -129,11 +148,22 @@
     <section class="press-hero">
       <div class="container press-grid">
         <div>
-          <p class="eyebrow">Farbenfrohe Lesewelt Verlag</p>
-          <h1>Presse und Rezensionsexemplare</h1>
-          <p class="lead">
-            Sie berichten über Schwangerschaft, Familienalltag, Katzenhaltung oder neue Ratgeber? Hier finden Sie Buchinformationen, Bildmaterial und eine unkomplizierte Möglichkeit, ein Rezensionsexemplar anzufragen.
+          <p class="eyebrow">Pressebereich</p>
+          <h1>Baby und Katze sicher zusammenführen</h1>
+          <p class="lead"><strong>Andrea Blum</strong> · Farbenfrohe Lesewelt Verlag</p>
+          <p>
+            Ein alltagsnaher Praxisratgeber, der Familien von der Schwangerschaft bis ins Kleinkindalter mit einem System aus Zonen, Standards und Wenn-Dann-Regeln begleitet – statt mit einer losen Sammlung einzelner Tipps.
           </p>
+          <div class="meta-line" aria-label="Kompakte Buchdaten">
+            <span class="meta-pill">Erschienen März 2026</span>
+            <span class="meta-pill">Print und E-Book</span>
+            <span class="meta-pill">für werdende Eltern und Familien mit Katze</span>
+          </div>
+          <div class="button-row">
+            <a class="btn btn-primary" href="/leseprobe/?variant=main">Leseprobe ansehen</a>
+            <a class="btn btn-ghost" href="#kontakt">Presse- oder Rezensionsanfrage</a>
+          </div>
+          <p class="stand">Stand: Juni 2026</p>
         </div>
         <aside class="press-panel" aria-label="Buchcover">
           <img src="../assets/cover-thumb.webp" alt="Buchcover Baby und Katze sicher zusammenführen" loading="eager">
@@ -145,92 +175,57 @@
 
     <section class="section alt" aria-labelledby="buchdaten-title">
       <div class="container">
-        <h2 id="buchdaten-title">Buchdaten</h2>
-        <table class="data-table">
-          <tbody>
-            <tr><th>Titel</th><td>Baby und Katze sicher zusammenführen</td></tr>
-            <tr><th>Untertitel</th><td>Der Praxis-Ratgeber für Eltern: Stress vermeiden, Kratzen vorbeugen, Hygiene &amp; Alltag sicher klären - von Schwangerschaft bis Kleinkind</td></tr>
-            <tr><th>Autorin</th><td>Andrea Blum</td></tr>
-            <tr><th>Verlag</th><td>Farbenfrohe Lesewelt Verlag</td></tr>
-            <tr><th>Format</th><td>Taschenbuch</td></tr>
-            <tr><th>ASIN</th><td>B0GTDN1458</td></tr>
-            <tr><th>Verfügbarkeit</th><td>Taschenbuch bei <a href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow">Amazon</a> erhältlich</td></tr>
-            <tr><th>Zielgruppe</th><td>Werdende Eltern und junge Familien mit Katze, von Schwangerschaft bis Kleinkindphase</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="themen-title">
-      <div class="container">
-        <h2 id="themen-title">Mögliche Themen für Berichterstattung</h2>
-        <div class="topic-card-grid">
-          <article class="topic-card">
-            <h3>Baby kommt, Katze bleibt</h3>
-            <p class="muted">Wie sich Familien vorbereiten können, ohne die Katze pauschal zum Problem zu machen.</p>
+        <h2 id="buchdaten-title">Buchdaten und Formate</h2>
+        <div class="format-grid">
+          <article class="press-card">
+            <h3>Taschenbuch</h3>
+            <dl class="data-list">
+              <div class="data-row"><dt>Umfang</dt><dd>132 Seiten</dd></div>
+              <div class="data-row"><dt>Preis</dt><dd>16,99 €</dd></div>
+              <div class="data-row"><dt>Datum</dt><dd>20. März 2026</dd></div>
+              <div class="data-row"><dt>ISBN-13</dt><dd>979-8252709192</dd></div>
+              <div class="data-row"><dt>ASIN</dt><dd>B0GTDN1458</dd></div>
+              <div class="data-row"><dt>Vertrieb</dt><dd>erhältlich über <a href="https://www.amazon.de/dp/B0GTDN1458" rel="noopener nofollow">Amazon</a></dd></div>
+            </dl>
           </article>
-          <article class="topic-card">
-            <h3>Zwischen Alarmismus und „wird schon“</h3>
-            <p class="muted">Warum einzelne Internettipps oft keine tragfähige Alltagsroutine ergeben.</p>
+          <article class="press-card">
+            <h3>Hardcover</h3>
+            <dl class="data-list">
+              <div class="data-row"><dt>Umfang</dt><dd>130 Seiten</dd></div>
+              <div class="data-row"><dt>Preis</dt><dd>24,99 €</dd></div>
+              <div class="data-row"><dt>Datum</dt><dd>23. März 2026</dd></div>
+              <div class="data-row"><dt>ISBN</dt><dd>9783819275623</dd></div>
+              <div class="data-row"><dt>Herstellung</dt><dd>Herstellung und Vertrieb über BoD</dd></div>
+              <div class="data-row"><dt>Handel</dt><dd>über den Buchhandel bestellbar</dd></div>
+            </dl>
           </article>
-          <article class="topic-card">
-            <h3>Schlafplatz, Aufsicht und Rückzug</h3>
-            <p class="muted">Wie klare Standards Entscheidungen in müden Momenten erleichtern.</p>
+          <article class="press-card">
+            <h3>E-Book</h3>
+            <dl class="data-list">
+              <div class="data-row"><dt>Preis</dt><dd>8,99 €</dd></div>
+              <div class="data-row"><dt>Datum</dt><dd>März 2026</dd></div>
+              <div class="data-row"><dt>Vertrieb</dt><dd>erhältlich in gängigen E-Book-Shops</dd></div>
+              <div class="data-row"><dt>ISBN</dt><dd>keine eindeutig verifizierte E-Book-ISBN im Repository ausgewiesen</dd></div>
+            </dl>
           </article>
-          <article class="topic-card">
-            <h3>Toxoplasmose ruhig einordnen</h3>
-            <p class="muted">Welche Alltagsbereiche relevant sind und warum die Katze nicht der einzige Faktor ist.</p>
-          </article>
-          <article class="topic-card">
-            <h3>Wenn das Baby mobiler wird</h3>
-            <p class="muted">Warum Regeln, Rückzugsorte und Begegnungen mit der Entwicklung mitwachsen müssen.</p>
-          </article>
+        </div>
+        <div class="press-card" style="margin-top:1rem">
+          <h3>Bibliografische Zusatzdaten</h3>
+          <p>Sprache: Deutsch · 1. Auflage · Zielgruppe: werdende Eltern und Familien mit Katze, Schwangerschaft bis Kleinkindalter · Imprint: Farbenfrohe Lesewelt Verlag.</p>
+          <p class="muted">BoD beziehungsweise KDP werden als Herstellung und Vertrieb einzelner Formate verstanden; das Imprint bleibt Farbenfrohe Lesewelt Verlag.</p>
         </div>
       </div>
     </section>
 
-    <section class="section alt" aria-labelledby="rezension-title">
+    <section class="section" aria-labelledby="unterschied-title">
       <div class="container">
-        <h2 id="rezension-title">Rezensionsexemplar anfragen</h2>
-        <div class="mailbox">
-          <ul class="mail-points">
-            <li>Anfrage und Zusendung erfolgen nach Verfügbarkeit.</li>
-            <li>Mit einem Exemplar ist keine Verpflichtung zur Veröffentlichung verbunden.</li>
-            <li>Es wird weder eine positive Bewertung noch eine Verlinkung erwartet.</li>
-          </ul>
-          <p>Eine unabhängige, auch kritische redaktionelle Einordnung ist ausdrücklich willkommen.</p>
-          <p>
-            <a class="btn btn-primary" href="mailto:farbenfrohe-lesewelt@web.de?subject=Anfrage%20Rezensionsexemplar%3A%20Baby%20und%20Katze%20sicher%20zusammenf%C3%BChren&body=Guten%20Tag%2C%0A%0Aich%20interessiere%20mich%20f%C3%BCr%20ein%20Rezensionsexemplar%20des%20Ratgebers%20%E2%80%9EBaby%20und%20Katze%20sicher%20zusammenf%C3%BChren%E2%80%9C.%0A%0AMedium%2FWebsite%3A%20%E2%80%A6%0AGeplanter%20redaktioneller%20Zusammenhang%3A%20%E2%80%A6%0ABevorzugtes%20Format%3A%20%E2%80%A6%0A%0AFreundliche%20Gr%C3%BC%C3%9Fe">Rezensionsexemplar per E-Mail anfragen</a>
-          </p>
+        <h2 id="unterschied-title">Was den Ratgeber unterscheidet</h2>
+        <div class="difference-grid">
+          <article class="press-card"><h3>Durchgehender Fahrplan</h3><p class="muted">Von Schwangerschaft bis Kleinkindalter, ohne jedes Thema isoliert zu betrachten.</p></article>
+          <article class="press-card"><h3>System statt Einzel-Tipps</h3><p class="muted">Zonen, feste Standards und Wenn-Dann-Regeln geben wiederkehrenden Situationen Struktur.</p></article>
+          <article class="press-card"><h3>Baby und Katze gemeinsam gedacht</h3><p class="muted">Babysicherheit und Katzenbedürfnisse werden zusammen organisiert.</p></article>
+          <article class="press-card"><h3>Ruhige Einordnung</h3><p class="muted">Ohne Alarmismus, Verharmlosung oder Expertenpose.</p></article>
         </div>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="bilder-title">
-      <div class="container">
-        <h2 id="bilder-title">Bildmaterial</h2>
-        <p class="muted">Das Material darf im Zusammenhang mit redaktioneller Berichterstattung über das Buch oder den Farbenfrohe Lesewelt Verlag verwendet werden. Sinnentstellende Bearbeitungen und eine davon unabhängige kommerzielle Nutzung sind nicht gestattet.</p>
-        <div class="asset-grid">
-          <article class="asset-card">
-            <img src="../assets/cover-thumb.webp" alt="Buchcover Baby und Katze sicher zusammenführen" loading="lazy">
-            <h3>Buchcover</h3>
-            <p class="muted small">WEBP, 1600 × 2560 px, ca. 139 KB</p>
-            <a class="btn btn-ghost" href="../assets/cover-thumb.webp" download>Buchcover herunterladen</a>
-          </article>
-          <article class="asset-card">
-            <img src="../assets/flw-logo.webp" alt="Logo Farbenfrohe Lesewelt" loading="lazy">
-            <h3>Verlagslogo</h3>
-            <p class="muted small">WEBP, 648 × 363 px, ca. 42 KB</p>
-            <a class="btn btn-ghost" href="../assets/flw-logo.webp" download>Verlagslogo herunterladen</a>
-          </article>
-          <article class="asset-card">
-            <img src="../assets/baby-katze-alltag-mutter.webp" alt="Alltagsszene mit Baby und Katze als Ratgebermotiv" loading="lazy">
-            <h3>Ratgebermotiv</h3>
-            <p class="muted small">WEBP, 1536 × 1024 px, ca. 116 KB</p>
-            <a class="btn btn-ghost" href="../assets/baby-katze-alltag-mutter.webp" download>Ratgebermotiv herunterladen</a>
-          </article>
-        </div>
-        <p class="muted small">Bildnachweis: Farbenfrohe Lesewelt Verlag</p>
       </div>
     </section>
 
@@ -238,8 +233,96 @@
       <div class="container">
         <h2 id="kurzbeschreibung-title">Kurzbeschreibung</h2>
         <p>
-          „Baby und Katze sicher zusammenführen“ ist ein alltagsnaher Praxis-Ratgeber für werdende Eltern und junge Familien mit Katze. Das Buch ordnet typische Fragen zu Schwangerschaft, Babybett, Hygiene, erster Begegnung, Rückzug und Alltag in klare Zonen, Standards, Checklisten und Wenn-Dann-Regeln - ruhig, praktisch und ohne Garantieversprechen.
+          Der Ratgeber begleitet Familien mit Baby und Katze durch typische Fragen zu Schwangerschaft, Schlafplatz, Aufsicht, Rückzug, Hygiene und mobiler werdendem Kind. Statt einzelner Tipps bietet das Buch ein ruhiges Ordnungssystem aus Zonen, Standards, Checklisten und Wenn-Dann-Regeln. Es ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung.
         </p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="themen-title">
+      <div class="container">
+        <h2 id="themen-title">Mögliche Themen für Berichterstattung</h2>
+        <div class="topic-card-grid">
+          <article class="topic-card"><h3>Baby kommt, Katze bleibt</h3><p class="muted">Wie sich Familien vorbereiten können, ohne die Katze pauschal zum Problem zu machen.</p></article>
+          <article class="topic-card"><h3>Zwischen Alarmismus und „wird schon“</h3><p class="muted">Warum einzelne Internettipps oft keine tragfähige Alltagsroutine ergeben.</p></article>
+          <article class="topic-card"><h3>Schlafplatz, Aufsicht und Rückzug</h3><p class="muted">Wie klare Standards Entscheidungen in müden Momenten erleichtern.</p></article>
+          <article class="topic-card"><h3>Toxoplasmose ohne Katzenpanik</h3><p class="muted">Wie der Ratgeber Alltagshygiene, medizinische Fragen und die Grenzen allgemeiner Orientierung voneinander trennt.</p></article>
+          <article class="topic-card"><h3>Wenn das Baby mobiler wird</h3><p class="muted">Warum Regeln, Rückzugsorte und Begegnungen mit der Entwicklung mitwachsen müssen.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" aria-labelledby="leseprobe-title">
+      <div class="container">
+        <h2 id="leseprobe-title">Leseprobe und Inhaltsverzeichnis</h2>
+        <div class="sample-box">
+          <p>Die Leseprobe öffnet den bestehenden internen Reader der Website. Eine separate PDF-Leseprobe ist im Repository derzeit nicht ausgewiesen.</p>
+          <div class="button-row">
+            <a class="btn btn-primary" href="/leseprobe/?variant=main">Leseprobe herunterladen / ansehen</a>
+            <a class="btn btn-ghost" href="../assets/presse/buchdaten-baby-und-katze.txt" download>Bibliografische Daten herunterladen</a>
+          </div>
+          <details class="toc-details">
+            <summary>Inhaltsverzeichnis ansehen</summary>
+            <ul class="small-list">
+              <li>Schwangerschaft mit Katze ruhig vorbereiten</li>
+              <li>Zonen, Standards und sichere Schlafplätze</li>
+              <li>Erste Begegnung, Aufsicht und Rückzug</li>
+              <li>Hygiene, Toxoplasmose und Beratungsgrenzen</li>
+              <li>Wenn das Baby mobiler wird</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="kontakt" aria-labelledby="kontakt-title">
+      <div class="container">
+        <h2 id="kontakt-title">Presse- und Rezensionskontakt</h2>
+        <div class="mailbox">
+          <p><strong>Patrick Guttenberger</strong><br>Presse- und Rezensionsanfragen<br>Farbenfrohe Lesewelt<br>Kontaktaufnahme im Namen der Autorin Andrea Blum</p>
+          <p>E-Mail: <a href="mailto:farbenfrohe-lesewelt@web.de">farbenfrohe-lesewelt@web.de</a></p>
+          <p class="muted">Mögliche Anfragen: gedrucktes oder digitales Prüf-/Rezensionsexemplar, kurze schriftliche Interviews, redaktionelle Rückfragen oder Statements, Buchdaten, Cover und Pressematerial.</p>
+          <div class="button-row">
+            <a class="btn btn-primary" href="mailto:farbenfrohe-lesewelt@web.de?subject=Rezensions-%2FPr%C3%BCfexemplar%3A%20Baby%20und%20Katze">Rezensions- oder Prüfexemplar anfragen</a>
+            <a class="btn btn-ghost" href="mailto:farbenfrohe-lesewelt@web.de?subject=Redaktionelle%20Anfrage%3A%20Baby%20und%20Katze">Interview oder redaktionelle Anfrage</a>
+          </div>
+          <h3>Bedingungen für Prüf- und Rezensionsexemplare</h3>
+          <ul class="mail-points">
+            <li>Zusendung nach vorheriger Anfrage und Verfügbarkeit.</li>
+            <li>Print- und digitale Exemplare sind nach Absprache möglich.</li>
+            <li>Keine Verpflichtung zur Veröffentlichung.</li>
+            <li>Keine Erwartung einer positiven Bewertung.</li>
+            <li>Keine Verpflichtung zur Verlinkung.</li>
+            <li>Unabhängige und auch kritische Einordnung ist willkommen.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" aria-labelledby="bilder-title">
+      <div class="container">
+        <h2 id="bilder-title">Bildmaterial und Pressepaket</h2>
+        <p class="muted">Das Material darf honorarfrei im Zusammenhang mit redaktioneller Berichterstattung über das Buch oder den Farbenfrohe Lesewelt Verlag verwendet werden. Sinnentstellende Bearbeitungen und eine davon unabhängige kommerzielle Nutzung sind nicht gestattet.</p>
+        <div class="asset-grid">
+          <article class="asset-card">
+            <img src="../assets/cover-thumb.webp" alt="Buchcover Baby und Katze sicher zusammenführen" loading="lazy">
+            <h3>Buchcover</h3>
+            <div class="asset-meta"><span>WEBP · 1600 × 2560 px · ca. 139 KB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span><span>JPG-Original in höherer Auflösung liegt im Repository nicht vor.</span></div>
+            <a class="btn btn-ghost" href="../assets/cover-thumb.webp" download="buchcover-baby-und-katze.webp">Buchcover herunterladen</a>
+          </article>
+          <article class="asset-card">
+            <img src="../assets/flw-logo-cropped.png" alt="Logo Farbenfrohe Lesewelt Verlag" loading="lazy">
+            <h3>Verlagslogo</h3>
+            <div class="asset-meta"><span>PNG · 648 × 363 px · ca. 140 KB</span><span>Bildnachweis: Farbenfrohe Lesewelt Verlag</span><span>Transparente PNG-Datei vorhanden.</span></div>
+            <a class="btn btn-ghost" href="../assets/flw-logo-cropped.png" download="farbenfrohe-lesewelt-logo.png">Verlagslogo herunterladen</a>
+          </article>
+          <article class="asset-card">
+            <img src="../assets/baby-katze-alltag-mutter.webp" alt="KI-generiertes Symbolbild zu Baby, Katze und Familienalltag" loading="lazy">
+            <h3>Ratgebermotiv</h3>
+            <div class="asset-meta"><span>WEBP · 1536 × 1024 px · ca. 116 KB</span><span>KI-generiertes Symbolbild · Bildnachweis: Farbenfrohe Lesewelt Verlag</span><span>Nicht als reales Familienfoto verwenden.</span></div>
+            <a class="btn btn-ghost" href="../assets/baby-katze-alltag-mutter.webp" download="ratgebermotiv-baby-katze-symbolbild.webp">Ratgebermotiv herunterladen</a>
+          </article>
+        </div>
+        <p><a class="btn btn-primary" href="../assets/presse/pressepaket-baby-und-katze.zip" download>Gesamtes Pressepaket herunterladen</a></p>
       </div>
     </section>
 
@@ -247,20 +330,27 @@
       <div class="container">
         <h2 id="langbeschreibung-title">Ausführliche Buchbeschreibung</h2>
         <p>
-          Wenn ein Baby kommt, verändern sich Routinen, Räume und Aufmerksamkeit - auch für die Katze. Viele Familien suchen dann zwischen alarmierenden Warnungen und einzelnen Internettipps nach einem tragfähigen Mittelweg. Der Ratgeber „Baby und Katze sicher zusammenführen“ bündelt typische Fragen in ein ruhiges Alltagssystem: Baby-Zone, Katzen-Zone und Übergangsbereiche, klare Regeln für Schlafplätze und Aufsicht, Rückzugsorte für die Katze, Hygieneroutinen und einfache Wenn-Dann-Regeln für müde oder unklare Situationen.
+          Wenn ein Baby kommt, verändern sich Routinen, Räume und Aufmerksamkeit – auch für die Katze. Viele Familien suchen dann zwischen alarmierenden Warnungen und einzelnen Internettipps nach einem tragfähigen Mittelweg. Der Ratgeber „Baby und Katze sicher zusammenführen“ bündelt typische Fragen in ein Alltagssystem: Baby-Zone, Katzen-Zone und Übergangsbereiche, klare Regeln für Schlafplätze und Aufsicht, Rückzugsorte für die Katze, Hygieneroutinen und einfache Wenn-Dann-Regeln für müde oder unklare Situationen.
         </p>
         <p>
-          Das Buch richtet sich an werdende Eltern und junge Familien, die ihr Baby schützen und ihre Katze weiterhin als Teil des Familienlebens mitdenken möchten. Es ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung. Stattdessen hilft es, wiederkehrende Entscheidungen vorzubereiten, sensible Themen einzuordnen und zu erkennen, wann fachliche Unterstützung sinnvoll ist.
+          Das Buch richtet sich an werdende Eltern und Familien, die ihr Baby schützen und ihre Katze weiterhin als Teil des Familienlebens mitdenken möchten. Es ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung. Stattdessen hilft es, wiederkehrende Entscheidungen vorzubereiten, sensible Themen einzuordnen und Fragen für Fachpersonen klarer zu sortieren.
         </p>
       </div>
     </section>
 
     <section class="section alt" aria-labelledby="autor-title">
       <div class="container">
-        <h2 id="autor-title">Über die Autorin</h2>
-        <p>Andrea Blum schreibt alltagsnahe Ratgeber für Familien, die klare Standards statt perfekte Pläne suchen. Im Mittelpunkt stehen ruhige Orientierung, praktische Routinen und Entscheidungen, die auch an müden Tagen funktionieren. Ihr Ansatz: weder dramatisieren noch verharmlosen – sondern Situationen so ordnen, dass der nächste Schritt klar wird.</p>
-        <p>„Baby und Katze sicher zusammenführen“ erscheint im Farbenfrohe Lesewelt Verlag.</p>
-        <p><a class="text-link" href="/ueber-den-ratgeber/">Mehr zur redaktionellen Grundlage</a></p>
+        <h2 id="autor-title">Über Andrea Blum</h2>
+        <p>Andrea Blum ist das Pseudonym der Autorin.</p>
+        <p>Sie schreibt alltagsnahe Ratgeber, die komplexe Familienfragen in klare Routinen und nächste Schritte übersetzen. Medizinische oder tierärztliche Fachautorität beansprucht sie nicht. Interviews und redaktionelle Anfragen werden über Farbenfrohe Lesewelt koordiniert.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="grundlage-title">
+      <div class="container">
+        <h2 id="grundlage-title">Redaktionelle Grundlage und rechtliche Hinweise</h2>
+        <p>Mehr zur Entstehung, den Quellenstandards und Beratungsgrenzen steht auf der Seite <a class="text-link" href="/ueber-den-ratgeber/">Über den Ratgeber und seine redaktionelle Grundlage</a>.</p>
+        <p class="muted small">Hinweis: Alltagsratgeber – ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung.</p>
       </div>
     </section>
   </main>
@@ -268,7 +358,6 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-left">
-        <p class="muted small">Hinweis: Alltagsratgeber - ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung.</p>
         <p class="muted small">
           <a href="/ueber-den-ratgeber/">Über den Ratgeber</a> ·
           <a href="/presse/">Presse</a> ·
