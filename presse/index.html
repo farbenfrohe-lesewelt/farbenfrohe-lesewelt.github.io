@@ -62,6 +62,7 @@
     .toc-details{ margin-top:1rem; }
     .toc-details summary{ cursor:pointer; font-weight:780; }
     .stand{ margin-top:.75rem; color:var(--muted); font-size:.94rem; }
+    .profile-links{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1rem; }
     @media (max-width: 900px){
       .press-grid,.format-grid{ grid-template-columns:1fr; }
       .asset-grid,.asset-grid.primary-assets,.insight-grid,.insight-grid.featured,.topic-card-grid,.difference-grid{ grid-template-columns:1fr 1fr; }
@@ -102,7 +103,15 @@
         "@id": "https://farbenfrohe-lesewelt.github.io/presse/#book",
         "name": "Baby und Katze sicher zusammenführen",
         "description": "Alltagsnaher Praxisratgeber für Familien mit Baby und Katze, von Schwangerschaft bis Kleinkindalter.",
-        "author": {"@type": "Person", "name": "Andrea Blum"},
+        "author": {
+          "@type": "Person",
+          "name": "Andrea Blum",
+          "url": "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/",
+          "sameAs": [
+            "https://www.goodreads.com/author/show/70968671.Andrea_Blum",
+            "https://www.lovelybooks.de/autor/Andrea-Blum/"
+          ]
+        },
         "publisher": {"@type": "Organization", "name": "Farbenfrohe Lesewelt Verlag"},
         "inLanguage": "de",
         "image": "https://farbenfrohe-lesewelt.github.io/assets/cover-thumb.webp",
@@ -408,6 +417,12 @@
         <h2 id="autor-title">Über Andrea Blum</h2>
         <p>Andrea Blum schreibt alltagsnahe Ratgeber, die komplexe Familienfragen in klare Routinen und nächste Schritte übersetzen. Ihr Ansatz verbindet sorgfältige Quellenarbeit mit praktischer Orientierung und transparenten Beratungsgrenzen.</p>
         <p>Andrea Blum veröffentlicht unter Pseudonym; Presse- und Interviewanfragen werden über Farbenfrohe Lesewelt koordiniert.</p>
+        <h3>Externe Buchprofile</h3>
+        <p>Andrea Blum ist außerdem auf Goodreads und LovelyBooks geführt.</p>
+        <nav class="profile-links" aria-label="Externe Buchprofile von Andrea Blum">
+          <a class="btn btn-ghost" href="https://www.goodreads.com/author/show/70968671.Andrea_Blum" rel="me noopener">Goodreads-Profil von Andrea Blum</a>
+          <a class="btn btn-ghost" href="https://www.lovelybooks.de/autor/Andrea-Blum/" rel="me noopener">LovelyBooks-Profil von Andrea Blum</a>
+        </nav>
       </div>
     </section>
 

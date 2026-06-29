@@ -48,6 +48,7 @@
     .link-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.8rem; margin-top:1rem; }
     .link-grid a{ border:1px solid var(--border); border-radius:var(--radius); background:rgba(255,255,255,.7); padding:.85rem 1rem; font-weight:750; text-decoration:none; }
     .link-grid a:hover{ border-color:var(--accent-border); box-shadow:var(--shadow-soft); }
+    .profile-links{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1rem; }
     @media (max-width: 860px){ .editorial-grid,.why-grid,.boundary-grid{ grid-template-columns:1fr; } .link-grid{ grid-template-columns:1fr 1fr; } }
     @media (max-width: 560px){ .editorial-hero h1{ font-size:clamp(1.9rem, 8vw, 2.35rem); } .link-grid{ grid-template-columns:1fr; } .process-list li{ grid-template-columns:1fr; } }
   </style>
@@ -68,7 +69,12 @@
           "name": "Baby und Katze sicher zusammenführen",
           "author": {
             "@type": "Person",
-            "name": "Andrea Blum"
+            "name": "Andrea Blum",
+            "url": "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/",
+            "sameAs": [
+              "https://www.goodreads.com/author/show/70968671.Andrea_Blum",
+              "https://www.lovelybooks.de/autor/Andrea-Blum/"
+            ]
           },
           "publisher": {
             "@type": "Organization",
@@ -157,6 +163,17 @@
           <p>Der Ratgeber soll nicht beeindrucken, sondern den nächsten Schritt leichter machen.</p>
         </div>
         <p class="muted">Rechtliche Angaben zum Verlag finden Sie im <a href="../legal/impressum.html">Impressum</a>.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="buchplattformen-title">
+      <div class="container">
+        <h2 id="buchplattformen-title">Andrea Blum auf Buchplattformen</h2>
+        <p class="sublead">Die externen Buchplattform-Profile bündeln die dort geführten Ausgaben des Ratgebers und machen die Veröffentlichungsidentität Andrea Blum außerhalb der Verlagswebsite nachvollziehbar.</p>
+        <nav class="profile-links" aria-label="Externe Buchplattform-Profile von Andrea Blum">
+          <a class="btn btn-ghost" href="https://www.goodreads.com/author/show/70968671.Andrea_Blum" rel="me noopener">Andrea Blum auf Goodreads</a>
+          <a class="btn btn-ghost" href="https://www.lovelybooks.de/autor/Andrea-Blum/" rel="me noopener">Andrea Blum auf LovelyBooks</a>
+        </nav>
       </div>
     </section>
 
