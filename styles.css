@@ -284,6 +284,16 @@ h3{
   letter-spacing:0;
 }
 
+.guide-topic-card h4{
+  margin:0 0 var(--space-2);
+  color:var(--text);
+  font-size:var(--fs-h3);
+  font-weight:740;
+  line-height:1.25;
+  letter-spacing:0;
+  overflow-wrap:break-word;
+}
+
 p{ margin-top:0; }
 
 .soft{ color:var(--text-soft); font-weight:760; }
@@ -1813,7 +1823,7 @@ details.card p{
 }
 
 .answer-breadcrumb [aria-current="page"]{
-  color:var(--ink);
+  color:var(--text);
 }
 
 .answer-copy{
