@@ -64,22 +64,14 @@
         "name": "Wie der Ratgeber entstanden ist",
         "description": "Wie der Ratgeber Baby und Katze sicher zusammenführen recherchiert, redaktionell begrenzt und aktualisiert wird.",
         "inLanguage": "de",
+        "isPartOf": {
+          "@id": "https://farbenfrohe-lesewelt.github.io/#website"
+        },
         "about": {
-          "@type": "Book",
-          "name": "Baby und Katze sicher zusammenführen",
-          "author": {
-            "@type": "Person",
-            "name": "Andrea Blum",
-            "url": "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/",
-            "sameAs": [
-              "https://www.goodreads.com/author/show/70968671.Andrea_Blum",
-              "https://www.lovelybooks.de/autor/Andrea-Blum/"
-            ]
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "Farbenfrohe Lesewelt Verlag"
-          }
+          "@id": "https://farbenfrohe-lesewelt.github.io/#book"
+        },
+        "mainEntity": {
+          "@id": "https://farbenfrohe-lesewelt.github.io/#book"
         }
       },
       {
@@ -106,6 +98,31 @@
         "name": "Farbenfrohe Lesewelt Verlag",
         "url": "https://farbenfrohe-lesewelt.github.io/",
         "logo": "https://farbenfrohe-lesewelt.github.io/assets/flw-logo.webp"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/#andrea-blum",
+        "name": "Andrea Blum",
+        "url": "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/",
+        "sameAs": [
+          "https://www.goodreads.com/author/show/70968671.Andrea_Blum",
+          "https://www.lovelybooks.de/autor/Andrea-Blum/"
+        ]
+      },
+      {
+        "@type": "Book",
+        "@id": "https://farbenfrohe-lesewelt.github.io/#book",
+        "name": "Baby und Katze sicher zusammenführen",
+        "url": "https://farbenfrohe-lesewelt.github.io/",
+        "inLanguage": "de",
+        "image": "https://farbenfrohe-lesewelt.github.io/assets/cover-thumb.webp",
+        "author": {
+          "@id": "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/#andrea-blum"
+        },
+        "publisher": {
+          "@id": "https://farbenfrohe-lesewelt.github.io/#organization"
+        },
+        "sameAs": "https://www.amazon.de/dp/B0GTDN1458"
       }
     ]
   }
@@ -281,7 +298,7 @@
       <div class="footer-left">
         <p class="muted small">Hinweis: Alltagsratgeber - ersetzt keine medizinische, tierärztliche oder individuelle Verhaltensberatung.</p>
         <p class="muted small">
-          <a href="/ueber-den-ratgeber/">Über den Ratgeber</a> ·
+          <span aria-current="page">Über den Ratgeber</span> ·
           <a href="/presse/">Presse</a> ·
           <a href="../legal/impressum.html">Impressum</a> ·
           <a href="../legal/datenschutz.html">Datenschutz</a>

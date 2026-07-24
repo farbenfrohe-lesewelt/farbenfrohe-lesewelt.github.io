@@ -88,7 +88,13 @@
         "url": "https://farbenfrohe-lesewelt.github.io/presse/",
         "name": "Pressebereich | Baby und Katze sicher zusammenführen",
         "description": "Pressebereich mit Buchdaten, Leseprobe, Bildmaterial und Rezensionsanfragen zum Ratgeber Baby und Katze sicher zusammenführen.",
-        "inLanguage": "de"
+        "inLanguage": "de",
+        "isPartOf": {
+          "@id": "https://farbenfrohe-lesewelt.github.io/#website"
+        },
+        "mainEntity": {
+          "@id": "https://farbenfrohe-lesewelt.github.io/#book"
+        }
       },
       {
         "@type": "BreadcrumbList",
@@ -100,46 +106,64 @@
       },
       {
         "@type": "Book",
-        "@id": "https://farbenfrohe-lesewelt.github.io/presse/#book",
+        "@id": "https://farbenfrohe-lesewelt.github.io/#book",
         "name": "Baby und Katze sicher zusammenführen",
         "description": "Alltagsnaher Praxisratgeber für Familien mit Baby und Katze, von Schwangerschaft bis Kleinkindalter.",
         "author": {
-          "@type": "Person",
-          "name": "Andrea Blum",
-          "url": "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/",
-          "sameAs": [
-            "https://www.goodreads.com/author/show/70968671.Andrea_Blum",
-            "https://www.lovelybooks.de/autor/Andrea-Blum/"
-          ]
+          "@id": "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/#andrea-blum"
         },
-        "publisher": {"@type": "Organization", "name": "Farbenfrohe Lesewelt Verlag"},
+        "publisher": {
+          "@id": "https://farbenfrohe-lesewelt.github.io/#organization"
+        },
         "inLanguage": "de",
         "image": "https://farbenfrohe-lesewelt.github.io/assets/cover-thumb.webp",
+        "url": "https://farbenfrohe-lesewelt.github.io/",
+        "sameAs": "https://www.amazon.de/dp/B0GTDN1458",
         "workExample": [
           {
             "@type": "Book",
+            "@id": "https://farbenfrohe-lesewelt.github.io/#book-paperback",
             "bookFormat": "https://schema.org/Paperback",
             "isbn": "979-8252709192",
             "numberOfPages": 132,
             "datePublished": "2026-03-20",
-            "identifier": "B0GTDN1458",
-            "offers": {"@type": "Offer", "price": "16.99", "priceCurrency": "EUR", "url": "https://www.amazon.de/dp/B0GTDN1458"}
+            "identifier": {
+              "@type": "PropertyValue",
+              "propertyID": "ASIN",
+              "value": "B0GTDN1458"
+            }
           },
           {
             "@type": "Book",
+            "@id": "https://farbenfrohe-lesewelt.github.io/#book-hardcover",
             "bookFormat": "https://schema.org/Hardcover",
             "isbn": "9783819275623",
             "numberOfPages": 130,
-            "datePublished": "2026-03-23",
-            "offers": {"@type": "Offer", "price": "24.99", "priceCurrency": "EUR"}
+            "datePublished": "2026-03-23"
           },
           {
             "@type": "Book",
             "bookFormat": "https://schema.org/EBook",
-            "datePublished": "2026-03",
-            "offers": {"@type": "Offer", "price": "8.99", "priceCurrency": "EUR"}
+            "datePublished": "2026-03"
           }
         ]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/#andrea-blum",
+        "name": "Andrea Blum",
+        "url": "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/",
+        "sameAs": [
+          "https://www.goodreads.com/author/show/70968671.Andrea_Blum",
+          "https://www.lovelybooks.de/autor/Andrea-Blum/"
+        ]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://farbenfrohe-lesewelt.github.io/#organization",
+        "name": "Farbenfrohe Lesewelt Verlag",
+        "url": "https://farbenfrohe-lesewelt.github.io/",
+        "logo": "https://farbenfrohe-lesewelt.github.io/assets/flw-logo.webp"
       }
     ]
   }
@@ -440,7 +464,7 @@
       <div class="footer-left">
         <p class="muted small">
           <a href="/ueber-den-ratgeber/">Über den Ratgeber</a> ·
-          <a href="/presse/">Presse</a> ·
+          <span aria-current="page">Presse</span> ·
           <a href="../legal/impressum.html">Impressum</a> ·
           <a href="../legal/datenschutz.html">Datenschutz</a>
         </p>

@@ -23,10 +23,93 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Farbenfrohe Lesewelt Verlag",
-    "url": "https://farbenfrohe-lesewelt.github.io/",
-    "logo": "https://farbenfrohe-lesewelt.github.io/assets/flw-logo.webp"
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://farbenfrohe-lesewelt.github.io/#organization",
+        "name": "Farbenfrohe Lesewelt Verlag",
+        "url": "https://farbenfrohe-lesewelt.github.io/",
+        "logo": "https://farbenfrohe-lesewelt.github.io/assets/flw-logo.webp"
+      },
+      {
+        "@type": "Person",
+        "@id": "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/#andrea-blum",
+        "name": "Andrea Blum",
+        "url": "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/",
+        "sameAs": [
+          "https://www.goodreads.com/author/show/70968671.Andrea_Blum",
+          "https://www.lovelybooks.de/autor/Andrea-Blum/"
+        ]
+      },
+      {
+        "@type": "Book",
+        "@id": "https://farbenfrohe-lesewelt.github.io/#book",
+        "name": "Baby und Katze sicher zusammenführen",
+        "url": "https://farbenfrohe-lesewelt.github.io/",
+        "inLanguage": "de",
+        "image": "https://farbenfrohe-lesewelt.github.io/assets/cover-thumb.webp",
+        "author": {
+          "@id": "https://farbenfrohe-lesewelt.github.io/ueber-den-ratgeber/#andrea-blum"
+        },
+        "publisher": {
+          "@id": "https://farbenfrohe-lesewelt.github.io/#organization"
+        },
+        "sameAs": "https://www.amazon.de/dp/B0GTDN1458",
+        "workExample": [
+          {
+            "@type": "Book",
+            "@id": "https://farbenfrohe-lesewelt.github.io/#book-paperback",
+            "bookFormat": "https://schema.org/Paperback",
+            "isbn": "979-8252709192",
+            "numberOfPages": 132,
+            "datePublished": "2026-03-20",
+            "identifier": {
+              "@type": "PropertyValue",
+              "propertyID": "ASIN",
+              "value": "B0GTDN1458"
+            }
+          },
+          {
+            "@type": "Book",
+            "@id": "https://farbenfrohe-lesewelt.github.io/#book-hardcover",
+            "bookFormat": "https://schema.org/Hardcover",
+            "isbn": "9783819275623",
+            "numberOfPages": 130,
+            "datePublished": "2026-03-23"
+          }
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://farbenfrohe-lesewelt.github.io/#website",
+        "url": "https://farbenfrohe-lesewelt.github.io/",
+        "name": "Farbenfrohe Lesewelt",
+        "inLanguage": "de",
+        "publisher": {
+          "@id": "https://farbenfrohe-lesewelt.github.io/#organization"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://farbenfrohe-lesewelt.github.io/#webpage",
+        "url": "https://farbenfrohe-lesewelt.github.io/",
+        "name": "Baby und Katze sicher zusammenführen",
+        "inLanguage": "de",
+        "isPartOf": {
+          "@id": "https://farbenfrohe-lesewelt.github.io/#website"
+        },
+        "about": {
+          "@id": "https://farbenfrohe-lesewelt.github.io/#book"
+        },
+        "mainEntity": {
+          "@id": "https://farbenfrohe-lesewelt.github.io/#book"
+        },
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": "https://farbenfrohe-lesewelt.github.io/assets/cover-thumb.webp"
+        }
+      }
+    ]
   }
   </script>
 
@@ -279,6 +362,18 @@
             <h3>Katze im Babybett</h3>
             <p class="muted">Klare Regeln für Schlafplatz, Nähe und unbeaufsichtigte Momente.</p>
             <a class="text-link" href="/pinterest/katze-im-babybett/">Zum Thema</a>
+          </article>
+
+          <article class="card">
+            <h3>Baby und Katze kurz allein lassen?</h3>
+            <p class="muted">Die klare Aufsichtsregel für Toilette, Küche und andere kurze Unterbrechungen.</p>
+            <a class="text-link" href="/ratgeber/baby-katze-unbeaufsichtigt/">Regel für unbeaufsichtigte Momente</a>
+          </article>
+
+          <article class="card">
+            <h3>Katze faucht das Baby an</h3>
+            <p class="muted">Wie du ruhig Distanz schaffst, Rückzug sicherst und Warnzeichen einordnest.</p>
+            <a class="text-link" href="/ratgeber/katze-faucht-baby-an/">Ruhig auf Fauchen reagieren</a>
           </article>
         </div>
       </div>
