@@ -1977,3 +1977,142 @@ details.card p{
     width:100%;
   }
 }
+
+/* Longtail guide components */
+.answer-hero-card{
+  min-width:0;
+  padding:clamp(20px,3vw,30px);
+  border:1px solid var(--border-trust);
+  border-radius:var(--radius-lg);
+  background:linear-gradient(145deg, rgba(255,255,255,.94), var(--surface-trust));
+  box-shadow:var(--shadow-soft);
+}
+
+.answer-hero-card h2{
+  max-width:20ch;
+  font-size:clamp(1.3rem,2vw,1.7rem);
+}
+
+.answer-hero-card p:last-child,
+.answer-book-bridge p:last-child,
+.answer-time p:last-child{
+  margin-bottom:0;
+}
+
+.answer-quick-list{
+  display:grid;
+  gap:.65rem;
+  margin:var(--space-4) 0 0;
+  padding:0;
+  list-style:none;
+}
+
+.answer-quick-list li{
+  position:relative;
+  padding-left:1.2rem;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.answer-quick-list li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:.58rem;
+  width:.5rem;
+  height:.5rem;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 0 4px var(--accent-soft);
+}
+
+.answer-timeline{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--space-4);
+  margin-top:var(--space-5);
+}
+
+.answer-time{
+  min-width:0;
+  padding:var(--space-4);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:rgba(255,255,255,.78);
+}
+
+.answer-time-label{
+  display:inline-block;
+  margin-bottom:var(--space-2);
+  color:var(--accent-strong);
+  font-size:var(--fs-sm);
+  font-weight:800;
+}
+
+.answer-book-bridge{
+  display:grid;
+  grid-template-columns:150px minmax(0,1fr);
+  gap:clamp(20px,4vw,40px);
+  align-items:center;
+  padding:clamp(22px,4vw,38px);
+  border:1px solid var(--border-warm);
+  border-radius:var(--radius-lg);
+  background:linear-gradient(135deg, rgba(255,255,255,.94), var(--surface-warm));
+  box-shadow:var(--shadow-soft);
+}
+
+.answer-book-cover{
+  width:100%;
+  max-width:150px;
+  justify-self:center;
+  border-radius:14px;
+  box-shadow:0 16px 34px rgba(18,24,35,.14);
+}
+
+.answer-book-bridge h2{
+  max-width:27ch;
+}
+
+.answer-sentence{
+  margin:var(--space-4) 0 0;
+  padding:var(--space-4);
+  border-left:4px solid var(--accent);
+  border-radius:0 var(--radius) var(--radius) 0;
+  background:rgba(255,255,255,.72);
+  color:var(--text);
+  font-weight:720;
+  line-height:1.55;
+}
+
+.answer-check-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--space-4);
+  margin-top:var(--space-5);
+}
+
+.answer-check{
+  min-width:0;
+  padding:var(--space-4);
+  border-top:3px solid var(--accent);
+  border-radius:var(--radius);
+  background:rgba(255,255,255,.78);
+  box-shadow:var(--shadow-soft);
+}
+
+@media (max-width: 860px){
+  .answer-timeline,
+  .answer-check-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width: 640px){
+  .answer-book-bridge{
+    grid-template-columns:1fr;
+  }
+
+  .answer-book-cover{
+    max-width:132px;
+  }
+}
