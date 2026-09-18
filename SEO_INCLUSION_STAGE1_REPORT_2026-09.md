@@ -187,3 +187,19 @@ Indexierung, Rankings und Kaufwirkung lassen sich erst nach Deployment beobachte
 - ratgeber/kleinkind-zieht-katze-am-schwanz/index.html
 
 Neue Dateien: acht `index.html` gemäß URL-Liste, `assets/css/kinderbuecher.css`, sechs WebP-Dateien und ein PDF unter `assets/kinderbuecher/`, sowie dieser Repository-Bericht `SEO_INCLUSION_STAGE1_REPORT_2026-09.md`.
+
+## Unabhängiger Pre-Publish-Audit vom 18. September 2026
+
+Ausgangsstand b608ca4, Elterncommit 883bfa2. Dieser Nachtrag ersetzt keine Quelle und ergänzt die unabhängige Prüfung nach der Umsetzung.
+
+- Behoben: Der fokussierte Skip-Link war mobil unter der gemeinsamen Kopfzeile verborgen (9999 gegen 10000). Eine ausschließlich auf `.kb-page` begrenzte CSS-Regel hebt ihn darüber.
+- Behoben: Die acht neuen Seiten verwenden für das kleine sichtbare Kopfzeilenlogo eine 108 × 61 Pixel große Ableitung statt der 648 × 363 Pixel großen Datei. Die bestehende Datei und ältere Seiten bleiben unverändert. Quelle: vorhandenes `assets/flw-logo.webp`; Pillow/Lanczos, WebP quality=84, method=6.
+- Behoben: Die drei noch nicht veröffentlichten Artikel enthalten kein vorweggenommenes `datePublished`. `dateModified=2026-09-18` und das sichtbar als „Stand“ bezeichnete Redaktionsdatum bleiben nachvollziehbar. Das tatsächliche Erstveröffentlichungsdatum kann nach Veröffentlichung ergänzt werden.
+- Bestehende Inhalte und die acht neuen Seiten werden weder erweitert noch neu positioniert. Keine Änderung an Amazon-Zielen, Sitemaps oder robots.txt.
+- Getrennt dokumentierte Altlast: öffentlich abrufbare HTML-Testfixtures unter `tools/` ohne noindex. Sie liegen bereits im Elterncommit und werden in diesem Stage-1-Reparaturcommit nicht verändert.
+
+### Provenienz des Arbeitsblatt-PDF
+
+Die ausgelieferte Datei `assets/kinderbuecher/jeder-kann-etwas-arbeitsblatt.pdf` bleibt unverändert. Quelle ist die Druckansicht von `/inklusion/jeder-kann-etwas-arbeitsblatt/` mit `assets/css/kinderbuecher.css` und `styles.css` am Stand b608ca4. Erzeugt am 18. September 2026, 05:23:17 UTC; PDF-Metadaten nennen HeadlessChrome 153 und Skia/PDF m153. Der Seitentitel wurde vor dem Export auf „Jeder kann etwas – jeder braucht manchmal Hilfe“ gesetzt. Playwright-Export: `page.pdf({preferCSSPageSize:true,printBackground:true,tagged:true,outline:true})`; A4 hochkant und 12-mm-Rand kommen aus der CSS-Druckregel. Keine Browser-Kopf- und Fußzeilen. Ein vorhandener Export dient als dauerhaft versioniertes Asset.
+
+Bytegenaue Reproduzierbarkeit wird nicht behauptet: Zeitstempel, Browser- und Schriftversion beeinflussen die PDF-Ausgabe. Bei neuem Export sind A4-Rendering, eine Seite, Textvollständigkeit, Graustufen und Tags erneut zu prüfen. Die Datei enthält Sprachangabe de und einen Tag-Baum, aber keine nachgewiesene PDF/UA-Konformität; die isolierte Druckansicht beginnt im Tag-Baum mit H2. Sie ist zum Ausdrucken, nicht als interaktives PDF-Formular erstellt.

@@ -37,6 +37,8 @@
 .kb-page .kb-sources { border-top:1px solid var(--border-strong); padding-top:28px; }
 .kb-page :target { scroll-margin-top:170px; }
 .kb-page :focus-visible { outline:3px solid #264f58; outline-offset:4px; }
+/* Mobile shared header uses z-index:10000; keep the focused skip link above it. */
+.kb-page .skip:focus { z-index:10001; }
 .kb-page .card h3 { margin-top:0; }
 .kb-page .kb-sheet { max-width:800px; background:#fff; padding:36px; border:2px solid var(--accent); border-radius:12px; }
 .kb-page .kb-sheet h2 { font-size:1.9rem; max-width:none; }
