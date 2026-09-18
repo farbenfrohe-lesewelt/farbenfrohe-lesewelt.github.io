@@ -2126,3 +2126,16 @@ details.card p{
     max-width:132px;
   }
 }
+
+/* Stage 1: allow the additional children's-book link to wrap on narrow screens.
+   Scoped to headers that actually contain the new navigation entry. */
+.topbar-inner:has(.site-books-link) { flex-wrap:wrap; }
+.top-actions:has(.site-books-link) { flex-wrap:wrap; }
+.site-books-link:focus-visible { outline:3px solid #264f58; outline-offset:3px; }
+@media (max-width:640px) {
+  .topbar-inner:has(.site-books-link) { padding:8px 12px !important; overflow:visible !important; }
+  .topbar-inner:has(.site-books-link) > .brand { flex-basis:100%; }
+  .topbar-inner:has(.site-books-link) .brand-text { max-width:none !important; }
+  .top-actions:has(.site-books-link) { width:100%; flex-wrap:wrap !important; gap:8px !important; }
+  .top-actions:has(.site-books-link) .btn { min-height:44px !important; max-width:100% !important; white-space:normal !important; }
+}
