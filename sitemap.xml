@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://farbenfrohe-lesewelt.github.io/</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-10-20</lastmod>
   </url>
   <url>
     <loc>https://farbenfrohe-lesewelt.github.io/ratgeber/</loc>
@@ -107,5 +107,9 @@
   <url>
     <loc>https://farbenfrohe-lesewelt.github.io/inklusion/jeder-kann-etwas-arbeitsblatt/</loc>
     <lastmod>2026-09-18</lastmod>
+  </url>
+  <url>
+    <loc>https://farbenfrohe-lesewelt.github.io/leserunden/ausmisten/</loc>
+    <lastmod>2026-10-20</lastmod>
   </url>
 </urlset>
